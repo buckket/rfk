@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  *  Common includes/requires for everything
  *  
@@ -6,8 +6,8 @@
  *  this is also used by consoledriven scripts
  */
 $includepath = dirname(__file__);
-require_once($includepath.'/config.inc.php');
-require_once($includepath.'/classes/dbi.php');
+require_once($includepath.'/../etc/config.inc.php');
+require_once($includepath.'/dbi.php');
 
 $db = new DBI($_config['mysql-host'],$_config['mysql-user'],$_config['mysql-pass'],$_config['mysql-db']);
 ?>

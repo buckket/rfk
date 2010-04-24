@@ -4,13 +4,10 @@ class User{
 	var $username = false;
 	var $userid = false;
 	var $logged_in = false;
-	var $group = false;
-	var $groupsettings = array();
 	var $rights = array();
-	var $lang;
 	function User(){
-		global $_MSG, $Lang,$_config;
-		$this->lang = $_config['default_lang'];
+		global $_config,$_MSG;
+        $this->username = $_config['default-username'];
 		if($this->logged_in()){
 			if($_GET['logout'] === 'true'){
 				$this->logout();
@@ -26,28 +23,26 @@ class User{
 			}
 		}
 		if($this->logged_in){
-			$Lang = new Lang($this->lang);
 			$this->get_userrights();
-			$this->get_groupsettings();
 		}
 	}
 	function login($username, $password){
-		global $dbi;
+		global $db;
 		$sql="SELECT id,name,lang
-   			  FROM jlog_admin_users
-    		  WHERE name='".$dbi->escape($username)."' AND pass=MD5('".$dbi->escape($password)."')
+   			  FROM streamer
+    		  WHERE username='".$db->escape($username)."' AND pass=SHA1('".$db->escape($password)."')
     		  LIMIT 1";
-    	$result= $dbi->query($sql);
+    	$result= $db->query($sql);
 	    if ( $dbi->num_rows($result) == 1) {
         	$user = $dbi->fetch($result);
         	$this->userid = $user['id'];
-        	$this->username = $user['name'];
+        	$this->username = $user['username'];
 			$this->logged_in = true;
 			$this->lang = $user['lang'];
-		    $sql="UPDATE jlog_admin_users
+		    $sql="UPDATE streamer
     			  SET session='".session_id()."'
 		    	  WHERE id=".$this->userid;
-			$dbi->execute($sql);
+			$db->execute($sql);
     	}
     	else{
 			$this->logged_in = false;
@@ -55,17 +50,16 @@ class User{
 	}
 	function logged_in()
 	{
-		global $dbi;
-		$sql="SELECT id,name,lang
-		FROM jlog_admin_users
+		global $db;
+		$sql="SELECT userid,username
+		FROM streamer
 		WHERE session='".session_id()."'
 		LIMIT 1";
-		$result = $dbi->query($sql);
-		if($dbi->num_rows($result) == 1 ){
-			$user = $dbi->fetch($result);
+		$result = $db->query($sql);
+		if($db->num_rows($result) == 1 ){
+			$user = $db->fetch($result);
 			$this->userid = $user['id'];
-			$this->username = $user['name'];
-			$this->lang = $user['lang'];
+			$this->username = $user['username'];
 			$this->logged_in = true;
 			return true;
 		}else{
@@ -75,60 +69,43 @@ class User{
 	}
 	function logout()
 	{
-		global $dbi;
-		$sql="UPDATE jlog_admin_users
+		global $db;
+		$sql="UPDATE streamer
 		SET session=NULL
 		WHERE session='".session_id()."'";
-		$dbi->execute($sql);
+		$db->execute($sql);
 		$this->logged_in = false;
 	}
 	function is_logged_in(){
 		return $this->logged_in;
 	}
-	
-	function get_group(){
-		if($this->group === false){
-			global $dbi;
-			$sql="SELECT u.group
-			FROM jlog_admin_users as u
-			WHERE u.session='".session_id()."'
-			LIMIT 1";
-			$result = $dbi->query($sql);
-			if($result){
-				$row = $dbi->fetch($result);
-				$this->group = $row['group'];
-			}else{
-				return false;	
-			}
-		}
-		return $this->group;
-	}
-	function get_groupsettings(){
-		global $dbi;
-		$this->get_group();
-		$sql = "SELECT * from jlog_admin_group_settings Where groupid = ".$this->group.";";
-		$result = $dbi->query($sql);
-		while($row = $dbi->fetch($result)){
-			if($row['key'] != 'ip'){
-				$this->groupsettings[$row['key']] = $row['value'];
-			}else{
-				$this->groupsettings['ip'][] = $row['value'];
-			}
-		}
-	}
+    
 	function get_userrights(){
-		global $dbi;
-		$sql = "SELECT `right` from jlog_admin_user_rights Where user_id = ".$this->userid.";";
-		$result = $dbi->query($sql);
-		while($row = $dbi->fetch($result)){
+		global $db;
+        /**
+		$sql = "SELECT `right` from streamerrights Where user_id = ".$this->userid.";";
+		$result = $db->query($sql);
+		while($row = $db->fetch($result)){
 			$this->rights[] = $row['right'];
 		}
+        **/
 	}
 	
 	function has_right($right){
 		return in_array($right,$this->rights);	
 	}
-	
+    
+	function register($username,$password){
+        //TODO stub
+    }
+    
+    function set_djname($djname){
+        //TODO stub
+    }
+    
+    function set_showname($showname){
+        //TODO stub
+    }
 }
 
 ?>
