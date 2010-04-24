@@ -1,5 +1,5 @@
 <?php
-include('../inc/common.inc.php');
+include('../../lib/common.inc.php');
 $sql = "LOCK TABLES mounts WRITE, listenerhistory WRITE;";
 $db->execute($sql);
 /**
@@ -7,7 +7,7 @@ $db->execute($sql);
  */
  if(strlen($_POST['mount']) == 0)
  {
-    //die('no mountpoint given');
+    die('no mountpoint given');
  }
 $sql = "SELECT mountid FROM mounts WHERE mount='".$db->escape($_POST['mount'])."' LIMIT 1;";
 $result = $db->query($sql);
@@ -23,7 +23,7 @@ if($db->num_rows($result) > 0) {
 
 if($_POST['action'] === 'mount_add'){
     $sql = "UNLOCK TABLES;";
-    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected = NULL AND mountid = $mountid";
+    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected IS NULL AND mountid = $mountid";
     $db->execute($sql);
 }else if($_POST['action'] === 'mount_remove'){
     //TODO stub (just do the same as in add)
@@ -42,5 +42,6 @@ if($_POST['action'] === 'mount_add'){
 
 $sql = "UNLOCK TABLES;";
 $db->execute($sql);
+//TODO iprangeban
 header('icecast-auth-user: 1');
 ?>
