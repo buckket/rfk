@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once(dirname(__FILE__).'/common.inc.php');
 require_once(dirname(__FILE__).'/common-functions.inc.php');
 require_once(dirname(__FILE__).'/user.php');
