@@ -1,0 +1,2 @@
+#update GeoIP-db every month
+0 1 2 * * ~/bin/getgeoip.sh
