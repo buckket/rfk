@@ -1,0 +1,17 @@
+<div id='subcontent'>
+<div class='infoblock'>
+<h3>Letzten 10 Songs</h3><ul>
+<bp:foreach in="sb_songlist" as="song" index="id" direct="true">
+<li><bp:$song[artist]/> - <bp:$song[title]/></li>
+</bp:foreach></ul></div>
+<div class='infoblock'>
+<h3>Letzten 5 Streamer</h3><ul>
+
+<li><a href='/?u=71504'>wessi</a></li>
+<li><a href='/?u=71503'>Krauti_Mercedes</a></li>
+<li><a href='/?u=71502'>suckup</a></li>
+<li><a href='/?u=71501'>easc</a></li>
+<li><a href='/?u=71500'>noko</a></li>
+</ul>
+<p><em>Insgesamt <bp:$sb_streamercount/> Str&ouml;mbernds!</em></p>
+</div>

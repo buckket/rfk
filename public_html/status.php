@@ -1,6 +1,6 @@
 <?php
 require_once('../lib/common-web.inc.php');
-$template = new BpTemplate('index_body.html');
+$template = new BpTemplate('status.html');
 include('include/sidebar.php');
 cleanup($template);
 echo $template->render();

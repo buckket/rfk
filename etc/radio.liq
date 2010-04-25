@@ -43,7 +43,7 @@ def depair(data)
 end
 
 def auth(login,password) = 
-  ret = get_process_lines('php ~/bin/liquidsoap.php auth login=#{quote(login)} --pass=#{quote(password)}')
+  ret = get_process_lines('php ~/bin/liquidsoap.php auth #{quote(login)} #{quote(password)}')
   ret = list.hd(ret)
   bool_of_string(ret)
 end

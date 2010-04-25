@@ -1,19 +1,144 @@
 <?php
-require_once('../lib/common.inc.php');
+require_once(dirname(__FILE__).'/../lib/common.inc.php');
 
 $mode = $argv[1];
-
+$sql = "INSERT INTO debuglog (time,text) VALUES (NOW(),'".$db->escape(serialize($argv))."');";
+$db->execute($sql);
 switch($mode){
 
     case 'auth':
-        echo 'true';
+        if(handleAuth($argv[2],$argv[3])){
+            echo 'true';
+        }else{
+            echo 'false';
+        }
         break;
     case 'connect':
+        handleConnect($argv[2]);
         break;
     case 'disconnect':
+        $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
+        $db->execute($sql);
+        $sql = "UPDATE shows SET end = NOW() WHERE showtype = 'UNPLANNED' AND end IS NULL;";
+        $db->execute($sql);
+        $sql = "UPDATE streamer SET status = 'NOT_CONNECTED' WHERE status = 'STREAMING';";
+        $db->execute($sql);
         break;
     case 'meta':
+        handleMetaData($argv[2]);
         break;
-
 }
+
+function handleAuth($username,$password){
+    global $db;
+    if(strtolower(trim($username)) === 'source' || strlen(trim($username)) == 0){
+        //edcast, etc ... which cant change username
+        $cred = preg_split('/\\|/',$password,2);
+        $username = $cred[0];
+        $password = $cred[1];
+    }else{
+        //cool clients
+        //stub - maybe we need something here
+    }
+    $sql = "SELECT userid FROM streamer WHERE username = '".$db->escape($username)."' AND streampassword = '".$db->escape($password)."' LIMIT 1;";
+    $result = $db->query($sql);
+    echo $sql.'\n';
+    if($db->num_rows($result) > 0 ){
+        $user = $db->fetch($result);
+        $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE userid = '".$user['userid']."'";
+        $db->execute($sql);
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function handleConnect($data){
+    global $db;
+    $meta = serializedToArray($data);
+    $sql = "UPDATE streamer SET status = 'STREAMING' WHERE status = 'LOGGED_IN' LIMIT 1;";
+    $db->execute($sql);
+}
+
+function handleMetaData($metadata){
+    global $db;
+    $meta = serializedToArray($metadata);
+    if(isset($meta['artist']) || isset($meta['title']) || isset($meta['song'])) {
+        $songinfo = array();
+        $meta['song'] = trim($meta['song']);
+        $meta['artist'] = trim($meta['artist']);
+        $meta['title'] = trim($meta['title']);
+        if(strlen($meta['artist']) == 0){
+            if(strlen($meta['title']) == 0){
+                $meta['title'] = $meta['song'];
+            }
+            $tmp = preg_split('/ - /',$meta['title'],2);
+            if(strlen(trim($tmp[1])) == 0){
+                $tmp[1] = $tmp[0];
+                $tmp[0] = '';
+            }
+            $songinfo['artist'] = $tmp[0];
+            $songinfo['title'] = $tmp[1];
+        }else{
+            $songinfo['artist'] = $meta['artist'];
+            $songinfo['title'] = $meta['title'];
+        }
+        $songinfo['dj'] = getUserID();
+        $songinfo['show'] = checkShow($songinfo['dj']);
+        $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
+        $db->execute($sql);
+        $sql = "INSERT INTO songhistory (start,artist,title,userid,showid) VALUES (NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."','".$db->escape($songinfo['dj'])."','".$db->escape($songinfo['show'])."')";
+        $db->execute($sql);
+    }    
+}
+
+function getUserID(){
+    global $db;
+    $sql = "SELECT userid FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
+    $result = $db->query($sql);
+    $userid = 0;
+    if($db->num_rows($result) > 0){
+        $id = $db->fetch($result);
+        $userid = $id['userid'];
+    }
+    return $userid;
+}
+
+function checkShow($userid){
+    global $db;
+    $sql = "SELECT * FROM shows WHERE showtype = 'PLANNED' AND NOW() BETWEEN begin AND end AND userid = $userid;";
+    $result = $db->query($sql);
+    if($db->num_rows($result) > 0){
+        $show = $db->fetch($result);
+        $sql = "UPDATE shows SET end = NOW() WHERE showtype = 'UNPLANNED' AND end IS NULL;";
+        $db->execute($sql);
+        return $show['showid'];
+    }
+    $sql = "SELECT * FROM shows WHERE showtype = 'UNPLANNED' AND end IS NULL AND userid = $userid;";
+    $result = $db->query($sql);
+    if($db->num_rows($result) > 0){
+        $show = $db->fetch($result);
+        return $show['showid'];
+    }else{
+        $sql = "INSERT INTO shows (userid,name,description,begin,end,showtype)
+                SELECT $userid,defaultshowname,'',NOW(),NULL,'UNPLANNED' FROM streamer WHERE userid = $userid;";
+        $db->execute($sql);
+        return $db->insert_id();
+    }
+}
+
+
+//global functions
+function serializedToArray($string){
+    $array = array();
+    if(preg_match_all("/(.*?)='(.*?)'(;|$)/",$string,$matches,PREG_SET_ORDER)){
+        foreach($matches as $entry){
+            $array[$entry[1]] = $entry[2];
+        }
+        return $array;
+    } else {
+        return false;
+    }
+}
+
 ?>

@@ -7,3 +7,4 @@ echo 'liquidsoap crashed ... restarting in 10s ...';
 sleep 10;
 echo 'restarting ...'
 done
+rm ~/var/killliq

@@ -7,8 +7,9 @@ class DBI {
 		if ($this->database->connect_error) {
     		die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
 		}
-        $this->execute("use $db;");
-        $this->execute('set names \'utf8\';');
+        $this->execute("USE $db;");
+        $this->execute("SET names 'utf8';");
+        $this->execute("SET time_zone = 'EUROPE/Berlin';");
 	}
 	function escape($string){
 		return $this->database->real_escape_string($string);
