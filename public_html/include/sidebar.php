@@ -14,4 +14,12 @@ if($db->num_rows($result)){
     }
 }
 $template->assign('sb_songlist',$songs);
+
+$sql = "SELECT userid,username FROM streamer ORDER BY userid desc LIMIT 5;";
+$result = $db->query($sql);
+$streamers = array();
+while($streamer = $db->fetch($result)){
+    $streamers[] = $streamer;
+}
+$template->assign('sb_streamer',$streamers);
 ?>

@@ -1,0 +1,14 @@
+<bp:include template="header.html" shared_values="true"/>
+<bp:if expr="$streaming == 1" direct="true">
+<h2>Programminformationen</h2>
+<p>Momentan strömt <bp:$streamer/></p>
+</bp:if>
+<h2>Streams</h2>
+<ul>
+<bp:foreach in="streams" as="stream" index="id" direct="true">
+<li><bp:$stream[description]/> - <bp:$stream[count]/> Zuhörer <a href="http://radio.krautchan.net:8000<bp:$stream[mount]/>.m3u">einschalten</a></li>
+</bp:foreach>
+</ul>
+</div>
+<bp:include template="sidebar.html" shared_values="true"/>
+<bp:include template="footer.html" shared_values="true"/>

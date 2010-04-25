@@ -94,9 +94,33 @@ class User{
 	function has_right($right){
 		return in_array($right,$this->rights);	
 	}
-    
+    /**
+     *   TODO spamfilter
+     *  returncode  desc
+     *   0          ok
+     *  -1          Username contains "|"
+     *  -2          SQL-Error
+     */
 	function register($username,$password){
-        //TODO stub
+        global $db;
+        if(strpos($username,'|') === false){
+            $sql = "INSERT INTO streamer (registertime,username,password,name,defaultshowname)
+                    VALUES (NOW(),'".$db->escape($username)."',SHA('".$db->escape($password)."'),'".$db->escape($username)."','".$db->escape($username)."')";
+            if($db->execute($sql)){
+                $this->userid = $db->insert_id();
+                return 0;
+            }else{
+                return -2;
+            }
+        }else{
+            return -1;
+        }
+    }
+    
+    function set_streampassword($streampassword){
+        global $db;
+        $sql = "UPDATE streamer SET streampassword = '".$db->escape($streampassword)."' WHERE userid = ".$this->userid." LIMIT 1;";
+        return $db->execute($sql);
     }
     
     function set_djname($djname){
