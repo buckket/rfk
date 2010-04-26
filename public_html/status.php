@@ -25,7 +25,7 @@ if($db->num_rows($result) > 0){
 	$show = $db->fetch($result);
 	$template->assign('show',$show);
 }else{
-	$template->assign('streaming',1);
+	$template->assign('streaming',0);
 }
 cleanup($template);
 echo $template->render();

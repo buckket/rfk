@@ -36,7 +36,7 @@ function handleAuth($username,$password){
     $result = $db->query($sql);
     if($db->num_rows($result) > 0 ){
         $user = $db->fetch($result);
-        $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE userid = '".$user['userid']."'";
+        $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE userid = '".$user['userid']."' AND status = 'NOT_CONNECTED';";
         $db->execute($sql);
         return true;
     }else{
