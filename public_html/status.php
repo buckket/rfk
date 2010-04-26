@@ -14,6 +14,19 @@ while($row = $db->fetch($result)){
     $streams[] = $row;
 }
 $template->assign('streams',$streams);
+$sql = "SELECT userid,username FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
+$result = $db->query($sql);
+if($db->num_rows($result) > 0){
+	$template->assign('streaming',1);
+	$streamerinfo = $db->fetch($result);
+	$template->assign('streamerinfo',$streamerinfo);
+	$sql = "SELECT showid,name,begin,end,showtype FROM shows WHERE userid = ".$streamerinfo['userid']. " AND (NOW() BETWEEN begin AND end OR end IS NULL) LIMIT 1;";
+	$result = $db->query($sql);
+	$show = $db->fetch($result);
+	$template->assign('show',$show);
+}else{
+	$template->assign('streaming',1);
+}
 cleanup($template);
 echo $template->render();
 ?>

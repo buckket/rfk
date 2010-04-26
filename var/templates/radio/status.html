@@ -1,7 +1,7 @@
 <bp:include template="header.html" shared_values="true"/>
 <bp:if expr="$streaming == 1" direct="true">
 <h2>Programminformationen</h2>
-<p>Momentan strömt <bp:$streamer/></p>
+<p>Momentan strömt <bp:$streamerinfo[username]/> die Sendung <bp:$show[name]/> seit <bp:$show[begin]/>.</p>
 </bp:if>
 <h2>Streams</h2>
 <ul>
