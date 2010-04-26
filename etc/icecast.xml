@@ -1,0 +1,124 @@
+<icecast>
+    <limits>
+        <clients>200</clients>
+        <sources>4</sources>
+        <queue-size>524288</queue-size>
+        <client-timeout>30</client-timeout>
+        <header-timeout>15</header-timeout>
+        <source-timeout>10</source-timeout>
+        <burst-size>65536</burst-size>
+    </limits>
+    <authentication>
+        <admin-user>admin</admin-user>
+        <admin-password>entengruetze</admin-password>
+    </authentication>
+    <hostname>radio.krautchan.net</hostname>
+    <listen-socket>
+        <port>8000</port>
+        <bind-address>88.80.19.136</bind-address>
+    </listen-socket>
+    <mount>
+        <mount-name>/radio.ogg</mount-name>
+        <username>source</username>
+        <password>krautkanal</password>
+        <max-listeners>100</max-listeners>
+        <burst-size>65536</burst-size>
+        <no-yp>1</no-yp>
+	<authentication type="url">
+            <option name="mount_add" value="http://localhost/api/radioauth.php"/>
+            <option name="mount_remove" value="http://localhost/api/radioauth.php"/>
+            <option name="listener_add" value="http://localhost/api/radioauth.php"/>
+            <option name="listener_remove" value="http://localhost/api/radioauth.php"/>
+            <option name="username" value="user"/>
+            <option name="password" value="pass"/>
+            <option name="auth_header" value="icecast-auth-user: 1"/>
+            <option name="timelimit_header" value="icecast-auth-timelimit:"/>
+	    <option name="allow_duplicate_users" value="1"/>
+        </authentication>
+    </mount>
+    <mount>
+        <mount-name>/radiohq.ogg</mount-name>
+        <username>source</username>
+        <password>krautkanal</password>
+        <max-listeners>100</max-listeners>
+        <burst-size>65536</burst-size>
+        <no-yp>1</no-yp>
+        <authentication type="url">
+            <option name="mount_add" value="http://localhost/api/radioauth.php"/>
+            <option name="mount_remove" value="http://localhost/api/radioauth.php"/>
+            <option name="listener_add" value="http://localhost/api/radioauth.php"/>
+            <option name="listener_remove" value="http://localhost/api/radioauth.php"/>
+            <option name="username" value="user"/>
+            <option name="password" value="pass"/>
+            <option name="auth_header" value="icecast-auth-user: 1"/>
+            <option name="timelimit_header" value="icecast-auth-timelimit:"/>
+            <option name="allow_duplicate_users" value="1"/>
+        </authentication>
+    </mount>
+    <mount>
+        <mount-name>/radio.mp3</mount-name>
+        <username>source</username>
+        <password>krautkanal</password>
+        <max-listeners>100</max-listeners>
+        <burst-size>65536</burst-size>
+        <no-yp>1</no-yp>
+        <authentication type="url">
+            <option name="mount_add" value="http://localhost/api/radioauth.php"/>
+            <option name="mount_remove" value="http://localhost/api/radioauth.php"/>
+            <option name="listener_add" value="http://localhost/api/radioauth.php"/>
+            <option name="listener_remove" value="http://localhost/api/radioauth.php"/>
+            <option name="username" value="user"/>
+            <option name="password" value="pass"/>
+            <option name="auth_header" value="icecast-auth-user: 1"/>
+            <option name="timelimit_header" value="icecast-auth-timelimit:"/>
+            <option name="allow_duplicate_users" value="1"/>
+        </authentication>
+    </mount>
+    <mount>
+        <mount-name>/radio.aacp</mount-name>
+        <username>source</username>
+        <password>krautkanal</password>
+        <max-listeners>100</max-listeners>
+        <burst-size>65536</burst-size>
+        <no-yp>1</no-yp>
+        <authentication type="url">
+            <option name="mount_add" value="http://localhost/api/radioauth.php"/>
+            <option name="mount_remove" value="http://localhost/api/radioauth.php"/>
+            <option name="listener_add" value="http://localhost/api/radioauth.php"/>
+            <option name="listener_remove" value="http://localhost/api/radioauth.php"/>
+            <option name="username" value="user"/>
+            <option name="password" value="pass"/>
+            <option name="auth_header" value="icecast-auth-user: 1"/>
+            <option name="timelimit_header" value="icecast-auth-timelimit:"/>
+            <option name="allow_duplicate_users" value="1"/>
+        </authentication>
+    </mount>
+
+
+    <paths>
+	<!-- basedir is only used if chroot is enabled -->
+        <basedir>/usr/share/icecast2</basedir>
+        <logdir>/var/log/icecast2</logdir>
+        <webroot>/usr/share/icecast2/web</webroot>
+        <adminroot>/usr/share/icecast2/admin</adminroot>
+        <alias source="/" dest="/status.xsl"/>
+    </paths>
+
+    <logging>
+        <accesslog>access.log</accesslog>
+        <errorlog>error.log</errorlog>
+      	<loglevel>2</loglevel>
+      	<logsize>10000</logsize>
+        <logarchive>0</logarchive>
+    </logging>
+
+    <security>
+        <chroot>0</chroot>
+        <!--
+        <changeowner>
+            <user>nobody</user>
+            <group>nogroup</group>
+        </changeowner>
+        -->
+    </security>
+</icecast>
