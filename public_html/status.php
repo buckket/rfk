@@ -2,6 +2,7 @@
 require_once('../lib/common-web.inc.php');
 $template = new BpTemplate('status.html');
 include('include/sidebar.php');
+include('include/listenercount.php');
 
 $sql = "SELECT mount,description,count FROM (SELECT count(*) as count,mountid FROM listenerhistory WHERE disconnected IS NULL group by mountid) as l RIGHT JOIN mounts USING ( mountid)";
 $result = $db->query($sql);

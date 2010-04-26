@@ -1,6 +1,8 @@
 <?php
 require_once('../lib/common-web.inc.php');
 $template = new BpTemplate('register.html');
+include('include/listenercount.php');
+
 
 if($_POST['action'] == 'register'){
     $err = false;
@@ -24,6 +26,7 @@ if($_POST['action'] == 'register'){
         $template->assign('streampassword',$_POST['streampassword']);
     }
 }
+
 cleanup($template);
 echo $template->render();
 ?>
