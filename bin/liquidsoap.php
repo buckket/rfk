@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../lib/common.inc.php');
-error_reporting(0); // disable error reporting
+//error_reporting(0); // disable error reporting
 $mode = $argv[1];
 $sql = "INSERT INTO debuglog (time,text) VALUES (NOW(),'".$db->escape(serialize($argv))."');";
 $db->execute($sql);
@@ -31,31 +31,28 @@ switch($mode){
 
 function handleAuth($username,$password){
     global $db;
-    if(strtolower(trim($username)) === 'source' || strlen(trim($username)) == 0){
-        //edcast, etc ... which cant change username
-        $cred = preg_split('/\\|/',$password,2);
-        $username = $cred[0];
-        $password = $cred[1];
-    }else{
-        //cool clients
-        //stub - maybe we need something here
-    }
+    fixSimpleClientAuth($username,$password);
     $sql = "SELECT userid FROM streamer WHERE username = '".$db->escape($username)."' AND streampassword = '".$db->escape($password)."' LIMIT 1;";
     $result = $db->query($sql);
     if($db->num_rows($result) > 0 ){
         $user = $db->fetch($result);
         $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE userid = '".$user['userid']."'";
         $db->execute($sql);
-        return 'true';
+        return true;
     }else{
-        return 'false';
+        return false;
     }
 }
 
 function handleConnect($data){
     global $db;
     $meta = serializedToArray($data);
-    $sql = "UPDATE streamer SET status = 'STREAMING' WHERE status = 'LOGGED_IN' LIMIT 1;";
+    list($authtype, $authcred) = split(" ", $meta['authorization'], 2);
+    list($username, $password) = split(":", base64_decode($authcred) , 2);
+    fixSimpleClientAuth($username,$password);
+    $sql = "UPDATE streamer SET status = 'STREAMING' WHERE status = 'LOGGED_IN' AND username = '".$db->escape($username)."' AND streampassword = '".$db->escape($password)."' LIMIT 1;";
+    $db->execute($sql);
+    $sql = "UPDATE streamer SET status = 'NOT_CONNECTED' WHERE status = 'LOGGED_IN';";
     $db->execute($sql);
 }
 
@@ -137,6 +134,18 @@ function serializedToArray($string){
         return $array;
     } else {
         return false;
+    }
+}
+//Fix for clients who always use source as username
+function fixSimpleClientAuth(&$username,&$password){
+    if(strtolower(trim($username)) === 'source' || strlen(trim($username)) == 0){
+        //edcast, etc ... which cant change username
+        $cred = preg_split('/\\|/',$password,2);
+        $username = $cred[0];
+        $password = $cred[1];
+    }else{
+        //cool clients
+        //stub - maybe we need something here
     }
 }
 
