@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../lib/common.inc.php');
-
+error_reporting(0); // disable error reporting
 $mode = $argv[1];
 $sql = "INSERT INTO debuglog (time,text) VALUES (NOW(),'".$db->escape(serialize($argv))."');";
 $db->execute($sql);
@@ -42,14 +42,13 @@ function handleAuth($username,$password){
     }
     $sql = "SELECT userid FROM streamer WHERE username = '".$db->escape($username)."' AND streampassword = '".$db->escape($password)."' LIMIT 1;";
     $result = $db->query($sql);
-    echo $sql.'\n';
     if($db->num_rows($result) > 0 ){
         $user = $db->fetch($result);
         $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE userid = '".$user['userid']."'";
         $db->execute($sql);
-        return true;
+        return 'true';
     }else{
-        return false;
+        return 'false';
     }
 }
 
