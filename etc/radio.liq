@@ -1,5 +1,5 @@
 #!/usr/bin/liquidsoap
-set("log.file.path","/home/radio/var/log/liquidsoap.log")
+set("log.file.path","/srv/radio/var/log/liquidsoap.log")
 set("log.stdout", false)
 set("server.telnet", true)
 
@@ -43,29 +43,24 @@ def depair(data)
 end
 
 def auth(login,password) = 
-  ret = get_process_lines('php ~/bin/liquidsoap.php auth #{quote(login)} #{quote(password)}')
+  ret = get_process_lines('php /srv/radio/bin/liquidsoap.php auth #{quote(login)} #{quote(password)}')
   ret = list.hd(ret)
   bool_of_string(ret)
 end
 
 def live_start(mdata)
   data = string.concat(separator=";", list.map(depair, mdata))
-  ignore(test_process("php ~/bin/liquidsoap.php connect #{quote(data)}"))
+  ignore(test_process("php /srv/radio/bin/liquidsoap.php connect #{quote(data)}"))
 end
 
 def live_stop()
-  ignore(test_process("php ~/bin/liquidsoap.php disconnect"))
+  ignore(test_process("php /srv/radio/bin/liquidsoap.php disconnect"))
 end
 
 def writemeta(mdata)
   mymeta = string.concat(separator=";", list.map(depair, mdata))
-# system("echo \"#{mymeta}\" > ~/meta.txt")
-  ignore(test_process('php ~/bin/liquidsoap.php meta #{quote(mymeta)}'))
+  ignore(test_process('php /srv/radio/bin/liquidsoap.php meta #{quote(mymeta)}'))
 end
-
-#def mymeta(meta)
-#	ignore(test_process('php ~/bin/liquidsoap.php meta #{quote(string_of(meta))}'))
-#end
 
 def onfade(old, new)
 	add([amplify(2.0,new), amplify(0.1, old)])
@@ -78,7 +73,7 @@ end
 text = request.queue(id="bot")
 live = input.harbor(on_connect = live_start, on_disconnect = live_stop, buffer=0., max = 10., auth = auth, "/live.ogg")
 
-loop = single("/home/radio/var/music/loop.ogg")
+loop = single("/srv/radio/var/music/loop.ogg")
 loop = rewrite_metadata([("title","Kein Strömbernd")], loop)
 loop = rewrite_metadata([("artist","Radio freies Krautchan")], loop)
 
