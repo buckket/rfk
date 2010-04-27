@@ -87,7 +87,7 @@ OR
 OR
 (lh.connected <= sh.start AND lh.disconnected >= sh.end)
 group by songid,mountid) as l RIGHT JOIN songhistory using (songid) 
-JOIN mounts using (mountid)
+LEFT JOIN mounts using (mountid)
 JOIN streamer using (userid)
 JOIN shows using (showid)
 
