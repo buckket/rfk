@@ -3,6 +3,7 @@ require_once('../lib/common-web.inc.php');
 $template = new BpTemplate('register.html');
 include('include/listenercount.php');
 
+$template->assign('section', "register");
 $template->assign('PAGETITLE', "Registrieren");
 
 if($_POST['action'] == 'register'){
