@@ -2,6 +2,7 @@
 
 class DBI {
 	var $database;
+	var $debugquery = true;
 	function DBI($hostname, $user, $pass, $db){
 		$this->database = new mysqli($hostname, $user, $pass, $db);
 		if ($this->database->connect_error) {
@@ -17,7 +18,11 @@ class DBI {
 	function query($query){
 		$result = $this->database->query($query);
 		if($this->database->errno){
-			error_log('[radioauth] '.$this->database->error.' [query] '.$query);
+			if($this->debugquery){
+				error_log('[radioauth] '.$this->database->error.' [query] '.$query);
+			}else{
+				error_log('[radioauth] '.$this->database->errno');
+			}
 			return false;
 		}
 		return $result;

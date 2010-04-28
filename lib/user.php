@@ -29,7 +29,8 @@ class User{
 	}
 	function login($username, $password){
 		global $db;
-		$sql="SELECT id,name,lang
+		$db->debugquery = false;
+		$sql="SELECT userid,username
    			  FROM streamer
     		  WHERE username='".$db->escape($username)."' AND pass=SHA1('".$db->escape($password)."')
     		  LIMIT 1";
@@ -48,6 +49,7 @@ class User{
     	else{
 			$this->logged_in = false;
 		}
+		$db->debugquery = true;
 	}
 	function logged_in()
 	{
