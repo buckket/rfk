@@ -1,5 +1,6 @@
 <bp:include template="header.html" shared_values="true"/>
 <h2>Registrieren</h2>
+<div class="register">
 <form method="POST">
 <table>
 <tr><td>Benutzername</td><td><input name="username" value="<bp:$username/>" /></td></tr>
@@ -10,5 +11,5 @@
 <input type="hidden" name="action" value="register" />
 <input type="submit" value="registrieren" />
 </form>
-
+</div>
 <bp:include template="footer.html" shared_values="true"/>

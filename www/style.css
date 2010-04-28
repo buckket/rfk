@@ -234,6 +234,8 @@ background:#707070;
 .textright{text-align:right;}
 .important{color:#AA0000; background-color:inherit; font-weight:bold;}
 .streamer{color:darkgreen; background-color:inherit; font-weight:bold;}
+.register { padding:20px 0 0 20px; margin-bottom:20px;}
+
 
 .box{
 margin:0 0 20px 0;
