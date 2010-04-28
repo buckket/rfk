@@ -32,7 +32,7 @@ class User{
 		$db->debugquery = false;
 		$sql="SELECT userid,username
    			  FROM streamer
-    		  WHERE username='".$db->escape($username)."' AND pass=SHA1('".$db->escape($password)."')
+    		  WHERE username='".$db->escape($username)."' AND password=SHA1('".$db->escape($password)."')
     		  LIMIT 1";
     	$result= $db->query($sql);
 	    if ( $db->num_rows($result) == 1) {
