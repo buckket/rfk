@@ -34,8 +34,8 @@ class User{
     		  WHERE username='".$db->escape($username)."' AND pass=SHA1('".$db->escape($password)."')
     		  LIMIT 1";
     	$result= $db->query($sql);
-	    if ( $dbi->num_rows($result) == 1) {
-        	$user = $dbi->fetch($result);
+	    if ( $db->num_rows($result) == 1) {
+        	$user = $db->fetch($result);
         	$this->userid = $user['id'];
         	$this->username = $user['username'];
 			$this->logged_in = true;
