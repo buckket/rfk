@@ -2,7 +2,7 @@
 <div class='infoblock'>
 <h3>Letzten 10 Songs</h3><ul>
 <bp:foreach in="sb_songlist" as="song" index="id" direct="true">
-<li><bp:$song/></li>
+<li><span title="<bp:$song[fullsong]>"><bp:$song[song]/><bp:if value="song[short]" is="1"><a href="/histroy.php?id=<bp:$song[id]>">...</a></bp:if></span></li>
 </bp:foreach></ul></div>
 <div class='infoblock'>
 <h3>Letzten 5 Streamer</h3><ul>

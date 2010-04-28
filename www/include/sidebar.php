@@ -10,13 +10,15 @@ $songs = array();
 if($db->num_rows($result)){
     
     while($song = $db->fetch($result)){
-	$id = $song['songid'];
-	$song = $song['artist'] . " - " . $song['title'];
-        if (strlen($song) > 35) {
-		$song = trim(substr($song, 0, 32));
-		$song .= "<a href=\"/history.php?id={$id}\" title=\"Mehr!\">...</a>";
-	}
-	$songs[] = $song;
+	$songdata['song'] = $song['artist'] . " - " . $song['title'];
+	$songdata['fullsong'] = $songdata['song'];	
+	$songdata['short'] = 0;
+        if (strlen($songdata['song']) > 35) {
+		$songdata['song'] = trim(substr($songdata['song'], 0, 32));
+		$songdata['short'] = 1;
+	} 
+	$songdata['id'] = $song['songid'];
+	$songs[] = $songdata;
     }
 }
 
