@@ -21,7 +21,7 @@ class DBI {
 			if($this->debugquery){
 				error_log('[radioauth] '.$this->database->error.' [query] '.$query);
 			}else{
-				error_log('[radioauth] '.$this->database->errno');
+				error_log('[radioauth] '.$this->database->errno);
 			}
 			return false;
 		}
