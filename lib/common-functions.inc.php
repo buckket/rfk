@@ -9,7 +9,11 @@
 		$template->assign('RIGHT_'.$right,true);
 	}
     $template->assign('USERNAME',$user->username);
-    
+    if($user->logged_in){
+		$template->assign('user_log_in','true');
+	}else{
+		$template->assign('user_log_in','false');
+	}
 	if(count($_MSG['err']) > 0){
 		$template->assign('MSG_ERR',$_MSG['err']);
 	}

@@ -11,7 +11,7 @@ class User{
 		if($this->logged_in()){
 			if($_GET['logout'] === 'true'){
 				$this->logout();
-				$_MSG['msg'][] = "Erfolgreich Ausgeloggt!";
+				$_MSG['msg'][] = "Erfolgreich abgemeldet!";
 			}					
 		}else if(isset($_POST['login']) && strlen($_POST['username']) != 0 && strlen($_POST['password']) != 0 ){
 			$this->login($_POST['username'],$_POST['password']);
@@ -19,11 +19,12 @@ class User{
 				$_MSG['err'][] = "Benutzername und/oder Passwort falsch!";
 			}else{
 				$Lang = new Lang($this->lang);
-				$_MSG['msg'][] = $Lang->text('Login_successful');
+				$_MSG['msg'][] = "Erfolgreich angemeldet;";
 			}
 		}
 		if($this->logged_in){
-			$this->get_userrights();
+			//disabled for now
+			//$this->get_userrights();
 		}
 	}
 	function login($username, $password){
