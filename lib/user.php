@@ -18,7 +18,6 @@ class User{
 			if(!$this->logged_in){
 				$_MSG['err'][] = "Benutzername und/oder Passwort falsch!";
 			}else{
-				$Lang = new Lang($this->lang);
 				$_MSG['msg'][] = "Erfolgreich angemeldet;";
 			}
 		}
@@ -37,13 +36,12 @@ class User{
     	$result= $db->query($sql);
 	    if ( $db->num_rows($result) == 1) {
         	$user = $db->fetch($result);
-        	$this->userid = $user['id'];
+        	$this->userid = $user['userid'];
         	$this->username = $user['username'];
 			$this->logged_in = true;
-			$this->lang = $user['lang'];
 		    $sql="UPDATE streamer
     			  SET session='".session_id()."'
-		    	  WHERE id=".$this->userid;
+		    	  WHERE userid='".$this->userid."'";
 			$db->execute($sql);
     	}
     	else{
@@ -61,7 +59,7 @@ class User{
 		$result = $db->query($sql);
 		if($db->num_rows($result) == 1 ){
 			$user = $db->fetch($result);
-			$this->userid = $user['id'];
+			$this->userid = $user['userid'];
 			$this->username = $user['username'];
 			$this->logged_in = true;
 			return true;
