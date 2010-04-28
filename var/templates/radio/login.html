@@ -1,5 +1,12 @@
 <bp:include template="header.html" shared_values="true"/>
 <p>
-Nö, is' nich!
+<form method="POST">
+<table>
+<tr><td>Name</td><td><input name="username" /></td></tr>
+<tr><td>Passwort</td><td><input type="password" name="password"/></td></tr>
+<tr><td>&nbsp;</td><td><input type="submit" value="Anmelden"/></td></tr>
+</table>
+<input type="hidden" name="login" value="true" />
+</form>
 </p>
 <bp:include template="footer.html" shared_values="true"/>

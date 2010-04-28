@@ -24,13 +24,20 @@
           </li>          
           <li>          
           <a href="status.php">Status</a>          
-          </li>          
+          </li>
+		  <bp:if value="user_log_in" is="false">
           <li>          
           <a href="login.php">Anmelden</a>          
           </li>        
           <li>
           <a href="register.php">Registrieren</a>
           </li>
+		  </bp:if>
+		  <bp:else>
+		  <li>          
+          <a href="login.php?logout=true">Abmelden</a>          
+          </li>  
+		  </bp:else>
           <li style="float: right;">
           <p class="userinfo">Listener: <bp:$LISTENERCOUNT/></p>
           </li>
