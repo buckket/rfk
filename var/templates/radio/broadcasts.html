@@ -7,8 +7,8 @@
 <bp:foreach in="calendar" as="week" index="weeknum" direct="true">
 <tr height="50"><td><bp:$weeknum/></td>
 	<bp:foreach in="week" as="day" index="daynum" direct="true">
-	<td><bp:$day[shows] />
-	<div><bp:$day[] /></div>
+	<td><bp:$day[day] />
+	<div><bp:$day[shows] /></div>
 	</td>
 	</bp:foreach>
 	</tr>
