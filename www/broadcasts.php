@@ -54,7 +54,7 @@ if($last_day_of_week < 6){
 	for($d = 1;$d <= 6-$last_day_of_week; $d++){
 		$day = array();
 		// -1 ?! keine ahnung
-		$calendar[$week][$last_day_of_week+$d]['day'] = $d+1;
+		$calendar[$week][$last_day_of_week+$d]['day'] = $d;
 		$calendar[$week][$last_day_of_week+$d]['month'] = date('m', $nextmonth);
 		$calendar[$week][$last_day_of_week+$d]['year'] = date('Y', $nextmonth);
 		$calendar[$week][$last_day_of_week+$d]['thismonth'] = false;
@@ -72,7 +72,10 @@ echo $template->render();
 
 
 function getShows($day,$month,$year){
-    return array('planned' => rand(0,5),'unplanned' => rand(0,10));
+	global $db;
+    $sql = "SELECT count(*) as count FROM shows WHERE DATE(begin) = DATE('".$db->escape($year)."'-'".$db->escape($month)."'-'".$db->escape($day)."')";
+	$result = $db->fetch($db->query($sql));
+	return $result['count'];	
 }
 
 function convMonToSun($dow){
