@@ -5,10 +5,10 @@
 <tr><bp:$monthname />&nbsp;<bp:$year /></tr>
 <tr><td>&nbsp;</td><td>Montag</td><td>Dienstag</td><td>Mittwoch</td><td>Donnerstag</td><td>Freitag</td><td>Samstag</td><td>Sonntag</td></tr>
 
-<bp:foreach in="calendar" as="week" index="weeknum" >
+<bp:foreach in="calendar" as="week" index="weeknum" direct="true">
 <tr><td><bp:$weeknum /></td>
-	<bp:foreach in="week" as="day" index="daynum" >
-	<td><bp:$daynum /></td>
+	<bp:foreach in="week" as="day" index="daynum" direct="true">
+	<td><bp:$day[day] /></td>
 	</bp:foreach>
 	</tr>
 </bp:foreach>

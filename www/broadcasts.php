@@ -62,6 +62,8 @@ if($last_day_of_week < 6){
 	}
 }
 $template->assign('calendar',$calendar);
+$template->assign('year',$year);
+$template->assign('monthname',getMonth($month));
 /**
 echo '<table border=1 width="100%" height="100%">';
 echo '<tr><td colspan = 8 height=20>'.getMonth($month).'</td></tr>';
