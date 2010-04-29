@@ -30,7 +30,7 @@ if($day_of_week > 0){
 		$calendar[$week][$d]['day'] = ($lastdaylastmonth-($day_of_week-1))+$d;
 		$calendar[$week][$d]['month'] = date('m', $lastmonth);
 		$calendar[$week][$d]['year'] = date('Y', $lastmonth);
-		$calendar[$week][$d]['thismonth'] = false;
+		$calendar[$week][$d]['thismonth'] = 'false';
 		$calendar[$week][$d]['shows'] = getShows($calendar[$week][$d]['day'],$calendar[$week][$d]['month'],$calendar[$week][$d]['year']);
 	}
 }
@@ -43,7 +43,7 @@ while($curr_month_day <= $daycount){
     $calendar[$week][$weekday]['day'] = $curr_month_day;
 	$calendar[$week][$weekday]['month'] = $month;
 	$calendar[$week][$weekday]['year'] = $year;
-	$calendar[$week][$weekday]['thismonth'] = true;
+	$calendar[$week][$weekday]['thismonth'] = 'true';
 	$calendar[$week][$weekday]['shows'] = getShows($calendar[$week][$weekday]['day'],$calendar[$week][$weekday]['month'],$calendar[$week][$weekday]['year']);
 	$curr_month_day++;
 }
@@ -57,7 +57,7 @@ if($last_day_of_week < 6){
 		$calendar[$week][$last_day_of_week+$d]['day'] = $d;
 		$calendar[$week][$last_day_of_week+$d]['month'] = date('m', $nextmonth);
 		$calendar[$week][$last_day_of_week+$d]['year'] = date('Y', $nextmonth);
-		$calendar[$week][$last_day_of_week+$d]['thismonth'] = false;
+		$calendar[$week][$last_day_of_week+$d]['thismonth'] = 'false';
 		$calendar[$week][$last_day_of_week+$d]['shows'] = getShows($calendar[$week][$last_day_of_week+$d]['day'],$calendar[$week][$last_day_of_week+$d]['month'],$calendar[$week][$d]['year']);
 	}
 }
@@ -73,7 +73,7 @@ echo $template->render();
 
 function getShows($day,$month,$year){
 	global $db;
-    $sql = "SELECT count(*) as count FROM shows WHERE DATE(begin) = DATE('".$db->escape($year)."'-'".$db->escape($month)."'-'".$db->escape($day)."')";
+    $sql = "SELECT count(*) as count FROM shows WHERE DATE(begin) = DATE('".$db->escape($year)."-".$db->escape($month)."-".$db->escape($day)."')";
 	$result = $db->fetch($db->query($sql));
 	return $result['count'];	
 }
@@ -92,7 +92,7 @@ function getMonth($month){
         case 2:
             return 'Februar';   
         case 3:
-            return 'März';
+            return 'M&auml;rz';
         case 4:
             return 'April';
         case 5:
