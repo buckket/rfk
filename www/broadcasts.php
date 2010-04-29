@@ -64,32 +64,6 @@ if($last_day_of_week < 6){
 $template->assign('calendar',$calendar);
 $template->assign('year',$year);
 $template->assign('monthname',getMonth($month));
-/**
-echo '<table border=1 width="100%" height="100%">';
-echo '<tr><td colspan = 8 height=20>'.getMonth($month).'</td></tr>';
-echo '<tr height="50px"><td>Woche</td><td width="13%">Montag</td><td width="13%">Dienstag</td><td width="13%">Mittwoch</td><td width="13%">Donnerstag</td><td width="13%">Freitag</td><td width="13%">Sonnabend</td><td width="13%">Sonntag</td></tr>';
-foreach($calendar as $week => $days){
-    echo '<tr height="50px"><td>W'.$week.'</td>';
-    foreach($days as $day => $date){
-        if($date['thismonth']){
-            echo '<td style="align: left;vertical-align:top;">';
-        }else{
-            echo '<td style="align: left;vertical-align:top;color:lightgrey;">';
-        }
-        echo $date['day'];
-        if($date['shows']['planned']+$date['shows']['unplanned'] > 0){
-            echo '<div style="text-align:center;vertical-align:center;">'.($date['shows']['planned']+$date['shows']['unplanned']).' Sendungen</div>';
-        }
-        echo '</td>';
-        
-    }
-    echo '</tr>';
-}
-echo '</table>';
-**/
-
-
-
 cleanup($template);
 $template->assign('section', "broadcasts");
 $template->assign('PAGETITLE', "Sende&uuml;bersicht");

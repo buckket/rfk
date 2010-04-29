@@ -2,11 +2,10 @@
 
 <h2>Programmplan</h2>
 <table width="100%">
-<tr><bp:$monthname />&nbsp;<bp:$year /></tr>
-<tr><td>&nbsp;</td><td>Montag</td><td>Dienstag</td><td>Mittwoch</td><td>Donnerstag</td><td>Freitag</td><td>Samstag</td><td>Sonntag</td></tr>
-
+<tr><td colspan=8><bp:$monthname/>&nbsp;<bp:$year/></td></tr>
+<tr><td>&nbsp;</td><td width="13%">Montag</td><td width="13%">Dienstag</td><td width="13%">Mittwoch</td><td width="13%">Donnerstag</td><td width="13%">Freitag</td><td width="13%">Samstag</td><td width="13%">Sonntag</td></tr>
 <bp:foreach in="calendar" as="week" index="weeknum" direct="true">
-<tr><td><bp:$weeknum /></td>
+<tr height="50"><td><bp:$weeknum /></td>
 	<bp:foreach in="week" as="day" index="daynum" direct="true">
 	<td><bp:$day[day] /></td>
 	</bp:foreach>
