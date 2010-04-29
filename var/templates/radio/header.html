@@ -26,7 +26,7 @@
           <li<bp:if value="section" is="status"> class="selected"</bp:if>>          
           <a href="status.php">Status</a>          
           </li>
-	  <bp:if expr="$user_log_in == false">
+	  <bp:if expr="$user_log_in == 'false'">
           <li <bp:if value="section" is="login"> class="selected"</bp:if>>          
           <a href="login.php">Anmelden</a>          
           </li>        
@@ -34,7 +34,7 @@
           <a href="register.php">Registrieren</a>
           </li>
 	  </bp:if>
-	  <bp:if expr="$user_log_in == true">
+	  <bp:if expr="$user_log_in == 'true'">
 	  <li>          
           <a href="login.php?logout=true">Abmelden</a>          
           </li>  
