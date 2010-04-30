@@ -250,3 +250,31 @@ line-height:1.0em;
 padding: 2px;
 vertical-align: middle;
 }
+
+.calendar {
+}
+
+.day,.day-thismonth {
+	vertical-align: top;
+}
+.day-thismonth {
+	border: 1px solid grey;
+}
+.day:hover,.day-thismonth:hover{
+	background-color: #aaddff;
+	cursor: pointer;
+}
+.calendar .week:hover {
+	background-color: #aaddff;
+	
+}
+.calendar .day {
+ color: #999999;
+}
+.calendar .day-thismonth {
+ 
+}
+.calendar-head {
+  font-size: 20px;
+  background-color: none;
+}
