@@ -63,14 +63,43 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 		}
 	}
 	//cleanup and insert free cells
+	$nowb = floor(date('H')*2)+floor(date('i')/30);
+	$nowe = floor(date('H')*2)+ceil(date('i')/30);
+	$noww = convMonToSun(date('w'));
 	for($wd = 0; $wd < 7; $wd++){
 		for($h = 0; $h < 48; $h++){
 			
 			if(!is_array($shows[$wd][$h])){
-				$shows[$wd][$h] = array('type' => 'FREE', 'begin' => $h,'end' => $h+1,'length' => 1);
+				$shows[$wd][$h] = array('type' => 'FREE', 'begin' => $h,'end' => $h+1,'length' => 1,'name' => '&nbsp;');
+				if($wd < $noww){
+					$shows[$wd][$h]['stat'] = 'free done';
+				}else if($wd == $noww){
+					if($h == $nowb){
+						$shows[$wd][$h]['stat'] = 'free curr';
+					}else if($h < $nowb){
+						$shows[$wd][$h]['stat'] = 'free done';
+					}else{
+						$shows[$wd][$h]['stat'] = 'free upcomming';
+					}
+				}else{
+					$shows[$wd][$h]['stat'] = 'free upcomming';
+				}
 			}else{
 				for($s = 1;$s < $shows[$wd][$h]['length'];$s++){
 					$shows[$wd][$h+$s] = array('type' => 'SKIP', 'begin' => $h+$s,'end' => $h+$s+1,'length' => 1);
+				}
+				if($wd < $noww){
+					$shows[$wd][$h]['stat'] = 'show done';
+				}else if($wd == $noww){
+					if($nowb >= $h && $nowb < $h+$shows[$wd][$h]['length']){
+						$shows[$wd][$h]['stat'] = 'show curr';
+					}else if($h+$shows[$wd][$h]['length'] <= $nowb){
+						$shows[$wd][$h]['stat'] = 'show done';
+					}else{
+						$shows[$wd][$h]['stat'] = 'show upcomming';
+					}
+				}else{
+					$shows[$wd][$h]['stat'] = 'show upcomming';
 				}
 				$h += $shows[$wd][$h]['length']-1;
 			}
@@ -83,7 +112,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 			$calendar[$time][$weekdaynum] = $show;
 		}
 	}
-	ksort($calendar);
+	ksortTree($calendar);
 	//print_r($calendar);
 	$template->assign('calendar',$calendar);
 	$template->assign('year',$year);
@@ -195,4 +224,28 @@ function getMonth($month){
             return 'Dezember';
     }
 }
+/**
+ * Recusive alternative to ksort
+ * 
+ * @author    Kevin van Zonneveld <kevin@vanzonneveld.net>
+ * @copyright 2008 Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD Licence
+ * @version   SVN: Release: $Id: ksortTree.inc.php 223 2009-01-25 13:35:12Z kevin $
+ * @link      http://kevin.vanzonneveld.net/
+ * 
+ * @param array $array
+ */
+function ksortTree( &$array )
+{
+    if (!is_array($array)) {
+        return false;
+    }
+    
+    ksort($array);
+    foreach ($array as $k=>$v) {
+        ksortTree($array[$k]);
+    }
+    return true;
+}
+
 ?>

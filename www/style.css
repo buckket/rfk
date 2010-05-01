@@ -278,3 +278,21 @@ vertical-align: middle;
   font-size: 20px;
   background-color: none;
 }
+
+.calendar-week tr:hover{
+	border-top: thin solid blue;
+	border-bottom: thin solid blue;
+	background-color: blue;
+}
+.calendar-week td{
+	border-top: thin solid grey;
+}
+.calendar-week .curr {
+	border: thin solid orange;
+}
+.calendar-week .done {
+	background-color: #f5f5f5;
+}
+.calendar-week .show {
+	border: thin solid #0099ff;
+}
