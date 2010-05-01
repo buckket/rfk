@@ -83,7 +83,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 			$calendar[$time][$weekdaynum] = $show;
 		}
 	}
-	asort($calendar);
+	ksort($calendar);
 	//print_r($calendar);
 	$template->assign('calendar',$calendar);
 	$template->assign('year',$year);
