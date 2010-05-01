@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">  
+  <head>    
+    <title>Radio freies Krautchan :: &Uuml;bersicht    
+    </title>    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />    
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen,projection" /> 
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> 
+  </head>  
+  <body>    
+    <div id="container">      
+      <div id="header">
+        <img src="img/logo.png" alt="Logo" />      
+      </div>      
+      <div id="navigation">        
+        <ul>             
+          <li class="selected">          
+          <a href="index.php">&Uuml;bersicht</a>          
+          </li>          
+          <li>          
+          <a href="history.php">Verlauf</a>          
+          </li>          
+          <li>          
+          <a href="broadcasts.php">Sendungen</a>          
+          </li>          
+          <li>          
+          <a href="status.php">Status</a>          
+          </li>
+
+	  
+          <li >          
+          <a href="login.php">Anmelden</a>          
+          </li>        
+          <li >
+          <a href="register.php">Registrieren</a>
+          </li>
+	  
+	  
+          <li style="float: right;">
+          <p class="userinfo">Listener: {{ listenercount }}</p>
+          </li>
+
+          <li style="float: right;">
+          <p class="userinfo">User: {{ username }}</p>
+          </li>
+        </ul>      
+      </div>             
+      <div id='content'>
+{% block content%}
+<h2>Leere Seite</h2>
+<p>
+Haben wir nicht, bekommen wir auch nichtmehr rein!
+</p>
+{% endblock %}
+</div>
+{% block sidebar%}{% endblock %}
+</div>
+            
+      <div id="footer">        
+        <p>
+            <img src="xhtml_valid.png" class="vi" alt="valid xhtml" /><img src="css_valid.png" class="vi" alt="valid css" />        
+        </p>      
+      </div>    
+    </div>  
+  </body>
+
+</html>
