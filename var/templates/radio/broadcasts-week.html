@@ -1,0 +1,21 @@
+<bp:include template="header.html" shared_values="true"/>
+
+<h2>Programmplan</h2>
+Wochenplan
+
+<table width="100%" class="calendar-week" border=1>
+<tr><td>&nbsp;</td><td width="13%">Montag</td><td width="13%">Dienstag</td><td width="13%">Mittwoch</td><td width="13%">Donnerstag</td><td width="13%">Freitag</td><td width="13%">Samstag</td><td width="13%">Sonntag</td></tr>
+<bp:foreach in="calendar" as="time" index="timenum" direct="true">
+<tr height="50"><td><bp:$timenum /></td>
+	<bp:foreach in="time" as="show" index="daynum" direct="true">
+		<bp:if expr="$show['type'] != 'SKIP'" >
+			<td rowspan=<bp:$show[length] />>
+				<bp:$show[name]/>&nbsp;
+			</td>
+		</bp:if>
+	</bp:foreach>
+	</tr>
+</bp:foreach>
+</table>
+<bp:include template="broadcasts-sb.html" shared_values="true"/>
+<bp:include template="footer.html" shared_values="true"/>
