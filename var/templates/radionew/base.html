@@ -6,6 +6,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />    
     <link rel="stylesheet" href="style.css" type="text/css" media="screen,projection" /> 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> 
+	<!--<script src="js/prototype.js"></script>-->
+	<script src="js/jquery.js"></script>
+	<script src="js/rfk.js"></script>
   </head>  
   <body>    
     <div id="container">      
@@ -13,29 +16,32 @@
         <img src="img/logo.png" alt="Logo" />      
       </div>      
       <div id="navigation">        
-        <ul>             
-          <li class="selected">          
+        <ul>
+		  
+          <li {% if section == 'overview' %}class="selected"{% endif %}>          
           <a href="index.php">&Uuml;bersicht</a>          
           </li>          
-          <li>          
+          <li {% if section == 'history' %}class="selected"{% endif %}>          
           <a href="history.php">Verlauf</a>          
-          </li>          
+          </li {% if section == 'broadcasts' %}class="selected"{% endif %}>          
           <li>          
           <a href="broadcasts.php">Sendungen</a>          
           </li>          
-          <li>          
+          <li {% if section == 'status' %}class="selected"{% endif %}>          
           <a href="status.php">Status</a>          
           </li>
-
-	  
-          <li >          
+	      {% if !user_logged_in %}
+          <li {% if section == 'login' %}class="selected"{% endif %}>          
           <a href="login.php">Anmelden</a>          
           </li>        
-          <li >
+          <li {% if section == 'register' %}class="selected"{% endif %}>
           <a href="register.php">Registrieren</a>
           </li>
-	  
-	  
+		  {% else %}
+		  <li>          
+          <a href="login.php?logout=true">Abmelden</a>          
+          </li>
+	      {% endif %}
           <li style="float: right;">
           <p class="userinfo">Listener: {{ listenercount }}</p>
           </li>
@@ -46,15 +52,14 @@
         </ul>      
       </div>             
       <div id='content'>
-{% block content%}
+{% block content %}
 <h2>Leere Seite</h2>
 <p>
 Haben wir nicht, bekommen wir auch nichtmehr rein!
 </p>
 {% endblock %}
 </div>
-{% block sidebar%}{% endblock %}
-</div>
+{% block sidebar %}{% endblock %}
             
       <div id="footer">        
         <p>

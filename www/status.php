@@ -1,10 +1,6 @@
 <?php
 require_once('../lib/common-web.inc.php');
-$template = new BpTemplate('status.html');
-include('include/sidebar.php');
-include('include/listenercount.php');
-$template->assign('section', "status");
-$template->assign('PAGETITLE', "Status");
+$template = array();
 
 $sql = "SELECT mount,description,count FROM (SELECT count(*) as count,mountid FROM listenerhistory WHERE disconnected IS NULL group by mountid) as l RIGHT JOIN mounts USING ( mountid)";
 $result = $db->query($sql);
@@ -15,20 +11,25 @@ while($row = $db->fetch($result)){
     }
     $streams[] = $row;
 }
-$template->assign('streams',$streams);
+$template['streams'] = $streams;
 $sql = "SELECT userid,username FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
 $result = $db->query($sql);
 if($db->num_rows($result) > 0){
-	$template->assign('streaming',1);
+	$template['streaming'] = true;
 	$streamerinfo = $db->fetch($result);
-	$template->assign('streamerinfo',$streamerinfo);
+	$template['streamerinfo'] = $streamerinfo;
 	$sql = "SELECT showid,name,begin,end,showtype FROM shows WHERE userid = ".$streamerinfo['userid']. " AND (NOW() BETWEEN begin AND end OR end IS NULL) LIMIT 1;";
 	$result = $db->query($sql);
 	$show = $db->fetch($result);
-	$template->assign('show',$show);
+	$template['show'] = $show;
 }else{
-	$template->assign('streaming',0);
+	$template['streaming'] = false;
 }
-cleanup($template);
-echo $template->render();
+$template['PAGETITLE'] = 'Status';
+$template['section'] = 'status';
+cleanup_h2o($template);
+$h2o = new H2o('status.html',$h2osettings);
+include('include/listenercount.php');
+include('include/sidebar.php');
+echo $h2o->render($template);
 ?>

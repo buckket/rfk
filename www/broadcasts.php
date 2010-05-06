@@ -25,14 +25,15 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 	while($show = $db->fetch($result)){
 		$temp = array();
 		if($show['begin'] >= $currweek){
-			$temp['begin'] = floor(date('H',$show[begin])*2)+floor(date('i',$show[begin])/30);
-			$temp['beginh'] = date('H',$show[begin]);
-			$temp['beginm'] = date('i',$show[begin]);
+			$temp['begin'] = floor(date('H',$show['begin'])*2)+floor(date('i',$show['begin'])/30);
+			$temp['beginh'] = date('H',$show['begin']);
+			$temp['beginm'] = date('i',$show['begin']);
 		}else{
 			$temp['begin'] = 0;
 			$temp['beginh'] = 0;
 			$temp['beginm'] = 0;
 		}
+		$temp['id'] = 'show'.$show['showid'];
 		$temp['name'] = $show['name'];
 		$temp['type'] = $show['showtype'];
 		//if show is between two days
@@ -49,9 +50,9 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 			$temp['beginh'] = 0;
 			$temp['beginm'] = 0;
 		}
-		$temp['end'] = floor(date('H',$show[end])*2)+ceil(date('i',$show[end])/30);
-		$temp['endh'] = date('H',$show[end]);
-		$temp['endm'] = date('i',$show[end]);
+		$temp['end'] = floor(date('H',$show['end'])*2)+ceil(date('i',$show['end'])/30);
+		$temp['endh'] = date('H',$show['end']);
+		$temp['endm'] = date('i',$show['end']);
 		$temp['length'] = $temp['end'] - $temp['begin'];
 		//get rid of zerolength-shows
 		if($temp['begin'] != $temp['end']){
@@ -68,38 +69,12 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 	$noww = convMonToSun(date('w'));
 	for($wd = 0; $wd < 7; $wd++){
 		for($h = 0; $h < 48; $h++){
-			
-			if(!is_array($shows[$wd][$h])){
-				$shows[$wd][$h] = array('type' => 'FREE', 'begin' => $h,'end' => $h+1,'length' => 1,'name' => '&nbsp;');
-				if($wd < $noww){
-					$shows[$wd][$h]['stat'] = 'free done';
-				}else if($wd == $noww){
-					if($h == $nowb){
-						$shows[$wd][$h]['stat'] = 'free curr';
-					}else if($h < $nowb){
-						$shows[$wd][$h]['stat'] = 'free done';
-					}else{
-						$shows[$wd][$h]['stat'] = 'free upcomming';
-					}
-				}else{
-					$shows[$wd][$h]['stat'] = 'free upcomming';
-				}
+			if(!isset($shows[$wd][$h]) || !is_array($shows[$wd][$h])){
+				$shows[$wd][$h] = array('type' => 'FREE', 'begin' => $h,'end' => $h+1,'length' => 1,'name' => ' ', 'id' => 'free'.$h.$wd);
+				
 			}else{
 				for($s = 1;$s < $shows[$wd][$h]['length'];$s++){
 					$shows[$wd][$h+$s] = array('type' => 'SKIP', 'begin' => $h+$s,'end' => $h+$s+1,'length' => 1);
-				}
-				if($wd < $noww){
-					$shows[$wd][$h]['stat'] = 'show done';
-				}else if($wd == $noww){
-					if($nowb >= $h && $nowb < $h+$shows[$wd][$h]['length']){
-						$shows[$wd][$h]['stat'] = 'show curr';
-					}else if($h+$shows[$wd][$h]['length'] <= $nowb){
-						$shows[$wd][$h]['stat'] = 'show done';
-					}else{
-						$shows[$wd][$h]['stat'] = 'show upcomming';
-					}
-				}else{
-					$shows[$wd][$h]['stat'] = 'show upcomming';
 				}
 				$h += $shows[$wd][$h]['length']-1;
 			}
@@ -109,16 +84,27 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 	$calendar = array();
 	foreach($shows as $weekdaynum => $day){
 		foreach($day as $time => $show){
-			$calendar[$time][$weekdaynum] = $show;
+			$calendar[$time][$weekdaynum+1] = $show;
 		}
+	}
+	for($time = 0; $time < 48; $time++){
+		$calendar[$time][0]['type'] = 'TIME';
+		$calendar[$time][0]['name'] = aZ(floor(($time)/2)).':'.aZ((($time)%2)*30).' - '.aZ(floor(($time+1)/2)).':'.aZ((($time+1)%2)*30);
+		$calendar[$time][0]['length'] = 1;
 	}
 	ksortTree($calendar);
 	//print_r($calendar);
-	$template->assign('calendar',$calendar);
-	$template->assign('year',$year);
-	$template->assign('week',$_GET['week']);
-	$template->assign('nextweek',$nextweek);
-	$template->assign('prevweek',$prevweek);
+	$template = array();
+	$template['calendar'] = $calendar;
+	$template['year'] = $year;
+	$template['week'] = $_GET['week'];
+	$template['nextweek'] = $nextweek;
+	$template['prevweek'] = $prevweek;
+	cleanup_h2o($template);
+	include('include/listenercount.php');
+	$h2o = new H2o('broadcasts-week.html',$h2osettings);
+	echo $h2o->render($template);
+	exit();
 }else{
 	//month overview
 	//template
@@ -235,6 +221,12 @@ function getMonth($month){
  * 
  * @param array $array
  */
+function aZ($num){
+	if(strlen($num) <= 1){
+		$num = '0'.$num;
+	}
+	return $num;
+}
 function ksortTree( &$array )
 {
     if (!is_array($array)) {

@@ -13,7 +13,7 @@ Beilpuz::$templates = $bproot.'/var/templates/'.$_config['template'];
 Beilpuz::$cache = $bproot.'/var/cache/cache';
 Beilpuz::$compiled = $bproot.'/var/cache/compiled';
 $root = dirname(dirname(__FILE__));
-$h20settings = array('searchpath' => $root.'/var/templates/'.$_config['template'].'new',
+$h2osettings = array('searchpath' => $root.'/var/templates/'.$_config['template'].'new',
                      'cache'      => false);
 //the User
 $user = new USER();

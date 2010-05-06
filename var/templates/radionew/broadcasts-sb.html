@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+block.super
+{% endblock %}
+{% block sidebar %}
+<div id='subcontent'>
+<div class='infoblock'>
+<h3>Die n&auml;chsten Sendungen</h3>
+
+</div>
+{% if user_logged_in %}
+<div class='infoblock'>
+<h3>Aktionen</h3>
+	<a href="javascript:addShow();" id="addshowlink">Sendung hinzuf&uuml;gen</a>
+	<div id="addshow" style="display:none;">
+		<form>
+		<table>
+		<tr><td colspan=2>Sendung hinzuf&uuml;gen</td></tr>
+		<tr><td>Anfang</td><td>??:??</td></tr>
+		<tr><td>Ende</td><td>??:??</td></tr>
+		<tr><td colspan=2><input name="name" value="Name" /></td></tr>
+		<tr><td colspan=2><textarea name="desc" style="width:150px;">Beschreibung</textarea></td></tr>
+		<tr><td><a href="javascript:commitAddShow();" />eintragen</a></td><td><a href="javascript:abortAddShow();" />abbrechen</a></td></tr>
+		</table>
+		</form>
+	</div>
+</div>
+{% endif %}
+</div>
+{% endblock %}

@@ -282,10 +282,12 @@ vertical-align: middle;
 .calendar-week tr:hover{
 	border-top: thin solid blue;
 	border-bottom: thin solid blue;
-	background-color: blue;
+	background-color: #aaddff;
 }
 .calendar-week td{
+	text-align: center;
 	border-top: thin solid grey;
+	border-right: thin solid lightgrey;
 }
 .calendar-week .curr {
 	border: thin solid orange;
@@ -295,4 +297,27 @@ vertical-align: middle;
 }
 .calendar-week .show {
 	border: thin solid #0099ff;
+}
+
+.calendar-week .hour {
+	font-size: 8px;
+	border-left: thin solid lightgrey;
+	text-align: left;
+}
+.freetime-start, .freetime-mid, .freetime-end {
+	background-color: #A3FF99;
+	border-left: thin solid #00FF66;
+	border-right: thin solid #00FF66;
+}
+.free-selectable {
+	cursor: pointer;
+}
+.freetime-start {
+	border-top: thin solid #00FF66;
+}
+.freetime-mid {
+
+}
+.freetime-end {
+	border-bottom: thin solid #00FF66;
 }

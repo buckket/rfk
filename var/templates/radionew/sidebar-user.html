@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+block.super
+{% endblock %}
+{% block sidebar %}
+<div id='subcontent'>
+{% if user_self %}
+	<div class='infoblock'>
+	<h3>Einstellungen</h3>
+		<ul>
+			<li>Benutzereinstellungen</li>
+			<li>Sendungseinstellungen</li>
+			<!--<li>Statistiken</li>-->
+		</ul>
+	</div>
+{% endif %}
+</div>
+{% endblock %}

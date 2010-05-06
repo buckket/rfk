@@ -3,7 +3,7 @@
  * Global functions
  */
 
- function cleanup(&$template){
+function cleanup(&$template){
 	global $_HEAD,$_MSG,$user,$Lang;
 	foreach($user->rights as $right){
 		$template->assign('RIGHT_'.$right,true);
@@ -27,6 +27,19 @@
 		$template->assign('HEAD_REFRESH',$_HEAD['refresh']);
 	}
 }
-
+function cleanup_h2o(&$template){
+	global $_MSG,$user;
+	$template['user_logged_in'] = $user->logged_in;
+	$template['username'] = $user->username;
+	if(count($_MSG['err']) > 0){
+		$template['MSG_ERR'] = $_MSG['err'];
+	}
+	if(count($_MSG['warn']) > 0){
+		$template['MSG_WARN'] = $_MSG['warn'];
+	}
+	if(count($_MSG['msg']) > 0){
+		$template['MSG_MSG'] = $_MSG['msg'];
+	}
+}
 
 ?>

@@ -1,0 +1,27 @@
+{% extends "broadcasts-sb.html"%}
+{% block content %}
+<h2>Programmplan</h2>
+<table width="100%" class="calendar-week" cellspacing=0>
+<tr><td>&nbsp;</td><td width="13%">Montag</td><td width="13%">Dienstag</td><td width="13%">Mittwoch</td><td width="13%">Donnerstag</td><td width="13%">Freitag</td><td width="13%">Samstag</td><td width="13%">Sonntag</td></tr>
+{% for index, time in calendar %}
+<tr height="20">
+{% for i, day in time %}
+{% if day.type != 'SKIP' %}
+	{% if day.type == 'FREE' %}
+	<td class="free" id="{{ day.id }}" rowspan={{ day.length }} >
+	{% else %}
+		{% if day.type != 'TIME' %}
+			<td class="show" rowspan={{ day.length }} id="{{ day.id }}">
+		{% else %}
+		<td class="hour">
+		{% endif %}
+	{% endif %}
+	{{ day.name }}
+	</td>
+{% endif %}
+{% endfor %}
+</tr>
+{% endfor %}
+</bp:foreach>
+</table>
+{% endblock %}
