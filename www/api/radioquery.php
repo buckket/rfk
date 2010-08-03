@@ -79,19 +79,19 @@
    function get_tracks($num)
    {
       global $db;
-      $sql = "SELECT songhistory.songid, UNIX_TIMESTAMP(songhistory.start) as `time`, streamer.name as dj, shows.name as `show`,songhistory.artist,songhistory.title,mounts.shortname,l.listener FROM (SELECT sh.songid,lh.mountid,count(*) as listener from listenerhistory as lh, songhistory as sh
+      $sql = "SELECT songhistory.song, UNIX_TIMESTAMP(songhistory.start) as `time`, streamer.name as dj, shows.name as `show`,songhistory.artist,songhistory.title,mounts.shortname,l.listener FROM (SELECT sh.songid,lh.mountid,count(*) as listener from listenerhistory as lh, songhistory as sh
 WHERE
 (lh.connected < sh.start AND ( lh.disconnected IS NULL OR lh.disconnected BETWEEN sh.start AND sh.end))
 OR
 (lh.connected BETWEEN sh.start AND sh.end AND (lh.disconnected IS NULL OR lh.disconnected >= sh.end ))
 OR
 (lh.connected <= sh.start AND lh.disconnected >= sh.end)
-group by songid,mountid) as l RIGHT JOIN songhistory using (songid) 
+group by song,mountid) as l RIGHT JOIN songhistory using (song) 
 LEFT JOIN mounts using (mountid)
 JOIN streamer using (userid)
 JOIN shows using (showid)
 
-ORDER BY songid DESC
+ORDER BY song DESC
 LIMIT $num;";
       if (!$result = $db->query($sql))
          error_database($db);
@@ -99,8 +99,8 @@ LIMIT $num;";
       $tracks = array();
       while($row = $db->fetch($result))
       {
-        if(is_array($tracks[$row['songid']])){
-            $tracks[$row['songid']]['listeners'][$row['shortname']] += (int)$row['listener'];
+        if(is_array($tracks[$row['song']])){
+            $tracks[$row['song']]['listeners'][$row['shortname']] += (int)$row['listener'];
         }else{
             $temp = array();
             $temp['time'] = (int)$row['time'];
@@ -111,7 +111,7 @@ LIMIT $num;";
             $temp['listeners']['mp3'] = 0;
             $temp['listeners']['ogg'] = 0;
             $temp['listeners'][$row['shortname']] += (int)$row['listener'];
-            $tracks[$row['songid']] = $temp;
+            $tracks[$row['song']] = $temp;
         }
          
       }

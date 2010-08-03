@@ -2,7 +2,7 @@
 require_once('../lib/common-web.inc.php');
 $template = array();
 
-$sql = "SELECT mount,description,count FROM (SELECT count(*) as count,mountid FROM listenerhistory WHERE disconnected IS NULL group by mountid) as l RIGHT JOIN mounts USING ( mountid)";
+$sql = "SELECT mount,description,count FROM (SELECT count(*) as count,mount FROM listenerhistory WHERE disconnected IS NULL group by mount) as l RIGHT JOIN mounts USING ( mount)";
 $result = $db->query($sql);
 $streams = array();
 while($row = $db->fetch($result)){
@@ -12,13 +12,13 @@ while($row = $db->fetch($result)){
     $streams[] = $row;
 }
 $template['streams'] = $streams;
-$sql = "SELECT userid,username FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
+$sql = "SELECT streamer,username FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
 $result = $db->query($sql);
 if($db->num_rows($result) > 0){
 	$template['streaming'] = true;
 	$streamerinfo = $db->fetch($result);
 	$template['streamerinfo'] = $streamerinfo;
-	$sql = "SELECT showid,name,begin,end,showtype FROM shows WHERE userid = ".$streamerinfo['userid']. " AND (NOW() BETWEEN begin AND end OR end IS NULL) LIMIT 1;";
+	$sql = "SELECT show,name,begin,end,showtype FROM shows WHERE userid = ".$streamerinfo['streamer']. " AND (NOW() BETWEEN begin AND end OR end IS NULL) LIMIT 1;";
 	$result = $db->query($sql);
 	$show = $db->fetch($result);
 	$template['show'] = $show;

@@ -29,19 +29,19 @@ class User{
 	function login($username, $password){
 		global $db;
 		$db->debugquery = false;
-		$sql="SELECT userid,username
+		$sql="SELECT streamer,username
    			  FROM streamer
     		  WHERE username='".$db->escape($username)."' AND password=SHA1('".$db->escape($password)."')
     		  LIMIT 1";
     	$result= $db->query($sql);
 	    if ( $db->num_rows($result) == 1) {
         	$user = $db->fetch($result);
-        	$this->userid = $user['userid'];
+        	$this->userid = $user['streamer'];
         	$this->username = $user['username'];
 			$this->logged_in = true;
 		    $sql="UPDATE streamer
     			  SET session='".session_id()."'
-		    	  WHERE userid='".$this->userid."'";
+		    	  WHERE streamer='".$this->userid."'";
 			$db->execute($sql);
     	}
     	else{
@@ -52,14 +52,14 @@ class User{
 	function logged_in()
 	{
 		global $db;
-		$sql="SELECT userid,username
+		$sql="SELECT streamer,username
 		FROM streamer
 		WHERE session='".session_id()."'
 		LIMIT 1";
 		$result = $db->query($sql);
 		if($db->num_rows($result) == 1 ){
 			$user = $db->fetch($result);
-			$this->userid = $user['userid'];
+			$this->userid = $user['streamer'];
 			$this->username = $user['username'];
 			$this->logged_in = true;
 			return true;
@@ -105,8 +105,8 @@ class User{
 	function register($username,$password){
         global $db;
         if(strpos($username,'|') === false){
-            $sql = "INSERT INTO streamer (registertime,username,password,name,defaultshowname)
-                    VALUES (NOW(),'".$db->escape($username)."',SHA('".$db->escape($password)."'),'".$db->escape($username)."','".$db->escape($username)."')";
+            $sql = "INSERT INTO streamer (registertime,username,password)
+                    VALUES (NOW(),'".$db->escape($username)."',SHA('".$db->escape($password)."'))";
             if($db->execute($sql)){
                 $this->userid = $db->insert_id();
                 return 0;
@@ -120,7 +120,7 @@ class User{
     
     function set_streampassword($streampassword){
         global $db;
-        $sql = "UPDATE streamer SET streampassword = '".$db->escape($streampassword)."' WHERE userid = ".$this->userid." LIMIT 1;";
+        $sql = "UPDATE streamer SET streampassword = '".$db->escape($streampassword)."' WHERE streamer = ".$this->userid." LIMIT 1;";
         return $db->execute($sql);
     }
     

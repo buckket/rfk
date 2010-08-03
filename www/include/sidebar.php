@@ -2,12 +2,10 @@
 $sql = "SELECT count(*) as count FROM streamer";
 $result = $db->query($sql);
 $usercount = $db->fetch($result);
-if(is_array($template)){
-	$template['sb_streamercount'] = $usercount['count'];
-}else{
-	$template->assign('sb_streamercount',$usercount['count']);
-}
-$sql = "SELECT songid,artist,title FROM songhistory ORDER BY songid desc LIMIT 10;";
+
+$template['sb_streamercount'] = $usercount['count'];
+
+$sql = "SELECT song,artist,title FROM songhistory ORDER BY song desc LIMIT 10;";
 $result = $db->query($sql);
 $songs = array();
 if($db->num_rows($result)){
@@ -20,25 +18,18 @@ if($db->num_rows($result)){
 		$songdata['song'] = trim(substr($songdata['song'], 0, 32));
 		$songdata['short'] = 1;
 	} 
-	$songdata['id'] = $song['songid'];
+	$songdata['id'] = $song['song'];
 	$songs[] = $songdata;
     }
 }
-//TODO remove beilpuz code
-if(is_array($template)){
-	$template['sb_songlist'] = $songs;
-}else{
-	$template->assign('sb_songlist',$songs);
-}
-$sql = "SELECT userid,username FROM streamer ORDER BY userid desc LIMIT 5;";
+
+$template['sb_songlist'] = $songs;
+
+$sql = "SELECT streamer,username FROM streamer ORDER BY streamer desc LIMIT 5;";
 $result = $db->query($sql);
 $streamers = array();
 while($streamer = $db->fetch($result)){
     $streamers[] = $streamer;
 }
-if(is_array($template)){
-	$template['sb_streamer'] = $streamers;
-}else{
-	$template->assign('sb_streamer',$streamers);
-}
+$template['sb_streamer'] = $streamers;
 ?>

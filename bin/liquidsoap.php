@@ -32,11 +32,11 @@ switch($mode){
 function handleAuth($username,$password){
     global $db;
     fixSimpleClientAuth($username,$password);
-    $sql = "SELECT userid FROM streamer WHERE username = '".$db->escape($username)."' AND streampassword = '".$db->escape($password)."' LIMIT 1;";
+    $sql = "SELECT streamer FROM streamer WHERE username = '".$db->escape($username)."' AND streampassword = '".$db->escape($password)."' LIMIT 1;";
     $result = $db->query($sql);
     if($db->num_rows($result) > 0 ){
         $user = $db->fetch($result);
-        $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE userid = '".$user['userid']."' AND status = 'NOT_CONNECTED';";
+        $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE streamer = '".$user['userid']."' AND status = 'NOT_CONNECTED';";
         $db->execute($sql);
         return true;
     }else{
@@ -83,7 +83,7 @@ function handleMetaData($metadata){
         $songinfo['show'] = checkShow($songinfo['dj']);
         $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
         $db->execute($sql);
-        $sql = "INSERT INTO songhistory (start,artist,title,userid,showid) VALUES (NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."','".$db->escape($songinfo['dj'])."','".$db->escape($songinfo['show'])."')";
+        $sql = "INSERT INTO songhistory (begin,artist,title,show) VALUES (NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."','".$db->escape($songinfo['dj'])."','".$db->escape($songinfo['show'])."')";
         $db->execute($sql);
     }    
 }
@@ -102,22 +102,22 @@ function getUserID(){
 
 function checkShow($userid){
     global $db;
-    $sql = "SELECT * FROM shows WHERE showtype = 'PLANNED' AND NOW() BETWEEN begin AND end AND userid = $userid;";
+    $sql = "SELECT * FROM shows WHERE showtype = 'PLANNED' AND NOW() BETWEEN begin AND end AND streamer = $userid;";
     $result = $db->query($sql);
     if($db->num_rows($result) > 0){
         $show = $db->fetch($result);
         $sql = "UPDATE shows SET end = NOW() WHERE showtype = 'UNPLANNED' AND end IS NULL;";
         $db->execute($sql);
-        return $show['showid'];
+        return $show['show'];
     }
-    $sql = "SELECT * FROM shows WHERE showtype = 'UNPLANNED' AND end IS NULL AND userid = $userid;";
+    $sql = "SELECT * FROM shows WHERE type = 'UNPLANNED' AND end IS NULL AND streamer = $userid;";
     $result = $db->query($sql);
     if($db->num_rows($result) > 0){
         $show = $db->fetch($result);
-        return $show['showid'];
+        return $show['show'];
     }else{
-        $sql = "INSERT INTO shows (userid,name,description,begin,end,showtype)
-                SELECT $userid,defaultshowname,'',NOW(),NULL,'UNPLANNED' FROM streamer WHERE userid = $userid;";
+        $sql = "INSERT INTO shows (streamer,name,description,begin,end,type)
+                SELECT $userid,defaultshowname,'',NOW(),NULL,'UNPLANNED' FROM streamer WHERE streamer = $userid;";
         $db->execute($sql);
         return $db->insert_id();
     }
