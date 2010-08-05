@@ -1,0 +1,105 @@
+2010/08/05 19:11:23 >>> LOG START
+2010/08/05 19:11:23 [protocols.external:3] Didn't find "ufetch"
+2010/08/05 19:11:23 [protocols.external:3] Found "/usr/bin/wget"
+2010/08/05 19:11:23 [main:3] Liquidsoap 0.9.2
+2010/08/05 19:11:23 [harbor:3] Adding mountpoint '/live.ogg' to list...
+2010/08/05 19:11:23 [threads:3] Created thread "non-blocking queue #1".
+2010/08/05 19:11:23 [threads:3] Created thread "generic queue #1".
+2010/08/05 19:11:23 [threads:3] Created thread "root" (1 total).
+2010/08/05 19:11:23 [root:3] Waking up active nodes...
+2010/08/05 19:11:23 [playlist(dot)php:3] Loading playlist...
+2010/08/05 19:11:27 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/05 19:11:28 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/05 19:11:28 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/05 19:11:28 [root:3] Broadcast starts up!
+2010/08/05 19:11:28 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 19:11:28 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 1).
+2010/08/05 19:11:28 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/05 19:11:28 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@192.168.2.101...
+2010/08/05 19:11:28 [output(dot)icecast(dot)lame:2] Connection failed: 401, Authentication Required (HTTP/1.0)
+2010/08/05 19:11:28 [output(dot)icecast(dot)lame:3] Connection failed, will try again in 3 sec.
+2010/08/05 19:11:28 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 19:11:28 [src_5197:3] Switch to src_5193.
+2010/08/05 19:11:29 [root:2] We must catchup 1.01 seconds!
+2010/08/05 19:11:32 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@192.168.2.101...
+2010/08/05 19:11:32 [output(dot)icecast(dot)lame:2] Connection failed: 401, Authentication Required (HTTP/1.0)
+2010/08/05 19:11:32 [output(dot)icecast(dot)lame:3] Connection failed, will try again in 3 sec.
+2010/08/05 19:11:32 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 19:11:36 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@192.168.2.101...
+2010/08/05 19:11:36 [output(dot)icecast(dot)lame:2] Connection failed: 401, Authentication Required (HTTP/1.0)
+2010/08/05 19:11:36 [output(dot)icecast(dot)lame:3] Connection failed, will try again in 3 sec.
+2010/08/05 19:11:36 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 19:11:37 [main:3] Shutdown started!
+2010/08/05 19:11:37 [main:3] Waiting for threads to terminate...
+2010/08/05 19:11:37 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/05 19:11:37 [root:3] Shutting down sources...
+2010/08/05 19:11:37 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 19:11:37 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 19:11:37 [threads:3] Thread "root" exited (0 remaining).
+2010/08/05 19:11:37 [main:3] Cleaning downloaded files...
+2010/08/05 19:11:37 >>> LOG END
+2010/08/05 19:12:00 >>> LOG START
+2010/08/05 19:11:59 [protocols.external:3] Didn't find "ufetch"
+2010/08/05 19:11:59 [protocols.external:3] Found "/usr/bin/wget"
+2010/08/05 19:12:00 [main:3] Liquidsoap 0.9.2
+2010/08/05 19:12:00 [harbor:3] Adding mountpoint '/live.ogg' to list...
+2010/08/05 19:12:00 [threads:3] Created thread "non-blocking queue #1".
+2010/08/05 19:12:00 [threads:3] Created thread "generic queue #1".
+2010/08/05 19:12:00 [threads:3] Created thread "root" (1 total).
+2010/08/05 19:12:00 [root:3] Waking up active nodes...
+2010/08/05 19:12:00 [playlist(dot)php:3] Loading playlist...
+2010/08/05 19:12:01 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/05 19:12:02 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/05 19:12:02 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/05 19:12:02 [root:3] Broadcast starts up!
+2010/08/05 19:12:02 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 19:12:02 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 1).
+2010/08/05 19:12:02 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/05 19:12:02 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@192.168.2.101...
+2010/08/05 19:12:03 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 19:12:03 [src_5197:3] Switch to src_5193.
+2010/08/05 19:12:04 [root:2] We must catchup 1.93 seconds!
+2010/08/05 19:19:36 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 19:19:46 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 19:19:46 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 2).
+2010/08/05 19:21:13 [root:2] We must catchup 1.29 seconds!
+2010/08/05 19:21:14 [root:2] We must catchup 1.76 seconds!
+2010/08/05 19:25:34 [root:2] We must catchup 1.06 seconds!
+2010/08/05 19:25:35 [root:2] We must catchup 1.55 seconds!
+2010/08/05 19:25:37 [root:2] We must catchup 1.34 seconds!
+2010/08/05 19:25:38 [root:2] We must catchup 1.18 seconds!
+2010/08/05 19:27:20 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 19:27:30 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 19:27:30 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 3).
+2010/08/05 19:27:31 [root:2] We must catchup 1.22 seconds!
+2010/08/05 19:34:05 [main:3] Shutdown started!
+2010/08/05 19:34:05 [main:3] Waiting for threads to terminate...
+2010/08/05 19:34:05 [root:3] Shutting down sources...
+2010/08/05 19:34:05 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 19:34:05 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 19:34:05 [threads:3] Thread "root" exited (0 remaining).
+2010/08/05 19:34:06 [main:3] Cleaning downloaded files...
+2010/08/05 19:34:06 >>> LOG END
+2010/08/05 20:03:18 >>> LOG START
+2010/08/05 20:03:17 [protocols.external:3] Didn't find "ufetch"
+2010/08/05 20:03:17 [protocols.external:3] Found "/usr/bin/wget"
+2010/08/05 20:03:18 [main:3] Liquidsoap 0.9.2
+2010/08/05 20:03:18 [harbor:3] Adding mountpoint '/live.ogg' to list...
+2010/08/05 20:03:18 [threads:3] Created thread "non-blocking queue #1".
+2010/08/05 20:03:18 [threads:3] Created thread "generic queue #1".
+2010/08/05 20:03:18 [threads:3] Created thread "root" (1 total).
+2010/08/05 20:03:18 [root:3] Waking up active nodes...
+2010/08/05 20:03:18 [playlist(dot)php:3] Loading playlist...
+2010/08/05 20:03:24 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/05 20:03:24 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/05 20:03:24 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/05 20:03:24 [root:3] Broadcast starts up!
+2010/08/05 20:03:24 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 20:03:25 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 1).
+2010/08/05 20:03:25 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/05 20:03:26 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/05 20:03:26 [src_5195:3] Switch to src_5191.
+2010/08/05 20:03:27 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/05 20:03:27 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:03:27 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:03:28 [root:2] We must catchup 2.97 seconds!
