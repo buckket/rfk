@@ -14,20 +14,18 @@ $result = $db->query($sql);
 $mountid = -1;
 if($db->num_rows($result) > 0) {
     $row = $db->fetch($result);
-    $mountid = $row['mountid'];
-}else{
-    $sql = "INSERT INTO mounts (path) VALUES ('".$db->escape($_POST['mount'])."');";
-    $db->query($sql);
-    $mountid = $db->insert_id();
+    $mountid = $row['mount'];
 }
+if(!($mountid > 0))
+    header('icecast-auth-user: 0');
 
 if($_POST['action'] === 'mount_add'){
     $sql = "UNLOCK TABLES;";
-    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected IS NULL AND mountid = $mountid";
+    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected IS NULL AND mount = $mountid";
     $db->execute($sql);
 }else if($_POST['action'] === 'mount_remove'){
     //TODO stub (just do the same as in add)
-    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected = NULL AND mountid = $mountid";
+    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected = NULL AND mount = $mountid";
     $db->execute($sql);
 }else if($_POST['action'] === 'listener_add'){
     $sql = "UNLOCK TABLES;";
