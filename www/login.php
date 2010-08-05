@@ -1,10 +1,12 @@
 <?php
 require_once('../lib/common-web.inc.php');
-$template = new BpTemplate('login.html');
+$template = array();
+include('include/sidebar.php');
 include('include/listenercount.php');
-cleanup($template);
-$template->assign('section', "login");
-$template->assign('PAGETITLE', "Einloggen");
-echo $template->render();
+$template['section'] = "login";
+$template['PAGETITLE'] = "Einloggen";
+cleanup_h2o($template);
+$h2o = new H2o('login.html',$h2osettings);
+echo $h2o->render($template);
 
 ?>

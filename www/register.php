@@ -1,12 +1,12 @@
 <?php
+$template = array();
 require_once('../lib/common-web.inc.php');
-$template = new BpTemplate('register.html');
 include('include/listenercount.php');
 
-$template->assign('section', "register");
-$template->assign('PAGETITLE', "Registrieren");
+$template['section'] = "register";
+$template['PAGETITLE'] = "Registrieren";
 
-if($_POST['action'] == 'register'){
+if(isset($_POST['action']) && $_POST['action'] == 'register'){
     $err = false;
     if($_POST['password'] != $_POST['password2']){
         $_MSG['err'][] = 'Die Passwörter stimmen nicht überein';
@@ -24,11 +24,12 @@ if($_POST['action'] == 'register'){
             $_MSG['err'][] = 'Fehler beim registrieren';
         }
     }else{
-        $template->assign('username',$_POST['username']);
-        $template->assign('streampassword',$_POST['streampassword']);
+        $template['username'] = $_POST['username'];
+        $template['streampassword'] = $_POST['streampassword'];
     }
 }
 
-cleanup($template);
-echo $template->render();
+cleanup_h2o($template);
+$h2o = new H2o('register.html',$h2osettings);
+echo $h2o->render($template);
 ?>

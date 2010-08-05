@@ -2,23 +2,22 @@
 require_once('../lib/common-web.inc.php');
 $date =time();
 $day = date('j', $date) ;
-if(isset($_GET['month']) && $_GET['month'] > 0 && $_GET['month'] <13) 
+if(isset($_GET['month']) && $_GET['month'] > 0 && $_GET['month'] <13)
    $month = $_GET['month'];
 else{
    $month = date('m', $date);
 }
-if(isset($_GET['year']) && $_GET['year'] > 0 && $_GET['year'] <9999) 
+if(isset($_GET['year']) && $_GET['year'] > 0 && $_GET['year'] <9999)
    $year = $_GET['year'];
 else{
    $year = date('Y', $date) ;
 }
 if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 	//weekview
-	$template = new BpTemplate('broadcasts-week.html');
 	$currweek = strtotime($_GET['year']."W".$_GET['week']);
 	$nextweek = strtotime("+1 week",$currweek);
 	$prevweek = strtotime("-1 week",$currweek);
-	$sql = "SELECT showid,userid,name,showtype,UNIX_TIMESTAMP(begin) as begin, UNIX_TIMESTAMP(IF(end IS NULL,NOW(),end)) as end FROM shows WHERE begin between FROM_UNIXTIME($currweek) AND FROM_UNIXTIME($nextweek) OR end between FROM_UNIXTIME($currweek) AND FROM_UNIXTIME($nextweek) ORDER BY begin asc;";
+	$sql = "SELECT `show`,streamer,name,type,UNIX_TIMESTAMP(begin) as begin, UNIX_TIMESTAMP(IF(end IS NULL,NOW(),end)) as end FROM shows WHERE begin between FROM_UNIXTIME($currweek) AND FROM_UNIXTIME($nextweek) OR end between FROM_UNIXTIME($currweek) AND FROM_UNIXTIME($nextweek) ORDER BY begin asc;";
 	$result = $db->query($sql);
 	$shows = array();
 	//put showdata into an array
@@ -71,7 +70,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 		for($h = 0; $h < 48; $h++){
 			if(!isset($shows[$wd][$h]) || !is_array($shows[$wd][$h])){
 				$shows[$wd][$h] = array('type' => 'FREE', 'begin' => $h,'end' => $h+1,'length' => 1,'name' => ' ', 'id' => 'free'.$h.$wd);
-				
+
 			}else{
 				for($s = 1;$s < $shows[$wd][$h]['length'];$s++){
 					$shows[$wd][$h+$s] = array('type' => 'SKIP', 'begin' => $h+$s,'end' => $h+$s+1,'length' => 1);
@@ -107,10 +106,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 	exit();
 }else{
 	//month overview
-	//template
-	$template = new BpTemplate('broadcasts.html');
-	
-	$first_day = mktime(0,0,0,$month, 1, $year); 
+	$first_day = mktime(0,0,0,$month, 1, $year);
 	$day_of_week = convMonToSun(date('w', $first_day));
 	$last_day = mktime(0,0,0,$month, date('t', $first_day), $year);
 	$last_day_of_week = convMonToSun(date('w', $last_day));
@@ -156,15 +152,18 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 			$calendar[$week][$last_day_of_week+$d]['shows'] = getShows($calendar[$week][$last_day_of_week+$d]['day'],$calendar[$week][$last_day_of_week+$d]['month'],$calendar[$week][$d]['year']);
 		}
 	}
-	$template->assign('calendar',$calendar);
-	$template->assign('year',$year);
-	$template->assign('monthname',getMonth($month));
+	$template = array();
+	include('include/listenercount.php');
+    $template['calendar'] = $calendar;
+    $template['year'] = $year;
+    $template['monthname'] = getMonth($month);
+    $template['section'] = "broadcasts";
+    $template['PAGETITLE'] = "Sende&uuml;bersicht";
+	cleanup_h2o($template);
+    $h2o = new H2o('broadcasts.html',$h2osettings);
+    echo $h2o->render($template);
 }
-include('include/listenercount.php');
-cleanup($template);
-$template->assign('section', "broadcasts");
-$template->assign('PAGETITLE', "Sende&uuml;bersicht");
-echo $template->render();
+
 
 
 
@@ -172,7 +171,7 @@ function getShows($day,$month,$year){
 	global $db;
     $sql = "SELECT count(*) as count FROM shows WHERE DATE(begin) = DATE('".$db->escape($year)."-".$db->escape($month)."-".$db->escape($day)."')";
 	$result = $db->fetch($db->query($sql));
-	return $result['count'];	
+	return $result['count'];
 }
 
 function convMonToSun($dow){
@@ -187,7 +186,7 @@ function getMonth($month){
         case 1:
             return 'Januar';
         case 2:
-            return 'Februar';   
+            return 'Februar';
         case 3:
             return 'M&auml;rz';
         case 4:
@@ -212,13 +211,13 @@ function getMonth($month){
 }
 /**
  * Recusive alternative to ksort
- * 
+ *
  * @author    Kevin van Zonneveld <kevin@vanzonneveld.net>
  * @copyright 2008 Kevin van Zonneveld (http://kevin.vanzonneveld.net)
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD Licence
  * @version   SVN: Release: $Id: ksortTree.inc.php 223 2009-01-25 13:35:12Z kevin $
  * @link      http://kevin.vanzonneveld.net/
- * 
+ *
  * @param array $array
  */
 function aZ($num){
@@ -232,7 +231,7 @@ function ksortTree( &$array )
     if (!is_array($array)) {
         return false;
     }
-    
+
     ksort($array);
     foreach ($array as $k=>$v) {
         ksortTree($array[$k]);

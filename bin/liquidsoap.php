@@ -36,7 +36,7 @@ function handleAuth($username,$password){
     $result = $db->query($sql);
     if($db->num_rows($result) > 0 ){
         $user = $db->fetch($result);
-        $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE streamer = '".$user['userid']."' AND status = 'NOT_CONNECTED';";
+        $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE streamer = '".$user['streamer']."' AND status = 'NOT_CONNECTED';";
         $db->execute($sql);
         return true;
     }else{
@@ -46,13 +46,24 @@ function handleAuth($username,$password){
 
 function handleConnect($data){
     global $db;
+    $sql = "LOCK TABLES streamer WRITE;";
+    $db->execute($sql);
     $meta = serializedToArray($data);
     list($authtype, $authcred) = split(" ", $meta['authorization'], 2);
     list($username, $password) = split(":", base64_decode($authcred) , 2);
     fixSimpleClientAuth($username,$password);
-    $sql = "UPDATE streamer SET status = 'STREAMING' WHERE status = 'LOGGED_IN' AND username = '".$db->escape($username)."' AND streampassword = '".$db->escape($password)."' LIMIT 1;";
+    $sql = "UPDATE streamer
+            SET status = 'STREAMING'
+            WHERE status = 'LOGGED_IN'
+            AND username = '".$db->escape($username)."'
+            AND streampassword = '".$db->escape($password)."'
+            LIMIT 1;";
     $db->execute($sql);
-    $sql = "UPDATE streamer SET status = 'NOT_CONNECTED' WHERE status = 'LOGGED_IN';";
+    $sql = "UPDATE streamer
+            SET status = 'NOT_CONNECTED'
+            WHERE status = 'LOGGED_IN';";
+    $db->execute($sql);
+    $sql = "UNLOCK TABLES;";
     $db->execute($sql);
 }
 
@@ -79,13 +90,12 @@ function handleMetaData($metadata){
             $songinfo['artist'] = $meta['artist'];
             $songinfo['title'] = $meta['title'];
         }
-        $songinfo['dj'] = getUserID();
-        $songinfo['show'] = checkShow($songinfo['dj']);
+        $songinfo['show'] = checkShow(getUserID());
         $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
         $db->execute($sql);
-        $sql = "INSERT INTO songhistory (begin,artist,title,show) VALUES (NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."','".$db->escape($songinfo['dj'])."','".$db->escape($songinfo['show'])."')";
+        $sql = "INSERT INTO songhistory (start,artist,title,userid) VALUES (NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."','".$db->escape($songinfo['dj'])."','".$db->escape($songinfo['show'])."')";
         $db->execute($sql);
-    }    
+    }
 }
 
 function getUserID(){
@@ -100,24 +110,37 @@ function getUserID(){
     return $userid;
 }
 
-function checkShow($userid){
+function checkShow(){
     global $db;
-    $sql = "SELECT * FROM shows WHERE showtype = 'PLANNED' AND NOW() BETWEEN begin AND end AND streamer = $userid;";
+    $sql = "SELECT show, type
+            FROM streamer JOIN shows USING ( streamer )
+            WHERE streamer.status = 'STREAMING'
+            AND (shows.end IS NULL
+                 OR NOW() BETWEEN shows.begin AND shows.end)";
     $result = $db->query($sql);
     if($db->num_rows($result) > 0){
-        $show = $db->fetch($result);
-        $sql = "UPDATE shows SET end = NOW() WHERE showtype = 'UNPLANNED' AND end IS NULL;";
-        $db->execute($sql);
-        return $show['show'];
-    }
-    $sql = "SELECT * FROM shows WHERE type = 'UNPLANNED' AND end IS NULL AND streamer = $userid;";
-    $result = $db->query($sql);
-    if($db->num_rows($result) > 0){
-        $show = $db->fetch($result);
-        return $show['show'];
-    }else{
-        $sql = "INSERT INTO shows (streamer,name,description,begin,end,type)
-                SELECT $userid,defaultshowname,'',NOW(),NULL,'UNPLANNED' FROM streamer WHERE streamer = $userid;";
+        $stype = '';
+        $pshowid = false;
+        while( $show = $db->fetch($result) ){
+            if(($show['type'] == 'PLANNED' && $stype == 'UNPLANNED') ||
+               ($show['type'] == 'UNPLANNED' && $stype == 'PLANNED')) {
+                //end existing unplanned show
+                $sql = "UPDATE shows SET end = NOW() WHERE showtype = 'UNPLANNED' AND end IS NULL;";
+                $db->execute($sql);
+            }
+            if ($stype != $show['type']) {
+                $stype = $show['type'];
+            }
+            if( $show['type'] == 'PLANNED' ) {
+                $pshowid = $show['id'];
+            }
+        }
+        return $pshowid;
+    } else {
+        $sql = "INSERT INTO shows (userid,name,description,begin,end,showtype)
+                    SELECT $userid,defaultshowname,'',NOW(),NULL,'UNPLANNED'
+                    FROM streamer
+                    WHERE userid = $userid;";
         $db->execute($sql);
         return $db->insert_id();
     }

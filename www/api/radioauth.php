@@ -5,18 +5,18 @@ $db->execute($sql);
 /**
  * GET THE MOUNTID
  */
- if(strlen($_POST['mount']) == 0)
+ if(isset($_POST['mount']) && strlen($_POST['mount']) == 0)
  {
     die('no mountpoint given');
  }
-$sql = "SELECT mountid FROM mounts WHERE mount='".$db->escape($_POST['mount'])."' LIMIT 1;";
+$sql = "SELECT mount FROM mounts WHERE path='".$db->escape($_POST['mount'])."' LIMIT 1;";
 $result = $db->query($sql);
 $mountid = -1;
 if($db->num_rows($result) > 0) {
     $row = $db->fetch($result);
     $mountid = $row['mountid'];
 }else{
-    $sql = "INSERT INTO mounts (mount) VALUES ('".$db->escape($_POST['mount'])."');";
+    $sql = "INSERT INTO mounts (path) VALUES ('".$db->escape($_POST['mount'])."');";
     $db->query($sql);
     $mountid = $db->insert_id();
 }
@@ -31,12 +31,12 @@ if($_POST['action'] === 'mount_add'){
     $db->execute($sql);
 }else if($_POST['action'] === 'listener_add'){
     $sql = "UNLOCK TABLES;";
-    $sql = "INSERT INTO listenerhistory (mountid,client,ip,connected,disconnected,useragent)
+    $sql = "INSERT INTO listenerhistory (mount,client,ip,connected,disconnected,useragent)
             VALUES($mountid,'".$db->escape($_POST['client'])."',INET_ATON('".$db->escape($_POST['ip'])."'),NOW(),NULL,'".$db->escape($_POST['agent'])."');";
     $db->execute($sql);
 }else if($_POST['action'] === 'listener_remove'){
     $sql = "UNLOCK TABLES;";
-    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE mountid=$mountid AND disconnected IS NULL AND client = '".$db->escape($_POST['client'])."' LIMIT 1;";
+    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE mount=$mountid AND disconnected IS NULL AND client = '".$db->escape($_POST['client'])."' LIMIT 1;";
     $db->execute($sql);
 }
 

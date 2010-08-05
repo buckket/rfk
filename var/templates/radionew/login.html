@@ -1,4 +1,5 @@
-<bp:include template="header.html" shared_values="true"/>
+{% extends "sidebar.html" %}
+{% block content %}
 <p>
 <form method="POST">
 <table>
@@ -9,4 +10,4 @@
 <input type="hidden" name="login" value="true" />
 </form>
 </p>
-<bp:include template="footer.html" shared_values="true"/>
+{% endblock %}

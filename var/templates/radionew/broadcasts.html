@@ -1,0 +1,30 @@
+{% extends "broadcasts-sb.html"%}
+{% block content %}
+<h2>Programmplan</h2>
+<table width="100%">
+    <tr>
+        <td colspan=8 class="calendar-head">{{ monthname }}&nbsp;{{ year }}</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td width="13%">Montag</td>
+        <td width="13%">Dienstag</td>
+        <td width="13%">Mittwoch</td>
+        <td width="13%">Donnerstag</td>
+        <td width="13%">Freitag</td>
+        <td width="13%">Samstag</td>
+        <td width="13%">Sonntag</td>
+    </tr>
+    {% for weeknum, week in calendar %}
+    <tr height="50">
+        <td><a href="broadcasts.php?week={{ weeknum }}&year={{ year}}">{{ weeknum }}</a></td>
+        {% for daynum, day in week %}
+        <td class="{% if day.thismonth == 'true' %}day-thismonth{% endif %}{% if day.thismonth != 'true' %}day{% endif %}">
+        {{ day.day }}
+        <div>{{ day.shows }}</div>
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

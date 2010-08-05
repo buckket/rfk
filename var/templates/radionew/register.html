@@ -1,15 +1,16 @@
-<bp:include template="header.html" shared_values="true"/>
+{% extends "base.html" %}
+{% block content %}
 <h2>Registrieren</h2>
 <div class="register">
 <form method="POST">
 <table>
-<tr><td>Benutzername</td><td><input name="username" value="<bp:$username/>" /></td></tr>
+<tr><td>Benutzername</td><td><input name="username" value="{{ username }}" /></td></tr>
 <tr><td>Passwort</td><td><input type="password" name="password" /></td></tr>
 <tr><td>Passwort (wdh)</td><td><input type="password" name="password2" /></td></tr>
-<tr><td>Strömpasswort<td><input name="streampassword" value="<bp:$streampassword/>" /></td></tr>
+<tr><td>Str&ouml;mpasswort<td><input name="streampassword" value="{{ streampassword }}" /></td></tr>
 </table>
 <input type="hidden" name="action" value="register" />
 <input type="submit" value="registrieren" />
 </form>
 </div>
-<bp:include template="footer.html" shared_values="true"/>
+{% endblock %}
