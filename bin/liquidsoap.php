@@ -19,7 +19,7 @@ switch($mode){
     case 'disconnect':
         $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
         $db->execute($sql);
-        $sql = "UPDATE shows SET end = NOW() WHERE showtype = 'UNPLANNED' AND end IS NULL;";
+        $sql = "UPDATE shows SET end = NOW() WHERE type = 'UNPLANNED' AND end IS NULL;";
         $db->execute($sql);
         $sql = "UPDATE streamer SET status = 'NOT_CONNECTED' WHERE status = 'STREAMING';";
         $db->execute($sql);
