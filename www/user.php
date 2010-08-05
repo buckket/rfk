@@ -1,13 +1,16 @@
 <?php
 require_once('../lib/common-web.inc.php');
 $template = array();
+if((!isset($_GET['u']) || strlen($_GET['u']) == 0) && $user->logged_in){
+    $_GET['u'] = $user->userid;
+}
 if(isset($_GET['u']) && $_GET['u'] > 0){
 	$userinfo = array();
-	$sql = "SELECT username,userid FROM streamer WHERE userid = ".$db->escape($_GET['u'])." LIMIT 1;";
+	$sql = "SELECT username,streamer FROM streamer WHERE streamer = ".$db->escape($_GET['u'])." LIMIT 1;";
 	$result = $db->query($sql);
 	if($row = $db->fetch($result)){
 		$userinfo['username'] = $row['username'];
-		$sql = "SELECT SUM(TIMESTAMPDIFF(SECOND,begin,end)) as length, count(*) as showcount from shows WHERE userid = ".$row['userid'];
+		$sql = "SELECT SUM(TIMESTAMPDIFF(SECOND,begin,end)) as length, count(*) as showcount from shows WHERE streamer = ".$row['streamer'];
 		$result = $db->query($sql);
 		if($row = $db->fetch($result)){
 			$time = calctime($row['length']);

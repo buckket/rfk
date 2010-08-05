@@ -8,7 +8,7 @@ block.super
 	<h3>Letzten 10 Songs</h3>
 		<ul>
 		{% for index, song in sb_songlist %}
-			<li><span title="{{ song.fullsong }}">{{ song.song }}{% if song.short == 1 %}<a href="/histroy.php?id={{ song.id }}">...</a>{% endif %}</span></li>
+			<li {% if song.nowplaying %}class="nowplaying"{% endif %}>{% if song.nowplaying %}np:&nbsp;{% endif %}<span title="{{ song.fullsong }}">{{ song.song }}{% if song.short == 1 %}<a href="/histroy.php?id={{ song.id }}">...</a>{% endif %}</span></li>
 		{% endfor %}
 		</ul></div>
 <div class='infoblock'>

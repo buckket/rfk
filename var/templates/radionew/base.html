@@ -52,6 +52,29 @@
         </ul>      
       </div>             
       <div id='content'>
+      {% if messages %}
+        {% if messages.info %}
+        <ul>
+            {% for message in messages.info %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if messages.warn %}
+        <ul>
+            {% for message in messages.warn %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if messages.error %}
+        <ul>
+            {% for message in messages.error %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+      {% endif %}
 {% block content %}
 <h2>Leere Seite</h2>
 <p>

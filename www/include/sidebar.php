@@ -5,21 +5,25 @@ $usercount = $db->fetch($result);
 
 $template['sb_streamercount'] = $usercount['count'];
 
-$sql = "SELECT song,artist,title FROM songhistory ORDER BY song desc LIMIT 10;";
+$sql = "SELECT song,artist,title,end FROM songhistory ORDER BY song desc LIMIT 10;";
 $result = $db->query($sql);
 $songs = array();
 if($db->num_rows($result)){
-    
+
     while($song = $db->fetch($result)){
-	$songdata['song'] = $song['artist'] . " - " . $song['title'];
-	$songdata['fullsong'] = $songdata['song'];	
-	$songdata['short'] = 0;
-        if (strlen($songdata['song']) > 35) {
-		$songdata['song'] = trim(substr($songdata['song'], 0, 32));
-		$songdata['short'] = 1;
-	} 
-	$songdata['id'] = $song['song'];
-	$songs[] = $songdata;
+        $songdata = array();
+    	$songdata['song'] = $song['artist'] . " - " . $song['title'];
+    	$songdata['fullsong'] = $songdata['song'];
+    	$songdata['short'] = 0;
+            if (strlen($songdata['song']) > 35) {
+    		$songdata['song'] = trim(substr($songdata['song'], 0, 32));
+    		$songdata['short'] = 1;
+    	}
+    	$songdata['id'] = $song['song'];
+    	if($song['end'] == ''){
+            $songdata['nowplaying'] = true;
+    	}
+    	$songs[] = $songdata;
     }
 }
 

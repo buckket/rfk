@@ -17,7 +17,7 @@ CREATE  TABLE IF NOT EXISTS `radio`.`streamer` (
   `streamer` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT ,
   `session` VARCHAR(32) NULL ,
   `username` VARCHAR(50) NULL ,
-  `password` CHAR(32) NULL ,
+  `password` CHAR(40) NULL ,
   `status` ENUM('NOT_CONNECTED','CONNECTED','STREAMING','LOGGED_IN') NULL DEFAULT 'NOT_CONNECTED' ,
   `streampassword` VARCHAR(50) NULL ,
   PRIMARY KEY (`streamer`) ,
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `radio`.`shows` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `radio`.`shows` (
-  `show` INT(11) UNSIGNED NOT NULL ,
+  `show` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT ,
   `streamer` INT(11) UNSIGNED NOT NULL ,
   `type` ENUM('PLANNED','UNPLANNED') NULL ,
   `begin` TIMESTAMP NOT NULL ,

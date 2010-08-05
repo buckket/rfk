@@ -12,7 +12,7 @@ class User{
 			if($_GET['logout'] === 'true'){
 				$this->logout();
 				$_MSG['msg'][] = "Erfolgreich abgemeldet!";
-			}					
+			}
 		}else if(isset($_POST['login']) && strlen($_POST['username']) != 0 && strlen($_POST['password']) != 0 ){
 			$this->login($_POST['username'],$_POST['password']);
 			if(!$this->logged_in){
@@ -43,8 +43,7 @@ class User{
     			  SET session='".session_id()."'
 		    	  WHERE streamer='".$this->userid."'";
 			$db->execute($sql);
-    	}
-    	else{
+    	}else{
 			$this->logged_in = false;
 		}
 		$db->debugquery = true;
@@ -80,7 +79,7 @@ class User{
 	function is_logged_in(){
 		return $this->logged_in;
 	}
-    
+
 	function get_userrights(){
 		global $db;
         /**
@@ -91,9 +90,9 @@ class User{
 		}
         **/
 	}
-	
+
 	function has_right($right){
-		return in_array($right,$this->rights);	
+		return in_array($right,$this->rights);
 	}
     /**
      *   TODO spamfilter
@@ -117,17 +116,17 @@ class User{
             return -1;
         }
     }
-    
+
     function set_streampassword($streampassword){
         global $db;
         $sql = "UPDATE streamer SET streampassword = '".$db->escape($streampassword)."' WHERE streamer = ".$this->userid." LIMIT 1;";
         return $db->execute($sql);
     }
-    
+
     function set_djname($djname){
         //TODO stub
     }
-    
+
     function set_showname($showname){
         //TODO stub
     }

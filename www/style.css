@@ -94,6 +94,9 @@ background-color:inherit;
 color: #ffffff;
 }
 
+li.nowplaying {
+	border: 1px solid #0099ff;
+}
 .userinfo {
 
 display:block;
