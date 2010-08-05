@@ -1,5 +1,5 @@
 #!/usr/bin/liquidsoap
-#set("log.file.path","/srv/radio/var/log/liquidsoap.log")
+set("log.file.path","/usr/share/rfk/var/log/liquidsoap.log")
 #set("log.stdout", false)
 #set("server.telnet", true)
 
@@ -43,23 +43,23 @@ def depair(data)
 end
 
 def auth(login,password) = 
-  ret = get_process_lines('php /srv/radio/bin/liquidsoap.php auth #{quote(login)} #{quote(password)}')
+  ret = get_process_lines('php /usr/share/rfk/bin/liquidsoap.php auth #{quote(login)} #{quote(password)}')
   ret = list.hd(ret)
   bool_of_string(ret)
 end
 
 def live_start(mdata)
   data = string.concat(separator=";", list.map(depair, mdata))
-  ignore(test_process("php /srv/radio/bin/liquidsoap.php connect #{quote(data)}"))
+  ignore(test_process("php /usr/share/rfk/bin/liquidsoap.php connect #{quote(data)}"))
 end
 
 def live_stop()
-  ignore(test_process("php /srv/radio/bin/liquidsoap.php disconnect"))
+  ignore(test_process("php /usr/share/rfk/bin/liquidsoap.php disconnect"))
 end
 
 def writemeta(mdata)
   mymeta = string.concat(separator=";", list.map(depair, mdata))
-  ignore(test_process('php /srv/radio/bin/liquidsoap.php meta #{quote(mymeta)}'))
+  ignore(test_process('php /usr/share/rfk/bin/liquidsoap.php meta #{quote(mymeta)}'))
 end
 
 def onfade(old, new)
@@ -73,19 +73,18 @@ end
 text = request.queue(id="bot")
 live = input.harbor(on_connect = live_start, on_disconnect = live_stop, buffer=0., max = 10., auth = auth, "/live.ogg")
 
-loop = single("/srv/radio/var/music/loop.ogg")
 playlist = playlist("http://localhost/rfk/api/playlist.php")
-#loop = rewrite_metadata([("title","Kein Stroembernd")], loop)
-#loop = rewrite_metadata([("artist","Radio freies Krautchan")], loop)
+playlist = rewrite_metadata([("title","Kein Stroembernd")], playlist)
+playlist = rewrite_metadata([("artist","Radio freies Krautchan")], playlist)
 
 live = on_metadata(writemeta , live)
-default = fallback( track_sensitive = false, transitions = [onfade, outfade], [text, loop] )
+#default = fallback( track_sensitive = false, transitions = [onfade, outfade], [text, loop] )
 full = fallback(track_sensitive=false,transitions=[crossfade],[live,playlist])
 
 lame = output.icecast.lame(
 restart=true,
 host="192.168.2.101",port=8000,protocol="http",
-user="source",password="muhmann",
+user="source",password="hackme",
 mount="radio.mp3",bitrate=192,
 url="radio.krautchan.net",public=false,
 restart_on_crash=true,
