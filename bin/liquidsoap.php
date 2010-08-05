@@ -164,6 +164,8 @@ function checkShow(){
                     break;
             }
         }
+        $sql = "UPDATE shows SET end = NOW() WHERE end IS NULL;";
+                $db->query($sql);
         $sql = "INSERT INTO shows (streamer, name, description, begin, type)
                 SELECT streamer, '".$db->escape($showname)."', '".$db->escape($showdescription)."', NOW(), 'UNPLANNED'
                 FROM streamer
