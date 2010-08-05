@@ -1,5 +1,5 @@
 set("log.file.path","/usr/share/rfk/var/log/liquidsoap.log")
-      set("log.stdout", false)
+      #set("log.stdout", false)
       set("server.telnet", true)
       set("harbor.bind_addr","192.168.2.101")
       set("harbor.port",8010)

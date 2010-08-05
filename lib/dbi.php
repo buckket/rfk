@@ -19,9 +19,9 @@ class DBI {
 		$result = $this->database->query($query);
 		if($this->database->errno){
 			if($this->debugquery){
-				error_log('[radioauth] '.$this->database->error.' [query] '.$query);
+				error_log('[dberror] '.$this->database->error.' [query] '.$query);
 			}else{
-				error_log('[radioauth] '.$this->database->errno);
+				error_log('[dberror] '.$this->database->errno);
 			}
 			return false;
 		}
@@ -29,22 +29,22 @@ class DBI {
 	}
 	function execute($query){
 		if($this->query($query)){
-			return true;		
+			return true;
 		}else{
 			return false;
 		}
 	}
 	function num_rows($result){
-		return $result->num_rows;	
+		return $result->num_rows;
 	}
 	function fetch($result){
-		return $result->fetch_assoc();	
+		return $result->fetch_assoc();
 	}
 	function close(){
-		$this->database->close();	
+		$this->database->close();
 	}
 	function insert_id(){
-		return $this->database->insert_id;	
+		return $this->database->insert_id;
 	}
 }
 

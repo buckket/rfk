@@ -103,3 +103,765 @@
 2010/08/05 20:03:27 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
 2010/08/05 20:03:27 [output(dot)icecast(dot)lame:3] Connection setup was successful.
 2010/08/05 20:03:28 [root:2] We must catchup 2.97 seconds!
+2010/08/05 20:05:13 [root:2] We must catchup 1.21 seconds!
+2010/08/05 20:05:14 [root:2] We must catchup 1.06 seconds!
+2010/08/05 20:09:54 [root:2] We must catchup 1.20 seconds!
+2010/08/05 20:09:55 [root:2] We must catchup 1.60 seconds!
+2010/08/05 20:10:00 [harbor:3] New client: NUKE
+2010/08/05 20:10:18 [harbor:3] SOURCE request on /live.ogg.
+2010/08/05 20:10:18 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'application/ogg'.
+2010/08/05 20:10:20 [root:2] We must catchup 1.17 seconds!
+2010/08/05 20:10:21 [root:2] We must catchup 1.06 seconds!
+2010/08/05 20:10:24 [root:2] We must catchup 1.05 seconds!
+2010/08/05 20:10:25 [root:2] We must catchup 1.31 seconds!
+2010/08/05 20:10:27 [root:2] We must catchup 2.75 seconds!
+2010/08/05 20:10:28 [root:2] We must catchup 3.26 seconds!
+2010/08/05 20:10:29 [root:2] We must catchup 3.60 seconds!
+2010/08/05 20:10:30 [root:2] We must catchup 2.22 seconds!
+2010/08/05 20:10:31 [harbor:3] New client: NUKE
+2010/08/05 20:10:32 [root:2] We must catchup 3.38 seconds!
+2010/08/05 20:10:33 [root:2] We must catchup 3.87 seconds!
+2010/08/05 20:10:34 [root:2] We must catchup 4.73 seconds!
+2010/08/05 20:10:35 [root:2] We must catchup 5.43 seconds!
+2010/08/05 20:10:36 [root:2] We must catchup 5.48 seconds!
+2010/08/05 20:10:37 [root:2] We must catchup 5.99 seconds!
+2010/08/05 20:10:44 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/05 20:10:44 [src_5185:3] Decoding...
+2010/08/05 20:10:45 [src_5185:2] Feeding stopped: Ogg_demuxer.Invalid_stream
+2010/08/05 20:10:45 [root:2] We must catchup 13.45 seconds!
+2010/08/05 20:10:45 [output(dot)icecast(dot)lame:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:10:45 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:10:46 [root:2] We must catchup 13.18 seconds!
+2010/08/05 20:10:47 [root:2] We must catchup 12.55 seconds!
+2010/08/05 20:10:48 [root:2] We must catchup 11.03 seconds!
+2010/08/05 20:10:49 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:10:50 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:10:50 [root:2] We must catchup 12.23 seconds!
+2010/08/05 20:10:51 [root:2] We must catchup 9.11 seconds (we've been late for 100 rounds)!
+2010/08/05 20:10:52 [root:2] We must catchup 5.19 seconds (we've been late for 100 rounds)!
+2010/08/05 20:10:53 [root:2] We must catchup 2.28 seconds!
+2010/08/05 20:10:54 [harbor:3] SOURCE request on /live.ogg.
+2010/08/05 20:10:54 [harbor:3] Returned 401: Mount taken
+2010/08/05 20:10:54 [harbor:3] Failed: Mountpoint in use
+2010/08/05 20:10:54 [threads:3] Thread "harbor source feeding" exited (1 remaining).
+2010/08/05 20:11:00 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 20:11:03 [harbor:3] New client: NUKE
+2010/08/05 20:11:06 [harbor:3] SOURCE request on /live.ogg.
+2010/08/05 20:11:06 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'application/ogg'.
+2010/08/05 20:11:06 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/05 20:11:06 [src_5185:3] Decoding...
+2010/08/05 20:11:06 [src_5185:2] Feeding stopped: Ogg_demuxer.Invalid_stream
+2010/08/05 20:11:06 [threads:3] Thread "harbor source feeding" exited (1 remaining).
+2010/08/05 20:11:09 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 20:11:09 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 2).
+2010/08/05 20:11:11 [root:2] We must catchup 1.89 seconds!
+2010/08/05 20:11:19 [harbor:3] New client: NUKE
+2010/08/05 20:11:23 [harbor:3] SOURCE request on /live.ogg.
+2010/08/05 20:11:23 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'application/ogg'.
+2010/08/05 20:11:23 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/05 20:11:23 [src_5185:3] Decoding...
+2010/08/05 20:11:24 [src_5185:3] New metadata chunk " -- foobar2000"
+2010/08/05 20:11:24 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:11:29 [src_5185:3] New metadata chunk "Rainbow Clash -- Wir sind Einstein"
+2010/08/05 20:11:31 [root:2] We must catchup 2.42 seconds!
+2010/08/05 20:11:33 [src_5185:3] New metadata chunk "Radio freies Krautchan -- Kein Stroembernd"
+2010/08/05 20:11:33 [src_5185:3] New metadata chunk " -- lobby"
+2010/08/05 20:11:34 [src_5185:3] New metadata chunk " -- menu"
+2010/08/05 20:11:37 [src_5185:3] New metadata chunk " -- foobar2000"
+2010/08/05 20:11:38 [src_5185:3] New metadata chunk "Faded Paper Figures -- Red State"
+2010/08/05 20:11:40 [root:2] We must catchup 1.73 seconds!
+2010/08/05 20:11:40 [src_5185:3] New metadata chunk " -- foobar2000"
+2010/08/05 20:11:41 [src_5185:3] New metadata chunk "Electric President -- circles"
+2010/08/05 20:15:15 [root:2] We must catchup 1.00 seconds!
+2010/08/05 20:15:16 [root:2] We must catchup 1.88 seconds!
+2010/08/05 20:15:17 [root:2] We must catchup 2.51 seconds!
+2010/08/05 20:15:32 [root:2] We must catchup 1.06 seconds!
+2010/08/05 20:15:56 [root:2] We must catchup 3.66 seconds!
+2010/08/05 20:15:56 [src_5185:3] New metadata chunk "Starfucker -- Myke Ptyson"
+2010/08/05 20:16:11 [root:2] We must catchup 10.38 seconds!
+2010/08/05 20:16:12 [root:2] We must catchup 6.91 seconds (we've been late for 100 rounds)!
+2010/08/05 20:16:12 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/05 20:16:13 [root:2] We must catchup 2.93 seconds (we've been late for 100 rounds)!
+2010/08/05 20:16:13 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:18:27 [src_5185:3] New metadata chunk "Immoor -- Unit 371"
+2010/08/05 20:18:53 [radio(dot)ogg:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:18:53 [radio(dot)ogg:3] Closing connection...
+2010/08/05 20:18:53 [root:2] We must catchup 19.04 seconds!
+2010/08/05 20:18:53 [output(dot)icecast(dot)lame:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:18:53 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:18:54 [root:2] We must catchup 13.58 seconds (we've been late for 100 rounds)!
+2010/08/05 20:18:55 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/05 20:18:55 [root:2] We must catchup 11.03 seconds!
+2010/08/05 20:18:56 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:18:56 [root:2] We must catchup 6.72 seconds (we've been late for 100 rounds)!
+2010/08/05 20:18:57 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/05 20:18:57 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/05 20:18:57 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:18:57 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:18:57 [root:2] We must catchup 6.85 seconds!
+2010/08/05 20:18:58 [root:2] We must catchup 3.76 seconds (we've been late for 100 rounds)!
+2010/08/05 20:18:59 [root:2] We must catchup 0.60 seconds (we've been late for 100 rounds)!
+2010/08/05 20:20:16 [root:2] We must catchup 1.05 seconds!
+2010/08/05 20:20:17 [root:2] We must catchup 1.69 seconds!
+2010/08/05 20:20:18 [root:2] We must catchup 2.70 seconds!
+2010/08/05 20:20:19 [root:2] We must catchup 3.52 seconds!
+2010/08/05 20:20:20 [root:2] We must catchup 4.26 seconds!
+2010/08/05 20:20:21 [root:2] We must catchup 5.14 seconds!
+2010/08/05 20:20:23 [root:2] We must catchup 6.42 seconds!
+2010/08/05 20:20:24 [root:2] We must catchup 7.21 seconds!
+2010/08/05 20:20:25 [root:2] We must catchup 7.00 seconds!
+2010/08/05 20:20:26 [root:2] We must catchup 7.23 seconds!
+2010/08/05 20:20:27 [root:2] We must catchup 7.07 seconds!
+2010/08/05 20:20:28 [root:2] We must catchup 6.05 seconds!
+2010/08/05 20:20:30 [root:2] We must catchup 5.05 seconds!
+2010/08/05 20:20:31 [root:2] We must catchup 3.02 seconds!
+2010/08/05 20:20:31 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/05 20:20:32 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:20:48 [radio(dot)ogg:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:20:48 [radio(dot)ogg:3] Closing connection...
+2010/08/05 20:20:49 [root:2] We must catchup 17.29 seconds!
+2010/08/05 20:20:50 [root:2] We must catchup 18.14 seconds!
+2010/08/05 20:20:50 [output(dot)icecast(dot)lame:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:20:50 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:20:51 [root:2] We must catchup 17.70 seconds!
+2010/08/05 20:20:52 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/05 20:20:52 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/05 20:20:52 [root:2] We must catchup 15.42 seconds!
+2010/08/05 20:20:53 [root:2] We must catchup 11.54 seconds (we've been late for 100 rounds)!
+2010/08/05 20:20:54 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:20:54 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:20:54 [root:2] We must catchup 7.03 seconds (we've been late for 100 rounds)!
+2010/08/05 20:20:55 [root:2] We must catchup 1.63 seconds (we've been late for 100 rounds)!
+2010/08/05 20:20:57 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/05 20:20:58 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:24:09 [src_5185:3] New metadata chunk "The Go Find -- Summer Guest"
+2010/08/05 20:24:22 [root:2] We must catchup 5.63 seconds!
+2010/08/05 20:24:23 [root:2] We must catchup 0.60 seconds (we've been late for 100 rounds)!
+2010/08/05 20:25:17 [root:2] We must catchup 1.01 seconds!
+2010/08/05 20:25:18 [root:2] We must catchup 1.47 seconds!
+2010/08/05 20:25:19 [root:2] We must catchup 1.60 seconds!
+2010/08/05 20:25:41 [src_5185:3] New metadata chunk " -- foobar2000"
+2010/08/05 20:25:45 [src_5185:3] New metadata chunk "Styrofoam -- Your Eyes Only"
+2010/08/05 20:25:54 [root:2] We must catchup 4.11 seconds!
+2010/08/05 20:25:55 [root:2] We must catchup 4.24 seconds!
+2010/08/05 20:28:12 [src_5185:3] New metadata chunk " -- foobar2000"
+2010/08/05 20:28:12 [src_5185:3] New metadata chunk "Cassettes Won't Listen -- The Finish Line"
+2010/08/05 20:28:34 [radio(dot)ogg:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:28:34 [radio(dot)ogg:3] Closing connection...
+2010/08/05 20:28:35 [root:2] We must catchup 14.03 seconds!
+2010/08/05 20:28:35 [output(dot)icecast(dot)lame:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:28:35 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:28:44 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/05 20:28:44 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/05 20:28:44 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:28:44 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:28:45 [root:2] We must catchup 23.28 seconds!
+2010/08/05 20:28:46 [root:2] We must catchup 18.65 seconds (we've been late for 100 rounds)!
+2010/08/05 20:28:47 [root:2] We must catchup 14.34 seconds (we've been late for 100 rounds)!
+2010/08/05 20:28:48 [root:2] We must catchup 9.02 seconds (we've been late for 100 rounds)!
+2010/08/05 20:28:49 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/05 20:28:50 [root:2] We must catchup 5.84 seconds (we've been late for 100 rounds)!
+2010/08/05 20:28:50 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:28:51 [root:2] We must catchup 1.73 seconds (we've been late for 100 rounds)!
+2010/08/05 20:30:10 [root:2] We must catchup 1.09 seconds!
+2010/08/05 20:30:11 [root:2] We must catchup 1.82 seconds!
+2010/08/05 20:30:12 [root:2] We must catchup 2.44 seconds!
+2010/08/05 20:30:13 [root:2] We must catchup 2.04 seconds!
+2010/08/05 20:30:26 [root:2] We must catchup 1.05 seconds!
+2010/08/05 20:30:27 [root:2] We must catchup 1.84 seconds!
+2010/08/05 20:30:28 [root:2] We must catchup 2.21 seconds!
+2010/08/05 20:30:29 [root:2] We must catchup 2.23 seconds!
+2010/08/05 20:31:49 [root:2] We must catchup 1.76 seconds!
+2010/08/05 20:31:49 [src_5185:3] New metadata chunk "Lali Puna -- Nin-com-pop"
+2010/08/05 20:32:01 [root:2] We must catchup 6.00 seconds!
+2010/08/05 20:32:02 [root:2] We must catchup 1.25 seconds (we've been late for 100 rounds)!
+2010/08/05 20:32:03 [main:3] Shutdown started!
+2010/08/05 20:32:03 [main:3] Waiting for threads to terminate...
+2010/08/05 20:32:03 [root:3] Shutting down sources...
+2010/08/05 20:32:03 [radio(dot)ogg:3] Closing connection...
+2010/08/05 20:32:03 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:32:05 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 20:32:05 [threads:3] Thread "root" exited (1 remaining).
+2010/08/05 20:32:07 [src_5185:2] Feeding stopped: Failure("relaying stopped")
+2010/08/05 20:32:07 [threads:3] Thread "harbor source feeding" exited (0 remaining).
+2010/08/05 20:32:07 [main:3] Cleaning downloaded files...
+2010/08/05 20:32:07 >>> LOG END
+2010/08/05 20:32:54 >>> LOG START
+2010/08/05 20:32:53 [protocols.external:3] Didn't find "ufetch"
+2010/08/05 20:32:53 [protocols.external:3] Found "/usr/bin/wget"
+2010/08/05 20:32:53 [main:3] Liquidsoap 0.9.2
+2010/08/05 20:32:54 [harbor:3] Adding mountpoint '/live.ogg' to list...
+2010/08/05 20:32:54 [video.converter:4] Using prefered video converter: gavl
+2010/08/05 20:32:54 [threads:3] Created thread "non-blocking queue #1".
+2010/08/05 20:32:54 [audio.converter:4] Using prefered samplerate converter: libsamplerate
+2010/08/05 20:32:54 [threads:3] Created thread "generic queue #1".
+2010/08/05 20:32:54 [threads:3] Created thread "root" (1 total).
+2010/08/05 20:32:54 [root:3] Waking up active nodes...
+2010/08/05 20:32:54 [source:4] src_5199 gets up
+2010/08/05 20:32:54 [source:4] src_5195 gets up
+2010/08/05 20:32:54 [source:4] src_5193 gets up
+2010/08/05 20:32:54 [source:4] src_5185 gets up
+2010/08/05 20:32:54 [src_5185:4] Activations changed: static=[src_5193:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:32:54 [src_5193:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:32:54 [source:4] src_5191 gets up
+2010/08/05 20:32:54 [source:4] src_5189 gets up
+2010/08/05 20:32:54 [source:4] src_5187 gets up
+2010/08/05 20:32:54 [playlist(dot)php:3] Loading playlist...
+2010/08/05 20:32:54 [protocols.external:4] Executing /usr/bin/wget "http://localhost/rfk/api/playlist.php" "/tmp/liq698144.osb"
+2010/08/05 20:32:55 [protocols.external:4] Download process finished (ok)
+2010/08/05 20:32:55 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/05 20:32:55 [playlist parser:4] Trying audio/x-scpls parser
+2010/08/05 20:32:55 [playlist parser:4] Trying audio/x-mpegurl parser
+2010/08/05 20:32:55 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/05 20:32:55 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/05 20:32:55 [playlist(dot)php:4] Activations changed: static=[src_5189:src_5191:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:32:55 [src_5189:4] Activations changed: static=[src_5191:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:32:55 [decoder:4] Trying OGG decoder for "/usr/share/rfk/var/music/loop.ogg"...
+2010/08/05 20:32:55 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:32:55 [src_5195:4] Activations changed: static=[radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:32:55 [radio(dot)ogg:4] Activations changed: static=[radio(dot)ogg], dynamic=[].
+2010/08/05 20:32:55 [radio(dot)ogg:4] Enabling caching mode (active source)
+2010/08/05 20:32:55 [source:4] output(dot)icecast(dot)lame gets up
+2010/08/05 20:32:55 [src_5195:4] Activations changed: static=[output(dot)icecast(dot)lame:output(dot)icecast(dot)lame, radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:32:55 [src_5195:4] Enabling caching mode (two static activations)
+2010/08/05 20:32:55 [output(dot)icecast(dot)lame:4] Activations changed: static=[output(dot)icecast(dot)lame], dynamic=[].
+2010/08/05 20:32:55 [output(dot)icecast(dot)lame:4] Enabling caching mode (active source)
+2010/08/05 20:32:55 [root:3] Broadcast starts up!
+2010/08/05 20:32:55 [ogg.demuxer:4] Found a ogg logical stream, serial: 51a7c78c
+2010/08/05 20:32:55 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:32:56 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 20:32:56 [ogg.demuxer:4] Found a ogg logical stream, serial: 51a7c78c
+2010/08/05 20:32:56 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:32:56 [playlist(dot)php:4] Remaining: 0, queued: 0, adding: 1323000 (RID 1)
+2010/08/05 20:32:56 [playlist(dot)php:4] Remaining: 0, queued: 1323000, taking: 1323000
+2010/08/05 20:32:56 [ogg.demuxer:4] Found a ogg logical stream, serial: 51a7c78c
+2010/08/05 20:32:56 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:32:56 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 1).
+2010/08/05 20:32:56 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/05 20:32:56 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/05 20:32:56 [src_5195:3] Switch to src_5191.
+2010/08/05 20:32:56 [src_5191:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:32:56 [ogg.encoder:4] radio(dot)ogg: Starting stream with no ogg track..
+2010/08/05 20:32:56 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:32:56 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:32:56 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:32:56 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:32:56 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/05 20:32:57 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:32:57 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:32:57 [harbor:3] New client: NUKE
+2010/08/05 20:32:57 [harbor:4] Header: CONTENT-TYPE, value: application/ogg.
+2010/08/05 20:32:57 [harbor:4] Header: ICE-NAME, value: This is my server name.
+2010/08/05 20:32:57 [harbor:4] Header: ICE-URL, value: http://www.oddsock.org.
+2010/08/05 20:32:57 [harbor:4] Header: ICE-GENRE, value: Rock.
+2010/08/05 20:32:57 [harbor:4] Header: ICE-BITRATE, value: Quality 3.
+2010/08/05 20:32:57 [harbor:4] Header: ICE-PRIVATE, value: 0.
+2010/08/05 20:32:57 [harbor:4] Header: ICE-PUBLIC, value: 1.
+2010/08/05 20:32:57 [harbor:4] Header: ICE-DESCRIPTION, value: This is my server description.
+2010/08/05 20:32:57 [harbor:4] Header: ICE-AUDIO-INFO, value: ice-samplerate=44100;ice-bitrate=Quality 3;ice-channels=2.
+2010/08/05 20:32:57 [root:2] We must catchup 1.37 seconds!
+2010/08/05 20:32:59 [harbor:4] Client logged in.
+2010/08/05 20:32:59 [harbor:3] SOURCE request on /live.ogg.
+2010/08/05 20:32:59 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'application/ogg'.
+2010/08/05 20:32:59 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/05 20:32:59 [src_5185:3] Decoding...
+2010/08/05 20:32:59 [src_5185:2] Feeding stopped: Ogg_demuxer.Invalid_stream
+2010/08/05 20:33:00 [threads:3] Thread "harbor source feeding" exited (1 remaining).
+2010/08/05 20:33:09 [harbor:3] New client: NUKE
+2010/08/05 20:33:09 [harbor:4] Header: CONTENT-TYPE, value: application/ogg.
+2010/08/05 20:33:09 [harbor:4] Header: ICE-NAME, value: This is my server name.
+2010/08/05 20:33:09 [harbor:4] Header: ICE-URL, value: http://www.oddsock.org.
+2010/08/05 20:33:09 [harbor:4] Header: ICE-GENRE, value: Rock.
+2010/08/05 20:33:09 [harbor:4] Header: ICE-BITRATE, value: Quality 3.
+2010/08/05 20:33:09 [harbor:4] Header: ICE-PRIVATE, value: 0.
+2010/08/05 20:33:09 [harbor:4] Header: ICE-PUBLIC, value: 1.
+2010/08/05 20:33:09 [harbor:4] Header: ICE-DESCRIPTION, value: This is my server description.
+2010/08/05 20:33:09 [harbor:4] Header: ICE-AUDIO-INFO, value: ice-samplerate=44100;ice-bitrate=Quality 3;ice-channels=2.
+2010/08/05 20:33:10 [harbor:4] Client logged in.
+2010/08/05 20:33:10 [harbor:3] SOURCE request on /live.ogg.
+2010/08/05 20:33:10 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'application/ogg'.
+2010/08/05 20:33:10 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/05 20:33:10 [src_5185:3] Decoding...
+2010/08/05 20:33:10 [ogg.demuxer:4] Found a ogg logical stream, serial: 5344
+2010/08/05 20:33:11 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:33:11 [ogg.demuxer:4] Reached last page of logical stream 5344
+2010/08/05 20:33:11 [ogg.demuxer:4] Found a ogg logical stream, serial: 5344
+2010/08/05 20:33:11 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:33:11 [src_5185:3] New metadata chunk "Lali Puna -- Nin-com-pop"
+2010/08/05 20:33:11 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:33:11 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:33:11 [source:4] src_5235 gets up
+2010/08/05 20:33:11 [source:4] src_5233 gets up
+2010/08/05 20:33:11 [source:4] src_5231 gets up
+2010/08/05 20:33:11 [src_5231:4] Activations changed: static=[src_5233:src_5235:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:33:11 [source:4] src_5232 gets up
+2010/08/05 20:33:11 [src_5193:4] Activations changed: static=[src_5232:src_5233:src_5235:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:33:11 [src_5232:4] Activations changed: static=[src_5233:src_5235:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:33:11 [src_5233:4] Activations changed: static=[src_5235:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:33:11 [source:4] src_5234 gets up
+2010/08/05 20:33:11 [src_5191:4] Activations changed: static=[src_5234:src_5235:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:33:11 [src_5234:4] Activations changed: static=[src_5235:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:33:11 [src_5235:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:33:16 [source:4] src_5231 gets down
+2010/08/05 20:33:16 [src_5231:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:33:16 [src_5193:4] Got metadata at position 0: calling handler...
+2010/08/05 20:33:16 [ogg.encoder:4] radio(dot)ogg: Setting end of track 103989d9.
+2010/08/05 20:33:16 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:33:16 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:33:16 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:33:34 [ogg.demuxer:4] Reached last page of logical stream 5344
+2010/08/05 20:33:34 [ogg.demuxer:4] Found a ogg logical stream, serial: 5395
+2010/08/05 20:33:34 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:33:34 [src_5185:3] New metadata chunk " -- foobar2000"
+2010/08/05 20:33:35 [ogg.demuxer:4] Reached last page of logical stream 5395
+2010/08/05 20:33:35 [ogg.demuxer:4] Found a ogg logical stream, serial: 5399
+2010/08/05 20:33:35 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:33:35 [src_5185:3] New metadata chunk "Plushgun -- Just Impolite"
+2010/08/05 20:33:40 [src_5193:4] Got metadata at position 784: calling handler...
+2010/08/05 20:33:52 [ogg.encoder:4] radio(dot)ogg: Setting end of track d68c91e.
+2010/08/05 20:33:52 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:33:52 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:33:52 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:33:52 [radio(dot)ogg:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:33:52 [radio(dot)ogg:3] Closing connection...
+2010/08/05 20:33:53 [root:2] We must catchup 12.08 seconds!
+2010/08/05 20:33:53 [output(dot)icecast(dot)lame:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:33:53 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:33:53 [src_5193:4] Got metadata at position 308: calling handler...
+2010/08/05 20:34:00 [ogg.encoder:4] radio(dot)ogg: Setting end of track 8deb832.
+2010/08/05 20:34:00 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:34:00 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:34:00 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:34:00 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/05 20:34:00 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/05 20:34:00 [ogg.encoder:4] radio(dot)ogg: Setting end of track 2a59c50c.
+2010/08/05 20:34:00 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:34:00 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:34:00 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:34:00 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:34:01 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:34:01 [root:2] We must catchup 19.56 seconds!
+2010/08/05 20:34:02 [root:2] We must catchup 14.64 seconds (we've been late for 100 rounds)!
+2010/08/05 20:34:03 [src_5185:4] End of track.
+2010/08/05 20:34:03 [src_5185:4] Buffer emptied, starting buffering.
+2010/08/05 20:34:03 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/05 20:34:03 [source:4] src_5235 gets down
+2010/08/05 20:34:03 [source:4] src_5233 gets down
+2010/08/05 20:34:03 [source:4] src_5232 gets down
+2010/08/05 20:34:03 [src_5193:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:34:03 [src_5232:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:34:03 [src_5233:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:34:03 [source:4] src_5234 gets down
+2010/08/05 20:34:03 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:34:03 [src_5234:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:34:03 [src_5235:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:34:03 [source:4] src_5246 gets up
+2010/08/05 20:34:03 [src_5191:4] Activations changed: static=[src_5246:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:34:03 [src_5246:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:34:03 [ogg.encoder:4] radio(dot)ogg: Setting end of track b76dfd.
+2010/08/05 20:34:03 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:34:03 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:34:03 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:34:04 [root:2] We must catchup 11.32 seconds (we've been late for 100 rounds)!
+2010/08/05 20:34:04 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:34:04 [source:4] src_5246 gets down
+2010/08/05 20:34:04 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:34:04 [src_5246:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:34:04 [source:4] src_5253 gets up
+2010/08/05 20:34:04 [source:4] src_5251 gets up
+2010/08/05 20:34:04 [source:4] src_5249 gets up
+2010/08/05 20:34:04 [src_5249:4] Activations changed: static=[src_5251:src_5253:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:34:04 [source:4] src_5250 gets up
+2010/08/05 20:34:04 [src_5193:4] Activations changed: static=[src_5250:src_5251:src_5253:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:34:04 [src_5250:4] Activations changed: static=[src_5251:src_5253:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:34:04 [src_5251:4] Activations changed: static=[src_5253:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:34:04 [source:4] src_5252 gets up
+2010/08/05 20:34:04 [src_5191:4] Activations changed: static=[src_5252:src_5253:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:34:04 [src_5252:4] Activations changed: static=[src_5253:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:34:04 [src_5253:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:34:05 [root:2] We must catchup 7.32 seconds (we've been late for 100 rounds)!
+2010/08/05 20:34:06 [source:4] src_5249 gets down
+2010/08/05 20:34:06 [src_5249:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:34:06 [root:2] We must catchup 3.53 seconds (we've been late for 100 rounds)!
+2010/08/05 20:34:48 [root:2] We must catchup 1.08 seconds!
+2010/08/05 20:35:04 [root:2] We must catchup 1.06 seconds!
+2010/08/05 20:35:05 [root:2] We must catchup 1.67 seconds!
+2010/08/05 20:35:20 [ogg.demuxer:4] Reached last page of logical stream 5399
+2010/08/05 20:35:20 [ogg.demuxer:4] Found a ogg logical stream, serial: 54f0
+2010/08/05 20:35:35 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:35:36 [root:2] We must catchup 15.95 seconds!
+2010/08/05 20:35:36 [src_5185:3] New metadata chunk " -- foobar2000"
+2010/08/05 20:35:36 [ogg.demuxer:4] Reached last page of logical stream 54f0
+2010/08/05 20:35:36 [ogg.demuxer:4] Found a ogg logical stream, serial: 54f3
+2010/08/05 20:35:36 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:35:36 [src_5185:3] New metadata chunk "People Press Play -- These Days(Dntel Instrumental remix)"
+2010/08/05 20:35:37 [radio(dot)ogg:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:35:37 [radio(dot)ogg:3] Closing connection...
+2010/08/05 20:35:37 [output(dot)icecast(dot)lame:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:35:37 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:35:37 [root:2] We must catchup 16.49 seconds!
+2010/08/05 20:35:38 [root:2] We must catchup 14.49 seconds!
+2010/08/05 20:35:39 [src_5193:4] Got metadata at position 1680: calling handler...
+2010/08/05 20:35:53 [ogg.encoder:4] radio(dot)ogg: Setting end of track 1a40efcd.
+2010/08/05 20:35:54 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:35:56 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:35:56 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:35:56 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/05 20:35:57 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/05 20:35:57 [ogg.encoder:4] radio(dot)ogg: Setting end of track 3ad1502.
+2010/08/05 20:35:57 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:35:58 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:35:58 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:35:58 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:35:59 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:35:59 [root:2] We must catchup 32.13 seconds!
+2010/08/05 20:36:00 [root:2] We must catchup 32.92 seconds!
+2010/08/05 20:36:01 [src_5193:4] Got metadata at position 920: calling handler...
+2010/08/05 20:36:11 [harbor:3] New client: NUKE
+2010/08/05 20:36:12 [harbor:4] Header: CONTENT-TYPE, value: application/ogg.
+2010/08/05 20:36:12 [harbor:4] Header: ICE-NAME, value: This is my server name.
+2010/08/05 20:36:12 [harbor:4] Header: ICE-URL, value: http://www.oddsock.org.
+2010/08/05 20:36:12 [harbor:4] Header: ICE-GENRE, value: Rock.
+2010/08/05 20:36:12 [harbor:4] Header: ICE-BITRATE, value: Quality 3.
+2010/08/05 20:36:12 [harbor:4] Header: ICE-PRIVATE, value: 0.
+2010/08/05 20:36:12 [harbor:4] Header: ICE-PUBLIC, value: 1.
+2010/08/05 20:36:12 [harbor:4] Header: ICE-DESCRIPTION, value: This is my server description.
+2010/08/05 20:36:12 [harbor:4] Header: ICE-AUDIO-INFO, value: ice-samplerate=44100;ice-bitrate=Quality 3;ice-channels=2.
+2010/08/05 20:36:14 [ogg.encoder:4] radio(dot)ogg: Setting end of track f04c593.
+2010/08/05 20:36:15 [harbor:4] Client logged in.
+2010/08/05 20:36:15 [harbor:3] SOURCE request on /live.ogg.
+2010/08/05 20:36:15 [harbor:3] Returned 401: Mount taken
+2010/08/05 20:36:15 [harbor:3] Failed: Mountpoint in use
+2010/08/05 20:36:15 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:16 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:16 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:16 [radio(dot)ogg:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:36:16 [radio(dot)ogg:3] Closing connection...
+2010/08/05 20:36:17 [root:2] We must catchup 48.95 seconds!
+2010/08/05 20:36:17 [output(dot)icecast(dot)lame:2] Cry socket error: timeout, network failure, server shutdown? Restarting the output in 3 seconds.
+2010/08/05 20:36:17 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:36:18 [root:2] We must catchup 46.27 seconds!
+2010/08/05 20:36:19 [root:2] We must catchup 43.08 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:19 [src_5185:4] End of track.
+2010/08/05 20:36:19 [src_5185:4] Buffer emptied, starting buffering.
+2010/08/05 20:36:19 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/05 20:36:19 [source:4] src_5253 gets down
+2010/08/05 20:36:19 [source:4] src_5251 gets down
+2010/08/05 20:36:19 [source:4] src_5250 gets down
+2010/08/05 20:36:19 [src_5193:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:19 [src_5250:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:19 [src_5251:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:19 [source:4] src_5252 gets down
+2010/08/05 20:36:19 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:19 [src_5252:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:19 [src_5253:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:19 [source:4] src_5264 gets up
+2010/08/05 20:36:19 [src_5191:4] Activations changed: static=[src_5264:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:19 [src_5264:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:20 [ogg.encoder:4] radio(dot)ogg: Setting end of track 96a86f5.
+2010/08/05 20:36:20 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:21 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:21 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:21 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/05 20:36:21 [src_5185:2] Feeding stopped: Unix.Unix_error(56, "read", "")
+2010/08/05 20:36:22 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/05 20:36:22 [ogg.encoder:4] radio(dot)ogg: Setting end of track 3729a902.
+2010/08/05 20:36:22 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:22 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:22 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:22 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/05 20:36:22 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/05 20:36:22 [root:2] We must catchup 44.11 seconds!
+2010/08/05 20:36:22 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:36:22 [source:4] src_5264 gets down
+2010/08/05 20:36:22 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:22 [src_5264:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:22 [source:4] src_5271 gets up
+2010/08/05 20:36:22 [source:4] src_5269 gets up
+2010/08/05 20:36:22 [source:4] src_5267 gets up
+2010/08/05 20:36:22 [src_5267:4] Activations changed: static=[src_5269:src_5271:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:22 [source:4] src_5268 gets up
+2010/08/05 20:36:22 [src_5193:4] Activations changed: static=[src_5268:src_5269:src_5271:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:22 [src_5268:4] Activations changed: static=[src_5269:src_5271:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:22 [src_5269:4] Activations changed: static=[src_5271:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:22 [source:4] src_5270 gets up
+2010/08/05 20:36:22 [src_5191:4] Activations changed: static=[src_5270:src_5271:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:22 [src_5270:4] Activations changed: static=[src_5271:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:22 [src_5271:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:23 [threads:3] Thread "harbor source feeding" exited (1 remaining).
+2010/08/05 20:36:23 [root:2] We must catchup 40.88 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:23 [source:4] src_5267 gets down
+2010/08/05 20:36:23 [src_5267:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:24 [root:2] We must catchup 37.64 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:25 [src_5185:4] End of track.
+2010/08/05 20:36:25 [src_5185:4] Buffer emptied, starting buffering.
+2010/08/05 20:36:25 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/05 20:36:25 [source:4] src_5271 gets down
+2010/08/05 20:36:25 [source:4] src_5269 gets down
+2010/08/05 20:36:25 [source:4] src_5268 gets down
+2010/08/05 20:36:25 [src_5193:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:25 [src_5268:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:25 [src_5269:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:25 [source:4] src_5270 gets down
+2010/08/05 20:36:25 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:25 [src_5270:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:25 [src_5271:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:25 [source:4] src_5282 gets up
+2010/08/05 20:36:25 [src_5191:4] Activations changed: static=[src_5282:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:25 [src_5282:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:25 [ogg.encoder:4] radio(dot)ogg: Setting end of track 19b7dc2a.
+2010/08/05 20:36:25 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:25 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:25 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:25 [root:2] We must catchup 34.63 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:26 [root:2] We must catchup 29.59 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:27 [harbor:3] New client: NUKE
+2010/08/05 20:36:27 [harbor:4] Header: CONTENT-TYPE, value: application/ogg.
+2010/08/05 20:36:27 [harbor:4] Header: ICE-NAME, value: This is my server name.
+2010/08/05 20:36:27 [harbor:4] Header: ICE-URL, value: http://www.oddsock.org.
+2010/08/05 20:36:27 [harbor:4] Header: ICE-GENRE, value: Rock.
+2010/08/05 20:36:27 [harbor:4] Header: ICE-BITRATE, value: Quality 3.
+2010/08/05 20:36:27 [harbor:4] Header: ICE-PRIVATE, value: 0.
+2010/08/05 20:36:27 [harbor:4] Header: ICE-PUBLIC, value: 1.
+2010/08/05 20:36:27 [harbor:4] Header: ICE-DESCRIPTION, value: This is my server description.
+2010/08/05 20:36:27 [harbor:4] Header: ICE-AUDIO-INFO, value: ice-samplerate=44100;ice-bitrate=Quality 3;ice-channels=2.
+2010/08/05 20:36:27 [root:2] We must catchup 26.36 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:28 [harbor:4] Client logged in.
+2010/08/05 20:36:28 [harbor:3] SOURCE request on /live.ogg.
+2010/08/05 20:36:28 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'application/ogg'.
+2010/08/05 20:36:28 [root:2] We must catchup 22.24 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:29 [src_5185:3] Decoding...
+2010/08/05 20:36:29 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/05 20:36:29 [ogg.demuxer:4] Found a ogg logical stream, serial: 55ca
+2010/08/05 20:36:29 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:36:29 [ogg.demuxer:4] Reached last page of logical stream 55ca
+2010/08/05 20:36:29 [ogg.demuxer:4] Found a ogg logical stream, serial: 55ca
+2010/08/05 20:36:29 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:36:29 [src_5185:3] New metadata chunk "People Press Play -- These Days(Dntel Instrumental remix)"
+2010/08/05 20:36:29 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:36:29 [source:4] src_5282 gets down
+2010/08/05 20:36:29 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:29 [src_5282:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:29 [source:4] src_5289 gets up
+2010/08/05 20:36:29 [source:4] src_5287 gets up
+2010/08/05 20:36:29 [source:4] src_5285 gets up
+2010/08/05 20:36:29 [src_5285:4] Activations changed: static=[src_5287:src_5289:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:29 [source:4] src_5286 gets up
+2010/08/05 20:36:29 [src_5193:4] Activations changed: static=[src_5286:src_5287:src_5289:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:29 [src_5286:4] Activations changed: static=[src_5287:src_5289:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:29 [src_5287:4] Activations changed: static=[src_5289:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:29 [source:4] src_5288 gets up
+2010/08/05 20:36:29 [src_5191:4] Activations changed: static=[src_5288:src_5289:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:29 [src_5288:4] Activations changed: static=[src_5289:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:29 [src_5289:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:29 [root:2] We must catchup 19.08 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:30 [source:4] src_5285 gets down
+2010/08/05 20:36:30 [src_5285:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:30 [src_5193:4] Got metadata at position 0: calling handler...
+2010/08/05 20:36:30 [ogg.encoder:4] radio(dot)ogg: Setting end of track 1723dbd.
+2010/08/05 20:36:30 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:30 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:30 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:31 [root:2] We must catchup 18.04 seconds!
+2010/08/05 20:36:31 [src_5185:4] End of track.
+2010/08/05 20:36:31 [src_5185:4] Buffer emptied, starting buffering.
+2010/08/05 20:36:31 [src_5195:3] Switch to src_5191 with transition.
+2010/08/05 20:36:31 [source:4] src_5289 gets down
+2010/08/05 20:36:31 [source:4] src_5287 gets down
+2010/08/05 20:36:31 [source:4] src_5286 gets down
+2010/08/05 20:36:31 [src_5193:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:31 [src_5286:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:31 [src_5287:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:31 [source:4] src_5288 gets down
+2010/08/05 20:36:31 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:31 [src_5288:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:31 [src_5289:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:31 [source:4] src_5300 gets up
+2010/08/05 20:36:31 [src_5191:4] Activations changed: static=[src_5300:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:31 [src_5300:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:31 [ogg.encoder:4] radio(dot)ogg: Setting end of track 3fdb31da.
+2010/08/05 20:36:32 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:32 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:32 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:32 [root:2] We must catchup 15.08 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:32 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:36:32 [source:4] src_5300 gets down
+2010/08/05 20:36:32 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:32 [src_5300:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:32 [source:4] src_5308 gets up
+2010/08/05 20:36:32 [source:4] src_5306 gets up
+2010/08/05 20:36:32 [source:4] src_5304 gets up
+2010/08/05 20:36:32 [src_5304:4] Activations changed: static=[src_5306:src_5308:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:32 [source:4] src_5305 gets up
+2010/08/05 20:36:32 [source:4] src_5303 gets up
+2010/08/05 20:36:32 [src_5193:4] Activations changed: static=[src_5303:src_5305:src_5306:src_5308:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:32 [src_5303:4] Activations changed: static=[src_5305:src_5306:src_5308:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:32 [src_5305:4] Activations changed: static=[src_5306:src_5308:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:32 [src_5306:4] Activations changed: static=[src_5308:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:32 [source:4] src_5307 gets up
+2010/08/05 20:36:32 [src_5191:4] Activations changed: static=[src_5307:src_5308:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:32 [src_5307:4] Activations changed: static=[src_5308:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:32 [src_5308:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:33 [root:2] We must catchup 11.32 seconds (we've been late for 100 rounds)!
+2010/08/05 20:36:33 [source:4] src_5304 gets down
+2010/08/05 20:36:33 [src_5304:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:33 [ogg.encoder:4] radio(dot)ogg: Setting end of track 226922d0.
+2010/08/05 20:36:33 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:33 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:33 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:34 [root:2] We must catchup 10.00 seconds!
+2010/08/05 20:36:34 [src_5185:4] End of track.
+2010/08/05 20:36:34 [src_5185:4] Buffer emptied, starting buffering.
+2010/08/05 20:36:34 [src_5195:3] Switch to src_5191 with transition.
+2010/08/05 20:36:34 [source:4] src_5308 gets down
+2010/08/05 20:36:34 [source:4] src_5306 gets down
+2010/08/05 20:36:34 [source:4] src_5305 gets down
+2010/08/05 20:36:34 [source:4] src_5303 gets down
+2010/08/05 20:36:34 [src_5193:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:34 [src_5303:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:34 [src_5305:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:34 [src_5306:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:34 [source:4] src_5307 gets down
+2010/08/05 20:36:34 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:34 [src_5307:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:34 [src_5308:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:34 [source:4] src_5321 gets up
+2010/08/05 20:36:34 [src_5191:4] Activations changed: static=[src_5321:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:34 [src_5321:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:34 [ogg.encoder:4] radio(dot)ogg: Setting end of track 33c68d77.
+2010/08/05 20:36:34 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:34 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:34 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:35 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:36:35 [source:4] src_5321 gets down
+2010/08/05 20:36:35 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:35 [src_5321:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:35 [source:4] src_5329 gets up
+2010/08/05 20:36:35 [source:4] src_5327 gets up
+2010/08/05 20:36:35 [source:4] src_5325 gets up
+2010/08/05 20:36:35 [src_5325:4] Activations changed: static=[src_5327:src_5329:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:35 [source:4] src_5326 gets up
+2010/08/05 20:36:35 [source:4] src_5324 gets up
+2010/08/05 20:36:35 [src_5193:4] Activations changed: static=[src_5324:src_5326:src_5327:src_5329:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:35 [src_5324:4] Activations changed: static=[src_5326:src_5327:src_5329:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:35 [src_5326:4] Activations changed: static=[src_5327:src_5329:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:35 [src_5327:4] Activations changed: static=[src_5329:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:35 [source:4] src_5328 gets up
+2010/08/05 20:36:35 [src_5191:4] Activations changed: static=[src_5328:src_5329:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:35 [src_5328:4] Activations changed: static=[src_5329:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:35 [src_5329:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:35 [root:2] We must catchup 8.13 seconds!
+2010/08/05 20:36:35 [source:4] src_5325 gets down
+2010/08/05 20:36:35 [src_5325:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:35 [ogg.encoder:4] radio(dot)ogg: Setting end of track 36082dd9.
+2010/08/05 20:36:35 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:36 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:36 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:36 [root:2] We must catchup 6.18 seconds!
+2010/08/05 20:36:36 [src_5185:4] End of track.
+2010/08/05 20:36:36 [src_5185:4] Buffer emptied, starting buffering.
+2010/08/05 20:36:36 [src_5195:3] Switch to src_5191 with transition.
+2010/08/05 20:36:36 [source:4] src_5329 gets down
+2010/08/05 20:36:36 [source:4] src_5327 gets down
+2010/08/05 20:36:36 [source:4] src_5326 gets down
+2010/08/05 20:36:36 [source:4] src_5324 gets down
+2010/08/05 20:36:36 [src_5193:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:36 [src_5324:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:36 [src_5326:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:36 [src_5327:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:36 [source:4] src_5328 gets down
+2010/08/05 20:36:36 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:36 [src_5328:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:36 [src_5329:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:36 [source:4] src_5342 gets up
+2010/08/05 20:36:36 [src_5191:4] Activations changed: static=[src_5342:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:36 [src_5342:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:36 [ogg.encoder:4] radio(dot)ogg: Setting end of track 1d6e174e.
+2010/08/05 20:36:36 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:37 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:37 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:37 [src_5195:3] Switch to src_5193 with transition.
+2010/08/05 20:36:37 [source:4] src_5342 gets down
+2010/08/05 20:36:37 [src_5191:4] Activations changed: static=[], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:37 [src_5342:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:37 [source:4] src_5350 gets up
+2010/08/05 20:36:37 [source:4] src_5348 gets up
+2010/08/05 20:36:37 [source:4] src_5346 gets up
+2010/08/05 20:36:37 [src_5346:4] Activations changed: static=[src_5348:src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:37 [source:4] src_5347 gets up
+2010/08/05 20:36:37 [source:4] src_5345 gets up
+2010/08/05 20:36:37 [src_5193:4] Activations changed: static=[src_5345:src_5347:src_5348:src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:37 [src_5345:4] Activations changed: static=[src_5347:src_5348:src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:37 [src_5347:4] Activations changed: static=[src_5348:src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:37 [src_5348:4] Activations changed: static=[src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:37 [source:4] src_5349 gets up
+2010/08/05 20:36:37 [src_5191:4] Activations changed: static=[src_5349:src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[src_5195:radio(dot)ogg:radio(dot)ogg].
+2010/08/05 20:36:37 [src_5349:4] Activations changed: static=[src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:37 [src_5350:4] Activations changed: static=[src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:36:37 [root:2] We must catchup 3.90 seconds!
+2010/08/05 20:36:38 [source:4] src_5346 gets down
+2010/08/05 20:36:38 [src_5346:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:36:38 [ogg.encoder:4] radio(dot)ogg: Setting end of track 2fd861b9.
+2010/08/05 20:36:38 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:36:38 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:36:38 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:36:38 [root:2] We must catchup 1.16 seconds!
+2010/08/05 20:38:45 [ogg.demuxer:4] Reached last page of logical stream 55ca
+2010/08/05 20:38:45 [ogg.demuxer:4] Found a ogg logical stream, serial: 5790
+2010/08/05 20:38:45 [ogg.demuxer:4] Trying ogg/vorbis format
+2010/08/05 20:38:46 [src_5185:3] New metadata chunk "Ms. John Soda -- Hiding / Fading"
+2010/08/05 20:38:46 [src_5193:4] Got metadata at position 200: calling handler...
+2010/08/05 20:38:51 [ogg.encoder:4] radio(dot)ogg: Setting end of track 2beb946a.
+2010/08/05 20:38:51 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:38:51 [ogg.encoder:4] radio(dot)ogg: Starting new sequentialized ogg stream.
+2010/08/05 20:38:51 [ogg.encoder:4] radio(dot)ogg: Starting all streams
+2010/08/05 20:38:52 [root:2] We must catchup 5.61 seconds!
+2010/08/05 20:38:53 [root:2] We must catchup 0.26 seconds (we've been late for 100 rounds)!
+2010/08/05 20:40:14 [main:3] Shutdown started!
+2010/08/05 20:40:14 [output(dot)icecast(dot)lame:4] Reading task reached end of data
+2010/08/05 20:40:15 [main:3] Waiting for threads to terminate...
+2010/08/05 20:40:15 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/05 20:40:15 [root:3] Shutting down sources...
+2010/08/05 20:40:15 [source:4] radio(dot)ogg gets down
+2010/08/05 20:40:15 [ogg.encoder:4] radio(dot)ogg: Setting end of track ea980a.
+2010/08/05 20:40:16 [ogg.encoder:4] radio(dot)ogg: Every ogg logical tracks have ended: setting end of stream.
+2010/08/05 20:40:16 [radio(dot)ogg:3] Closing connection...
+2010/08/05 20:40:16 [src_5195:4] Activations changed: static=[output(dot)icecast(dot)lame:output(dot)icecast(dot)lame], dynamic=[].
+2010/08/05 20:40:16 [src_5195:4] Disabling caching mode
+2010/08/05 20:40:16 [radio(dot)ogg:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:16 [source:4] output(dot)icecast(dot)lame gets down
+2010/08/05 20:40:18 [output(dot)icecast(dot)lame:4] Reading task reached end of data
+2010/08/05 20:40:18 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/05 20:40:18 [source:4] src_5195 gets down
+2010/08/05 20:40:18 [src_5193:4] Activations changed: static=[src_5345:src_5347:src_5348:src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:40:18 [src_5191:4] Activations changed: static=[src_5349:src_5350:src_5195:radio(dot)ogg:radio(dot)ogg], dynamic=[].
+2010/08/05 20:40:18 [source:4] src_5350 gets down
+2010/08/05 20:40:18 [source:4] src_5348 gets down
+2010/08/05 20:40:18 [source:4] src_5347 gets down
+2010/08/05 20:40:18 [source:4] src_5345 gets down
+2010/08/05 20:40:18 [source:4] src_5193 gets down
+2010/08/05 20:40:18 [source:4] src_5185 gets down
+2010/08/05 20:40:20 [src_5185:2] Feeding stopped: Unix.Unix_error(56, "read", "")
+2010/08/05 20:40:27 [threads:3] Thread "harbor source feeding" exited (1 remaining).
+2010/08/05 20:40:27 [src_5185:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5193:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5345:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5347:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5348:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [source:4] src_5349 gets down
+2010/08/05 20:40:27 [source:4] src_5191 gets down
+2010/08/05 20:40:27 [source:4] src_5189 gets down
+2010/08/05 20:40:27 [source:4] playlist(dot)php gets down
+2010/08/05 20:40:27 [playlist(dot)php:4] Waiting for feeding task to stop...
+2010/08/05 20:40:27 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/05 20:40:27 [playlist(dot)php:4] Cleaning up request queue...
+2010/08/05 20:40:27 [playlist(dot)php:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5189:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5191:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5349:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5350:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [src_5195:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [output(dot)icecast(dot)lame:4] Activations changed: static=[], dynamic=[].
+2010/08/05 20:40:27 [threads:3] Thread "root" exited (0 remaining).
+2010/08/05 20:40:27 [main:3] Cleaning downloaded files...
+2010/08/05 20:40:27 >>> LOG END

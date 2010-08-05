@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../lib/common.inc.php');
-//error_reporting(0); // disable error reporting
+error_reporting(0); // disable error reporting
 $mode = $argv[1];
 $sql = "INSERT INTO debuglog (time,text) VALUES (NOW(),'".$db->escape(serialize($argv))."');";
 $db->execute($sql);
@@ -90,10 +90,10 @@ function handleMetaData($metadata){
             $songinfo['artist'] = $meta['artist'];
             $songinfo['title'] = $meta['title'];
         }
-        $songinfo['show'] = checkShow(getUserID());
+        $songinfo['show'] = checkShow();
         $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
         $db->execute($sql);
-        $sql = "INSERT INTO songhistory (start,artist,title,userid) VALUES (NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."','".$db->escape($songinfo['dj'])."','".$db->escape($songinfo['show'])."')";
+        $sql = "INSERT INTO songhistory (`show`,begin,artist,title) VALUES (".$songinfo['show'].",NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."')";
         $db->execute($sql);
     }
 }
@@ -112,35 +112,62 @@ function getUserID(){
 
 function checkShow(){
     global $db;
-    $sql = "SELECT show, type
+    $sql = "SELECT `show`, type
             FROM streamer JOIN shows USING ( streamer )
             WHERE streamer.status = 'STREAMING'
             AND (shows.end IS NULL
                  OR NOW() BETWEEN shows.begin AND shows.end)";
     $result = $db->query($sql);
     if($db->num_rows($result) > 0){
-        $stype = '';
+        $upshowid = false;
         $pshowid = false;
         while( $show = $db->fetch($result) ){
-            if(($show['type'] == 'PLANNED' && $stype == 'UNPLANNED') ||
-               ($show['type'] == 'UNPLANNED' && $stype == 'PLANNED')) {
-                //end existing unplanned show
-                $sql = "UPDATE shows SET end = NOW() WHERE showtype = 'UNPLANNED' AND end IS NULL;";
-                $db->execute($sql);
-            }
-            if ($stype != $show['type']) {
-                $stype = $show['type'];
+            if ($show['type'] == 'UNPLANNED') {
+                $upshowid = $show['show'];
             }
             if( $show['type'] == 'PLANNED' ) {
-                $pshowid = $show['id'];
+                $pshowid = $show['show'];
             }
         }
-        return $pshowid;
+        if($pshowtype > 0 ){
+            if($upshowid > 0){
+                $sql = "UPDATE shows SET end = NOW() WHERE end IS NULL;";
+                $db->query($sql);
+            }
+            return $pshowid;
+        }else{
+            return $upshowid;
+        }
+
     } else {
-        $sql = "INSERT INTO shows (userid,name,description,begin,end,showtype)
-                    SELECT $userid,defaultshowname,'',NOW(),NULL,'UNPLANNED'
-                    FROM streamer
-                    WHERE userid = $userid;";
+        $sql = "SELECT `key`, value
+                FROM streamersettings
+                JOIN streamer USING (streamer)";
+        $res = $db->query($sql);
+        $showname = '';
+        $showdescription = '';
+        while($row = $db->fetch($res)) {
+            switch($row['key']){
+                case 'icyshowname':
+                        $showname = $row['value'];
+                    break;
+                case 'icyshowdescription':
+                        $showdescription = $row['value'];
+                    break;
+                case 'defaultshowname':
+                    if($showname == '')
+                        $showname = $row['value'];
+                    break;
+                case 'defaultshowdescription':
+                    if($showdescription == '')
+                        $showdescription = $row['value'];
+                    break;
+            }
+        }
+        $sql = "INSERT INTO shows (streamer, name, description, begin, type)
+                SELECT streamer, '".$db->escape($showname)."', '".$db->escape($showdescription)."', NOW(), 'UNPLANNED'
+                FROM streamer
+                WHERE STATUS = 'STREAMING'";
         $db->execute($sql);
         return $db->insert_id();
     }
