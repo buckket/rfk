@@ -2,7 +2,7 @@
 require_once('../lib/common-web.inc.php');
 $template = array();
 
-$sql = "SELECT mount,.name,description,count FROM (SELECT count(*) as count,mount FROM listenerhistory WHERE disconnected IS NULL group by mount) as l RIGHT JOIN mounts USING ( mount)";
+$sql = "SELECT mount,name,description,count FROM (SELECT count(*) as count,mount FROM listenerhistory WHERE disconnected IS NULL group by mount) as l RIGHT JOIN mounts USING ( mount)";
 $result = $db->query($sql);
 $streams = array();
 while($row = $db->fetch($result)){
@@ -19,7 +19,7 @@ if($db->num_rows($result) > 0){
 	$template['streaming'] = true;
 	$streamerinfo = $db->fetch($result);
 	$template['streamerinfo'] = $streamerinfo;
-	$sql = "SELECT show,name,begin,end,showtype FROM shows WHERE streamer = ".$streamerinfo['streamer']. " AND (NOW() BETWEEN begin AND end OR end IS NULL) LIMIT 1;";
+	$sql = "SELECT `show`,name,begin,end,showtype FROM shows WHERE streamer = ".$streamerinfo['streamer']. " AND (NOW() BETWEEN begin AND end OR end IS NULL) LIMIT 1;";
 	$result = $db->query($sql);
 	$show = $db->fetch($result);
 	$template['show'] = $show;
