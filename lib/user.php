@@ -9,7 +9,7 @@ class User{
 		global $_config,$_MSG;
         $this->username = $_config['default-username'];
 		if($this->logged_in()){
-			if($_GET['logout'] === 'true'){
+			if(isset($_GET['logout']) && $_GET['logout'] === 'true'){
 				$this->logout();
 				$_MSG['msg'][] = "Erfolgreich abgemeldet!";
 			}

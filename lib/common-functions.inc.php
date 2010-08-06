@@ -7,6 +7,12 @@ function cleanup_h2o(&$template){
 	global $_MSG,$user;
 	$template['user_logged_in'] = $user->logged_in;
 	$template['username'] = $user->username;
+
+    if($user->logged_in ){
+        $template['user_self'] = true;
+    }else{
+        $template['user_self'] = false;
+    }
 	$template['messages'] = array();
 	if(count($_MSG['err']) > 0){
 		$template['messages']['error'] = $_MSG['err'];

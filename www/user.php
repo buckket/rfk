@@ -4,9 +4,13 @@ $template = array();
 if((!isset($_GET['u']) || strlen($_GET['u']) == 0) && $user->logged_in){
     $_GET['u'] = $user->userid;
 }
-if(isset($_GET['u']) && $_GET['u'] > 0){
-	$userinfo = array();
-	$sql = "SELECT username,streamer FROM streamer WHERE streamer = ".$db->escape($_GET['u'])." LIMIT 1;";
+if(isset($_GET['u']) && strlen($_GET['u']) > 0){
+    $userinfo = array();
+    if($_GET['u'] > 0){
+        $sql = "SELECT username,streamer FROM streamer WHERE streamer = ".$db->escape($_GET['u'])." LIMIT 1;";
+    }else{
+        $sql = "SELECT username,streamer FROM streamer WHERE username = '".$db->escape($_GET['u'])."' LIMIT 1;";
+    }
 	$result = $db->query($sql);
 	if($row = $db->fetch($result)){
 		$userinfo['username'] = $row['username'];
@@ -24,9 +28,9 @@ if(isset($_GET['u']) && $_GET['u'] > 0){
 	$template['user'] = $userinfo;
 }
 if($user->logged_in && (!isset($_GET['u']) || $_GET['u'] == $user->userid)){
-	$template['user_self'] == true;
+	$template['user_self'] = true;
 }else{
-	$template['user_self'] == false;
+	$template['user_self'] = false;
 }
 $template['PAGETITLE'] = 'User '.($userinfo?' - '.$userinfo['username']:'');
 $template['section'] = 'user';
