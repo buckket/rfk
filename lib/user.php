@@ -104,8 +104,8 @@ class User{
 	function register($username,$password){
         global $db;
         if(strpos($username,'|') === false){
-            $sql = "INSERT INTO streamer (registertime,username,password)
-                    VALUES (NOW(),'".$db->escape($username)."',SHA('".$db->escape($password)."'))";
+            $sql = "INSERT INTO streamer (username,password)
+                    VALUES ('".$db->escape($username)."',SHA('".$db->escape($password)."'))";
             if($db->execute($sql)){
                 $this->userid = $db->insert_id();
                 return 0;
