@@ -90,11 +90,12 @@ function handleMetaData($metadata){
             $songinfo['artist'] = $meta['artist'];
             $songinfo['title'] = $meta['title'];
         }
-        $songinfo['show'] = checkShow();
-        $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
-        $db->execute($sql);
-        $sql = "INSERT INTO songhistory (`show`,begin,artist,title) VALUES (".$songinfo['show'].",NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."')";
-        $db->execute($sql);
+        if ($songinfo['show'] = checkShow()){
+            $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
+            $db->execute($sql);
+            $sql = "INSERT INTO songhistory (`show`,begin,artist,title) VALUES (".$songinfo['show'].",NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."')";
+            $db->execute($sql);
+        }
     }
 }
 
@@ -122,6 +123,7 @@ function checkShow(){
         $upshowid = false;
         $pshowid = false;
         while( $show = $db->fetch($result) ){
+            print_r($show);
             if ($show['type'] == 'UNPLANNED') {
                 $upshowid = $show['show'];
             }
@@ -129,7 +131,7 @@ function checkShow(){
                 $pshowid = $show['show'];
             }
         }
-        if($pshowtype > 0 ){
+        if($pshowid > 0 ){
             if($upshowid > 0){
                 $sql = "UPDATE shows SET end = NOW() WHERE end IS NULL;";
                 $db->query($sql);
@@ -142,7 +144,10 @@ function checkShow(){
     } else {
         $sql = "SELECT `key`, value
                 FROM streamersettings
-                JOIN streamer USING (streamer)";
+                JOIN streamer USING (streamer)
+                WHERE status = 'STREAMING'
+                  AND value IN ('icyshowname', 'icyshowdescription',
+                                'defaultshowname', 'defaultshowdescription');";
         $res = $db->query($sql);
         $showname = '';
         $showdescription = '';
@@ -170,9 +175,14 @@ function checkShow(){
                 SELECT streamer, '".$db->escape($showname)."', '".$db->escape($showdescription)."', NOW(), 'UNPLANNED'
                 FROM streamer
                 WHERE STATUS = 'STREAMING'";
-        $db->execute($sql);
-        return $db->insert_id();
+        if( $db->execute($sql) ){
+            return $db->insert_id();
+        }else {
+            return false;
+        }
+        return false;
     }
+    return false;
 }
 
 
