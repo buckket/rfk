@@ -90,7 +90,7 @@ function external() {
 function sources () {
     echo 'live = input.harbor(on_connect = live_start, on_disconnect = live_stop, buffer=0., max = 10., auth = auth, "/live.ogg")
 
-          playlist = playlist("http://localhost/rfk/api/playlist.php")
+          playlist = playlist("http://localhost/rfk/api/playlist.php",reload=10)
           playlist = rewrite_metadata([("title","Kein Stroembernd")], playlist)
           playlist = rewrite_metadata([("artist","Radio freies Krautchan")], playlist)
 
