@@ -7,7 +7,7 @@
 <h2>Streams</h2>
 <ul>
 {% for id, stream in streams %}
-<li>{{ stream.description }} - {{ stream.count }} Zuhörer <a href="http://radio.krautchan.net:8000{{ stream.mount }}.m3u">einschalten</a></li>
+<li>{{ stream.description }} - {{ stream.count }} Zuhörer <a href="{{ stream.url }}">einschalten</a></li>
 {% endfor %}
 </ul>
 {% endblock %}

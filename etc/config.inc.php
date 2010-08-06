@@ -12,7 +12,8 @@ $_config['template'] = 'radio';
 $_config['default-username'] = 'Gast';
 
 $_config['icecast_address'] = 'localhost';
-
+$_config['icecast_external'] = '192.168.2.101';
+//$_config['icecast_external'] = 'radio.krautchan.net';
 $_config['icecast_port'] = 8000;
 
 $_config['liquidsoap_address'] = '192.168.2.101';
