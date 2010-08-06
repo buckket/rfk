@@ -2,7 +2,7 @@
 require_once('../lib/common-web.inc.php');
 $template = array();
 
-$sql = "SELECT mount,name,description,count FROM (SELECT count(*) as count,mount FROM listenerhistory WHERE disconnected IS NULL group by mount) as l RIGHT JOIN mounts USING ( mount)";
+$sql = "SELECT mount,name,description,count,path FROM (SELECT count(*) as count,mount FROM listenerhistory WHERE disconnected IS NULL group by mount) as l RIGHT JOIN mounts USING ( mount )";
 $result = $db->query($sql);
 $streams = array();
 while($row = $db->fetch($result)){
