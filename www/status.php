@@ -9,7 +9,7 @@ while($row = $db->fetch($result)){
     if(strlen($row['count']) == 0){
         $row['count'] = 0;
     }
-    $row['url'] = 'http://'.$_config['icecast_external'].'/'.$row['path'].'.m3u';
+    $row['url'] = 'http://'.$_config['icecast_external'].':'.$_config['icecast_port'].$row['path'].'.m3u';
     $streams[] = $row;
 }
 $template['streams'] = $streams;
