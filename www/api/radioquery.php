@@ -40,11 +40,12 @@ function getCurrTrack(&$out) {
 }
 function getListener(&$out){
     global $db;
-    $sql = "SELECT COUNT(*) as c, name, description
-            FROM listenerhistory
-            JOIN mounts USING ( mount)
-            WHERE disconnected IS NULL
-            GROUP BY mount;";
+    $sql = "SELECT name, IF(c IS NULL, 0, c) as c, description
+            FROM (SELECT COUNT(*) as c, mount
+                  FROM listenerhistory
+                  WHERE disconnected IS NULL
+                  GROUP BY mount) as c
+            RIGHT JOIN mounts USING (mount)";
     $dbres = $db->query($sql);
     if($dbres) {
         while($row = $db->fetch($dbres)) {
