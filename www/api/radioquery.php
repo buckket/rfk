@@ -92,6 +92,7 @@ function getCurrTrack(&$out) {
     $dbres = $db->query($sql);
     if($dbres) {
         if($row = $db->fetch($dbres)) {
+            $out['trackid'] = $row['song'];
             $out['title'] = $row['title'];
             $out['artist'] = $row['artist'];
         }
