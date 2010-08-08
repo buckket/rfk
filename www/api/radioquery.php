@@ -19,6 +19,7 @@ switch ($_GET['w']) {
         getNextShows($out);
         break;
     case 'tracks':
+        getTracks($out);
         break;
 }
 echo json_encode($out);
