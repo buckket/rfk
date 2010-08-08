@@ -14,7 +14,7 @@ block.super
 <div class='infoblock'>
 <h3>Letzten 5 Neuzug&auml;nge</h3><ul>
 {% for index, streamer in sb_streamer %}
-<li><a href='/user.php?u={{ streamer.userid }}'>{{ streamer.username }}</a></li>
+<li><a href='/user.php?u={{ streamer.streamer }}'>{{ streamer.username }}</a></li>
 {% endfor %}
 </ul>
 <p><em>Insgesamt {{ sb_streamercount }} Str&ouml;mbernds!</em></p>
