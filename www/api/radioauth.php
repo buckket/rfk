@@ -60,7 +60,7 @@ function getLocation($ip){
         geoip_load_shared_mem($includepath.'/../var/GeoLiteCity.dat');
         $gi = geoip_open($includepath.'/../var/GeoLiteCity.dat', GEOIP_SHARED_MEMORY);
         $record = GeoIP_record_by_addr($gi, $ip);
-        $ret['cc'] = $record->countrycode;
+        $ret['cc'] = $record->country_code;
         $ret['city'] = $record->city;
         geoip_close($gi);
     }
