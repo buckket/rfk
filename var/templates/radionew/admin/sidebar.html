@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+block.super
+{% endblock %}
+{% block sidebar %}
+<div id='subcontent'>
+{% if user_self %}
+	<div class='infoblock'>
+	<h3>Admin</h3>
+		<ul>
+			<li><a href="listener.php">Aktuelle Hörer</a></li>
+			<li>Streamkontrolle</li>
+		</ul>
+	</div>
+{% endif %}
+</div>
+{% endblock %}

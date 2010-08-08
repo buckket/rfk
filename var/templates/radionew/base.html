@@ -4,42 +4,42 @@
     <title>Radio freies Krautchan :: {{ PAGETITLE }}   
     </title>    
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen,projection" /> 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> 
+    <link rel="stylesheet" href="{{ WEBROOT }}style.css" type="text/css" media="screen,projection" /> 
+    <link rel="shortcut icon" href="{{ WEBROOT }}favicon.ico" type="image/x-icon" /> 
 	<!--<script src="js/prototype.js"></script>-->
-	<script src="js/jquery.js"></script>
-	<script src="js/rfk.js"></script>
+	<script src="{{ WEBROOT }}js/jquery.js"></script>
+	<script src="{{ WEBROOT }}js/rfk.js"></script>
   </head>  
   <body>    
     <div id="container">      
       <div id="header">
-        <img src="img/logo.png" alt="Logo" />      
+        <img src="{{ WEBROOT }}img/logo.png" alt="Logo" />      
       </div>      
       <div id="navigation">        
         <ul>
 		  
           <li {% if section == 'overview' %}class="selected"{% endif %}>          
-          <a href="index.php">&Uuml;bersicht</a>          
+          <a href="{{ WEBROOT }}index.php">&Uuml;bersicht</a>          
           </li>          
           <li {% if section == 'history' %}class="selected"{% endif %}>          
-          <a href="history.php">Verlauf</a>          
+          <a href="{{ WEBROOT }}history.php">Verlauf</a>          
           </li {% if section == 'broadcasts' %}class="selected"{% endif %}>          
           <li>          
-          <a href="broadcasts.php">Sendungen</a>          
+          <a href="{{ WEBROOT }}broadcasts.php">Sendungen</a>          
           </li>          
           <li {% if section == 'status' %}class="selected"{% endif %}>          
-          <a href="status.php">Status</a>          
+          <a href="{{ WEBROOT }}status.php">Status</a>          
           </li>
 	      {% if !user_logged_in %}
           <li {% if section == 'login' %}class="selected"{% endif %}>          
-          <a href="login.php">Anmelden</a>          
+          <a href="{{ WEBROOT }}login.php">Anmelden</a>          
           </li>        
           <li {% if section == 'register' %}class="selected"{% endif %}>
-          <a href="register.php">Registrieren</a>
+          <a href="{{ WEBROOT }}register.php">Registrieren</a>
           </li>
 		  {% else %}
 		  <li>          
-          <a href="login.php?logout=true">Abmelden</a>          
+          <a href="{{ WEBROOT }}login.php?logout=true">Abmelden</a>          
           </li>
 	      {% endif %}
           <li style="float: right;">
@@ -48,7 +48,7 @@
 
           <li style="float: right;" {% if section == 'user' %}class="selected" {% endif %}>
           {% if user_logged_in %}
-          <a href="user.php"><p class="userinfo">User: {{ username }}</a>
+          <a href="{{ WEBROOT }}user.php"><p class="userinfo">User: {{ username }}</a>
           {% else %}
           <p class="userinfo">User: {{ username }}
           {% endif %}
@@ -91,7 +91,7 @@ Haben wir nicht, bekommen wir auch nichtmehr rein!
             
       <div id="footer">        
         <p>
-            <img src="xhtml_valid.png" class="vi" alt="valid xhtml" /><img src="css_valid.png" class="vi" alt="valid css" />        
+            <img src="{{ WEBROOT }}xhtml_valid.png" class="vi" alt="valid xhtml" /><img src="{{ WEBROOT }}css_valid.png" class="vi" alt="valid css" />        
         </p>      
       </div>    
     </div>  

@@ -1,0 +1,24 @@
+{% extends "admin/sidebar.html" %}
+{% block content %}
+<h2>Hörerübersicht</h2>
+<p>
+<table>
+<thead>
+<tr>
+<td>ID</td><td>ip</td><td>Land</td><td>Stadt</td><td>Useragent</td>
+</tr>
+</thead>
+<tbody>
+{% for listener in listeners %}
+<tr>
+<td>{{ listener.id }}</td>
+<td>{{ listener.ip }}</td>
+<td>{{ listener.country }}</td>
+<td>{{ listener.city }}</td>
+<td>{{ listener.ua }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</p>
+{% endblock %}
