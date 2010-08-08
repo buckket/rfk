@@ -62,6 +62,7 @@ function getLocation($ip){
         $record = GeoIP_record_by_addr($gi, $ip);
         $ret['cc'] = $record->countrycode;
         $ret['city'] = $record->city;
+        geoip_close($gi);
     }
     return $ret;
 }
