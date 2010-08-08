@@ -10,6 +10,7 @@ switch ($_GET['w']) {
     case 'track':
         getCurrTrack($out);
         getListener($out);
+        getDJ($out);
         break;
     case 'show':
         getCurrShow($out);

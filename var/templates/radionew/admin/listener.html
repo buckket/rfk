@@ -2,15 +2,15 @@
 {% block content %}
 <h2>Hörerübersicht</h2>
 <p>
-<table>
+<table width="100%">
 <thead>
 <tr>
-<td>ID</td><td>ip</td><td>Land</td><td>Stadt</td><td>Useragent</td>
+<td>ID</td><td>Adresse</td><td>Land</td><td>Stadt</td><td>Useragent</td>
 </tr>
 </thead>
 <tbody>
 {% for listener in listeners %}
-<tr>
+<tr style="background-color:{%cycle "#EEE","#999"%}">
 <td>{{ listener.id }}</td>
 <td>{{ listener.ip }}</td>
 <td>{{ listener.country }}</td>

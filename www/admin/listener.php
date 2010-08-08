@@ -10,7 +10,7 @@ $dbres = $db->query($sql);
 
 if($dbres){
     while($row = $db->fetch($dbres)){
-        $template['listeners'] = array('id' => $row['listenerhistory'],
+        $template['listeners'][] = array('id' => $row['listenerhistory'],
                                       'country' => $row['country'],
                                       'city'    => $row['city'],
                                       'ip'      => $row['ip'],
