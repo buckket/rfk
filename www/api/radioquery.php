@@ -45,7 +45,7 @@ function getListener(&$out){
                   FROM listenerhistory
                   WHERE disconnected IS NULL
                   GROUP BY mount) as c
-            RIGHT JOIN mounts USING (mount)";
+            RIGHT JOIN mounts USING (mount);";
     $dbres = $db->query($sql);
     if($dbres) {
         while($row = $db->fetch($dbres)) {
