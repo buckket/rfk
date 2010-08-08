@@ -81,7 +81,14 @@ function getNextShows(&$out){
 
 function getCurrTrack(&$out) {
     global $db;
-    $sql = "SELECT * FROM songhistory WHERE end IS NULL;";
+    $lasttrack = 0;
+    if(isset($_GET['ltid']) && $_GET['ltid'] > 0){
+        $lasttrack = $db->escape($_GET['ltid']);
+    }
+    $sql = "SELECT *
+            FROM songhistory
+            WHERE end IS NULL
+            AND song > ".$lasttrack.";";
     $dbres = $db->query($sql);
     if($dbres) {
         if($row = $db->fetch($dbres)) {
