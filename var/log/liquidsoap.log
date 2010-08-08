@@ -1507,3 +1507,246 @@
 2010/08/05 21:49:36 [threads:3] Thread "harbor source feeding" exited (0 remaining).
 2010/08/05 21:49:36 [main:3] Cleaning downloaded files...
 2010/08/05 21:49:36 >>> LOG END
+2010/08/08 19:06:40 >>> LOG START
+2010/08/08 19:06:40 [protocols.external:3] Didn't find "ufetch"
+2010/08/08 19:06:40 [protocols.external:3] Found "/usr/bin/wget"
+2010/08/08 19:06:40 [main:3] Liquidsoap 0.9.2
+2010/08/08 19:06:40 [harbor:3] Adding mountpoint '/live.ogg' to list...
+2010/08/08 19:06:40 [threads:3] Created thread "non-blocking queue #1".
+2010/08/08 19:06:40 [threads:3] Created thread "generic queue #1".
+2010/08/08 19:06:40 [threads:3] Created thread "root" (1 total).
+2010/08/08 19:06:40 [root:3] Waking up active nodes...
+2010/08/08 19:06:40 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:06:45 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:06:45 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:06:45 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:06:45 [root:3] Broadcast starts up!
+2010/08/08 19:06:46 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:06:46 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 1).
+2010/08/08 19:06:46 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/08 19:06:46 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/08 19:06:46 [src_5195:3] Switch to src_5191.
+2010/08/08 19:06:47 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/08 19:06:47 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/08 19:06:48 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/08 19:06:48 [root:2] We must catchup 2.37 seconds!
+2010/08/08 19:07:36 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:07:47 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:07:47 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 2).
+2010/08/08 19:08:38 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:08:48 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:08:48 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 3).
+2010/08/08 19:09:00 [main:3] Shutdown started!
+2010/08/08 19:09:00 [main:3] Waiting for threads to terminate...
+2010/08/08 19:09:00 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/08 19:09:00 [root:3] Shutting down sources...
+2010/08/08 19:09:00 [radio(dot)ogg:3] Closing connection...
+2010/08/08 19:09:00 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/08 19:09:00 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:09:00 [threads:3] Thread "root" exited (0 remaining).
+2010/08/08 19:09:00 [main:3] Cleaning downloaded files...
+2010/08/08 19:09:00 >>> LOG END
+2010/08/08 19:09:34 >>> LOG START
+2010/08/08 19:09:34 [protocols.external:3] Didn't find "ufetch"
+2010/08/08 19:09:34 [protocols.external:3] Found "/usr/bin/wget"
+2010/08/08 19:09:34 [main:3] Liquidsoap 0.9.2
+2010/08/08 19:09:34 [harbor:3] Adding mountpoint '/live.ogg' to list...
+2010/08/08 19:09:34 [threads:3] Created thread "non-blocking queue #1".
+2010/08/08 19:09:34 [threads:3] Created thread "generic queue #1".
+2010/08/08 19:09:34 [threads:3] Created thread "root" (1 total).
+2010/08/08 19:09:34 [root:3] Waking up active nodes...
+2010/08/08 19:09:34 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:09:35 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:09:35 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:09:35 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:09:35 [root:3] Broadcast starts up!
+2010/08/08 19:09:35 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:09:35 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 1).
+2010/08/08 19:09:35 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/08 19:09:35 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/08 19:09:35 [src_5195:3] Switch to src_5191.
+2010/08/08 19:09:36 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/08 19:09:36 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/08 19:09:36 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/08 19:09:36 [root:2] We must catchup 1.20 seconds!
+2010/08/08 19:10:26 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:10:26 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:10:28 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:10:28 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:10:28 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:10:36 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:10:36 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 2).
+2010/08/08 19:11:27 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:11:27 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:11:27 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:11:27 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:11:27 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:11:37 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:11:37 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 4).
+2010/08/08 19:12:28 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:12:28 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:12:29 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:12:29 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:12:29 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:12:38 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:12:38 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 6).
+2010/08/08 19:13:29 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:13:29 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:13:29 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:13:29 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:13:29 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:13:40 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:13:40 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 8).
+2010/08/08 19:14:30 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:14:30 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:14:31 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:14:31 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:14:31 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:14:33 [main:3] Shutdown started!
+2010/08/08 19:14:33 [main:3] Waiting for threads to terminate...
+2010/08/08 19:14:33 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/08 19:14:33 [root:3] Shutting down sources...
+2010/08/08 19:14:33 [radio(dot)ogg:3] Closing connection...
+2010/08/08 19:14:33 [output(dot)icecast(dot)lame:3] Closing connection...
+2010/08/08 19:14:33 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:14:33 [threads:3] Thread "root" exited (0 remaining).
+2010/08/08 19:14:33 [main:3] Cleaning downloaded files...
+2010/08/08 19:14:33 >>> LOG END
+2010/08/08 19:18:27 >>> LOG START
+2010/08/08 19:18:26 [protocols.external:3] Didn't find "ufetch"
+2010/08/08 19:18:26 [protocols.external:3] Found "/usr/bin/wget"
+2010/08/08 19:18:26 [main:3] Liquidsoap 0.9.2
+2010/08/08 19:18:27 [harbor:3] Adding mountpoint '/live.ogg' to list...
+2010/08/08 19:18:27 [threads:3] Created thread "non-blocking queue #1".
+2010/08/08 19:18:27 [threads:3] Created thread "generic queue #1".
+2010/08/08 19:18:27 [threads:3] Created thread "root" (1 total).
+2010/08/08 19:18:27 [root:3] Waking up active nodes...
+2010/08/08 19:18:27 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:18:28 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:18:28 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:18:28 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:18:28 [root:3] Broadcast starts up!
+2010/08/08 19:18:28 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:18:28 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 1).
+2010/08/08 19:18:28 [radio(dot)ogg:3] Connecting mount radio.ogg for source@localhost...
+2010/08/08 19:18:29 [radio(dot)ogg:3] Connection setup was successful.
+2010/08/08 19:18:29 [src_5195:3] Switch to src_5191.
+2010/08/08 19:18:30 [output(dot)icecast(dot)lame:2] Creating external encoder..
+2010/08/08 19:18:30 [output(dot)icecast(dot)lame:3] Connecting mount radio.mp3 for source@localhost...
+2010/08/08 19:18:30 [output(dot)icecast(dot)lame:3] Connection setup was successful.
+2010/08/08 19:18:30 [root:2] We must catchup 1.74 seconds!
+2010/08/08 19:19:19 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:19:19 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:19:21 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:19:21 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:19:21 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:19:30 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:19:30 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 2).
+2010/08/08 19:20:22 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:20:22 [root:2] We must catchup 1.04 seconds!
+2010/08/08 19:20:31 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:20:31 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 4).
+2010/08/08 19:20:32 [root:2] We must catchup 1.10 seconds!
+2010/08/08 19:21:21 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:21:22 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:21:23 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:21:23 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:21:23 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:21:32 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:21:32 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 5).
+2010/08/08 19:22:23 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/08 19:22:33 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:22:33 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 7).
+2010/08/08 19:30:08 [decoder:3] Decoder OGG chosen for "/usr/share/rfk/var/music/loop.ogg".
+2010/08/08 19:30:08 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:30:14 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:30:14 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:30:14 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:30:17 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/08 19:30:17 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/loop.ogg" (RID 8).
+2010/08/08 19:37:52 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:38:01 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/loop.ogg".
+2010/08/08 19:38:01 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 10).
+2010/08/08 19:38:52 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:38:52 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:38:55 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:38:55 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:38:55 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:39:02 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:39:02 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 11).
+2010/08/08 19:39:53 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:40:04 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:40:04 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 13).
+2010/08/08 19:40:54 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:40:54 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:40:56 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:40:56 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:40:56 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:41:05 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:41:05 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 14).
+2010/08/08 19:41:55 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:42:06 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:42:06 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 16).
+2010/08/08 19:42:56 [harbor:3] New client: NUKE
+2010/08/08 19:43:00 [harbor:3] Returned 401: wrong auth.
+2010/08/08 19:43:00 [harbor:3] Failed: wrong source authentification
+2010/08/08 19:43:00 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:43:00 [playlist(dot)php:3] Loading playlist...
+2010/08/08 19:43:01 [playlist(dot)php:3] No mime type specified, trying autodetection.
+2010/08/08 19:43:01 [playlist(dot)php:3] Playlist treated as format audio/x-mpegurl
+2010/08/08 19:43:01 [playlist(dot)php:3] Successfully loaded a playlist of 1 tracks.
+2010/08/08 19:43:07 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:43:07 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 17).
+2010/08/08 19:43:12 [harbor:3] New client: NUKE
+2010/08/08 19:43:14 [harbor:3] Returned 401: wrong auth.
+2010/08/08 19:43:14 [harbor:3] Failed: wrong source authentification
+2010/08/08 19:43:26 [harbor:3] New client: NUKE
+2010/08/08 19:43:27 [harbor:3] SOURCE request on /live.ogg.
+2010/08/08 19:43:27 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'application/ogg'.
+2010/08/08 19:43:28 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/08 19:43:28 [src_5185:3] Decoding...
+2010/08/08 19:43:28 [src_5185:3] New metadata chunk "Cassettes Won't Listen -- Paper Float"
+2010/08/08 19:43:28 [src_5195:3] Switch to src_5193 with transition.
+2010/08/08 19:43:34 [root:2] We must catchup 1.19 seconds!
+2010/08/08 19:45:56 [src_5185:2] Feeding stopped: Unix.Unix_error(56, "read", "")
+2010/08/08 19:45:57 [harbor:3] New client: NUKE
+2010/08/08 19:45:58 [harbor:3] SOURCE request on /live.ogg.
+2010/08/08 19:45:58 [harbor:3] Returned 401: Mount taken
+2010/08/08 19:45:58 [harbor:3] Failed: Mountpoint in use
+2010/08/08 19:45:58 [threads:3] Thread "harbor source feeding" exited (1 remaining).
+2010/08/08 19:46:02 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/08 19:46:11 [harbor:3] New client: NUKE
+2010/08/08 19:46:11 [harbor:3] SOURCE request on /live.ogg.
+2010/08/08 19:46:11 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'application/ogg'.
+2010/08/08 19:46:12 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/08 19:46:12 [src_5185:3] Decoding...
+2010/08/08 19:46:12 [src_5185:3] New metadata chunk "Cassettes Won't Listen -- Paper Float"
+2010/08/08 19:46:12 [src_5195:3] Switch to src_5193 with transition.
+2010/08/08 19:46:46 [src_5185:3] New metadata chunk "Immoor -- Math"
+2010/08/08 19:47:59 [src_5185:2] Feeding stopped: Unix.Unix_error(56, "read", "")
+2010/08/08 19:48:00 [threads:3] Thread "harbor source feeding" exited (1 remaining).
+2010/08/08 19:48:04 [src_5195:3] Switch to src_5191 with forgetful transition.
+2010/08/08 19:48:05 [decoder:3] Decoder MP3 chosen for "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:48:09 [harbor:3] New client: NUKE
+2010/08/08 19:48:09 [harbor:3] New client: NUKE
+2010/08/08 19:48:09 [harbor:3] GET request on /admin/metadata.
+2010/08/08 19:48:09 [harbor:3] Request to update metadata for mount /live.ogg
+2010/08/08 19:48:10 [harbor:3] SOURCE request on /live.ogg.
+2010/08/08 19:48:10 [harbor:3] Adding source on mountpoint '/live.ogg' with type 'audio/mpeg'.
+2010/08/08 19:48:12 [threads:3] Created thread "harbor source feeding" (2 total).
+2010/08/08 19:48:12 [src_5185:3] Decoding...
+2010/08/08 19:48:12 [src_5185:3] New metadata chunk "? -- Immoor - Math"
+2010/08/08 19:48:12 [src_5195:3] Switch to src_5193 with transition.
+2010/08/08 19:48:15 [playlist(dot)php:3] Finished with "/usr/share/rfk/var/music/mst3kcred.mp3".
+2010/08/08 19:48:15 [playlist(dot)php:3] Prepared "/usr/share/rfk/var/music/mst3kcred.mp3" (RID 19).
+2010/08/08 19:48:48 [harbor:3] New client: NUKE
+2010/08/08 19:48:48 [harbor:3] GET request on /admin/metadata.
+2010/08/08 19:48:48 [harbor:3] Request to update metadata for mount /live.ogg
+2010/08/08 19:48:49 [src_5185:3] New metadata chunk "? -- Passion Pit - Folds In Your Hands"
+2010/08/08 19:50:13 [root:2] We must catchup 1.04 seconds!
+2010/08/08 19:50:19 [root:2] We must catchup 1.15 seconds!
+2010/08/08 19:50:25 [root:2] We must catchup 1.61 seconds!
+2010/08/08 19:50:26 [root:2] We must catchup 2.26 seconds!
+2010/08/08 19:50:27 [root:2] We must catchup 2.81 seconds!
+2010/08/08 19:50:33 [root:2] We must catchup 1.10 seconds!
+2010/08/08 19:50:34 [root:2] We must catchup 1.23 seconds!

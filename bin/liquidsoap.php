@@ -65,6 +65,29 @@ function handleConnect($data){
     $db->execute($sql);
     $sql = "UNLOCK TABLES;";
     $db->execute($sql);
+    $sql = "SELECT *
+            FROM streamersettings
+            JOIN streamer USING (streamer)
+            WHERE status = 'STREAMING'
+              AND `key` = 'icytags'";
+    $dbres = $db->query($sql);
+    if($dbres && $db->num_rows($dbres) > 0) {
+        if(isset($meta['ice-name'])) {
+            $sql = 'INSERT INTO streamersettings (streamer,`key`,value)
+                        SELECT streamer,"icyshowname","'.$db->escape($meta['ice-name']).'"
+                        FROM streamer WHERE status = "STREAMING"
+                    ON DUPLICATE KEY UPDATE value = "'.$db->escape($meta['ice-name']).'";';
+            $db->execute($sql);
+        }
+        if(isset($meta['ice-description'])) {
+            $sql = 'INSERT INTO streamersettings (streamer,`key`,value)
+                        SELECT streamer,"icyshowdescription","'.$db->escape($meta['ice-description']).'"
+                        FROM streamer WHERE status = "STREAMING"
+                    ON DUPLICATE KEY UPDATE value = "'.$db->escape($meta['ice-description']).'";';
+            $db->execute($sql);
+        }
+    }
+
 }
 
 function handleMetaData($metadata){
@@ -96,6 +119,9 @@ function handleMetaData($metadata){
             $sql = "INSERT INTO songhistory (`show`,begin,artist,title) VALUES (".$songinfo['show'].",NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."')";
             $db->execute($sql);
         }
+    }else{
+        //fix für die idioten die nichts mitsenden
+        checkShow();
     }
 }
 
@@ -142,31 +168,47 @@ function checkShow(){
         }
 
     } else {
-        $sql = "SELECT `key`, value
-                FROM streamersettings
-                JOIN streamer USING (streamer)
-                WHERE status = 'STREAMING'
-                  AND value IN ('icyshowname', 'icyshowdescription',
-                                'defaultshowname', 'defaultshowdescription');";
-        $res = $db->query($sql);
         $showname = '';
         $showdescription = '';
-        while($row = $db->fetch($res)) {
-            switch($row['key']){
-                case 'icyshowname':
+        $sql = "SELECT *
+            FROM streamersettings
+            JOIN streamer USING (streamer)
+            WHERE status = 'STREAMING'
+              AND `key` = 'icytags'";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            $sql = "SELECT `key`, value
+                    FROM streamersettings
+                    JOIN streamer USING (streamer)
+                    WHERE status = 'STREAMING'
+                      AND `key` IN ('icyshowname', 'icyshowdescription');";
+            $res = $db->query($sql);
+            while($row = $db->fetch($res)) {
+                switch($row['key']){
+                    case 'icyshowname':
+                            $showname = $row['value'];
+                        break;
+                    case 'icyshowdescription':
+                            $showdescription = $row['value'];
+                        break;
+                }
+            }
+        } else {
+            $sql = "SELECT `key`, value
+                    FROM streamersettings
+                    JOIN streamer USING (streamer)
+                    WHERE status = 'STREAMING'
+                      AND `key` IN ('defaultshowname', 'defaultshowdescription');";
+            $res = $db->query($sql);
+            while($row = $db->fetch($res)) {
+                switch($row['key']){
+                    case 'defaultshowname':
                         $showname = $row['value'];
-                    break;
-                case 'icyshowdescription':
+                        break;
+                    case 'defaultshowdescription':
                         $showdescription = $row['value'];
-                    break;
-                case 'defaultshowname':
-                    if($showname == '')
-                        $showname = $row['value'];
-                    break;
-                case 'defaultshowdescription':
-                    if($showdescription == '')
-                        $showdescription = $row['value'];
-                    break;
+                        break;
+                }
             }
         }
         $sql = "UPDATE shows SET end = NOW() WHERE end IS NULL;";
