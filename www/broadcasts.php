@@ -83,28 +83,31 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
             }
         }
     }
+    $times = array();
     for($d = 0; $d < 7; $d++){
         for($t = 0; $t < 48; $t++){
-            $type = false;
-            foreach ($shows[$t][$d]['shows'] as $key => $value){
-                if(isset($value)){
-                    if($type != $value['type']){
-                        if($type){
-                            $type = 'mixed';
-                            break;
+            if(isset($shows[$t][$d]['shows'])){
+                $type = false;
+                foreach ($shows[$t][$d]['shows'] as $key => $value){
+                    if(isset($value)){
+                        if($type != $value['type']){
+                            if($type){
+                                $type = 'mixed';
+                                break;
+                            }
+                            $type = $value['type'];
                         }
-                        $type = $value['type'];
                     }
                 }
-            }
-            if($type){
-                $shows[$t][$d]['type'] = $type;
-            }
-            if(isset($shows[$t][$d]['shows'])){
-                $shows[$t][$d]['count'] = count($shows[$t][$d]['shows']);
+                if($type){
+                    $shows[$t][$d]['type'] = $type;
+                }
+                if(isset($shows[$t][$d]['shows'])){
+                    $shows[$t][$d]['count'] = count($shows[$t][$d]['shows']);
+                }
             }
             if($d == 0){
-                $shows[$t]['name'] = floor($t/2).':'.($t%2==0?'00':'30');
+                    $times[$t] = floor($t/2).':'.($t%2==0?'00':'30');
             }
         }
     }
@@ -112,6 +115,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     //print_r($shows);
     $template = array();
     $template['calendar'] = $shows;
+    $template['timenames'] = $times;
     $template['year'] = $year;
     $template['week'] = $_GET['week'];
     $template['nextweek'] = $nextweek;

@@ -6,7 +6,7 @@
 <tbody>
 {% for entry in news %}
 <tr>
-<td><b>{{ entry.description }}</b> {{ entry.user }} {{ entry.time }}</td>
+<td><b>{{ entry.description }}</b> {{ entry.user }} {{ entry.time | relative_datetime}}</td>
 </tr>
 <tr>
 <td>{{ entry.text | safe}}</td>
