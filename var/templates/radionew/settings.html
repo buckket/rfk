@@ -1,22 +1,20 @@
 {% extends "sidebar-user.html" %}
 {% block content %}
 <h2>Einstellungen</h2>
-<p>
 <form method="post">
 <table>
+<thead>
 <tr>
-    <td colspan=2 >Sendungseinstellungen</td>
+    <td colspan=2 >Streameinstellungen</td>
 </tr>
+</thead>
+<tbody>
 <tr>
-    <td>Name für ungeplante Sendung</td><td><input name="showname" value="{{ showname }}"/></td>
+    <td>Streampasswort</td><td><input name="streampassword" value="{{ streampassword }}"/></td>
 </tr>
-<tr>
-    <td>Beschreibung</td><td><input name="showdesc" value="{{ showdesc }}"/></td>
-</tr>
-<tr>
-    <td>aus ICY-Tags übernehmen</td><td><input type="checkbox" name="icy" {% if icytags %}checked{% endif %}/></td>
-</tr>
+</tbody>
 </table>
+<br />
 <input type="submit" name="submit" value="Einstellungen ändern" />
 </form>
 {% endblock %}
