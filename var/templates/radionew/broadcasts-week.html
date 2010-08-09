@@ -4,22 +4,26 @@
 <table width="100%" class="calendar-week" cellspacing=0>
 <tr><td>&nbsp;</td><td width="13%">Montag</td><td width="13%">Dienstag</td><td width="13%">Mittwoch</td><td width="13%">Donnerstag</td><td width="13%">Freitag</td><td width="13%">Samstag</td><td width="13%">Sonntag</td></tr>
 {% for index, time in calendar %}
-<tr height="20">
-{% for i, day in time %}
-{% if day.type != 'SKIP' %}
-	{% if day.type == 'FREE' %}
-	<td class="free" id="{{ day.id }}" rowspan={{ day.length }} >
-	{% else %}
-		{% if day.type != 'TIME' %}
-			<td class="show" rowspan={{ day.length }} id="{{ day.id }}">
-		{% else %}
-		<td class="hour">
-		{% endif %}
-	{% endif %}
-	{{ day.name }}
-	</td>
-{% endif %}
-{% endfor %}
+<tr>
+    {% for index, day in time %}
+        {% if index == 'name' %}
+            <td>{{ day }}</td>
+        {% else %}
+	    <td {% if day.size > 1 %}rowspan={{ day.size }} {% endif %} class="{{ day.type }}">
+	    {% if day.count > day.size %}
+		    {{day.count}}&nbsp;Sendungen
+	    {% else %}
+		    {% if day.shows %}
+			    {% for show in day.shows %}
+			     {{show.name}}<br />
+			    {% endfor%}
+			{% else %}
+    			&nbsp;
+			{% endif %}
+	    {% endif %}
+	    </td>
+	    {% endif%}
+    {%endfor%}
 </tr>
 {% endfor %}
 </bp:foreach>

@@ -32,11 +32,12 @@ function getDJ(&$out){
     if($dbres) {
         $row = $db->fetch($dbres);
         $out['dj'] = $row['username'];
+        $out['djid'] = $row['streamer'];
     }
 }
 function getCurrShow(&$out){
     global $db;
-    $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type
+    $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type
             FROM shows
             JOIN streamer USING (streamer)
             WHERE end IS NULL
@@ -50,6 +51,7 @@ function getCurrShow(&$out){
             $out['showtype'] = $row['type'];
             $out['showname'] = $row['name'];
             $out['showdescription'] = $row['description'];
+            $out['showid'] = $row['show'];
         }
     }
 }
