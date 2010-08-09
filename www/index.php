@@ -11,6 +11,8 @@ $sql = "SELECT news, time, description, text, username
 $dbres = $db->query($sql);
 if($dbres){
     while($row = $db->fetch($dbres)){
+        $row['text'] = $bbcode->parse($row['text']);
+
         $template['news'][] = array('id' => $row['news'],
                                     'description' => $row['description'],
                                     'user' => $row['username'],

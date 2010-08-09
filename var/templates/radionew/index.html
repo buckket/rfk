@@ -9,7 +9,7 @@
 <td><b>{{ entry.description }}</b> {{ entry.user }} {{ entry.time }}</td>
 </tr>
 <tr>
-<td>{{ entry.text }}</td>
+<td>{{ entry.text | safe}}</td>
 </tr>
 {% endfor %}
 </tbody>

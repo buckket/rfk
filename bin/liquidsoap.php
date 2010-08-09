@@ -231,7 +231,7 @@ function checkShow(){
 //global functions
 function serializedToArray($string){
     $array = array();
-    if(preg_match_all("/(.*?)='(.*?)'(;|$)/",$string,$matches,PREG_SET_ORDER)){
+    if(preg_match_all("/(.*?)='(.*?)'(;|$)/m",$string,$matches,PREG_SET_ORDER)){
         foreach($matches as $entry){
             $array[$entry[1]] = $entry[2];
         }
