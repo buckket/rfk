@@ -10,10 +10,43 @@
 			}else{
 				$data['error'][] = array(1,'Auth required');
 			}
-	
+			break;
+		default:
+		    if(isset($_GET['id'])){
+		        echo getShowInfos();
+		        exit();
+		    }
 	}
 	echo json_encode($data);
-	
+	exit();
+
+	function getShowInfos(){
+	    global $db, $bbcode;
+	    $ids = explode(',', $_GET['id']);
+	    $ins = array();
+	    foreach($ids as $id){
+	        $ins[] = $db->escape($id);
+	    }
+	    $sql = "SELECT name, description, username, DATE_FORMAT(begin, '%T') as begin, DATE_FORMAT(end, '%T') as end
+	            FROM shows JOIN streamer USING ( streamer )
+	            WHERE `show` IN ('".implode("','",$ins)."')";
+	    $dbres = $db->query($sql);
+	    $out;
+	    if($dbres) {
+	        $out .= '<table>';
+            while($row = $db->fetch($dbres)) {
+                $out .= "<tr>";
+                $out .= '<td colspan=2>'.$row['begin'].'&nbsp;-&nbsp;'.$row['end']."</td>";
+                $out .= '</tr><tr>';
+                $out .= "<td>Name:</td><td>".$row['name']."</td>";
+                $out .= '</tr><tr>';
+                $out .= '<td colspan=2>'.$bbcode->parse($row['description']).'<td>';
+                $out .= '</tr>';
+            }
+            $out .= '</table>';
+	    }
+	    return $out;
+	}
 	function addShow(&$data){
 		global $db,$user;
 		$year  = (int)$_GET['year'];
@@ -81,9 +114,9 @@
 			$data['error'][] = array('errid'  => 0,
 									 'desc'   => 'SQLERROR');
 		}
-		
+
 	}
-	
+
 function convSunTomon($dow){
 	$dow += 1;
 	if($dow > 6){

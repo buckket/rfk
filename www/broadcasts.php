@@ -52,9 +52,9 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
                 $i = 0;
         }else{
             $i = $times;
-        }
-        if($times > $timee) {
-            $timee = 336;
+            if($times > $timee) {
+                $timee = 336;
+            }
         }
         do{
             $shows[$i%48][floor($i/48)]['shows'][$tmp['id']] = $tmp;
@@ -86,29 +86,37 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $times = array();
     for($d = 0; $d < 7; $d++){
         for($t = 0; $t < 48; $t++){
-            if(isset($shows[$t][$d]['shows'])){
-                $type = false;
-                foreach ($shows[$t][$d]['shows'] as $key => $value){
-                    if(isset($value)){
-                        if($type != $value['type']){
-                            if($type){
-                                $type = 'mixed';
-                                break;
+            if(isset($shows[$t][$d])){
+                $shows[$t][$d]['tid'] = $d.''.$t;
+                if(isset($shows[$t][$d]['shows'])){
+                    $type = false;
+                    $ids = array();
+                    foreach ($shows[$t][$d]['shows'] as $key => $value){
+                        $ids[] = $value['id'];
+                        if(isset($value)){
+                            if($type != $value['type']){
+                                if($type){
+                                    $type = 'mixed';
+                                }else{
+                                    $type = $value['type'];
+                                }
                             }
-                            $type = $value['type'];
                         }
                     }
-                }
-                if($type){
-                    $shows[$t][$d]['type'] = $type;
-                }
-                if(isset($shows[$t][$d]['shows'])){
-                    $shows[$t][$d]['count'] = count($shows[$t][$d]['shows']);
+                    if($type){
+                        $shows[$t][$d]['type'] = $type;
+                    }
+                    if(isset($shows[$t][$d]['shows'])){
+                        $shows[$t][$d]['count'] = count($shows[$t][$d]['shows']);
+                        $shows[$t][$d]['ids'] = implode(',',$ids);
+                    }
+
                 }
             }
             if($d == 0){
-                    $times[$t] = floor($t/2).':'.($t%2==0?'00':'30');
+                    $shows[$t][$d]['tname'] = floor($t/2).':'.($t%2==0?'00':'30');
             }
+            //
         }
     }
     ksortTree($shows);
