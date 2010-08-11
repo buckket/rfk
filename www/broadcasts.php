@@ -114,7 +114,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
                 }
             }
             if($d == 0){
-                    $shows[$t][$d]['tname'] = floor($t/2).':'.($t%2==0?'00':'30');
+                    $shows[$t][-1] = floor($t/2).':'.($t%2==0?'00':'30');
             }
             //
         }

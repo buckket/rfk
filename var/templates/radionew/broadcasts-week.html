@@ -6,9 +6,9 @@
 {% for index, time in calendar %}
 <tr>
     {% for index, day in time %}
-        {% if index == 0 %}
-            <td>{{ day.tname }}</td>
-        {% endif %}
+        {% if loop.first %}
+            <td>{{ day }}
+        {%else%}
 	    <td id="t{{day.tid}}" {% if day.ids %}shows="{{day.ids}}"{% endif %} {% if day.size > 1 %}rowspan={{ day.size }} {% endif %} class="{{ day.type }}">
 	    {% if day.count > day.size %}
 		    {{day.count}}&nbsp;Sendungen
@@ -20,6 +20,7 @@
 			{% else %}
     			&nbsp;
 			{% endif %}
+	    {% endif %}
 	    {% endif %}
 	    </td>
     {%endfor%}
