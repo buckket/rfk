@@ -87,7 +87,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     for($d = 0; $d < 7; $d++){
         for($t = 0; $t < 48; $t++){
             if(isset($shows[$t][$d])){
-                $shows[$t][$d]['tid'] = $d.''.$t;
+                $shows[$t][$d]['tid'] = $d.''.str_pad($t, 2,'0',STR_PAD_LEFT);
                 if(isset($shows[$t][$d]['shows'])){
                     $type = false;
                     $ids = array();
@@ -126,6 +126,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $template['timenames'] = $times;
     $template['year'] = $year;
     $template['week'] = $_GET['week'];
+    $template['currweek'] = $currweek;
     $template['nextweek'] = $nextweek;
     $template['prevweek'] = $prevweek;
     cleanup_h2o($template);

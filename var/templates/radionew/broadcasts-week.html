@@ -30,13 +30,247 @@
 </table>
 <script type="text/javascript" >
 document.observe('dom:loaded', function(){
-	$$('td[shows]').each(function(element){
-		new Tip(element, {
-		    ajax: {
-			  url: '{{ WEBROOT }}api/site/show.php?id='+element.getAttribute("shows")
-			  }
-		});
+	 $$('td[shows]').each(function(element){
+	  new Tip(element, {
+	      ajax: {
+	     url: 'api/site/show.php?id='+element.getAttribute("shows")
+	     }
+	  });
+	 });
+	 
 	});
-});
+    var addingshow = false;
+    var currweek = {{ currweek }};
+    
+    function addShow() {
+        if(addingshow)
+            return;
+        startFreeListener();
+        Effect.BlindDown('addshow');
+        addingshow = true;
+    }
+    
+    function abortAddShow() {
+    	newshow.clear();
+        stopFreeListener();
+        clearFreeClassNames();
+        addingshow = false;
+        Effect.BlindUp('addshow');
+    }
+    
+    function commitAddShow(){
+    	if(!checkNewShow()){
+    	    return;
+    	}
+        new Ajax.Request('{{ WEBROOT }}api/site/show.php?w=add&cw='+currweek,{
+            postBody: 'name='+encodeURIComponent($('showname').value)+
+                      '&description='+encodeURIComponent($('showdescription').value)+
+                      '&length='+newshow.length+
+                      '&start='+getStart(),
+            onSuccess: function(response) {
+	            var obj = response.responseJSON;
+	            if(obj.error){
+	                alert(obj.error[0]['errid']+": "+obj.error[0]['desc']);
+	            }else if(obj.ok){
+	            	newshow.clear();
+	                clearFreeClassNames();
+	                addingshow = false;
+		            alert('Sendung erfolgreich eingetragen!');
+		            window.location.reload();
+	            }
+            }
+        });
+    }
+
+    function getStart() {
+    	return parseInt(newshow.first().id.substring(1), 10);
+    }
+    
+    function clearFreeClassNames() {
+        $$('td.free').each(function(element){
+            clearClassNames(element);
+        });
+       }
+	 function startFreeListener() {
+	  $$('td.free').each(function(element){
+	   $(element).observe('click', startAddShow);
+	  });
+	 }
+	 function stopFreeListener() {
+	  $$('td.free').each(function(element){
+	   $(element).stopObserving('click');
+	  });
+	 }
+	 var newshow = new Array();
+	 var counter = 0;
+
+	 function checkNewShow(){
+		if(newshow.length == 0){
+		    alert('Zuerst freies Feld im Kalender wählen');
+		    return false;
+		}
+		return true;
+	 }
+	 function startAddShow(event) {
+	   var element = event.element();
+	   newshow.push(element);
+	   stopFreeListener();
+	   refreshNewShow();
+	 }
+	 
+	 function refreshNewShow(){
+	  for (var index = 0; index < newshow.length; ++index) {
+	    var element = newshow[index];
+	    clearClassNames(element);
+	    if(index == 0){
+	        element.addClassName('freetime-start');
+	        $('showbegin').update(slotToTime(element,false));
+	    }
+	    if (index == newshow.length -1){
+	        element.addClassName('freetime-end');
+	        $('showend').update(slotToTime(element,true));
+	    }
+	    element.addClassName('freetime-mid');
+	  }
+	 }
+	 
+	 function clearClassNames(element) {
+	  element.removeClassName('freetime-start');
+	  element.removeClassName('freetime-mid');
+	  element.removeClassName('freetime-end');
+	 }
+
+	 function slotToTime(element,end){
+		var id
+		if(end){
+			id = parseInt(element.id.substring(1), 10)+1;
+		}else{
+			id = parseInt(element.id.substring(1), 10); 
+		}
+		var id = id%100;
+		var hour = Math.floor(id/2);
+		var minutes = (id%2==0)?'00':'30'; 
+		return hour+":"+minutes
+	 }
+	 
+	 function removeSlot(first) {
+	  var element;
+	  if(first){
+	   element = newshow.shift();
+	  }else{
+	   element = newshow.pop();
+	  }
+	  clearClassNames(element);
+	 }
+	 
+	 function isFree(id){
+	  if($(id).hasClassName('free')){
+	   return true;
+	  }
+	  return false;
+	 }
+	 
+	 function getNextId(element) {
+	  var nid = parseInt(element.id.substring(1), 10)+1;
+	  if(nid > 647){
+	   alert('wochenübergreifend planen ist nicht möglich!');
+	   return;
+	  }
+	  if(nid%100>47){
+	   if(nid >= 100){
+	    nid = (Math.floor(nid/100)+1)*100;
+	   }else {
+	    nid = 100;
+	   }
+	  }
+	  if(nid < 100){
+	   nid = '0'+nid;
+	  }
+	  return 't'+nid;
+	 }
+	 
+	 function getPrevId(element) {
+	  var nid = parseInt(element.id.substring(1), 10)-1;
+	  if(nid < 0){
+	   alert('wochenübergreifend planen ist nicht möglich!');
+	   return;
+	  }
+	  if(nid%100>47){
+	   if(nid >= 100){
+	    nid = ((Math.floor(nid/100)-1)*100)+47;
+	   }else {
+	    nid = 47;
+	   }
+	  }
+	  if(nid < 100){
+	   nid = dezInt(nid,3);
+	  }
+	  return 't'+nid;
+	 }
+	 
+	 function newShowPlus() {
+		 if(!checkNewShow()){
+			 return;
+		 }
+	  var nid = getNextId(newshow.last());
+	  if(!nid){
+	   return;
+	  }
+	  if(isFree(nid)){
+	   newshow.push($(nid));
+	   refreshNewShow();
+	  }else {
+	   alert('nein');
+	  }
+	 }
+	 function newShowMinus() {
+		 if(!checkNewShow()){
+             return;
+         }
+	  if(newshow.length > 1){
+	   removeSlot(false);
+	   refreshNewShow();
+	  }
+	 }
+	 
+	 function newShowUp() {
+		 if(!checkNewShow()){
+             return;
+         }
+	  var pid = getPrevId(newshow.first());
+	  if($(pid)){
+	   if(isFree(pid)){
+	    newshow.unshift($(pid));
+	    removeSlot(false);
+	    refreshNewShow();
+	   }
+	  }
+	 }
+	 
+	 function newShowDown() {
+		 if(!checkNewShow()){
+             return;
+         }
+	  var nid = getNextId(newshow.last());
+	  if(nid){
+	   if(isFree(nid)){
+	    newshow.push($(nid));
+	    removeSlot(true);
+	    refreshNewShow();
+	   }
+	  }
+	 }
+	 function dezInt(num,size,prefix) {
+	   prefix=(prefix)?prefix:"0";
+	   var minus=(num<0)?"-":"",
+	   result=(prefix=="0")?minus:"";
+	   num=Math.abs(parseInt(num,10));
+	   size-=(""+num).length;
+	   for(var i=1;i<=size;i++) {
+	    result+=""+prefix;
+	   }
+	   result+=((prefix!="0")?minus:"")+num;
+	   return result;
+	 }
 </script>
 {% endblock %}
