@@ -66,7 +66,7 @@ function getNextShows(&$out){
     $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username
             FROM shows
             JOIN streamer USING (streamer)
-            WHERE begin > NOW();
+            WHERE begin > NOW()
             ORDER BY begin ASC
             LIMIT 0,'.$limit;
     $dbres = $db->query($sql);
