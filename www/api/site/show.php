@@ -22,24 +22,29 @@
 	exit();
 
 	function getShowInfos(){
-	    global $db, $bbcode;
+	    global $db, $bbcode,$includepath;
+	    require_once $includepath.'/listener.php';
 	    $ids = explode(',', $_GET['id']);
 	    $ins = array();
 	    foreach($ids as $id){
 	        $ins[] = $db->escape($id);
 	    }
-	    $sql = "SELECT name, description, username, DATE_FORMAT(begin, '%T') as begin, DATE_FORMAT(end, '%T') as end
+	    $sql = "SELECT name, description, username, UNIX_TIMESTAMP(begin) as begin, UNIX_TIMESTAMP(end) as end
 	            FROM shows JOIN streamer USING ( streamer )
 	            WHERE `show` IN ('".implode("','",$ins)."')";
 	    $dbres = $db->query($sql);
+
 	    $out;
 	    if($dbres) {
 	        $out .= '<table>';
             while($row = $db->fetch($dbres)) {
+                //$listener = getListeners($row['begin'], $row['end']);
                 $out .= "<tr>";
                 $out .= '<td colspan=2>'.$row['begin'].'&nbsp;-&nbsp;'.$row['end']."</td>";
                 $out .= '</tr><tr>';
                 $out .= "<td>Name:</td><td>".$row['name']."</td>";
+                $out .= '</tr><tr>';
+                $out .= "<td>Dj:</td><td>".$row['username']."</td>";
                 $out .= '</tr><tr>';
                 $out .= '<td colspan=2>'.$bbcode->parse($row['description']).'<td>';
                 $out .= '</tr>';

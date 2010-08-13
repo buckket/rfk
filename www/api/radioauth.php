@@ -38,7 +38,7 @@ if($_POST['action'] === 'mount_add'){
             NOW(),
             NULL,
             '".$db->escape($_POST['agent'])."',
-            '".$db->escape($location['city'])."',
+            '".$db->escape(utf8_encode($location['city']))."',
             '".$db->escape($location['cc'])."');";
     $db->execute($sql);
 }else if($_POST['action'] === 'listener_remove'){
