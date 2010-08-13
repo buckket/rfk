@@ -2,31 +2,33 @@
 class RRD{
     var $filename = 0;
     var $workingdir = "./";
-    var $step = 300;
+    var $step = 120;
     function __construct($wd,$filename){
-        $this->workingdir = $wd."rrd/";
+        $this->workingdir = $wd;
         $this->filename = $filename;
         $this->checkdir();
     }
 
-    public function create($ds,$rra){
+    public function create($ds,$rra,$start = false){
+        if(!$start) {
+            $start = time();
+        }
         if(file_exists($this->workingdir.$this->filename.".rrd")){
             return false;
         }
-        $cmd = "rrdtool create ".$this->filename.".rrd --step ".$this->step." ";
+        $cmd = "rrdtool create ".$this->filename.".rrd --start $start --step ".$this->step." ";
         foreach($ds as $d){
-            $d = new RRDDS($d[0],$d[1],$d[2],$d[3],$d[4]);
             $cmd .= $d->toString()." ";
         }
         foreach($rra as $r){
-            $r = new RRDRRA($r[0],$r[1],$r[2],$r[3]);
             $cmd .= $r->toString()." ";
         }
         //echo $cmd;
         $this->command($cmd,$this->workingdir,false);
+        return true;
     }
-    public function update($names,$values){
-        $cmd = "rrdtool update ".$this->filename.".rrd N";
+    public function update($names,$values,$time = 'N'){
+        $cmd = "rrdtool update ".$this->filename.".rrd $time";
         foreach($names as $name){
             if(isset($values[$name])){
                 $cmd .= ":".$values[$name];
@@ -37,32 +39,26 @@ class RRD{
         //echo $cmd;
         $this->command($cmd,$this->workingdir,'echo');
     }
-    public function createGraph($blah = false){
-        $cmd = 'rrdtool graph - --end now --start end-120000s --width 400';
-        $cmd .= ' DEF:ds0a='.$this->workingdir.$this->filename.'.rrd:players:AVERAGE';
-        $cmd .= ' DEF:ds0b='.$this->workingdir.$this->filename.'.rrd:cpu:AVERAGE:step=1800';
-        $cmd .= ' DEF:ds0c='.$this->workingdir.$this->filename.'.rrd:mem:AVERAGE:step=7200';
-        $cmd .= ' LINE1:ds0a#0000FF:"Spieler\l"';
-        $cmd .= ' LINE1:ds0b#00CCFF:"CPU\l"';
-        $cmd .= ' LINE1:ds0c#FF00FF:"mem\l"';
-        if($blah == 'true'){
-            $cmd = 'rrdtool graph - --end now --start end-1400s --width 800';
-            $cmd .= ' DEF:packets='.$this->workingdir.$this->filename.'.rrd:packets:AVERAGE';
-            $cmd .= ' DEF:kills='.$this->workingdir.$this->filename.'.rrd:kills:AVERAGE';
-            $cmd .= ' DEF:user='.$this->workingdir.$this->filename.'.rrd:user:AVERAGE';
-            $cmd .= ' DEF:chat='.$this->workingdir.$this->filename.'.rrd:chat:AVERAGE';
-            $cmd .= ' DEF:useronline='.$this->workingdir.$this->filename.'.rrd:useronline:AVERAGE';
-            $cmd .= ' DEF:credits='.$this->workingdir.$this->filename.'.rrd:credits:AVERAGE';
-            $cmd .= ' DEF:serveralive='.$this->workingdir.$this->filename.'.rrd:serveralive:AVERAGE';
-            $cmd .= ' DEF:server='.$this->workingdir.$this->filename.'.rrd:server:AVERAGE';
-            $cmd .= ' LINE1:packets#0000FF:"packets\l"';
-            $cmd .= ' LINE1:kills#00CCFF:"kills\l"';
-            $cmd .= ' LINE1:user#FF00FF:"users\l"';
-            $cmd .= ' LINE1:useronline#00FFCC:"users\l"';
-            $cmd .= ' LINE1:credits#0099FF:"credits\l"';
-            $cmd .= ' LINE1:serveralive#FF99FF:"serveralive\l"';
+    public function createGraph($defs,$graphs,$cdefs = array(),$vdefs = array()){
+        $cmd = 'rrdtool graph - --end now --start end-2days --width 450';
+        foreach ($defs as $def){
+            $cmd .= ' '.$def->toString();
+        }
+        foreach ($cdefs as $cdef){
+            $cmd .= ' '.$cdef->toString();
+        }
+        foreach ($graphs as $graph){
+            $cmd .= ' '.$graph->toString();
         }
         //echo $cmd;
+        //$cmd .= ' DEF:ds0a='.$this->workingdir.$this->filename.'.rrd:listener:LAST';
+        //$cmd .= ' DEF:ds0b='.$this->workingdir.'2.rrd:listener:LAST';
+        //$cmd .= ' DEF:ds0c='.$this->workingdir.'4.rrd:listener:LAST';
+        //$cmd .= ' CDEF:ds0d=ds0a,ds0b,+';
+        //$cmd .= ' LINE1:ds0a#0000FF:"listener\l"';
+        //$cmd .= ' LINE1:ds0b#00FFFF:"listener\l"';
+        //$cmd .= ' LINE1:ds0c#FF00FF:"listener\l"';
+        //$cmd .= ' LINE1:ds0d#FF00FF:"gesammt\l"';
         return shell_exec($cmd);
     }
 
@@ -189,4 +185,68 @@ class RRDRRA{
     }
 }
 
+class RRDDEF{
+    var $step;
+    var $start;
+    var $end;
+    var $name;
+    var $rrd;
+    var $dsname;
+    var $cf;
+    public function __construct($name,$rrd, $dsname, $cf, $step = null, $start = null, $end = null) {
+        $this->name = $name;
+        $this->rrd = $rrd;
+        $this->dsname = $dsname;
+        $this->cf = $cf;
+        $this->step = $step;
+        $this->start = $start;
+        $this->end = $end;
+    }
+    public function toString(){
+        $ret =  "DEF:".$this->name.'='.$this->rrd.':'.$this->dsname.':'.$this->cf;
+        if($this->step) {
+            $ret .= ':'.$this->step;
+        }
+        if($this->start) {
+            $ret .= ':'.$this->start;
+        }
+        if($this->end) {
+            $ret .= ':'.$this->end;
+        }
+        return $ret;
+    }
+}
+
+class RRDLINE{
+    var $width;
+    var $var;
+    var $color;
+    var $legend;
+
+    public function __construct($width, $var, $color,$legend) {
+        $this->width = $width;
+        $this->var = $var;
+        $this->color = $color;
+        $this->legend = $legend;
+    }
+
+    public function toString(){
+        $ret =  'LINE'.$this->width.':'.$this->var.'#'.$this->color.':'.$this->legend;
+        return $ret;
+    }
+}
+class RRDCDEF{
+    var $cmd;
+    var $var;
+
+    public function __construct($var, $cmd) {
+        $this->cmd = $cmd;
+        $this->var = $var;
+    }
+
+    public function toString(){
+        $ret =  'CDEF:'.$this->var.'='.implode(',',$this->cmd);
+        return $ret;
+    }
+}
 ?>
