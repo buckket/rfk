@@ -1,99 +1,99 @@
 <?php
 
 class User{
-	var $username = false;
-	var $userid = false;
-	var $logged_in = false;
-	var $rights = array();
-	function User(){
-		global $_config,$_MSG;
+    var $username = false;
+    var $userid = false;
+    var $logged_in = false;
+    var $rights = array();
+    function User(){
+        global $_config,$_MSG;
         $this->username = $_config['default-username'];
-		if($this->logged_in()){
-			if(isset($_GET['logout']) && $_GET['logout'] === 'true'){
-				$this->logout();
-				$_MSG['msg'][] = "Erfolgreich abgemeldet!";
-			}
-		}else if(isset($_POST['login']) && strlen($_POST['username']) != 0 && strlen($_POST['password']) != 0 ){
-			$this->login($_POST['username'],$_POST['password']);
-			if(!$this->logged_in){
-				$_MSG['err'][] = "Benutzername und/oder Passwort falsch!";
-			}else{
-				$_MSG['msg'][] = "Erfolgreich angemeldet;";
-			}
-		}
-		if($this->logged_in){
-			//disabled for now
-			//$this->get_userrights();
-		}
-	}
-	function login($username, $password){
-		global $db;
-		$db->debugquery = false;
-		$sql="SELECT streamer,username
-   			  FROM streamer
+        if($this->logged_in()){
+            if(isset($_GET['logout']) && $_GET['logout'] === 'true'){
+                $this->logout();
+                $_MSG['msg'][] = "Erfolgreich abgemeldet!";
+            }
+        }else if(isset($_POST['login']) && strlen($_POST['username']) != 0 && strlen($_POST['password']) != 0 ){
+            $this->login($_POST['username'],$_POST['password']);
+            if(!$this->logged_in){
+                $_MSG['err'][] = "Benutzername und/oder Passwort falsch!";
+            }else{
+                $_MSG['msg'][] = "Erfolgreich angemeldet;";
+            }
+        }
+        if($this->logged_in){
+            //disabled for now
+            //$this->get_userrights();
+        }
+    }
+    function login($username, $password){
+        global $db;
+        $db->debugquery = false;
+        $sql="SELECT streamer,username
+              FROM streamer
     		  WHERE username='".$db->escape($username)."' AND password=SHA1('".$db->escape($password)."')
     		  LIMIT 1";
-    	$result= $db->query($sql);
-	    if ( $db->num_rows($result) == 1) {
-        	$user = $db->fetch($result);
-        	$this->userid = $user['streamer'];
-        	$this->username = $user['username'];
-			$this->logged_in = true;
-		    $sql="UPDATE streamer
-    			  SET session='".session_id()."'
-		    	  WHERE streamer='".$this->userid."'";
-			$db->execute($sql);
-    	}else{
-			$this->logged_in = false;
-		}
-		$db->debugquery = true;
-	}
-	function logged_in()
-	{
-		global $db;
-		$sql="SELECT streamer,username
+        $result= $db->query($sql);
+        if ( $db->num_rows($result) == 1) {
+            $user = $db->fetch($result);
+            $this->userid = $user['streamer'];
+            $this->username = $user['username'];
+            $this->logged_in = true;
+            $sql="UPDATE streamer
+                     SET session='".session_id()."'
+                     WHERE streamer='".$this->userid."'";
+            $db->execute($sql);
+        }else{
+            $this->logged_in = false;
+        }
+        $db->debugquery = true;
+    }
+    function logged_in()
+    {
+        global $db;
+        $sql="SELECT streamer,username
 		FROM streamer
 		WHERE session='".session_id()."'
 		LIMIT 1";
-		$result = $db->query($sql);
-		if($db->num_rows($result) == 1 ){
-			$user = $db->fetch($result);
-			$this->userid = $user['streamer'];
-			$this->username = $user['username'];
-			$this->logged_in = true;
-			return true;
-		}else{
-			return false;
-		}
+        $result = $db->query($sql);
+        if($db->num_rows($result) == 1 ){
+            $user = $db->fetch($result);
+            $this->userid = $user['streamer'];
+            $this->username = $user['username'];
+            $this->logged_in = true;
+            return true;
+        }else{
+            return false;
+        }
 
-	}
-	function logout()
-	{
-		global $db;
-		$sql="UPDATE streamer
-		SET session=NULL
-		WHERE session='".session_id()."'";
-		$db->execute($sql);
-		$this->logged_in = false;
-	}
-	function is_logged_in(){
-		return $this->logged_in;
-	}
+    }
+    function logout()
+    {
+        global $db;
+        $sql="UPDATE streamer
+              SET session = NULL
+              WHERE session = '".session_id()."'";
+        $db->execute($sql);
+        $this->logged_in = false;
+    }
+    function is_logged_in(){
+        return $this->logged_in;
+    }
 
-	function get_userrights(){
-		global $db;
+    function get_userrights(){
+        global $db;
         /**
-		$sql = "SELECT `right` from streamerrights Where user_id = ".$this->userid.";";
-		$result = $db->query($sql);
-		while($row = $db->fetch($result)){
-			$this->rights[] = $row['right'];
-		}
-        **/
-	}
+         $sql = "SELECT `right` from streamerrights Where user_id = ".$this->userid.";";
+         $result = $db->query($sql);
+         while($row = $db->fetch($result)){
+         $this->rights[] = $row['right'];
+         }
+         **/
+    }
 
-	function has_right($right){
-		return in_array($right,$this->rights);
-	}
+    function has_right($right){
+        return in_array($right,$this->rights);
+    }
     /**
      *   TODO spamfilter
      *  returncode  desc
@@ -101,7 +101,7 @@ class User{
      *  -1          Username contains "|"
      *  -2          SQL-Error
      */
-	function register($username,$password){
+    function register($username,$password){
         global $db;
         if(strpos($username,'|') === false){
             $sql = "INSERT INTO streamer (username,password)

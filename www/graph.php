@@ -14,8 +14,9 @@ $colors = array('FF9900',
                 '9900FF',
                 '00FF99',
                 '0099FF',
-                'FF9900');
+                '99FF00');
 $ci = 0;
+$graphs[] = new RRDAREA('listenerg', $colors[$ci++],'Gesammt');
 while($row = $db->fetch($dbres)) {
     if($ci >= count($colors))
         $ci = 0;
@@ -24,7 +25,6 @@ while($row = $db->fetch($dbres)) {
     $cmds[] = 'listener'.$row['mount'];
     $graphs[] = new RRDLINE(1, 'listener'.$row['mount'], $colors[$ci++],$row['description']);
 }
-$graphs[] = new RRDLINE(1, 'listenerg', $colors[$ci++],'Gesammt');
 for($i = count($cmds) ; $i > 1 ; $i--) {
     $cmds[] = '+';
 }
@@ -33,4 +33,7 @@ $cdefs = array();
 $cdefs[] = new RRDCDEF('listenerg', $cmds);
 $vdefs = array();
 header('Content-type: image/png');
+
+$rrd->setHeight(400);
+$rrd->setWidth(1000);
 echo $rrd->createGraph($defs,$graphs,$cdefs);

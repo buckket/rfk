@@ -36,11 +36,111 @@ class RRD{
                 $cmd .= ":U";
             }
         }
-        //echo $cmd;
         $this->command($cmd,$this->workingdir,'echo');
     }
+
+    var $colors = array('BACK'   => false,
+                        'CANVAS' => false,
+                        'SHADEA' => false,
+                        'SHADEB' => false,
+                        'GRID'   => false,
+                        'MGRID'  => false,
+                        'FONT'   => false,
+                        'AXIS'   => false,
+                        'FRAME'  => false,
+                        'ARROW'  => false);
+    /**
+     * sets Backgroundcolor for the graph
+     * @param string
+     */
+    public function setBackColor($color) {
+        $colors['BACK'] = $color;
+    }
+
+    /**
+     * sets Fontcolor
+     * @param string
+     */
+    public function setFontColor($color) {
+        $this->colors['FONT'] = $color;
+    }
+
+    /**
+     * sets the color for the Grapharea
+     * @param string
+     */
+    public function setCanvasColor($color) {
+        $this->colors['CANVAS'] = $color;
+    }
+
+
+    var $width;
+    public function setWidth($width) {
+        $this->width = $width;
+    }
+    var $height;
+    public function setHeight($height) {
+        $this->height = $height;
+    }
+    var $start = 'end-1week';
+    var $end = 'now';
+
+    var $title;
+
+    public function setGraphTitle($title){
+        $this->title = $title;
+    }
+
+    var $vtitle;
+
+    public function setGraphVertivalTitle($vtitle){
+        $this->vtitle = $vtitle;
+    }
+
+    var $watermark;
+
+    public function setWatermark($watermark) {
+        $this->watermark = $watermark;
+    }
+
+    var $graphonly = false;
+
+    public function setGraphOnly($graphonly) {
+        ;$this->graphonly = $graphonly;
+    }
+
+    /**
+     * returns th imagedata of the Graph
+     * @param array $defs
+     * @param array $graphs
+     * @param array $cdefs
+     * @param array $vdefs
+     */
     public function createGraph($defs,$graphs,$cdefs = array(),$vdefs = array()){
-        $cmd = 'rrdtool graph - --end now --start end-2days --width 450';
+        $cmd = 'rrdtool graph -  --end '.$this->end.' --start '.$this->start;
+        if($this->title) {
+            $cmd .= ' -t '.$this->title;
+        }
+        if($this->vtitle) {
+            $cmd .= ' -v '.$this->vtitle;
+        }
+        if($this->watermark) {
+            $cmd .= ' -W '.$this->watermark;
+        }
+        if($this->graphonly) {
+            $cmd .= ' -j';
+        }
+        if($this->width) {
+            $cmd .= ' --width '.$this->width;
+        }
+        if($this->height) {
+            $cmd .= ' --height '.$this->height;
+        }
+        foreach($this->colors as $color => $value) {
+            if($value){
+                $cmd .= ' --color '.$color.'#'.$value;
+            }
+        }
         foreach ($defs as $def){
             $cmd .= ' '.$def->toString();
         }
@@ -50,21 +150,12 @@ class RRD{
         foreach ($graphs as $graph){
             $cmd .= ' '.$graph->toString();
         }
-        //echo $cmd;
-        //$cmd .= ' DEF:ds0a='.$this->workingdir.$this->filename.'.rrd:listener:LAST';
-        //$cmd .= ' DEF:ds0b='.$this->workingdir.'2.rrd:listener:LAST';
-        //$cmd .= ' DEF:ds0c='.$this->workingdir.'4.rrd:listener:LAST';
-        //$cmd .= ' CDEF:ds0d=ds0a,ds0b,+';
-        //$cmd .= ' LINE1:ds0a#0000FF:"listener\l"';
-        //$cmd .= ' LINE1:ds0b#00FFFF:"listener\l"';
-        //$cmd .= ' LINE1:ds0c#FF00FF:"listener\l"';
-        //$cmd .= ' LINE1:ds0d#FF00FF:"gesammt\l"';
+
         return shell_exec($cmd);
     }
 
     private function checkdir(){
         if(!is_dir($this->workingdir)){
-            echo "creating folder";
             shell_exec("mkdir -p ".$this->workingdir);
         }
     }
@@ -235,6 +326,24 @@ class RRDLINE{
         return $ret;
     }
 }
+
+class RRDAREA{
+    var $var;
+    var $color;
+    var $legend;
+
+    public function __construct($var, $color, $legend) {
+        $this->var = $var;
+        $this->color = $color;
+        $this->legend = $legend;
+    }
+
+    public function toString(){
+        $ret =  'AREA:'.$this->var.'#'.$this->color.':'.$this->legend;
+        return $ret;
+    }
+}
+
 class RRDCDEF{
     var $cmd;
     var $var;

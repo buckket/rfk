@@ -18,7 +18,6 @@ class DBI {
         $this->execute("USE $db;");
         $this->execute("SET names 'utf8';");
         $this->execute("SET time_zone = 'EUROPE/Berlin';");
-        $this->database->autocommit(false);
     }
     /**
      * destructor
@@ -66,9 +65,11 @@ class DBI {
      */
     public function query ($sql) {
         $this->queryCount++;
+        error_log($sql);
         $time = microtime(true);
         $result = $this->database->query($sql);
         $this->timeSpend += (microtime(true) - $time);
+        error_log($this->database->errno);
         if ($this->database->errno) {
             if ($this->debugquery) {
                 error_log($this->database->error.' [query] '.$sql);
