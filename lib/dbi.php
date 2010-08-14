@@ -65,7 +65,6 @@ class DBI {
      */
     public function query ($sql) {
         $this->queryCount++;
-        error_log($sql);
         $time = microtime(true);
         $result = $this->database->query($sql);
         $this->timeSpend += (microtime(true) - $time);
