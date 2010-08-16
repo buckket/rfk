@@ -150,7 +150,7 @@ class RRD{
         foreach ($graphs as $graph){
             $cmd .= ' '.$graph->toString();
         }
-
+        error_log($cmd);
         return shell_exec($cmd);
     }
 
