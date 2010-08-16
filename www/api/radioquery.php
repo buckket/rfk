@@ -46,8 +46,8 @@ function getCurrShow(&$out){
     $dbres = $db->query($sql);
     if($dbres) {
         if($row = $db->fetch($dbres)) {
-            $out['showbegin'] = $row['b'];
-            $out['showend'] = $row['e'];
+            $out['showbegin'] = (int)$row['b'];
+            $out['showend'] = (int)$row['e'];
             $out['showtype'] = $row['type'];
             $out['showname'] = $row['name'];
             $out['showdescription'] = $row['description'];
@@ -72,8 +72,8 @@ function getNextShows(&$out){
     $dbres = $db->query($sql);
     if($dbres) {
         if($row = $db->fetch($dbres)) {
-            $out['showbegin'] = $row['b'];
-            $out['showend'] = $row['e'];
+            $out['showbegin'] = (int)$row['b'];
+            $out['showend'] = (int)$row['e'];
             $out['showtype'] = $row['type'];
             $out['showname'] = $row['name'];
             $out['showdescription'] = $row['description'];

@@ -1,5 +1,5 @@
 <?php
-   //error_reporting(1);
+   error_reporting(0);
    include('../../../lib/common-web.inc.php');
    $data = array();
    $_GET += $_POST;
