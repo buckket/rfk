@@ -36,5 +36,5 @@ header('Content-type: image/png');
 
 $rrd->setHeight(100);
 $rrd->setWidth(400);
-$rrd->setStart('now-7day');
+$rrd->setStart('now-1day');
 echo $rrd->createGraph($defs,$graphs,$cdefs);
