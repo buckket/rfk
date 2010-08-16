@@ -317,3 +317,7 @@ vertical-align: middle;
 .freetime-end {
 	border-bottom: thin solid #00FF66;
 }
+
+.showtt div {
+	margin-top: 0.5em;
+	}

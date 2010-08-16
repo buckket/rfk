@@ -34,22 +34,20 @@
 	            WHERE `show` IN ('".implode("','",$ins)."')";
 	    $dbres = $db->query($sql);
 
-	    $out;
+	    $out = '';
 	    if($dbres) {
-	        $out .= '<table>';
             while($row = $db->fetch($dbres)) {
-                //$listener = getListeners($row['begin'], $row['end']);
-                $out .= "<tr>";
-                $out .= '<td colspan=2>'.$row['begin'].'&nbsp;-&nbsp;'.$row['end']."</td>";
-                $out .= '</tr><tr>';
-                $out .= "<td>Name:</td><td>".$row['name']."</td>";
-                $out .= '</tr><tr>';
-                $out .= "<td>Dj:</td><td>".$row['username']."</td>";
-                $out .= '</tr><tr>';
-                $out .= '<td colspan=2>'.$bbcode->parse($row['description']).'<td>';
-                $out .= '</tr>';
+                if(strlen($out) > 0)
+                    $out .= '<hr />';
+                list($max,$avg) = getListeners($row['begin'], $row['end']);
+                $out .= '<div class="showtt">'.htmlspecialchars($row['name']).' ( '.htmlspecialchars($row['username']).' )<br />
+                        '.date('d. m. Y. H:i',$row['begin']).' - '.date('H:i',$row['end']).'<br />';
+                if($max) {
+                    $out .= 'Zuhörer: Max: '.$max.' Ø: '.number_format($avg,2);
+                }
+                $out .= '<div>'.$bbcode->parse($row['description']).'</div>';
+                $out .='</div>';
             }
-            $out .= '</table>';
 	    }
 	    return $out;
 	}

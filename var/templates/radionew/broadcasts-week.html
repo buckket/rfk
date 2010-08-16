@@ -15,7 +15,7 @@
 	    {% else %}
 		    {% if day.shows %}
 			    {% for show in day.shows %}
-			     {{show.name}}<br />
+			     {{show.name | truncate 12}}<br />
 			    {% endfor%}
 			{% else %}
     			&nbsp;
