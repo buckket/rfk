@@ -83,7 +83,15 @@ class RRD{
         $this->height = $height;
     }
     var $start = 'end-1week';
+
+    public function setStart($start){
+        $this->start = $start;
+    }
     var $end = 'now';
+
+    public function setEnd($end){
+        $this->end = $end;
+    }
 
     var $title;
 

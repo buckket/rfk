@@ -16,7 +16,7 @@ $colors = array('FF9900',
                 '0099FF',
                 '99FF00');
 $ci = 0;
-$graphs[] = new RRDAREA('listenerg', $colors[$ci++],'Gesammt');
+$graphs[] = new RRDAREA('listenerg', $colors[$ci++],'Gesamt');
 while($row = $db->fetch($dbres)) {
     if($ci >= count($colors))
         $ci = 0;
@@ -34,6 +34,7 @@ $cdefs[] = new RRDCDEF('listenerg', $cmds);
 $vdefs = array();
 header('Content-type: image/png');
 
-$rrd->setHeight(400);
-$rrd->setWidth(1000);
+$rrd->setHeight(100);
+$rrd->setWidth(400);
+$rrd->setStart('now-7day');
 echo $rrd->createGraph($defs,$graphs,$cdefs);

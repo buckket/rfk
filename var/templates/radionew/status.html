@@ -10,4 +10,9 @@
 <li>{{ stream.description }} - {{ stream.count }} Zuhörer <a href="{{ stream.url }}">einschalten</a></li>
 {% endfor %}
 </ul>
+
+<p>
+<h3>Hörerverlauf</h3>
+<img src="{{ WEBROOT }}graph.php" alt="listenergraph" />
+</p>
 {% endblock %}
