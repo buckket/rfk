@@ -149,7 +149,7 @@ function checkShow(){
         $upshowid = false;
         $pshowid = false;
         while( $show = $db->fetch($result) ){
-            print_r($show);
+            //print_r($show);
             if ($show['type'] == 'UNPLANNED') {
                 $upshowid = $show['show'];
             }

@@ -9,6 +9,6 @@ $template['section'] = 'admin';
 cleanup_h2o($template);
 include('include/listenercount.php');
 include('include/sidebar.php');
-print_r($template);
+
 echo $h2o->render($template);
 ?>

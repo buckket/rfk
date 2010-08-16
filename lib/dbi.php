@@ -68,7 +68,6 @@ class DBI {
         $time = microtime(true);
         $result = $this->database->query($sql);
         $this->timeSpend += (microtime(true) - $time);
-        error_log($this->database->errno);
         if ($this->database->errno) {
             if ($this->debugquery) {
                 error_log($this->database->error.' [query] '.$sql);
