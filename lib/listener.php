@@ -37,7 +37,9 @@ function getListeners($start, $end){
         if($value > $max)
             $max = $value;
     }
-    $avg = $avg/count($times);
+    if(count($times) > 0){
+        $avg = $avg/count($times);
+    }
     return array($max, $avg);
 }
 ?>
