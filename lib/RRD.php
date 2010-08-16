@@ -142,15 +142,15 @@ class RRD{
             }
         }
         foreach ($defs as $def){
-            $cmd .= ' '.$def->toString();
+            $cmd .= ' '.escapeshellarg($def->toString());
         }
         foreach ($cdefs as $cdef){
-            $cmd .= ' '.$cdef->toString();
+            $cmd .= ' '.escapeshellarg($cdef->toString());
         }
         foreach ($graphs as $graph){
-            $cmd .= ' '.$graph->toString();
+            $cmd .= ' '.escapeshellarg($graph->toString());
         }
-        error_log($cmd);
+        //error_log($cmd);
         return shell_exec($cmd);
     }
 
