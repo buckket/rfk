@@ -90,7 +90,7 @@ function external() {
 function sources () {
     echo 'live = input.harbor(on_connect = live_start, on_disconnect = live_stop, buffer=0., max = 10., auth = auth, "/live.ogg")
 
-          playlist = playlist(reload=10,,reload_mode="rounds","http://localhost/rfk/api/playlist.php")
+          playlist = request.dynamic({ request.create("bar:foo", indicators= get_process_lines("php /usr/share/rfk/bin/playlist.php"))})
           playlist = rewrite_metadata([("title","Kein Stroembernd")], playlist)
           playlist = rewrite_metadata([("artist","Radio freies Krautchan")], playlist)
 
