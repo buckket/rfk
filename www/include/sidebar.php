@@ -36,4 +36,20 @@ while($streamer = $db->fetch($result)){
     $streamers[] = $streamer;
 }
 $template['sb_streamer'] = $streamers;
+
+if(isset($shows) || isset($calendar)) {
+    $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username
+            FROM shows
+            JOIN streamer USING (streamer)
+            WHERE begin > NOW()
+            ORDER BY begin ASC
+            LIMIT 10';
+    $dbres = $db->query($sql);
+    if($dbres) {
+        if($row = $db->fetch($dbres)) {
+            $template['nextshows'][] = array('showname' => $row['name'],
+                                             'streamer' => $row['username']);
+        }
+    }
+}
 ?>

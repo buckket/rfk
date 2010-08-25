@@ -144,6 +144,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $template['prevyearnum'] = date('Y',$prevweek);
     cleanup_h2o($template);
     include('include/listenercount.php');
+    include('include/sidebar.php');
     $h2o = new H2o('broadcasts-week.html',$h2osettings);
     echo $h2o->render($template);
     exit();
@@ -198,7 +199,6 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
         }
     }
     $template = array();
-    include('include/listenercount.php');
     $template['calendar'] = $calendar;
     $template['year'] = $year;
     $template['monthname'] = getMonth($month);
@@ -210,6 +210,8 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $template['nextyear'] = date('Y',$nextmonth);
     $template['section'] = "broadcasts";
     $template['PAGETITLE'] = "Sende&uuml;bersicht";
+    include('include/listenercount.php');
+    include('include/sidebar.php');
     cleanup_h2o($template);
     $h2o = new H2o('broadcasts.html',$h2osettings);
     echo $h2o->render($template);

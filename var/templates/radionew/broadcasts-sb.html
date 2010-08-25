@@ -6,7 +6,11 @@ block.super
 <div id='subcontent'>
 <div class='infoblock'>
 <h3>Die n&auml;chsten Sendungen</h3>
-
+<ul>
+{% for show in nextshows %}
+<li>{{show.showname}} ({{show.streamer}})</li>
+{% endfor %}
+</ul>
 </div>
 {% if user_logged_in %}
 <div class='infoblock'>
