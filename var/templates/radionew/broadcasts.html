@@ -2,9 +2,13 @@
 {% block content %}
 <h2>Programmplan</h2>
 <table width="100%">
-    <tr>
-        <td colspan=8 class="calendar-head">{{ monthname }}&nbsp;{{ year }}</td>
+<tr>
+        <td width="25%" class="calendar-head-left"><a href="broadcasts.php?month={{ prevmonth }}&year={{ prevyear }}">&lt;&lt; {{ prevmonthname }}</a></td>
+        <td width="50%" class="calendar-head">{{ monthname }}&nbsp;{{ year }}</td>
+        <td width="25%" class="calendar-head-right"><a href="broadcasts.php?month={{ nextmonth }}&year={{ nextyear }}">{{ nextmonthname }} &gt;&gt;</a></td>
     </tr>
+</table>
+<table width="100%">
     <tr>
         <td>&nbsp;</td>
         <td width="13%">Montag</td>
@@ -19,12 +23,17 @@
     <tr height="50">
         <td><a href="broadcasts.php?week={{ weeknum }}&year={{ year}}">{{ weeknum }}</a></td>
         {% for daynum, day in week %}
-        <td class="{% if day.thismonth == 'true' %}day-thismonth{% endif %}{% if day.thismonth != 'true' %}day{% endif %}">
+        <td onclick="gotoWeek({{ daynum }},{{ weeknum }},{{ year}});" class="{% if day.thismonth == 'true' %}day-thismonth{% else %}day{% endif %}{% if day.today %} calendar-mark{% endif%}">
         {{ day.day }}
-        <div>{{ day.shows }}</div>
+        <div>{% if day.shows > 0 %}{{ day.shows }}{% else %}&nbsp;{% endif %}</div>
         </td>
         {% endfor %}
     </tr>
     {% endfor %}
 </table>
+<script type="text/javascript">
+function gotoWeek(day, week,year){
+	window.location = 'broadcasts.php?week='+week+'&year='+year+'&day='+day;
+}
+</script>
 {% endblock %}

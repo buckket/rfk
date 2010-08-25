@@ -1,6 +1,14 @@
 {% extends "broadcasts-sb.html"%}
 {% block content %}
 <h2>Programmplan</h2>
+<table width="100%">
+<tr style="border:none;">
+        <td>&nbsp;</td>
+        <td colspan=2 class="calendar-head-left"><a href="broadcasts.php?year={{ prevyearnum }}&week={{ prevweeknum }}">&lt;&lt; {{ prevmonthname }}</a></td>
+        <td colspan=3 class="calendar-head">{{ daybegin }} - {{ dayend }} {{ year }}</td>
+        <td colspan=2 class="calendar-head-right"><a href="broadcasts.php?&year={{ nextyearnum }}&week={{ nextweeknum }}">{{ nextmonthname }} &gt;&gt;</a></td>
+</tr>
+</table>
 <table width="100%" class="calendar-week" cellspacing=0>
 <tr><td>&nbsp;</td><td width="13%">Montag</td><td width="13%">Dienstag</td><td width="13%">Mittwoch</td><td width="13%">Donnerstag</td><td width="13%">Freitag</td><td width="13%">Samstag</td><td width="13%">Sonntag</td></tr>
 {% for index, time in calendar %}
@@ -9,7 +17,7 @@
         {% if loop.first %}
             <td>{{ day }}
         {%else%}
-	    <td id="t{{day.tid}}" {% if day.ids %}shows="{{day.ids}}"{% endif %} {% if day.size > 1 %}rowspan={{ day.size }} {% endif %} class="{{ day.type }}">
+	    <td id="t{{day.tid}}" {% if day.ids %}shows="{{day.ids}}"{% endif %} {% if day.size > 1 %}rowspan={{ day.size }} {% endif %} class="{{ day.type }}{% if day.mark %} calendar-mark{% endif %}">
 	    {% if day.count > day.size %}
 		    {{day.count}}&nbsp;Sendungen
 	    {% else %}

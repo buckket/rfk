@@ -260,6 +260,10 @@ vertical-align: middle;
 .day,.day-thismonth {
 	vertical-align: top;
 }
+.day div,.day-thismonth div{
+    font-size:20px;
+    text-align: center;
+}
 .day-thismonth {
 	border: 1px solid grey;
 }
@@ -274,14 +278,28 @@ vertical-align: middle;
 .calendar .day {
  color: #999999;
 }
-.calendar .day-thismonth {
- 
-}
+
 .calendar-head {
   font-size: 20px;
   background-color: none;
+  text-align: center;
+}
+.calendar-head-right {
+  font-size: 12px;
+  background-color: none;
+  text-align: left;
+  border:none;
+}
+.calendar-head-left {
+  font-size: 12px;
+  background-color: none;
+  text-align: right;
+  border:none;
 }
 
+.calendar-mark {
+	background-color: #99DEFF;
+}
 .calendar-week tr:hover{
 	border-top: thin solid blue;
 	border-bottom: thin solid blue;

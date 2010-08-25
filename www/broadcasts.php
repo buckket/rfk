@@ -14,6 +14,9 @@ else{
 }
 if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     //weekview
+
+    //nah blöder bugfix
+    $_GET['week'] = str_pad($_GET['week'], 2,'0',STR_PAD_LEFT);
     $currweek = strtotime($_GET['year']."W".$_GET['week']);
     $nextweek = strtotime("+1 week",$currweek);
     $prevweek = strtotime("-1 week",$currweek);
@@ -113,6 +116,9 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
 
                 }
             }
+            if(isset($_GET['day']) && $d == $_GET['day']) {
+                $shows[$t][$d]['mark'] = true;
+            }
             if($d == 0){
                     $shows[$t][-1] = floor($t/2).':'.($t%2==0?'00':'30');
             }
@@ -127,8 +133,15 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $template['year'] = $year;
     $template['week'] = $_GET['week'];
     $template['currweek'] = $currweek;
-    $template['nextweek'] = $nextweek;
+    $template['daybegin'] = date('d.m',$currweek);
+    $template['dayend'] = date('d.m',$nextweek-10); //another stupid quickfix
     $template['prevweek'] = $prevweek;
+
+    $template['currweeknum'] = date('W',$currweek);
+    $template['nextweeknum'] = date('W',$nextweek);
+    $template['nextyearnum'] = date('Y',$nextweek);
+    $template['prevweeknum'] = date('W',$prevweek);
+    $template['prevyearnum'] = date('Y',$prevweek);
     cleanup_h2o($template);
     include('include/listenercount.php');
     $h2o = new H2o('broadcasts-week.html',$h2osettings);
@@ -140,10 +153,12 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $day_of_week = convMonToSun(date('w', $first_day));
     $last_day = mktime(0,0,0,$month, date('t', $first_day), $year);
     $last_day_of_week = convMonToSun(date('w', $last_day));
+    $lastmonth = strtotime("-1 month",$first_day);
+    $nextmonth = strtotime("+1 month",$first_day);
     $calendar = array();
     //prev month
     if($day_of_week > 0){
-        $lastmonth = strtotime("-1 month",$first_day);
+
         $lastdaylastmonth = date('t', $lastmonth);
         $week = date('W', $first_day);
         for($d = 0;$d <$day_of_week; $d++){
@@ -170,7 +185,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     }
 
     if($last_day_of_week < 6){
-        $nextmonth = strtotime("+1 month",$first_day);
+
         $week = date('W', $last_day);
         for($d = 1;$d <= 6-$last_day_of_week; $d++){
             $day = array();
@@ -187,6 +202,12 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $template['calendar'] = $calendar;
     $template['year'] = $year;
     $template['monthname'] = getMonth($month);
+    $template['prevmonthname'] = getMonth(date('m',$lastmonth));
+    $template['nextmonthname'] = getMonth(date('m',$nextmonth));
+    $template['prevmonth'] = date('m',$lastmonth);
+    $template['prevyear'] = date('Y',$lastmonth);
+    $template['nextmonth'] = date('m',$nextmonth);
+    $template['nextyear'] = date('Y',$nextmonth);
     $template['section'] = "broadcasts";
     $template['PAGETITLE'] = "Sende&uuml;bersicht";
     cleanup_h2o($template);
