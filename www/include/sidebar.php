@@ -52,4 +52,21 @@ if(isset($shows) || isset($calendar)) {
         }
     }
 }
+$sql = "SELECT * FROM listenerhistory WHERE disconnected IS NULL;";
+$dbres = $db->query($sql);
+while($row = $db->fetch($dbres)) {
+    $template['disco'][] = array( "x" => rand(20,160), "y" => rand(0,63), "country" => checkCB($row['country']));
+}
+$sql = "SELECT * FROM streamer WHERE status = 'STREAMING';";
+$dbres = $db->query($sql);
+if($row = $db->fetch($dbres)) {
+    $template['disco_streamer'] = checkCB($row['country']);
+}
+
+function checkCB($country){
+    global $includepath;
+    if(file_exists($includepath.'/../www/images/cb/'.strtolower($country).'.png'))
+        return strtolower($country);
+    return 'unknown';
+}
 ?>

@@ -340,3 +340,40 @@ vertical-align: middle;
 .showtt div {
 	margin-top: 0.5em;
 	}
+	
+	
+	/** disco **/
+	
+	.disco {
+    position:relative;
+    float:right;
+    height:160px;
+    width:200px;
+    /**background-color:green;**/
+}
+
+.disco .foreground {
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    width:200px;
+    height:125px;
+    /* background-image: url(images/disco.png); */
+}
+
+.disco .hp {
+    position:absolute;
+    bottom:78px;
+    left:85px;
+}
+
+
+.disco .dj {
+    position:absolute;
+    bottom:75px;
+    left:91px;
+}
+
+.disco .listener {
+    position:absolute;
+}

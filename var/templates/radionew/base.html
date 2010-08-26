@@ -14,7 +14,19 @@
   <body>    
     <div id="container">      
       <div id="header">
-        <img src="{{ WEBROOT }}images/logo.png" alt="Logo" />      
+        <img src="{{ WEBROOT }}images/logo.png" alt="Logo" />
+        {% if disco %}
+            <div class="disco">
+                {% if disco_streamer %}
+	            <div class="dj"><img src="{{ WEBROOT }}images/cb/{{ disco_streamer }}.png" /></div>
+	            <div class="hp"><img src="{{ WEBROOT }}images/headphones.png" /></div>
+	            {% endif %}
+	            <div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
+	            {% for listener in disco %}
+	            <div class="listener" style="left:{{ listener.x }}px;bottom:{{ listener.y }}px;"><img src="{{ WEBROOT }}images/cb/{{ listener.country }}.png" /></div>
+	            {% endfor %}
+            </div>
+        {% endif %}
       </div>      
       <div id="navigation">        
         <ul>

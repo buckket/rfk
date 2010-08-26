@@ -34,13 +34,15 @@ class User{
     		  WHERE username='".$db->escape($username)."' AND password=SHA1('".$db->escape($password)."')
     		  LIMIT 1";
         $result= $db->query($sql);
+        $location = getLocation($_SERVER['REMOTE_ADDR']);
         if ( $db->num_rows($result) == 1) {
             $user = $db->fetch($result);
             $this->userid = $user['streamer'];
             $this->username = $user['username'];
             $this->logged_in = true;
             $sql="UPDATE streamer
-                     SET session='".session_id()."'
+                     SET session='".session_id()."',
+                         country='".$db->escape($location['cc'])."',
                      WHERE streamer='".$this->userid."'";
             $db->execute($sql);
         }else{
