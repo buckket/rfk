@@ -20,7 +20,7 @@ new RRDRRA(RRDRRA::min, '0.5', 5040, 365) // weekly minimum
 $mountid = 1;
 $starttime = time();
 //set this to true for initial import
-$init = true;
+$init = false;
 
 if($init) {
     $sqls = "SELECT MIN(UNIX_TIMESTAMP(connected)) as t
