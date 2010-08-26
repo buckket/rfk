@@ -122,8 +122,8 @@ text-decoration:none;
 
 #content{
 float:left;
-width:530px;
-font-size:0.9em;
+width:600px;
+font-size:1em;
 padding:20px 0 0 20px;
 }
 
@@ -309,6 +309,7 @@ vertical-align: middle;
 	text-align: center;
 	border-top: thin solid grey;
 	border-right: thin solid lightgrey;
+	font-size: 0.7em;
 }
 .abutton {
     border: 1px solid lightgrey;
