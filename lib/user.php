@@ -42,7 +42,7 @@ class User{
             $this->logged_in = true;
             $sql="UPDATE streamer
                      SET session='".session_id()."',
-                         country='".$db->escape($location['cc'])."',
+                         country='".$db->escape($location['cc'])."'
                      WHERE streamer='".$this->userid."'";
             $db->execute($sql);
         }else{
