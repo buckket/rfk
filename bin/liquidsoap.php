@@ -32,16 +32,21 @@ switch($mode){
 function handleAuth($username,$password){
     global $db;
     fixSimpleClientAuth($username,$password);
-    $sql = "SELECT streamer FROM streamer WHERE username = '".$db->escape($username)."' AND streampassword = '".$db->escape($password)."' LIMIT 1;";
+    $sql = "SELECT streamer, IF(ban > NOW(), 'ban', IF(ban IS NULL, 'notbanned', 'expired')) as bstat
+            FROM streamer
+            WHERE username = '".$db->escape($username)."'
+              AND streampassword = '".$db->escape($password)."'
+              LIMIT 1;";
     $result = $db->query($sql);
     if($db->num_rows($result) > 0 ){
         $user = $db->fetch($result);
-        $sql = "UPDATE streamer SET status = 'LOGGED_IN' WHERE streamer = '".$user['streamer']."' AND status = 'NOT_CONNECTED';";
-        $db->execute($sql);
-        return true;
-    }else{
-        return false;
+        if($user['bstat'] != 'ban') {
+            $sql = "UPDATE streamer SET status = 'LOGGED_IN', ban = NULL WHERE streamer = '".$user['streamer']."' AND status = 'NOT_CONNECTED';";
+            $db->execute($sql);
+            return true;
+        }
     }
+    return false;
 }
 
 function handleConnect($data){
