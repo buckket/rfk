@@ -34,10 +34,10 @@ class Liquidsoap {
     }
 
     public function kickHarbor() {
-        echo $this->executeCommand($this->harbor.".kick");
+        $this->executeCommand($this->harbor.".kick");
     }
     public function getHarborStatus() {
-        echo $this->executeCommand($this->harbor.".status");
+        $this->executeCommand($this->harbor.".status");
     }
 
     protected function executeCommand($command){

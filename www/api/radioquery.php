@@ -1,11 +1,19 @@
 <?php
 $basePath = dirname(dirname(dirname(__FILE__)));
 require_once $basePath.'/lib/common.inc.php';
+require_once $basePath.'/lib/liquidsoaptelnet.php';
+
+$queryPass = 'lolwasichverhauedich';
 $out = array();
+
 switch ($_GET['w']) {
     case 'dj':
         getDJ($out);
         getListener($out);
+        break;
+    case 'kickdj':
+        getDJ($out);
+        kickDJ($out, $queryPass);
         break;
     case 'track':
         getCurrTrack($out);
@@ -33,6 +41,18 @@ function getDJ(&$out){
         $row = $db->fetch($dbres);
         $out['dj'] = $row['username'];
         $out['djid'] = $row['streamer'];
+    }
+}
+function kickDJ(&$out, &$queryPass){
+    if($_GET['pass'] == $queryPass) {
+        $liquid = new Liquidsoap;
+        $liquid->connect();
+        $liquid->getHarborSource();
+        $liquid->kickHarbor();
+        $out['status'] = 0;
+    }
+    else {
+        $out['status'] = 1;
     }
 }
 function getCurrShow(&$out){
