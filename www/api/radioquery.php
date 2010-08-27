@@ -49,6 +49,12 @@ function kickDJ(&$out, &$queryPass){
         $liquid->connect();
         $liquid->getHarborSource();
         $liquid->kickHarbor();
+        
+        global $db;
+        $timestamp = time() + (2 * 60);
+        $timestamp = date('Y-m-d H:i:s', $timestamp);
+        $sql = "UPDATE streamer SET ban = '". $timestamp . "' WHERE streamer = '". $out['djid'] ."';";
+        $dbres = $db->query($sql);
         $out['status'] = 0;
     }
     else {
