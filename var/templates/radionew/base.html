@@ -32,38 +32,38 @@
         <ul>
 		  
           <li {% if section == 'overview' %}class="selected"{% endif %}>          
-          <a href="{{ WEBROOT }}index.php">&Uuml;bersicht</a>          
+          <a href="{{ WEBROOT }}index.php">{% lang L_OVERVIEW %}</a>          
           </li>          
           <li {% if section == 'history' %}class="selected"{% endif %}>          
-          <a href="{{ WEBROOT }}history.php">Verlauf</a>          
+          <a href="{{ WEBROOT }}history.php">{% lang L_HISTORY %}</a>          
           </li {% if section == 'broadcasts' %}class="selected"{% endif %}>          
           <li>          
-          <a href="{{ WEBROOT }}broadcasts.php">Sendungen</a>          
+          <a href="{{ WEBROOT }}broadcasts.php">{% lang L_SHOWS %}</a>          
           </li>          
           <li {% if section == 'status' %}class="selected"{% endif %}>          
-          <a href="{{ WEBROOT }}status.php">Status</a>          
+          <a href="{{ WEBROOT }}status.php">{% lang L_STATUS %}</a>          
           </li>
 	      {% if !user_logged_in %}
           <li {% if section == 'login' %}class="selected"{% endif %}>          
-          <a href="{{ WEBROOT }}login.php">Anmelden</a>          
+          <a href="{{ WEBROOT }}login.php">{% lang L_LOGIN %}</a>          
           </li>        
           <li {% if section == 'register' %}class="selected"{% endif %}>
-          <a href="{{ WEBROOT }}register.php">Registrieren</a>
+          <a href="{{ WEBROOT }}register.php">{% lang L_REGISTER %}</a>
           </li>
 		  {% else %}
 		  <li>          
-          <a href="{{ WEBROOT }}login.php?logout=true">Abmelden</a>          
+          <a href="{{ WEBROOT }}login.php?logout=true">{% lang L_LOGOUT %}</a>
           </li>
 	      {% endif %}
           <li style="float: right;">
-          <p class="userinfo">Listener: {{ listenercount }}</p>
+          <p class="userinfo">{% lang L_LISTENER %}: {{ listenercount }}</p>
           </li>
 
           <li style="float: right;" {% if section == 'user' %}class="selected" {% endif %}>
           {% if user_logged_in %}
-          <a href="{{ WEBROOT }}user.php"><p class="userinfo">User: {{ username }}</a>
+          <a href="{{ WEBROOT }}user.php"><p class="userinfo">{% lang L_USER %}: {{ username }}</a>
           {% else %}
-          <p class="userinfo">User: {{ username }}
+          <p class="userinfo">{% lang L_USER %}: {{ username }}
           {% endif %}
           </p>
           </li>
@@ -103,9 +103,7 @@ Haben wir nicht, bekommen wir auch nichtmehr rein!
 {% block sidebar %}{% endblock %}
             
       <div id="footer">        
-        <p>
-            <img src="{{ WEBROOT }}xhtml_valid.png" class="vi" alt="valid xhtml" /><img src="{{ WEBROOT }}css_valid.png" class="vi" alt="valid css" />        
-        </p>      
+        
       </div>    
     </div>  
   </body>
