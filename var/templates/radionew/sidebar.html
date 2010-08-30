@@ -5,19 +5,19 @@ block.super
 {% block sidebar %}
 <div id='subcontent'>
 	<div class='infoblock'>
-	<h3>Letzten 10 Songs</h3>
+	<h3>{% lang L_LAST10TRACKS %}</h3>
 		<ul>
 		{% for index, song in sb_songlist %}
 			<li {% if song.nowplaying %}class="nowplaying"{% endif %}>{% if song.nowplaying %}np:&nbsp;{% endif %}<span title="{{ song.fullsong }}">{{ song.song }}{% if song.short == 1 %}<a href="/histroy.php?id={{ song.id }}">...</a>{% endif %}</span></li>
 		{% endfor %}
 		</ul></div>
 <div class='infoblock'>
-<h3>Letzten 5 Neuzug&auml;nge</h3><ul>
+<h3>{% lang L_LAST5USERS %}</h3><ul>
 {% for index, streamer in sb_streamer %}
 <li><a href='/user.php?u={{ streamer.streamer }}'>{{ streamer.username }}</a></li>
 {% endfor %}
 </ul>
-<p><em>Insgesamt {{ sb_streamercount }} Str&ouml;mbernds!</em></p>
+<p><em>{% lang L_TOTALUSERS , sb_streamercount %}</em></p>
 </div>
 </div>
 {% endblock %}

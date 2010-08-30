@@ -10,16 +10,18 @@ $includepath = dirname(__file__);
 $radioroot = dirname(dirname(__file__));
 require_once($includepath.'/../etc/config.inc.php');
 require_once($includepath.'/dbi.php');
+require_once $includepath.'/lang.php';
 
 $db = new DBI($_config['mysql-host'],$_config['mysql-user'],$_config['mysql-pass'],$_config['mysql-db']);
+$lang = new Lang('de');
 
 function getLocation($ip){
-    global $includepath;
+    global $includepath,$radioroot;
     $ret = array('cc' => '', 'city' => '');
     if(file_exists($includepath.'/../var/GeoLiteCity.dat')){
         require_once $includepath.'/geoip/geoipcity.inc';
         geoip_load_shared_mem($includepath.'/../var/GeoLiteCity.dat');
-        $gi = geoip_open($includepath.'/../var/GeoLiteCity.dat', GEOIP_SHARED_MEMORY);
+        $gi = geoip_open($radioroot.'/var/GeoLiteCity.dat', GEOIP_SHARED_MEMORY);
         $record = GeoIP_record_by_addr($gi, $ip);
         if(is_object($record)) {
             $ret['cc'] = $record->country_code;
