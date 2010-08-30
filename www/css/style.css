@@ -357,21 +357,21 @@ vertical-align: middle;
     bottom:0px;
     left:0px;
     width:200px;
-    height:125px;
+    height:155px;
     /* background-image: url(images/disco.png); */
 }
 
 .disco .hp {
     position:absolute;
-    bottom:78px;
-    left:85px;
+    bottom:76px;
+    left:63px;
 }
 
 
 .disco .dj {
     position:absolute;
-    bottom:75px;
-    left:91px;
+    bottom:73px;
+    left:65px;
 }
 
 .disco .listener {

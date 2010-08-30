@@ -18,8 +18,8 @@
         {% if disco %}
             <div class="disco">
                 {% if disco_streamer %}
+		<div class="hp"><img src="{{ WEBROOT }}images/headphones.png" /></div>
 	            <div class="dj"><img src="{{ WEBROOT }}images/cb/{{ disco_streamer }}.png" /></div>
-	            <div class="hp"><img src="{{ WEBROOT }}images/headphones.png" /></div>
 	            {% endif %}
 	            <div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
 	            {% for listener in disco %}
