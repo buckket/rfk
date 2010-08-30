@@ -65,10 +65,35 @@
           {% else %}
           <p class="userinfo">{% lang L_USER %}: {{ username }}
           {% endif %}
+          <img id="langselect" src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="cursor:pointer;vertical-align:middle;"/>
           </p>
           </li>
+          <li style="float: right;">
+          
+          </li>
         </ul>      
-      </div>             
+      </div>
+      <div id="langdiv" style="display:none;">
+      <table>
+      {% for locale in locales %}
+      <tr><td><img onclick="changeLocale({{locale.locale}})" src="{{ WEBROOT }}images/cb/{{ locale.country }}.png" /></td><td>{{ locale.name }}</td></tr>
+      {% endfor %}
+      </table>
+      </div>
+      <script type="text/javascript" >
+      new Tip('langselect', $('langdiv'), {
+          title: "Choose Your Warrior",
+          closeButton: true,
+          showOn: 'click',
+          hideOn: 'click',
+          hook: { target: 'leftBottom', tip: 'topRight'},
+          width: 'auto'
+      });
+
+      function changeLocale(locale) {
+    	    window.location.href = '{{ WEBROOT }}index.php?locale='+locale;
+      }
+      </script>
       <div id='content'>
       {% if messages %}
         {% if messages.info %}

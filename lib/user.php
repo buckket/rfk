@@ -5,6 +5,7 @@ class User{
     var $userid = false;
     var $logged_in = false;
     var $rights = array();
+    var $country = 'unknown';
     function User(){
         global $_config,$_MSG;
         $this->username = $_config['default-username'];
@@ -19,6 +20,13 @@ class User{
                 $_MSG['err'][] = "Benutzername und/oder Passwort falsch!";
             }else{
                 $_MSG['msg'][] = "Erfolgreich angemeldet;";
+            }
+        } else {
+            if(isset($_GET['locale'])) {
+                $_SESSION['locale'] = (int)$_GET['locale'];
+            }
+            if(isset($_SESSION['locale'])) {
+                $this->setLocale($_SESSION['locale']);
             }
         }
         if($this->logged_in){
@@ -95,6 +103,16 @@ class User{
 
     function has_right($right){
         return in_array($right,$this->rights);
+    }
+
+    private function setLocale($locale) {
+        global $db,$lang;
+        $sql = "SELECT * FROM locales WHERE locale = ".$locale;
+        $dbres = $db->query($sql);
+        if($row = $db->fetch($dbres)) {
+            $lang = new Lang($row['language']);
+            $this->country = $row['country'];
+        }
     }
     /**
      *   TODO spamfilter

@@ -2,6 +2,7 @@
 class Lang {
     private $langcode = 'de';
     private $lang = array();
+
     public function __construct($lang) {
         $this->langcode = $lang;
         $this->loadContext('common');
@@ -19,5 +20,22 @@ class Lang {
     }
     public function getLang() {
         return $this->lang;
+    }
+
+    public function lang ($key, $args) {
+        return vsprintf($this->lang[$key],$args);
+    }
+
+    public function getAvailLangs () {
+        global $db;
+        $sql = "SELECT * FROM locales;";
+        $dbres = $db->query($sql);
+        $out = array();
+        if($dbres) {
+            while($row = $db->fetch($dbres)) {
+                $out[] = array('country' => $row['country'], 'locale' =>  $row['locale'],'name' => $row['name']);
+            }
+        }
+        return $out;
     }
 }

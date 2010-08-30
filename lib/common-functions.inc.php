@@ -24,6 +24,8 @@ function cleanup_h2o(&$template){
 		$template['messages']['info'] = $_MSG['msg'];
 	}
 	$template['lang'] = $lang->getLang();
+	$template['locales'] = $lang->getAvailLangs();
+	$template['usercountry'] = $user->country;
 }
 
 ?>

@@ -10,14 +10,15 @@ class DBI {
     private $timeSpend = 0;
     private $queryCount = 0;
     private $successfulQueries = 0;
-    public function __construct ($hostname, $user, $pass, $db) {
+    public function __construct ($hostname, $user, $pass, $db, $timezone = false) {
         $this->database = new mysqli($hostname, $user, $pass, $db);
         if ($this->database->connect_error) {
             die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
         }
         $this->execute("USE $db;");
         $this->execute("SET names 'utf8';");
-        $this->execute("SET time_zone = 'EUROPE/Berlin';");
+        if($timezone)
+            $this->execute("SET time_zone = '".$this->escape($timezone)."';");
     }
     /**
      * destructor

@@ -5,15 +5,19 @@
  *  Website-commons doesn't belong here
  *  this is also used by consoledriven scripts
  */
-date_default_timezone_set('Europe/Berlin');
+
 $includepath = dirname(__file__);
 $radioroot = dirname(dirname(__file__));
 require_once($includepath.'/../etc/config.inc.php');
 require_once($includepath.'/dbi.php');
 require_once $includepath.'/lang.php';
 
-$db = new DBI($_config['mysql-host'],$_config['mysql-user'],$_config['mysql-pass'],$_config['mysql-db']);
-$lang = new Lang('de');
+$defaultTimezone = 'Europe/Berlin';
+date_default_timezone_set($defaultTimezone);
+$db = new DBI($_config['mysql-host'],$_config['mysql-user'],$_config['mysql-pass'],$_config['mysql-db'],$defaultTimezone);
+$lang = new Lang('en');
+
+
 
 function getLocation($ip){
     global $includepath,$radioroot;
