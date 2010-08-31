@@ -61,6 +61,12 @@ $sql = "SELECT * FROM streamer WHERE status = 'STREAMING';";
 $dbres = $db->query($sql);
 if($row = $db->fetch($dbres)) {
     $template['disco_streamer'] = checkCB($row['country']);
+    $streamer = $row['streamer'];
+}
+$sql = "SELECT * FROM streamersettings WHERE streamer = '" . $streamer . "' AND `key` = 'background';";
+$dbres = $db->query($sql);
+if($row = $db->fetch($dbres)) {
+    $template['disco_background'] = $row['value'];
 }
 
 function checkCB($country){

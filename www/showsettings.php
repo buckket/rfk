@@ -18,6 +18,12 @@ if(isset($_POST['submit'])) {
                 ON DUPLICATE KEY UPDATE value = '".$db->escape($_POST['showdesc'])."'";
         $db->execute($sql);
     }
+    if(isset($_POST['background'])){
+        $sql = "INSERT INTO streamersettings (streamer, `key`, value) VALUES
+                (".$user->userid.",'background','".$db->escape($_POST['background'])."')
+                ON DUPLICATE KEY UPDATE value = '".$db->escape($_POST['background'])."'";
+        $db->execute($sql);
+    }
     if(isset($_POST['icy'])){
         $sql = "INSERT INTO streamersettings (streamer, `key`, value) VALUES
         (".$user->userid.",'icytags','".$db->escape($_POST['icy'])."')";
@@ -40,8 +46,11 @@ while($row = $db->fetch($dbres)){
         case 'defaultshowdescription':
             $template['showdesc'] = $row['value'];
             break;
+        case 'background':
+            $template['background'] = $row['value'];
     }
 }
+
 $template['PAGETITLE'] = 'Einstellungen';
 $template['section'] = 'user';
 cleanup_h2o($template);
