@@ -19,6 +19,7 @@ if($dbres){
         $template['streampassword'] = $row['streampassword'];
     }
 }
+$sql = "SELECT * FROM streamersettings WHERE streamer = ".$this->userid.";";
 $template['PAGETITLE'] = 'Einstellungen';
 $template['section'] = 'user';
 cleanup_h2o($template);

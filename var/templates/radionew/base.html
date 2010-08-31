@@ -60,12 +60,14 @@
           </li>
 
           <li style="float: right;" {% if section == 'user' %}class="selected" {% endif %}>
+          <p class="userinfo">
           {% if user_logged_in %}
-          <a href="{{ WEBROOT }}user.php"><p class="userinfo">{% lang L_USER %}: {{ username }}</a>
+          <a href="{{ WEBROOT }}user.php">{% lang L_USER %}: <img src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="vertical-align:middle;"/> {{ username }} </a>
+          
           {% else %}
-          <p class="userinfo">{% lang L_USER %}: {{ username }}
+          {% lang L_USER %}: {{ username }}
+          <img id="langselect" src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="cursor:pointer;vertical-align:middle;display:inline;"/>
           {% endif %}
-          <img id="langselect" src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="cursor:pointer;vertical-align:middle;"/>
           </p>
           </li>
           <li style="float: right;">
