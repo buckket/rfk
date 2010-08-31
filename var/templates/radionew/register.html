@@ -4,13 +4,13 @@
 <div class="register">
 <form method="POST">
 <table>
-<tr><td>Benutzername</td><td><input name="username" value="{{ username }}" /></td></tr>
-<tr><td>Passwort</td><td><input type="password" name="password" /></td></tr>
-<tr><td>Passwort (wdh)</td><td><input type="password" name="password2" /></td></tr>
-<tr><td>Str&ouml;mpasswort<td><input name="streampassword" value="{{ streampassword }}" /></td></tr>
+<tr><td>{% lang L_USERNAME %}</td><td><input name="username" value="{{ username }}" /></td></tr>
+<tr><td>{% lang L_PASSWORD %}</td><td><input type="password" name="password" /></td></tr>
+<tr><td>{% lang L_PASSWORD_RPT %}</td><td><input type="password" name="password2" /></td></tr>
+<tr><td>{% lang L_STREAMPASSWORD %}<td><input name="streampassword" value="{{ streampassword }}" /></td></tr>
 </table>
 <input type="hidden" name="action" value="register" />
-<input type="submit" value="registrieren" />
+<input type="submit" value="{% lang L_REGISTER %}" />
 </form>
 </div>
 {% endblock %}

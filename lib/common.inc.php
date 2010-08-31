@@ -15,7 +15,7 @@ require_once $includepath.'/lang.php';
 $defaultTimezone = 'Europe/Berlin';
 date_default_timezone_set($defaultTimezone);
 $db = new DBI($_config['mysql-host'],$_config['mysql-user'],$_config['mysql-pass'],$_config['mysql-db'],$defaultTimezone);
-$lang = new Lang('en');
+$lang = new Lang('de');
 
 
 

@@ -1,20 +1,20 @@
 {% extends "sidebar-user.html" %}
 {% block content %}
-<h2>Einstellungen</h2>
+<h2>{% lang L_SETTINGS%}</h2>
 <form method="post">
 <table>
 <thead>
 <tr>
-    <td colspan=2 >Streameinstellungen</td>
+    <td colspan=2 >{% lang L_STREAMSETTINGS %}</td>
 </tr>
 </thead>
 <tbody>
 <tr>
-    <td>Streampasswort</td><td><input name="streampassword" value="{{ streampassword }}"/></td>
+    <td>{% lang L_STREAMPASSWORD %}</td><td><input name="streampassword" value="{{ streampassword }}"/></td>
 </tr>
 </tbody>
 </table>
 <br />
-<input type="submit" name="submit" value="Einstellungen ändern" />
+<input type="submit" name="submit" value="{% lang L_SAVESETTINGS %}" />
 </form>
 {% endblock %}

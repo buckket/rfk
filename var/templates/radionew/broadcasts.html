@@ -1,6 +1,6 @@
 {% extends "broadcasts-sb.html"%}
 {% block content %}
-<h2>Programmplan</h2>
+<h2>{% lang L_PROGRAM %}</h2>
 <table width="100%">
 <tr>
         <td width="25%" class="calendar-head-left"><a href="broadcasts.php?month={{ prevmonth }}&year={{ prevyear }}">&lt;&lt; {{ prevmonthname }}</a></td>
@@ -11,13 +11,13 @@
 <table width="100%">
     <tr>
         <td>&nbsp;</td>
-        <td width="13%">Montag</td>
-        <td width="13%">Dienstag</td>
-        <td width="13%">Mittwoch</td>
-        <td width="13%">Donnerstag</td>
-        <td width="13%">Freitag</td>
-        <td width="13%">Samstag</td>
-        <td width="13%">Sonntag</td>
+        <td width="13%">{% lang D_MONDAY %}</td>
+        <td width="13%">{% lang D_TUESDAY %}</td>
+        <td width="13%">{% lang D_WEDNESDAY %}</td>
+        <td width="13%">{% lang D_THURSDAY %}</td>
+        <td width="13%">{% lang D_FRIDAY %}</td>
+        <td width="13%">{% lang D_SATURDAY %}</td>
+        <td width="13%">{% lang D_SUNDAY %}</td>
     </tr>
     {% for weeknum, week in calendar %}
     <tr height="50">

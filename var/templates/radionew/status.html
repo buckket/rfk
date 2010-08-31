@@ -1,18 +1,18 @@
 {% extends "sidebar.html" %}
 {% block content %}
 {% if streaming %}
-<h2>Programminformationen</h2>
-<p>Momentan strömt {{ streamerinfo.username }} die Sendung {{ show.name }} seit {{ show.begin }}.</p>
+<h2>{% lang L_PROGRAMINFOS %}</h2>
+<p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.begin %}
 {% endif %}
 <h2>Streams</h2>
 <ul>
 {% for id, stream in streams %}
-<li>{{ stream.description }} - {{ stream.count }} Zuhörer <a href="{{ stream.url }}">einschalten</a></li>
+<li>{{ stream.description }} - {{ stream.count }} {% lang L_LISTENER %} <a href="{{ stream.url }}">{% lang L_LISTEN %}</a></li>
 {% endfor %}
 </ul>
 
 <p>
-<h3>Hörerverlauf</h3>
+<h3>{% lang L_LISTENERHISTORY %}</h3>
 <img src="{{ WEBROOT }}graphh.png" alt="listenergraph" />
 <img src="{{ WEBROOT }}graphd.png" alt="listenergraph" />
 <img src="{{ WEBROOT }}graphw.png" alt="listenergraph" />

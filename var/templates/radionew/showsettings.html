@@ -1,25 +1,25 @@
 {% extends "sidebar-user.html" %}
 {% block content %}
-<h2>Einstellungen</h2>
+<h2>{% lang L_SETTINGS %}</h2>
 <p>
 <form method="post">
 <table>
 <tr>
-    <td colspan=2 >Sendungseinstellungen</td>
+    <td colspan=2 >{% lang L_SHOWSETTINGS %}</td>
 </tr>
 <tr>
-    <td>Name für ungeplante Sendung</td><td><input name="showname" value="{{ showname }}"/></td>
+    <td>{% lang L_UNPLANNEDNAME %}</td><td><input name="showname" value="{{ showname }}"/></td>
 </tr>
 <tr>
-    <td>Beschreibung</td><td><input name="showdesc" value="{{ showdesc }}"/></td>
+    <td>{% lang L_UNPLANNEDDESC %}</td><td><input name="showdesc" value="{{ showdesc }}"/></td>
 </tr>
 <tr>
-    <td>aus ICY-Tags übernehmen</td><td><input type="checkbox" name="icy" {% if icytags %}checked{% endif %}/></td>
+    <td>{% lang L_USEICYTAGS %}</td><td><input type="checkbox" name="icy" {% if icytags %}checked{% endif %}/></td>
 </tr>
 <tr>
-    <td>Backgroundname (Abload.de)</td><td><input name="background" value="{{ background }}"></td>
+    <td>{% lang L_DISCOBACK %}</td><td><input name="background" value="{{ background }}"></td>
 </tr>
 </table>
-<input type="submit" name="submit" value="Einstellungen ändern" />
+<input type="submit" name="submit" value="{% lang L_SAVESETTINGS %}" />
 </form>
 {% endblock %}

@@ -5,7 +5,7 @@ block.super
 {% block sidebar %}
 <div id='subcontent'>
 <div class='infoblock'>
-<h3>Die n&auml;chsten Sendungen</h3>
+<h3>{% lang L_NEXTSHOWS %}</h3>
 <ul>
 {% for show in nextshows %}
 <li>{{show.showname}} ({{show.streamer}})</li>
@@ -14,17 +14,16 @@ block.super
 </div>
 {% if user_logged_in %}
 <div class='infoblock'>
-<h3>Aktionen</h3>
+<h3>{% lang L_ACTIONS %}</h3>
 	<a href="javascript:addShow();" id="addshowlink">Sendung hinzuf&uuml;gen</a>
 	<div id="addshow" style="display:none;width:100%;">
 		<form>
 		<table>
-		<tr><td colspan=3>Sendung hinzuf&uuml;gen</td></tr>
-		<tr><td>Anfang</td><td><a class="abutton" href="javascript:newShowUp();">u</a><a class="abutton" href="javascript:newShowDown();">d</a></td><td><span id="showbegin">??:??</span></td></tr>
-		<tr><td>Ende</td><td><a class="abutton" href="javascript:newShowPlus();">+</a><a class="abutton" href="javascript:newShowMinus();">-</a></td><td><span id="showend">??:??</span></td></tr>
+		<tr><td>{% lang L_BEGIN %}</td><td><a class="abutton" href="javascript:newShowUp();">u</a><a class="abutton" href="javascript:newShowDown();">d</a></td><td><span id="showbegin">??:??</span></td></tr>
+		<tr><td>{% lang L_END %}</td><td><a class="abutton" href="javascript:newShowPlus();">+</a><a class="abutton" href="javascript:newShowMinus();">-</a></td><td><span id="showend">??:??</span></td></tr>
 		<tr><td colspan=3><input id="showname" name="name" value="" /></td></tr>
 		<tr><td colspan=3><textarea id="showdescription" name="desc" style="width:150px;"></textarea></td></tr>
-		<tr><td><a href="javascript:commitAddShow();" />eintragen</a></td><td><a href="javascript:abortAddShow();" />abbrechen</a></td></tr>
+		<tr><td><a href="javascript:commitAddShow();" />{% lang L_ENTER %}</a></td><td><a href="javascript:abortAddShow();" />{% lang L_CANCEL %}</a></td></tr>
 		</table>
 		</form>
 	</div>

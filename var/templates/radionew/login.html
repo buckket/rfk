@@ -3,9 +3,9 @@
 <p>
 <form action="user.php" method="POST">
 <table>
-<tr><td>Name</td><td><input name="username" /></td></tr>
-<tr><td>Passwort</td><td><input type="password" name="password"/></td></tr>
-<tr><td>&nbsp;</td><td><input type="submit" value="Anmelden"/></td></tr>
+<tr><td>{% lang L_USERNAME %}</td><td><input name="username" /></td></tr>
+<tr><td>{% lang L_PASSWORD %}</td><td><input type="password" name="password"/></td></tr>
+<tr><td>&nbsp;</td><td><input type="submit" value="{% lang L_LOGIN %}"/></td></tr>
 </table>
 <input type="hidden" name="login" value="true" />
 </form>
