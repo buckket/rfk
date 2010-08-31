@@ -30,7 +30,7 @@ switch($mode){
 }
 
 function handleAuth($username,$password){
-    global $db,$includepath;
+    global $db;
     fixSimpleClientAuth($username,$password);
     $sql = "SELECT streamer, IF(ban > NOW(), 'ban', IF(ban IS NULL, 'notbanned', 'expired')) as bstat
             FROM streamer
@@ -41,24 +41,33 @@ function handleAuth($username,$password){
     if($db->num_rows($result) > 0 ){
         $user = $db->fetch($result);
         if($user['bstat'] != 'ban') {
-            $sql = "SELECT * FROM streamer WHRE status = 'STREAMING'";
-            $dbres = $db->query($sql);
-            if($row = $db->fetch($dbres)) {
-                if($row['streamer'] != $user['streamer']){
-                    require_once $includepath.'/liquidsoaptelnet.php';
-                    $liquid = new Liquidsoap;
-                    $liquid->connect();
-                    $liquid->getHarborSource();
-                    $liquid->kickHarbor();
-                }
-            }
-            $db->free($dbres);
+            autoKick($user['streamer']);
             $sql = "UPDATE streamer SET status = 'LOGGED_IN', ban = NULL WHERE streamer = '".$user['streamer']."' AND status = 'NOT_CONNECTED';";
             $db->execute($sql);
             return true;
         }
     }
     return false;
+}
+
+function autoKick($user){
+    global $db,$includepath;
+    $sql = "SELECT * FROM shows WHERE streamer = $user AND NOW() BETWEEN begin AND end AND type = 'PLANNED'";
+    $dbres = $db->query($sql);
+    if($db->num_rows($dbres) > 0) {
+        $sql = "SELECT * FROM streamer WHERE status = 'STREAMING'";
+        $dbres = $db->query($sql);
+        if($row = $db->fetch($dbres)) {
+            if($row['streamer'] != $user){
+                require_once $includepath.'/liquidsoaptelnet.php';
+                $liquid = new Liquidsoap;
+                $liquid->connect();
+                $liquid->getHarborSource();
+                $liquid->kickHarbor();
+            }
+        }
+    }
+    $db->free($dbres);
 }
 
 function handleConnect($data){

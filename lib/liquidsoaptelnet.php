@@ -29,8 +29,10 @@ class Liquidsoap {
     }
 
     public function getHarborSource(){
-        preg_match_all('/^| (src_[0-9]+)/', $this->executeCommand('help'), $matches);
-        $this->harbor = $matches[1][1];
+        if($this->sock) {
+            preg_match_all('/^| (src_[0-9]+)/', $this->executeCommand('help'), $matches);
+            $this->harbor = $matches[1][1];
+        }
     }
 
     public function kickHarbor() {
