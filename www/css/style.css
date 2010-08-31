@@ -352,6 +352,12 @@ vertical-align: middle;
     /**background-color:green;**/
 }
 
+.disco .cbackground {
+    position:absolute;
+    left:9px;
+    top:20px;
+}
+
 .disco .foreground {
     position:absolute;
     bottom:0px;
