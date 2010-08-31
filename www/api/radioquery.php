@@ -22,6 +22,7 @@ switch ($_GET['w']) {
         break;
     case 'show':
         getCurrShow($out);
+        getDJ($out);
         getListener($out);
         break;
     case 'nextshows':
