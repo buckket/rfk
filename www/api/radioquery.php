@@ -22,7 +22,6 @@ switch ($_GET['w']) {
         break;
     case 'show':
         getCurrShow($out);
-        getDJ($out);
         getListener($out);
         break;
     case 'nextshows':
@@ -64,21 +63,80 @@ function kickDJ(&$out, &$queryPass){
 }
 function getCurrShow(&$out){
     global $db;
-    $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type
+    
+    $sql = 'SELECT COUNT(*) as Anzahl
             FROM shows
-            JOIN streamer USING (streamer)
-            WHERE end IS NULL
-               OR NOW() between begin AND end
-              AND status = "STREAMING" LIMIT 1;';
+            WHERE END IS NULL 
+            OR NOW() 
+            BETWEEN BEGIN AND END;';
     $dbres = $db->query($sql);
-    if($dbres) {
-        if($row = $db->fetch($dbres)) {
-            $out['showbegin'] = (int)$row['b'];
-            $out['showend'] = (int)$row['e'];
-            $out['showtype'] = $row['type'];
-            $out['showname'] = $row['name'];
-            $out['showdescription'] = $row['description'];
-            $out['showid'] = $row['show'];
+    if($row = $db->fetch($dbres)) {
+        
+        if($row['Anzahl'] == 1) {
+            #Nur eine Sendung, alles in Butter
+            $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username
+                    FROM shows
+                    JOIN streamer USING (streamer)
+                    WHERE end IS NULL
+                    OR NOW() between begin AND end
+                    AND status = "STREAMING" LIMIT 1;';
+            $dbres = $db->query($sql);
+            if($dbres) {
+                if($row = $db->fetch($dbres)) {
+                    $out['showbegin'] = (int)$row['b'];
+                    $out['showend'] = (int)$row['e'];
+                    $out['showtype'] = $row['type'];
+                    $out['showname'] = $row['name'];
+                    $out['showdescription'] = $row['description'];
+                    $out['showid'] = $row['show'];
+                    $out['dj'] = $row['username'];
+                }
+            }
+        }
+        
+        if($row['Anzahl'] == 2) {
+            #Ficknein, Sonderfall ( ._.)
+            $out['overlap'] = true;
+            
+            #Holen wir uns erst mal das was geplant war
+            $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username
+                    FROM shows
+                    JOIN streamer USING (streamer)
+                    WHERE type = "PLANNED"
+                    AND end IS NULL
+                    OR NOW() between begin AND end;';
+            $dbres = $db->query($sql);
+            if($dbres) {
+                if($row = $db->fetch($dbres)) {
+                    $out['Pshowbegin'] = (int)$row['b'];
+                    $out['Pshowend'] = (int)$row['e'];
+                    $out['Pshowtype'] = $row['type'];
+                    $out['Pshowname'] = $row['name'];
+                    $out['Pshowdescription'] = $row['description'];
+                    $out['Pshowid'] = $row['show'];
+                    $out['Pdj'] = $row['username'];
+                }
+            }
+            
+            #Holen wir uns was eigentlich läuft
+            $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username
+                    FROM shows
+                    JOIN streamer USING (streamer)
+                    WHERE type = "UNPLANNED"
+                    AND end IS NULL
+                    OR NOW() between begin AND end;';
+            $dbres = $db->query($sql);
+            if($dbres) {
+                if($row = $db->fetch($dbres)) {
+                    $out['Ushowbegin'] = (int)$row['b'];
+                    $out['Ushowend'] = (int)$row['e'];
+                    $out['Ushowtype'] = $row['type'];
+                    $out['Ushowname'] = $row['name'];
+                    $out['Ushowdescription'] = $row['description'];
+                    $out['Ushowid'] = $row['show'];
+                    $out['Udj'] = $row['username'];
+                }
+            }
         }
     }
 }
