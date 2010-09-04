@@ -79,7 +79,7 @@ function getCurrShow(&$out){
                     JOIN streamer USING (streamer)
                     WHERE end IS NULL
                     OR NOW() between begin AND end
-                    AND status = "STREAMING" LIMIT 1;';
+                    LIMIT 1;';
             $dbres = $db->query($sql);
             if($dbres) {
                 if($row = $db->fetch($dbres)) {
@@ -90,13 +90,19 @@ function getCurrShow(&$out){
                     $out['showdescription'] = $row['description'];
                     $out['showid'] = $row['show'];
                     $out['dj'] = $row['username'];
+                    
+                    $sql = 'SELECT `status` from streamer WHERE username ="' . $row['username'] .'";';
+                    $dbres = $db->query($sql);
+                    if($row = $db->fetch($dbres)) {
+                        $out['status'] = $row['status'];                    
+                    }
                 }
             }
         }
         
         if($row['Anzahl'] == 2) {
             #Ficknein, Sonderfall ( ._.)
-            $out['overlap'] = true;
+            $out['status'] = 'OVERLAP';
             
             #Holen wir uns erst mal das was geplant war
             $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username
@@ -104,7 +110,8 @@ function getCurrShow(&$out){
                     JOIN streamer USING (streamer)
                     WHERE type = "PLANNED"
                     AND end IS NULL
-                    OR NOW() between begin AND end;';
+                    OR NOW() between begin AND end
+                    AND type = "PLANNED";';
             $dbres = $db->query($sql);
             if($dbres) {
                 if($row = $db->fetch($dbres)) {
@@ -124,7 +131,8 @@ function getCurrShow(&$out){
                     JOIN streamer USING (streamer)
                     WHERE type = "UNPLANNED"
                     AND end IS NULL
-                    OR NOW() between begin AND end;';
+                    OR NOW() between begin AND end
+                    AND type = "UNPLANNED";';
             $dbres = $db->query($sql);
             if($dbres) {
                 if($row = $db->fetch($dbres)) {
