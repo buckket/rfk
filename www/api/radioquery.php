@@ -71,18 +71,20 @@ function getCurrShow(&$out){
     $dbres = $db->query($sql);
     if($dbres && $db->num_rows($dbres) > 0) {
         while($row = $db->fetch($dbres)) {
-            $arr['showbegin'] = (int)$row['b'];
-            $arr['showend'] = (int)$row['e'];
-            $arr['showtype'] = $row['type'];
-            $arr['showname'] = $row['name'];
-            $arr['showdescription'] = $row['description'];
-            $arr['showid'] = $row['show'];
-            $arr['dj'] = $row['username'];
-            $arr['status'] = $row['status'];
-            $out['shows'][$row['type']] = $arr;
+            if($db->num_rows($dbres) > 1 && $row['type'] == 'PLANNED') {
+                $key = 'ushow';
+            }else {
+                $key = 'show';
+            }
+            $out[$key.'begin'] = (int)$row['b'];
+            $out[$key.'end'] = (int)$row['e'];
+            $out[$key.'type'] = $row['type'];
+            $out[$key.'name'] = $row['name'];
+            $out[$key.'description'] = $row['description'];
+            $out[$key.'id'] = $row['show'];
+            $out[$key.'dj'] = $row['username'];
+            $out[$key.'status'] = $row['status'];
         }
-    }else {
-        $out['shows'] = array();
     }
 }
 
