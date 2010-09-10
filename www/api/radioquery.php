@@ -73,8 +73,10 @@ function getCurrShow(&$out){
         while($row = $db->fetch($dbres)) {
             if($db->num_rows($dbres) > 1 && $row['type'] == 'PLANNED') {
                 $key = 'ushow';
+		$out['status'] = 'OVERLAP';
             }else {
                 $key = 'show';
+		$out['status'] = $row['status'];
             }
             $out[$key.'begin'] = (int)$row['b'];
             $out[$key.'end'] = (int)$row['e'];
@@ -83,7 +85,6 @@ function getCurrShow(&$out){
             $out[$key.'description'] = $row['description'];
             $out[$key.'id'] = $row['show'];
             $out[$key.'dj'] = $row['username'];
-            $out[$key.'status'] = $row['status'];
         }
     }
 }
