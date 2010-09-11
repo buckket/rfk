@@ -67,5 +67,10 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_UNPLANNEDNAME'  => 'Name for unplanned shows',
               'L_UNPLANNEDDESC'  => 'Description',
               'L_USEICYTAGS'     => 'Fetch data from ICY-Tags',
-              'L_DISCOBACK'      => 'Backgroundname (abload.de');
+              'L_DISCOBACK'      => 'Backgroundname (abload.de'),
+              'L_APIREGISTRATION' => 'Register API-Key',
+              'L_APIAPPLICATION'  => 'Application',
+              'L_APIKEY'          => 'API-Key',
+              'L_REGISTEREDKEYS'  => 'Already registred keys',
+              'L_APIINFO'         => '<b>API Information</b><br />The API can only be called every 5 seconds with a regular key, if you need more ask in the IRC');
 ?>
