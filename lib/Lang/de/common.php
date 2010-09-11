@@ -67,5 +67,11 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_UNPLANNEDNAME'  => 'Name für ungeplante Sendungen',
               'L_UNPLANNEDDESC'  => 'Beschreibung',
               'L_USEICYTAGS'     => 'Daten aus ICY-Tags übernehmen',
-              'L_DISCOBACK'      => 'Backgroundname (abload.de)');
+              'L_DISCOBACK'      => 'Backgroundname (abload.de)',
+              //
+              'L_APIREGISTRATION' => 'API-Key registrieren',
+              'L_APIAPPLICATION'  => 'Anwendung',
+              'L_APIKEY'          => 'API-Key',
+              'L_REGISTEREDKEYS'  => 'Bereits registrierte Keys',
+              'L_APIINFO'         => '<b>API Informationen</b><br />Die API kann pro key nur alle 5 Sekunden Abgefragt werden! wenn du öfter anfragen willst frage bitte im IRC, danke.');
 ?>

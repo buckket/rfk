@@ -28,4 +28,19 @@ function cleanup_h2o(&$template){
 	$template['usercountry'] = $user->country;
 }
 
+function create_api_key(){
+    global $db;
+    $watchdog = 0;
+    do {
+        $key = sha1(sha1(time().''.rand(1, 1000000).'apikey'));
+        $dbres = $db->query("SELECT * FROM apikeys WHERE `key` = '".$db->escape($key)."' LIMIT 1;");
+        echo $key;
+        $watchdog++;
+        if($watchdog > 150) {
+            return false;
+        }
+    } while ( $db->num_rows($dbres) > 0);
+    return $key;
+}
+
 ?>

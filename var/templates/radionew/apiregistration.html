@@ -1,0 +1,19 @@
+{% extends "sidebar-user.html" %}
+{% block content %}
+<h2>{% lang L_APIREGISTRATION %}</h2>
+<form method="post">
+{% lang L_APIINFO %}
+<br />
+<br />
+{% lang L_APIAPPLICATION %}&nbsp;<input name="application"/>
+<input type="submit" name="submit" value="{% lang L_REGISTER %}" />
+</form>
+<br />
+<h3>{% lang L_REGISTEREDKEYS %}</h3>
+<table>
+<tr><td>{% lang L_APIAPPLICATION %}</td><td>{% lang L_APIKEY %}</td></tr>
+{% for key in apikeys %}
+<tr><td>{{ key.application }}</td><td>{{ key.key }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}
