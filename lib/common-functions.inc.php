@@ -34,7 +34,6 @@ function create_api_key(){
     do {
         $key = sha1(sha1(time().''.rand(1, 1000000).'apikey'));
         $dbres = $db->query("SELECT * FROM apikeys WHERE `key` = '".$db->escape($key)."' LIMIT 1;");
-        echo $key;
         $watchdog++;
         if($watchdog > 150) {
             return false;

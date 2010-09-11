@@ -2,7 +2,7 @@
 require_once('../lib/common-web.inc.php');
 $template = array();
 if(isset($_POST['submit'])) {
-    if(isset($_POST['application']) && strlen($_POST['application'])> 5 && strlen($_POST['application']) <= 100){
+    if(isset($_POST['application']) && strlen($_POST['application'])>= 5 && strlen($_POST['application']) <= 100){
         $sql = "INSERT INTO apikeys (`key`,application,streamer,flag)
                 VALUES ('".create_api_key()."','".$db->escape($_POST['application'])."',".$user->userid.",0);";
         $db->execute($sql);
