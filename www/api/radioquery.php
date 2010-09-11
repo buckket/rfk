@@ -2,8 +2,6 @@
 $basePath = dirname(dirname(dirname(__FILE__)));
 require_once $basePath.'/lib/common.inc.php';
 require_once $basePath.'/lib/liquidsoaptelnet.php';
-
-$queryPass = 'lolwasichverhauedich';
 $out = array();
 
 switch ($_GET['w']) {
@@ -13,7 +11,7 @@ switch ($_GET['w']) {
         break;
     case 'kickdj':
         getDJ($out);
-        kickDJ($out, $queryPass);
+        kickDJ($out, $flag&$flags['kickallowed']);
         break;
     case 'track':
         getCurrTrack($out);
@@ -43,8 +41,8 @@ function getDJ(&$out){
         $out['djid'] = $row['streamer'];
     }
 }
-function kickDJ(&$out, &$queryPass){
-    if($_GET['pass'] == $queryPass) {
+function kickDJ(&$out, $kickallowed){
+    if($kickallowed) {
         $liquid = new Liquidsoap;
         $liquid->connect();
         $liquid->getHarborSource();
@@ -56,8 +54,7 @@ function kickDJ(&$out, &$queryPass){
         $sql = "UPDATE streamer SET ban = '". $timestamp . "' WHERE streamer = '". $out['djid'] ."';";
         $dbres = $db->query($sql);
         $out['status'] = 0;
-    }
-    else {
+    } else {
         $out['status'] = 1;
     }
 }
