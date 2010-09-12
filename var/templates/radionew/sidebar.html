@@ -14,7 +14,7 @@ block.super
 <div class='infoblock'>
 <h3>{% lang L_LAST5USERS %}</h3><ul>
 {% for index, streamer in sb_streamer %}
-<li><a href='/user.php?u={{ streamer.streamer }}'>{{ streamer.username }}</a></li>
+<li><a href='{{ WEBROOT }}user.php?u={{ streamer.streamer }}'>{{ streamer.username }}</a></li>
 {% endfor %}
 </ul>
 <p><em>{% lang L_TOTALUSERS , sb_streamercount %}</em></p>

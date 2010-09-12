@@ -14,6 +14,7 @@ if(isset($_GET['u']) && strlen($_GET['u']) > 0){
 	$result = $db->query($sql);
 	if($row = $db->fetch($result)){
 		$userinfo['username'] = $row['username'];
+		$userid = $row['streamer'];
 		$sql = "SELECT SUM(TIMESTAMPDIFF(SECOND,begin,end)) as length, count(*) as showcount from shows WHERE streamer = ".$row['streamer'];
 		$result = $db->query($sql);
 		if($row = $db->fetch($result)){
@@ -24,8 +25,19 @@ if(isset($_GET['u']) && strlen($_GET['u']) > 0){
 			$userinfo['streamtime'] = 0;
 			$userinfo['showcount'] = 0;
 		}
+		$sql = "SELECT name, DATE_FORMAT(begin,'%d.%m.%Y') as d, DATE_FORMAT(begin,'%H:%i') as t FROM shows WHERE begin >= NOW() AND streamer = ".$userid." LIMIT 1;";
+		$dbres = $db->query($sql);
+		if($dbres && $row = $db->fetch($dbres)) {
+            $userinfo['nextshow']['name'] = $row['name'];
+            $userinfo['nextshow']['date'] = $row['d'];
+            $userinfo['nextshow']['time'] = $row['t'];
+		}
+		$template['user'] = $userinfo;
+	} else {
+	    $template['user'] = 'nouser';
 	}
-	$template['user'] = $userinfo;
+}else {
+    $template['user'] = 'nouser';
 }
 if($user->logged_in && (!isset($_GET['u']) || $_GET['u'] == $user->userid)){
 	$template['user_self'] = true;
