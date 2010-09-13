@@ -66,6 +66,13 @@ function handle_request($flag) {
                         throw_error(20, 'sorry you can\'t do that');
                     }
                     break;
+                case 'listenerdata':
+                    if ($flag&$flags['viewip']) {
+                        getListenerData($out);
+                    } else {
+                        throw_error(20, 'sorry you can\'t do that');
+                    }
+                    break;      
                 case 'track':
                     getCurrTrack($out);
                     break;
@@ -222,7 +229,20 @@ function getListener(&$out){
         }
     }
 }
-
+function getListenerData(&$out) {
+    global $db;
+    $sql = "SELECT ip, country, city FROM listenerhistory WHERE disconnected IS NULL;";
+    $dbres = $db->query($sql);
+    $tmp = array();
+    if($dbres) {
+        while($row = $db->fetch($dbres)) {
+            $tmp[] = array('ip' => $row['ip'],
+                           'country' => $row['country'],
+                           'city' => $row['city']);
+        }
+    }
+    $out['listener'] = $tmp;
+}
 function getTracks(&$out){
     global $db;
     if(isset($_GET['c']) && $_GET['c'] > 1){
