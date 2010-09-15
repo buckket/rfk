@@ -36,5 +36,13 @@ header('Content-type: image/png');
 
 $rrd->setHeight(100);
 $rrd->setWidth(400);
-$rrd->setStart('now-1day');
+if(isset($_GET['time'])){
+    list($start,$end) = explode(',', $_GET['time']);
+    if($start > 0 && $end > 0){
+        $rrd->setStart($start);
+        $rrd->setEnd($end);
+    }
+} else {
+    $rrd->setStart('now-1day');
+}
 echo $rrd->createGraph($defs,$graphs,$cdefs);

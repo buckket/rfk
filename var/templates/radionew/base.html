@@ -1,15 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">  
-  <head>    
-    <title>Radio freies Krautchan :: {{ PAGETITLE }}   
-    </title>    
+  <head>
+    <title>Radio freies Krautchan :: {{ PAGETITLE }}</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="{{ WEBROOT }}css/style.css" type="text/css" media="screen,projection" />
     <link rel="stylesheet" href="{{ WEBROOT }}css/prototip.css" type="text/css" /> 
     <link rel="shortcut icon" href="{{ WEBROOT }}favicon.ico" type="image/x-icon" /> 
 	<script src="{{ WEBROOT }}js/prototype.js"></script>
 	<script src="{{ WEBROOT }}js/scriptaculous.js"></script>
+	<script src="{{ WEBROOT }}js/modalbox.js"></script>
 	<script src="{{ WEBROOT }}js/prototip.js"></script>
+	<link rel="stylesheet" href="{{ WEBROOT }}css/style.css" type="text/css" charset="utf-8"/>
+	<link rel="stylesheet" href="{{ WEBROOT }}css/modalbox.css" type="text/css" charset="utf-8"/>
   </head>  
   <body>    
     <div id="container">      
@@ -17,20 +18,19 @@
         <img src="{{ WEBROOT }}images/logo.png" alt="Logo" />
         {% if disco %}
             <div class="disco">
-
             {% if disco_background %}
-            <div class="cbackground"><img src="http://www.abload.de/img/{{ disco_background }}" height=65px width=129px /></div>
+                <div class="cbackground"><img src="http://www.abload.de/img/{{ disco_background }}" height=65px width=129px /></div>
             {% endif %}
-            <div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
-
-                {% if disco_streamer %}
-		<div class="hp"><img src="{{ WEBROOT }}images/headphones.png" /></div>
-	            <div class="dj"><img src="{{ WEBROOT }}images/cb/{{ disco_streamer }}.png" /></div>
-	            {% endif %}
-<div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
-	            {% for listener in disco %}
-	            <div class="listener" style="left:{{ listener.x }}px;bottom:{{ listener.y }}px;"><img src="{{ WEBROOT }}images/cb/{{ listener.country }}.png" /></div>
-	            {% endfor %}
+                <div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
+            {% if disco_streamer %}
+                <div class="hp"><img src="{{ WEBROOT }}images/headphones.png" /></div>
+                <div class="dj"><img src="{{ WEBROOT }}images/cb/{{ disco_streamer }}.png" /></div>
+            {% endif %}
+                <div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
+            {% for listener in disco %}
+                <div class="listener" style="left:{{ listener.x }}px;bottom:{{ listener.y }}px;"><img src="{{ WEBROOT }}images/cb/{{ listener.country }}.png" /></div>
+            {% endfor %}
+            <div class="text"><marquee scrollamount="2">testo</marquee></div>
             </div>
         {% endif %}
       </div>      

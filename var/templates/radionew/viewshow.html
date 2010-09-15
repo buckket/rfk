@@ -1,0 +1,17 @@
+{% for show in shows %}
+{% if !loop.first %}
+<br /><hr /><br />
+{% endif %}
+    <h2>{{show.name}}</h2>
+    <p>{{show.description}}</p>
+    <h3>Songs <small><a onclick="Effect.toggle('songs','slide');return false;">[ausklappen]</a></small></h3>
+    <div style="display:none;" id="songs">
+    {% for song in show.songs %}
+    {{ song.artist }} - {{ song.title }}<br />
+    {% endfor %}
+    </div>
+    <br />
+    <h3>Hörerverlauf</h3>
+    <center><img src="{{WEBROOT}}graph.php?time={{show.begin}},{{show.end}}" height="150px" width="450px"/></center>
+
+{% endfor %}

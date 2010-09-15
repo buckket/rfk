@@ -1,0 +1,13 @@
+<div>
+<h1>{{ show.name }}</h1>
+<table>
+<tr><td>Name</td><td><input name="name" value="{{show.name}}"/></td></tr>
+<tr><td>Datum</td><td><input name="date" value="{{show.date}}"/></td></tr>
+<tr><td>Zeit</td><td>
+<select><option>0:00</option></select> - 
+<select><option>1:00</option></select>
+</td></tr>
+<tr><td>Beschreiung</td><td><textarea name="description">{{show.description}}</textarea></td></tr>
+<tr><td><select><option>Ändern</option><option>Neu</option><option>Löschen</option></select></td><td><input type="button" value="absenden" /></td>
+</table>
+</div>

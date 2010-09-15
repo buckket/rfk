@@ -17,20 +17,20 @@
         {% if loop.first %}
             <td>{{ day }}
         {%else%}
-	    <td id="t{{day.tid}}" {% if day.ids %}shows="{{day.ids}}"{% endif %} {% if day.size > 1 %}rowspan={{ day.size }} {% endif %} class="{{ day.type }}{% if day.mark %} calendar-mark{% endif %}">
-	    {% if day.count > day.size %}
-		    {{day.count}}&nbsp;Sendungen
-	    {% else %}
-		    {% if day.shows %}
-			    {% for show in day.shows %}
-			     {{show.name | truncate 12}}<br />
-			    {% endfor%}
-			{% else %}
-    			&nbsp;
-			{% endif %}
-	    {% endif %}
-	    {% endif %}
-	    </td>
+        <td id="t{{day.tid}}" {% if day.ids %}shows="{{day.ids}}" onclick="viewShow('{{day.ids}}');" {% endif %} {% if day.size > 1 %}rowspan={{ day.size }} {% endif %} class="{{ day.type }}{% if day.mark %} calendar-mark{% endif %}">
+        {% if day.count > day.size %}
+            {{day.count}}&nbsp;Sendungen
+        {% else %}
+            {% if day.shows %}
+                {% for show in day.shows %}
+                 {{show.name | truncate 12}}<br />
+                {% endfor%}
+            {% else %}
+                &nbsp;
+            {% endif %}
+        {% endif %}
+        {% endif %}
+        </td>
     {%endfor%}
 </tr>
 {% endfor %}
@@ -279,6 +279,13 @@ document.observe('dom:loaded', function(){
 	   }
 	   result+=((prefix!="0")?minus:"")+num;
 	   return result;
+	 }
+
+	 function viewShow(shows){
+		Modalbox.show('{{ WEBROOT }}show.php?ajax=true&show='+shows,{title: 'Show ansehen', width: 600,height:400});return false;
+	 }
+	 function editShow(shows){
+	        Modalbox.show('{{ WEBROOT }}show.php?ajax=true&show='+shows,{title: 'Show bearbeiten', width: 600});return false;
 	 }
 </script>
 {% endblock %}

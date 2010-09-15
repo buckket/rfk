@@ -1,0 +1,4 @@
+<h2>Bitte wähle eine Sendung</h2>
+{% for show in shows %}
+    <a href="{{ WEBROOT }}editshow.php?ajax=true&show={{show.show}}" onclick="editShow({{show.show}});">{{ show.name}}</a> <br />
+{% endfor %}
