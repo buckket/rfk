@@ -66,6 +66,13 @@ function handle_request($flag) {
                         throw_error(20, 'sorry you can\'t do that');
                     }
                     break;
+                case 'listenerdata':
+                    if ($flag&$flags['viewip']) {
+                        getListenerData($out);
+                    } else {
+                        throw_error(20, 'sorry you can\'t do that');
+                    }
+                    break;      
                 case 'track':
                     getCurrTrack($out);
                     break;
@@ -77,6 +84,9 @@ function handle_request($flag) {
                     break;
                 case 'tracks':
                     getTracks($out);
+                    break;
+                case 'djid':
+                    getDJID($out);
                     break;
                 default:
                     $out['warning'][] = $qry.' does not exsist';
@@ -99,6 +109,22 @@ function getDJ(&$out){
         $out['djid'] = $row['streamer'];
     }
 }
+function getDJID(&$out){
+    global $db;
+    if(isset($_GET['djname'])) {
+        $djname = $db->escape($_GET['djname']);
+    }
+    else {
+        throw_error(0, 'no djname given');
+    }
+    $sql = "SELECT * FROM streamer WHERE username = '" . $djname . "' LIMIT 1;";
+    $dbres = $db->query($sql);
+    if($dbres) {
+        $row = $db->fetch($dbres);
+        $out['dj'] = $row['username'];
+        $out['djid'] = $row['streamer'];
+    }
+}
 function kickDJ(&$out){
     $liquid = new Liquidsoap;
     $liquid->connect();
@@ -114,7 +140,7 @@ function kickDJ(&$out){
 }
 function getCurrShow(&$out){
     global $db;
-    $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username, status
+    $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username, streamer, status
             FROM shows
             JOIN streamer USING (streamer)
             WHERE end IS NULL
@@ -136,6 +162,7 @@ function getCurrShow(&$out){
             $out[$key.'description'] = $row['description'];
             $out[$key.'id'] = $row['show'];
             $out[$key.'dj'] = $row['username'];
+            $out['showdjid'] = $row['streamer'];
         }
     }
 }
@@ -147,7 +174,7 @@ function getNextShows(&$out){
     }else{
         $limit = 1;
     }
-    $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username
+    $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
             FROM shows
             JOIN streamer USING (streamer)
             WHERE begin > NOW()
@@ -162,6 +189,7 @@ function getNextShows(&$out){
             $out['showname'] = $row['name'];
             $out['showdescription'] = $row['description'];
             $out['showdj'] = $row['username'];
+            $out['showdjid'] = $row['streamer'];
         }
     }
 }
@@ -201,7 +229,20 @@ function getListener(&$out){
         }
     }
 }
-
+function getListenerData(&$out) {
+    global $db;
+    $sql = "SELECT ip, country, city FROM listenerhistory WHERE disconnected IS NULL;";
+    $dbres = $db->query($sql);
+    $tmp = array();
+    if($dbres) {
+        while($row = $db->fetch($dbres)) {
+            $tmp[] = array('ip' => $row['ip'],
+                           'country' => $row['country'],
+                           'city' => $row['city']);
+        }
+    }
+    $out['listener'] = $tmp;
+}
 function getTracks(&$out){
     global $db;
     if(isset($_GET['c']) && $_GET['c'] > 1){
