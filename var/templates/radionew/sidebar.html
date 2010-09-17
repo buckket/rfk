@@ -4,6 +4,7 @@ block.super
 {% endblock %}
 {% block sidebar %}
 <div id='subcontent'>
+    {% include 'nowplaying.html' %}
 	<div class='infoblock'>
 	<h3>{% lang L_LAST10TRACKS %}</h3>
 		<ul>

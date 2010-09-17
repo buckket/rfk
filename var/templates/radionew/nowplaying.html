@@ -1,0 +1,132 @@
+<div id="jquery_jplayer"></div>
+<div id="player_container" class="ui-overlay ui-corner-all">
+    <div id="noonestream">
+        Niemand Strömt grade
+    </div>
+    <div id="trackinfo" style="display:none;">
+        <table>
+        <tr><td>Interpret</td><td id="artist"></td></tr>
+        <tr><td>Titel</td><td id="title"></td></tr>
+        <tr><td>DJ</td><td id="dj"></td></tr>
+        <tr><td>Sendung</td><td id="show"></td></tr>
+        </table>
+    </div>
+    <ul id="icons" class="ui-widget ui-helper-clearfix">
+            <li id="play" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-play"></span></li>
+            <li id="stop" style="display:none;" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-stop"></span></li>
+            <li id="volume-min" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-volume-off"></span></li>
+            <li><div id="sliderVolume"></div></li>
+            <li id="volume-max" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-volume-on"></span></li>
+    </ul>
+</div>
+
+
+<script type="text/javascript">
+$(function(){
+    //track neuladen
+    var isShow = false;
+    var updateShow = function ()
+    {
+        $.getJSON('{{ WEBROOT }}api/site/livetag.php',function (data){
+            if(data){
+                if(!isShow){
+                    $("#noonestream").fadeOut(function(){
+                        $("#trackinfo").fadeIn();
+                    });
+                    isShow=true;
+                }
+                $('#trackinfo #artist').html(data.artist);
+                $('#trackinfo #title').html(data.title);
+                $('#trackinfo #dj').html(data.username);
+                $('#trackinfo #show').html(data.name);
+                $('#ticker').html(data.artist+' - '+data.title);
+            }else{
+            	$('#trackname').html('');
+            }
+        	updateTimer = window.setTimeout(updateShow,10000);
+        });
+        
+    }
+    var updateTimer = window.setTimeout(updateShow,500);
+
+    $("#jquery_jplayer").jPlayer({
+        ready: function ()
+        {
+            this.element.jPlayer("setFile", "http://radio.krautchan.net:8000/radio.mp3","http://radio.krautchan.net:8000/radio.ogg");
+        },
+        oggSupport: false
+    })
+    
+    .jPlayer("onSoundComplete", function() {
+        this.element.jPlayer("play");
+    });
+
+    function showPlayBtn()
+    {
+        $("#stop").fadeOut(function(){
+            $("#play").fadeIn();
+        });
+    }
+
+    function showStopButton()
+    {
+        $("#play").fadeOut(function(){
+            $("#stop").fadeIn();
+        });
+    }
+
+    function playTrack(t,n)
+    {
+        $("#jquery_jplayer").jPlayer("setFile", t).jPlayer("play");
+
+        return false;
+    }
+
+    $("#play").click(function() {
+        $("#jquery_jplayer").jPlayer("play");
+        showStopButton();
+        return false;
+    });
+
+    $("#stop").click(function() {
+        $("#jquery_jplayer").jPlayer("stop");
+        showPlayBtn();
+        return false;
+    });
+
+
+    $("#volume-min").click( function() {
+        $('#jquery_jplayer').jPlayer("volume", 0);
+        $('#sliderVolume').slider('option', 'value', 0);
+        return false;
+    });
+
+    $("#volume-max").click( function() {
+        $('#jquery_jplayer').jPlayer("volume", 100);
+        $('#sliderVolume').slider('option', 'value', 100);
+        return false;
+    });
+
+    // Slider
+
+    $('#sliderVolume').slider({
+        value : 50,
+        max: 100,
+        range: 'min',
+        animate: true,
+
+        slide: function(event, ui) {
+            $("#jquery_jplayer").jPlayer("volume", ui.value);
+        }
+    });
+
+    //hover states on the static widgets
+
+    $('#dialog_link, ul#icons li').hover(
+        function() { $(this).addClass('ui-state-hover'); },
+        function() { $(this).removeClass('ui-state-hover'); }
+    );
+
+});
+-->
+</script>

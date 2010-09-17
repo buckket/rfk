@@ -31,7 +31,13 @@ class User{
         }
         if($this->logged_in){
             //disabled for now
-            //$this->get_userrights();
+            //TODO das muss in die datenbank
+            if(isset($_GET['locale'])) {
+                $_SESSION['locale'] = (int)$_GET['locale'];
+            }
+            if(isset($_SESSION['locale'])) {
+                $this->setLocale($_SESSION['locale']);
+            }
         }
     }
     function login($username, $password){

@@ -13,17 +13,28 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
     if(isset($_GET['show']) && strlen($_GET['show'])>0){
         if($user->logged_in){
             $shows = explode(',',$_GET['show']);
-            $sql = 'SELECT * FROM shows WHERE `show` IN ('.$db->escape(implode(',',$shows)).') AND streamer = '.$user->userid.';';
+            $sql = 'SELECT `show`, DATE_FORMAT(begin,"%d.%m.%Y") as `date`, description, name, TIME_TO_SEC(TIMEDIFF(end,begin)) as length, UNIX_TIMESTAMP(begin) AS begin FROM shows WHERE `show` IN ('.$db->escape(implode(',',$shows)).') AND streamer = '.$user->userid.';';
             $dbres = $db->query($sql);
             if($db->num_rows($dbres) == 1){
                 $show = $db->fetch($dbres);
                 $template['show'] = $show;
-                showPage($template, 'editshow', false);
-            }else if($db->num_rows($dbres) > 1){
-                while($show = $db->fetch($dbres)){
-                    $template['shows'][] = $show;
+                $begin = getdate($show['begin']);
+                $begin = ($begin['hours']*2)+round($begin['minutes']/30);
+                for($i = 0; $i < 48; $i++){
+                    if($begin == $i){
+                        $template['start'][] = array( 'value' => $i ,'val' =>floor($i/2).':'.($i%2==0?'00':'30'), 'selected' => true);
+                    }
+                    $template['start'][] = array( 'value' => $i ,'val' => floor($i/2).':'.($i%2==0?'00':'30'));
                 }
-                showPage($template, 'selectshow', $fulltemplate);
+                for($i = 1; $i < 48; $i++){
+                    if(round($show['length']/1800) == $i){
+                        $template['length'][] = array( 'value' => $i ,'val' =>floor($i/2).':'.($i%2==0?'00':'30'), 'selected' => true);
+                    }
+                    $template['length'][] = array( 'value' => $i , 'val' => floor($i/2).':'.($i%2==0?'00':'30'));
+                }
+                showPage($template, 'editshow', false);
+            }else{
+                echo 'blah';
             }
         }else{
             $template['error'] = 'notloggedin';
@@ -35,10 +46,13 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
     $dbres = $db->query($sql);
     while($show = $db->fetch($dbres)){
         $show['description'] = $bbcode->parse($show['description']);
-        $sql = "Select * FROM songhistory WHERE `show` = ".$show['show']." order by begin desc;";
+        $sql = "Select * FROM songhistory WHERE `show` = ".$show['show']." order by begin asc;";
         $res = $db->query($sql);
         while($song = $db->fetch($res)){
             $show['songs'][] = $song;
+        }
+        if($user->logged_in && $user->userid == $show['streamer']) {
+            $show['editable'] = true;
         }
         $template['shows'][] = $show;
     }

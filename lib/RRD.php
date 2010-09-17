@@ -125,7 +125,7 @@ class RRD{
      * @param array $vdefs
      */
     public function createGraph($defs,$graphs,$cdefs = array(),$vdefs = array()){
-        $cmd = 'rrdtool graph -  --end '.$this->end.' --start '.$this->start;
+        $cmd = 'rrdtool graph - --end '.$this->end.' --start '.$this->start;
         if($this->title) {
             $cmd .= ' -t '.$this->title;
         }

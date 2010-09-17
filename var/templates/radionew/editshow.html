@@ -1,13 +1,105 @@
 <div>
 <h1>{{ show.name }}</h1>
+<br />
 <table>
-<tr><td>Name</td><td><input name="name" value="{{show.name}}"/></td></tr>
-<tr><td>Datum</td><td><input name="date" value="{{show.date}}"/></td></tr>
-<tr><td>Zeit</td><td>
-<select><option>0:00</option></select> - 
-<select><option>1:00</option></select>
+<tr><td>Name</td><td style="text-align:right;">
+<input class="ui-corner-all" style="padding:0.4em 1em;width:250px;" id="name" name="name" value="{{show.name}}"/></td></tr>
+<tr><td>Anfang</td><td style="text-align:right;">
+<input class="ui-corner-all" style="padding:0.4em 1em;width:100px;" id="startd" name="date" value="{{show.date}}"/>
+<select class="ui-corner-all" style="padding:0.4em 1em;" id="startt" name="startt">
+{% for time in start %}
+<option value="{{time.value}}" {% if time.selected %} selected="selected" {% endif %}>{{ time.val }}</option>
+{% endfor %}
+</select></td></tr>
+<tr><td>Länge</td><td style="text-align:right;">
+<select  class="ui-corner-all" id="length" name="length" style="padding:0.4em 1em;">
+{% for time in length %}
+<option value="{{time.value}}" {% if time.selected %} selected="selected" {% endif %}>{{ time.val }}</option>
+{% endfor %}
+</select>
 </td></tr>
-<tr><td>Beschreiung</td><td><textarea name="description">{{show.description}}</textarea></td></tr>
-<tr><td><select><option>Ändern</option><option>Neu</option><option>Löschen</option></select></td><td><input type="button" value="absenden" /></td>
+<tr><td>Beschreiung</td><td style="text-align:right;">
+<textarea class="ui-corner-all" style="padding:0.4em 1em;width:250px;height:100px;" id="description" name="description">{{show.description}}</textarea></td></tr>
+<tr><td>&nbsp;</td>
+<td>
+<select id="action" class="ui-corner-all" style="padding: 0.4em 1em;">
+    <option value="edit">Ändern</option>
+    <option value="new">Neu</option>
+    <option value="delete">Löschen</option>
+</select>
+<input id="showid" type="hidden" value="{{show.show}}" />
+<input id="submit" type="button" onclick="submitEditShow();" value="absenden" /></td>
 </table>
 </div>
+<script type="text/javascript">
+$('#startd').datepicker({ firstDay : 1, minDate : 0, dateFormat: 'dd.mm.yy'});
+$('#submit').button();
+
+function submitEditShow() {
+    $('#submit').button('disable');
+    if($('#action').val() == 'edit'){
+        $.post('{{ WEBROOT }}api/site/show.php?w=edit',
+                'name='+encodeURIComponent($('#name').val())+
+                '&description='+encodeURIComponent($('#description').val())+
+                '&length='+$('#length').val()+
+                '&startt='+$('#startt').val()+
+                '&startd='+encodeURIComponent($('#startd').val())+
+                '&showid='+$('#showid').val()
+                ,
+                function(data) {
+                    var obj = data;
+                    if(obj.error){
+                        alert(obj.error[0]['errid']+": "+obj.error[0]['desc']);
+                        $('#submit').button('enable');
+                    }else if(obj.ok == 0){
+                        newshow = new Array();
+                        clearFreeClassNames();
+                        addingshow = false;
+                        alert('Sendung erfolgreich geändert!');
+                        window.location.reload();
+                    }
+                }
+                ,"json");
+    }else if($('#action').val() == 'new'){
+        $.post('{{ WEBROOT }}api/site/show.php?w=addshowform',
+                'name='+encodeURIComponent($('#name').val())+
+                '&description='+encodeURIComponent($('#description').val())+
+                '&length='+$('#length').val()+
+                '&startt='+$('#startt').val()+
+                '&startd='+encodeURIComponent($('#startd').val())
+                ,
+                function(data) {
+                    var obj = data;
+                    if(obj.error){
+                        alert(obj.error[0]['errid']+": "+obj.error[0]['desc']);
+                        $('#submit').button('enable');
+                    }else if(obj.ok){
+                        newshow = new Array();
+                        clearFreeClassNames();
+                        addingshow = false;
+                        alert('Sendung erfolgreich geändert!');
+                        window.location.reload();
+                    }
+                }
+                ,"json");
+    }else if($('#action').val() == 'delete'){
+        $.post('{{ WEBROOT }}api/site/show.php?w=delete',
+                '&showid='+$('#showid').val()
+                ,
+                function(data) {
+                    var obj = data;
+                    if(obj.error){
+                        alert(obj.error[0]['errid']+": "+obj.error[0]['desc']);
+                        $('#submit').button('enable');
+                    }else if(obj.ok == 0){
+                        newshow = new Array();
+                        clearFreeClassNames();
+                        addingshow = false;
+                        alert('Sendung erfolgreich gelöscht!');
+                        window.location.reload();
+                    }
+                }
+                ,"json");
+    }
+}
+</script>

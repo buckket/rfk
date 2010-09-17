@@ -1,35 +1,12 @@
-var addingshow = false;
-function addShow(){
-	if(!addingshow){
-		$("#addshowlink").hide('fast');
-		$("#addshow").show('fast');
-		$(".free").addClass("free-selectable");
-		$(".free").click(function(){
-			selectFree(this);
+function loadDialog(url, show){
+    $('#dialog').html('<center><img src="img/spinner.gif"/></center>')
+    .load(url);
+    
+    if(show){
+		$('#dialog').dialog({
+		    height: 400,
+		    width: 600,
+		    modal: true
 		});
-	}	
-}
-
-function clickFree(){
-
-}
-function abortAddShow(){
-	if(addingshow){
-		$("#addshowlink").show('fast');
-		$("#addshow").hide('fast');
-	}
-}
-
-function selectFree(element){
-	$(element).addClass('freetime-start').addClass('freetime-end');
-}
-
-function addFreeShowEffects(){
-	
-
-}
-
-function removeFreeShowEffects(){
-
-
+    }
 }

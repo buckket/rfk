@@ -73,5 +73,10 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_APIAPPLICATION'  => 'Anwendung',
               'L_APIKEY'          => 'API-Key',
               'L_REGISTEREDKEYS'  => 'Bereits registrierte Keys',
-              'L_APIINFO'         => '<b>API Informationen</b><br />Die API kann pro key nur alle 5 Sekunden Abgefragt werden! wenn du öfter anfragen willst frage bitte im IRC, danke.');
+              'L_APIINFO'         => '<b>API Informationen</b><br />Die API kann pro key nur alle 5 Sekunden Abgefragt werden! wenn du öfter anfragen willst frage bitte im IRC, danke.',
+              //nowplaying
+              'L_NOWPLAYING'      => 'Grade läuft',
+              'L_DJ'              => 'DJ',
+              'L_SHOW'            => 'Sendung',
+              'L_TRACK'           => 'Titel');
 ?>
