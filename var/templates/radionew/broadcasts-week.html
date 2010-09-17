@@ -41,7 +41,6 @@ hurrdurr derp
 </div>
 <script type="text/javascript" >
 $( function(){
-	alert('blah');
     $('.planned,.unplanned,.mixed')
     .hover(function(){JT_show('{{ WEBROOT}}api/site/show.php?id='+$(this).attr('shows'),this.id,'{% lang L_SHOW %}')},function(){$('#JT').remove()})
     .click(function(){
