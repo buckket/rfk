@@ -23,14 +23,16 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
                 for($i = 0; $i < 48; $i++){
                     if($begin == $i){
                         $template['start'][] = array( 'value' => $i ,'val' =>floor($i/2).':'.($i%2==0?'00':'30'), 'selected' => true);
+                    }else{
+                        $template['start'][] = array( 'value' => $i ,'val' => floor($i/2).':'.($i%2==0?'00':'30'));
                     }
-                    $template['start'][] = array( 'value' => $i ,'val' => floor($i/2).':'.($i%2==0?'00':'30'));
                 }
                 for($i = 1; $i < 48; $i++){
                     if(round($show['length']/1800) == $i){
                         $template['length'][] = array( 'value' => $i ,'val' =>floor($i/2).':'.($i%2==0?'00':'30'), 'selected' => true);
+                    }else{
+                        $template['length'][] = array( 'value' => $i , 'val' => floor($i/2).':'.($i%2==0?'00':'30'));
                     }
-                    $template['length'][] = array( 'value' => $i , 'val' => floor($i/2).':'.($i%2==0?'00':'30'));
                 }
                 showPage($template, 'editshow', false);
             }else{
