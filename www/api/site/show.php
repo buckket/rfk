@@ -129,8 +129,8 @@ function addShow(&$data){
 
 function editShow(&$data){
     global $db,$user;
-    $start = date_parse_from_format('d.m.Y',$_POST['startd']);
-    $start = mktime(0,0,0,$start['month'],$start['day'],$start['year']);
+    $start = strptime($_POST['startd'],'%d.%m.%Y');
+    $start = mktime(0,0,0,$start['tm_mon']+1,$start['tm_mday'],$start['tm_year']+1900);
     $start = $start+($_POST['startt']*1800);
     $length   = (int)$_POST['length'];
     $end = $start+$length*1800;
@@ -204,8 +204,8 @@ function deleteShow(&$data){
 
 function addShowForm(&$data){
     global $db,$user;
-    $start = date_parse_from_format('d.m.Y',$_POST['startd']);
-    $start = mktime(0,0,0,$start['month'],$start['day'],$start['year']);
+    $start = strptime($_POST['startd'],'%d.%m.%Y');
+    $start = mktime(0,0,0,$start['tm_mon']+1,$start['tm_mday'],$start['tm_year']+1900);
     $start = $start+($_POST['startt']*1800);
     $length   = (int)$_POST['length'];
     $end = $start+$length*1800;
