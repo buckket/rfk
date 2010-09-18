@@ -46,11 +46,11 @@ $lang = array('L_OVERVIEW' => 'Overzicht',
               'L_ENTER'      => 'Bevestig',
               'L_CANCEL'     => 'Annuleer',
               //status.php
-              'L_CURRENTLY_STREAMING' => 'Momenteel strealt %1$s de uitzending %2$s sinds %3$s.',
+              'L_CURRENTLY_STREAMING' => 'Momenteel streamt %1$s de uitzending %2$s sinds %3$s.',
               'L_PROGRAMINFOS' => 'Programmainformatie',
               'L_STREAMS'      => 'Streams',
               'L_LISTENERHISTORY' => 'Luistergeschiedenis',
-              'L_LISTEN' => 'Inschakelen',
+              'L_LISTEN' => 'inschakelen',
               //user.php
               'L_USERSTATS' => '%1$s heeft in totaal %2$s gestreamt.',
               'L_USERNEXTSHOWS' => 'Volgende uitzendingen van %1$s',
