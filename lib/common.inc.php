@@ -36,8 +36,8 @@ function getLocation($ip){
     }
     
     #Bayernball spezial ^__^
-    if($region == "02") {
-        $ret['cc'] = "BAY";
+    if($ret['cc'] == 'DE' && $region == '02') {
+        $ret['cc'] = 'BAY';
     }
     
     return $ret;
