@@ -30,9 +30,16 @@ function getLocation($ip){
         if(is_object($record)) {
             $ret['cc'] = $record->country_code;
             $ret['city'] = $record->city;
+            $region = $record->region;
         }
         geoip_close($gi);
     }
+    
+    #Bayernball spezial ^__^
+    if($ret['cc'] == 'DE' && $region == '02') {
+        $ret['cc'] = 'BAY';
+    }
+    
     return $ret;
 }
 ?>
