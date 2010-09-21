@@ -77,7 +77,7 @@ function addShow(&$data){
     $end = $start+$length*1800;
     $name     = $_POST['name'];
     $desc     = $_POST['description'];
-    if($currweek == 0 || $currweek+$end <= time()){
+    if($currweek == 0 /*|| $currweek+$end <= time()*/){
         $data['error'][] = array('errid'  => 2,
 			                         'desc'   => 'fehlerhafte zeit');
         return;
