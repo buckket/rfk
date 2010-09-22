@@ -32,7 +32,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'D_SATURDAY' => 'Samstag',
               'D_SUNDAY' => 'Sonntag',
               //register.php
-              'L_USERNAME'    => 'Benutzrname',
+              'L_USERNAME'    => 'Benutzername',
               'L_PASSWORD'    => 'Passwort',
               'L_PASSWORD_RPT'=> 'Passwort (wdh.)',
               'L_STREAMPASSWORD' => 'Strömpasswort',

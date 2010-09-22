@@ -93,7 +93,7 @@
       <div id="langdiv" style="display:none;">
       <table>
       {% for locale in locales %}
-      <tr><td><img onclick="changeLocale({{locale.locale}})" src="{{ WEBROOT }}images/cb/{{ locale.country }}.png" /></td><td>{{ locale.name }}</td></tr>
+      <tr><td><img onclick="changeLocale({{locale.locale}})" src="{{ WEBROOT }}images/cb/{{ locale.country }}.png" /></td><td style="text-align:left;">{{ locale.name }}</td></tr>
       {% endfor %}
       </table>
       </div>
