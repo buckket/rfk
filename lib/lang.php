@@ -22,7 +22,9 @@ class Lang {
         return $this->lang;
     }
 
-    public function lang ($key, $args) {
+    public function lang ($key, $args = array()) {
+        if(!isset($this->lang[$key]))
+            return $key;
         return vsprintf($this->lang[$key],$args);
     }
 

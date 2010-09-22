@@ -14,7 +14,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               //DATES
               'D_JANUARY' => 'Январь',
               'D_FEBRUARY' => 'Февраль',
-              'D_MARC' => 'Март',
+              'D_MARCH' => 'Март',
               'D_APRIL' => 'Апрель',
               'D_MAY' => 'Май',
               'D_JUNE' => 'Июнь',
