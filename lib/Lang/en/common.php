@@ -9,7 +9,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_USER'     => 'User',
               'L_LISTENER' => 'Listener',
               'L_LAST10TRACKS' => 'Last 10 Songs',
-              'L_LAST5USERS'  => 'Newest 5 User',
+              'L_LAST5USERS'  => 'Newest 5 Users',
               'L_TOTALUSERS'  => '%1$d Streambernds in total',
               //DATES
               'D_JANUARY' => 'January',
@@ -72,5 +72,12 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_APIAPPLICATION'  => 'Application',
               'L_APIKEY'          => 'API-Key',
               'L_REGISTEREDKEYS'  => 'Already registred keys',
-              'L_APIINFO'         => '<b>API Information</b><br />The API can only be called every 5 seconds with a regular key, if you need more ask in the IRC');
+              'L_APIINFO'         => '<b>API Information</b><br />The API can only be called every 5 seconds with a regular key, if you need more ask in the IRC',
+              //nowplaying
+              'L_NP_NOONESTREAMING' => "Nobody's streaming right now",
+              'L_NOWPLAYING'      => 'Now playing',
+              'L_DJ'              => 'DJ',
+              'L_SHOW'            => 'Show',
+              'L_TITLE'           => 'Title',
+              'L_ARTIST'          => 'Artist');
 ?>
