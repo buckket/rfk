@@ -39,6 +39,10 @@ function getLocation($ip){
     if($ret['cc'] == 'DE' && $region == '02') {
         $ret['cc'] = 'BAY';
     }
+    #Texasball spezial ^__^^
+    if($ret['cc'] == 'US' && $region == '48') {
+        $ret['cc'] = 'TEX';
+    }
     
     return $ret;
 }
