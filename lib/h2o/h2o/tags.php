@@ -324,6 +324,13 @@ class Cycle_Tag extends H2o_Node {
     }
 }
 
+/**
+ * LANG tag
+ * usage: {% lang <KEY> , <ARG> [, <ARG>][...] %}
+ * @todo KEY can only be a string not a variable
+ * @author teddydestodes
+ *
+ */
 class Lang_Tag extends H2o_Node {
     private $args = array();
     private $lang = 'lang';
@@ -341,7 +348,11 @@ class Lang_Tag extends H2o_Node {
         foreach($this->args as $arg) {
             $args[] = $context->resolve($arg);
         }
-        $stream->write(vsprintf($lang[$this->key], $args));
+        if(!isset($lang[$this->key])) {
+            $stream->write( $this->key );
+        } else {
+            $stream->write(vsprintf($lang[$this->key], $args));
+        }
     }
 }
 

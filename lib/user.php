@@ -6,6 +6,7 @@ class User{
     var $logged_in = false;
     var $rights = array();
     var $country = 'unknown';
+
     function User(){
         global $_config,$_MSG;
         $this->username = $_config['default-username'];
@@ -22,24 +23,18 @@ class User{
                 $_MSG['msg'][] = "Erfolgreich angemeldet;";
             }
         } else {
-            if(isset($_GET['locale'])) {
-                $_SESSION['locale'] = (int)$_GET['locale'];
-            }
-            if(isset($_SESSION['locale'])) {
-                $this->setLocale($_SESSION['locale']);
-            }
+            //not logged in
         }
         if($this->logged_in){
             //disabled for now
-            //TODO das muss in die datenbank
-            if(isset($_GET['locale'])) {
-                $_SESSION['locale'] = (int)$_GET['locale'];
-            }
-            if(isset($_SESSION['locale'])) {
-                $this->setLocale($_SESSION['locale']);
-            }
         }
+        $this->setLocale();
     }
+    /**
+     * authenticates the user
+     * @param $username
+     * @param $password
+     */
     function login($username, $password){
         global $db;
         $db->debugquery = false;
@@ -64,6 +59,10 @@ class User{
         }
         $db->debugquery = true;
     }
+
+    /**
+     * checks the user logged in
+     */
     function logged_in()
     {
         global $db;
@@ -81,8 +80,11 @@ class User{
         }else{
             return false;
         }
-
     }
+
+    /**
+     * logs the user out
+     */
     function logout()
     {
         global $db;
@@ -92,9 +94,15 @@ class User{
         $db->execute($sql);
         $this->logged_in = false;
     }
+
+    /**
+     * returns true if the user is logged in
+     * @return boolean
+     */
     function is_logged_in(){
         return $this->logged_in;
     }
+
 
     function get_userrights(){
         global $db;
@@ -111,13 +119,26 @@ class User{
         return in_array($right,$this->rights);
     }
 
-    private function setLocale($locale) {
+    private function setLocale() {
         global $db,$lang;
+        if(isset($_COOKIE['rfk_locale'])){
+            $locale = (int)$_COOKIE['rfk_locale'];
+        }
+        if(isset($_GET['locale']) && $_GET['locale'] > 0){
+            $locale = (int)$_GET['locale'];
+        }
+        if(!($locale > 0)){
+            return;
+        }
         $sql = "SELECT * FROM locales WHERE locale = ".$locale;
         $dbres = $db->query($sql);
         if($row = $db->fetch($dbres)) {
             $lang = new Lang($row['language']);
             $this->country = $row['country'];
+            if(isset($_GET['locale'])) {
+                //hurr durr 10 jahre
+                setcookie('rfk_locale',$row['locale'],time()+60*60*24*365*10);
+            }
         }
     }
     /**

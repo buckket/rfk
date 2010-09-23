@@ -236,31 +236,32 @@ function convMonToSun($dow){
     return $dow;
 }
 function getMonth($month){
+    global $lang;
     switch($month){
         case 1:
-            return 'Januar';
+            return $lang->lang('D_JANUARY');
         case 2:
-            return 'Februar';
+            return $lang->lang('D_FEBRUARY');
         case 3:
-            return 'M&auml;rz';
+            return $lang->lang('D_MARCH');
         case 4:
-            return 'April';
+            return $lang->lang('D_APRIL');
         case 5:
-            return 'Mai';
+            return $lang->lang('D_MAY');
         case 6:
-            return 'Juni';
+            return $lang->lang('D_JUNE');
         case 7:
-            return 'Juli';
+            return $lang->lang('D_JULY');
         case 8:
-            return 'August';
+            return $lang->lang('D_AUGUST');
         case 9:
-            return 'September';
+            return $lang->lang('D_SEPTEMBER');
         case 10:
-            return 'Oktober';
+            return $lang->lang('D_OCTOBER');
         case 11:
-            return 'November';
+            return $lang->lang('D_NOVEMBER');
         case 12:
-            return 'Dezember';
+            return $lang->lang('D_DECEMBER');
     }
 }
 /**

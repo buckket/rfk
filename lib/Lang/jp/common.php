@@ -14,7 +14,7 @@ $lang = array('L_OVERVIEW' => '概要',
               //DATES
               'D_JANUARY' => '1月',
               'D_FEBRUARY' => '2月',
-              'D_MARC' => '3月',
+              'D_MARCH' => '3月',
               'D_APRIL' => '4月',
               'D_MAY' => '5月',
               'D_JUNE' => '6月',

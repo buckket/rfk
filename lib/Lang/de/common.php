@@ -14,7 +14,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               //DATES
               'D_JANUARY' => 'Januar',
               'D_FEBRUARY' => 'Februar',
-              'D_MARC' => 'März',
+              'D_MARCH' => 'März',
               'D_APRIL' => 'April',
               'D_MAY' => 'Mai',
               'D_JUNE' => 'Juni',
@@ -32,7 +32,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'D_SATURDAY' => 'Samstag',
               'D_SUNDAY' => 'Sonntag',
               //register.php
-              'L_USERNAME'    => 'Benutzrname',
+              'L_USERNAME'    => 'Benutzername',
               'L_PASSWORD'    => 'Passwort',
               'L_PASSWORD_RPT'=> 'Passwort (wdh.)',
               'L_STREAMPASSWORD' => 'Strömpasswort',
@@ -75,8 +75,10 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_REGISTEREDKEYS'  => 'Bereits registrierte Keys',
               'L_APIINFO'         => '<b>API Informationen</b><br />Die API kann pro key nur alle 5 Sekunden Abgefragt werden! wenn du öfter anfragen willst frage bitte im IRC, danke.',
               //nowplaying
+              'L_NP_NOONESTREAMING' => 'Niemand strömt gerade.',
               'L_NOWPLAYING'      => 'Grade läuft',
               'L_DJ'              => 'DJ',
               'L_SHOW'            => 'Sendung',
-              'L_TRACK'           => 'Titel');
+              'L_TITLE'           => 'Titel',
+              'L_ARTIST'          => 'Interpret');
 ?>
