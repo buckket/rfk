@@ -14,7 +14,7 @@ $lang = array('L_OVERVIEW' => 'Compendio',
               //DATES
               'D_JANUARY' => 'Gennari',
               'D_FEBRUARY' => 'Febbraio',
-              'D_MARC' => 'Marzo',
+              'D_MARCH' => 'Marzo',
               'D_APRIL' => 'Aprile',
               'D_MAY' => 'Maggio',
               'D_JUNE' => 'Giugno',

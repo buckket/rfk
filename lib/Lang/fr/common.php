@@ -14,7 +14,7 @@ $lang = array('L_OVERVIEW' => 'Ensemble',
               //DATES
               'D_JANUARY' => 'Janvier',
               'D_FEBRUARY' => 'Février',
-              'D_MARC' => 'Mars',
+              'D_MARCH' => 'Mars',
               'D_APRIL' => 'Avril',
               'D_MAY' => 'Mai',
               'D_JUNE' => 'Juin',
