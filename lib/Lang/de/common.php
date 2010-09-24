@@ -39,7 +39,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               //broadcasts.php
               'L_PROGRAM'    => 'Programmplan',
               'L_NEXTSHOWS'   => 'Nächste Sendungen',
-              'L_ACTION'     => 'Aktionen',
+              'L_ACTIONS'     => 'Aktionen',
               'L_ADDSHOW'    => 'Sendung hinzufügen',
               'L_BEGIN'      => 'Anfang',
               'L_END'        => 'Ende',
