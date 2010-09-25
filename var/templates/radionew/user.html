@@ -1,6 +1,6 @@
 {% extends "sidebar-user.html" %}
 {% block content %}
-{% if user == 'nouser' %}
+{% if !user %}
 <br />
 <br />
 <h2> Kein Strömbernd gefunden </h2>
@@ -9,14 +9,18 @@
 {% else %}
 <h2>{{ user.username }}</h2>
 <p>
-{{ user.username }} hat {% if user.showcount > 0 %}insgesammt {{ user.streamtime }} in {{ user.showcount }} Sendungen gestr&ouml;mt{% else %}noch nicht gestr&ouml;mt {% endif %}.
+{% if user.showcount > 0 %}
+{% lang L_USERSTATS, user.username, user.streamtime %}
+{% else %}
+{% lang L_USERNOSTATS, user.username %}
+{% endif %}
 </p>
-<h3>N&auml;chste Sendung</h3>
+<h3>{% lang L_USERNEXTSHOWS, user.username %}</h3>
 <p>
 {% if user.nextshow %}
-{{ user.nextshow.name }} am {{ user.nextshow.date }} um {{ user.nextshow.time }}
+{{ user.nextshow.name }} am {{ user.nextshow.date }} um {{ user.nextshow.time }} <small>(noch {{ user.nextshow.due }})</small>
 {% else %}
-keine Sendungen geplant.
+{% lang L_NOSHOWS %}
 {% endif %}
 </p>
 {% endif %}

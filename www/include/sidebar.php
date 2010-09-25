@@ -5,25 +5,22 @@ $usercount = $db->fetch($result);
 
 $template['sb_streamercount'] = $usercount['count'];
 
-$sql = "SELECT song,artist,title,end FROM songhistory ORDER BY song desc LIMIT 10;";
+$sql = "SELECT song,artist,title,end FROM songhistory WHERE end IS NOT NULL ORDER BY song desc LIMIT 10;";
 $result = $db->query($sql);
 $songs = array();
 if($db->num_rows($result)){
 
     while($song = $db->fetch($result)){
         $songdata = array();
-    	$songdata['song'] = $song['artist'] . " - " . $song['title'];
-    	$songdata['fullsong'] = $songdata['song'];
-    	$songdata['short'] = 0;
-            if (strlen($songdata['song']) > 35) {
-    		$songdata['song'] = trim(substr($songdata['song'], 0, 32));
-    		$songdata['short'] = 1;
-    	}
-    	$songdata['id'] = $song['song'];
-    	if($song['end'] == ''){
-            $songdata['nowplaying'] = true;
-    	}
-    	$songs[] = $songdata;
+        $songdata['song'] = $song['artist'] . " - " . $song['title'];
+        $songdata['fullsong'] = $songdata['song'];
+        $songdata['short'] = 0;
+        if (strlen($songdata['song']) > 35) {
+            $songdata['song'] = trim(substr($songdata['song'], 0, 32));
+            $songdata['short'] = 1;
+        }
+        $songdata['id'] = $song['song'];
+        $songs[] = $songdata;
     }
 }
 
@@ -46,7 +43,7 @@ if(isset($shows) || isset($calendar)) {
             LIMIT 10';
     $dbres = $db->query($sql);
     if($dbres) {
-        if($row = $db->fetch($dbres)) {
+        while($row = $db->fetch($dbres)) {
             $template['nextshows'][] = array('showname' => $row['name'],
                                              'streamer' => $row['username']);
         }
@@ -57,12 +54,14 @@ $dbres = $db->query($sql);
 while($row = $db->fetch($dbres)) {
     $template['disco'][] = array( "x" => rand(-30,170), "y" => rand(0,48), "country" => checkCB($row['country']));
 }
+
 $sql = "SELECT * FROM streamer WHERE status = 'STREAMING';";
 $dbres = $db->query($sql);
 if($row = $db->fetch($dbres)) {
     $template['disco_streamer'] = checkCB($row['country']);
     $streamer = $row['streamer'];
 }
+
 $sql = "SELECT * FROM streamersettings WHERE streamer = '" . $streamer . "' AND `key` = 'background';";
 $dbres = $db->query($sql);
 if($row = $db->fetch($dbres)) {
@@ -72,7 +71,7 @@ if($row = $db->fetch($dbres)) {
 function checkCB($country){
     global $includepath;
     if(file_exists($includepath.'/../www/images/cb/'.strtolower($country).'.png'))
-        return strtolower($country);
+    return strtolower($country);
     return 'unknown';
 }
 ?>
