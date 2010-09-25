@@ -1,0 +1,19 @@
+=head1 NAME
+
+RfK - Radio freies Krautchan
+
+=head1 DESCRIPTION
+
+RfK is a Webradio based on liquidsoap, icecast2, MySQL and PHP. The idea was to create a platform which is easy to use and available for everyone. To achieve this every user can get his own account for the streamingserver, in our case icecast2, without unnecessary steps. Another important thing is the site itself, it's needed to plan and organize shows. Further more there's an API which we use for our IRC integration. The site itself is based on PHP, other parts are written in Perl and Bash.
+
+=head2 Installation
+
+Configure C<icecast2> (C<etc/icecast.xml>). Import C<src/scheme-*.sql> and edit C<etc/config.inc.php>. Then execute C<etc/genLiquidsoap.php> and run C<liquidsoap> with the generated config.
+
+
+=head1 AUTHOR
+
+teddydestodes, MrLoom and others
+
+=cut
+
