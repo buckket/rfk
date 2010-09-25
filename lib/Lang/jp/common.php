@@ -39,7 +39,7 @@ $lang = array('L_OVERVIEW' => '概要',
               //broadcasts.php
               'L_PROGRAM'    => '予定',
               'L_NEXTSHOWS'   => '次の放送',
-              'L_ACTION'     => 'アクション',
+              'L_ACTIONS'     => 'アクション',
               'L_ADDSHOW'    => '放送アド',
               'L_BEGIN'      => '最初',
               'L_END'        => '最終',
