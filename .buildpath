@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<buildpath>
-	<buildpathentry kind="src" path="bin"/>
-	<buildpathentry kind="src" path="etc"/>
-	<buildpathentry kind="src" path="lib"/>
-	<buildpathentry kind="src" path="www"/>
-	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
-</buildpath>
