@@ -61,6 +61,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_LISTENERHISTORY' => 'Номер слушателей',
               'L_LISTEN' => 'включить',
               //user.php
+              'L_USERNOTFOUND' => 'Пользователь не существует!',
               'L_USERSTATS' => '%1$s вещал уже %2$s',
               'L_USERNOSTATS' => '%1$s ещё не вещал.',
               'L_USERNEXTSHOWS' => 'Следующия передача от %1$s',
@@ -89,5 +90,16 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_DJ'              => 'DJ',
               'L_SHOW'            => 'Передача',
               'L_TITLE'           => 'Название',
-              'L_ARTIST'          => 'Исполнитель');
+              'L_ARTIST'          => 'Исполнитель',
+              //editshow.html
+              'L_LENGTH'        => 'Длительность',
+              'L_DESCRIPTION'   => 'Описание',
+              'L_EDIT'          => 'изменить',
+              'L_NEW'           => 'Подогнать',
+              'L_DELETE'        => 'Удалить',
+              'L_SAVESUCCESS'   => 'Передача успешно отредактирована!',
+              'L_DELSUCCESS'    => 'Передача успешно удалена!',
+              //viewshow.html
+              'L_TRACKS'   => 'Песни',
+              'L_EXPAND'   => 'развернуть');
 ?>

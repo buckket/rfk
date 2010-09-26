@@ -2,16 +2,16 @@
 {% if !loop.first %}
 <br /><hr /><br />
 {% endif %}
-    <h2>{{show.name}} {% if show.editable %}<a href="{{ WEBROOT }}show.php?action=edit&show={{ show.show }}" onclick="editShow({{ show.show }}); return false;"><small>[bearbeiten]</small></a>{% endif %}</h2>
+    <h2>{{show.name}} {% if show.editable %}<a href="{{ WEBROOT }}show.php?action=edit&show={{ show.show }}" onclick="editShow({{ show.show }}); return false;"><small>[{% lang L_EDIT %}]</small></a>{% endif %}</h2>
     <p>{{show.description | save}}</p>
-    <h3>Songs <small><a onclick="$('#songs{{show.show}}').toggle();">[ausklappen]</a></small></h3>
+    <h3>{% lang L_TRACKS %} <small><a onclick="$('#songs{{show.show}}').toggle();">[{% lang L_EXPAND %}]</a></small></h3>
     <div style="display:none;" id="songs{{show.show}}">
     {% for song in show.songs %}
     {{ loop.counter }}.&nbsp;{{ song.artist }} - {{ song.title }}<br />
     {% endfor %}
     </div>
     <br />
-    <h3>Hörerverlauf</h3>
+    <h3>{% lang L_LISTENERHISTORY %}</h3>
     <center><img src="{{WEBROOT}}graph.php?time={{show.begin}},{{show.end}}" height="150px" width="450px"/></center>
 
 {% endfor %}

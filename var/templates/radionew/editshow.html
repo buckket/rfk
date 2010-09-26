@@ -2,33 +2,33 @@
 <h1>{{ show.name }}</h1>
 <br />
 <table>
-<tr><td>Name</td><td style="text-align:right;">
+<tr><td>{% lang L_TITLE %}</td><td style="text-align:right;">
 <input class="ui-corner-all" style="padding:0.4em 1em;width:250px;" id="name" name="name" value="{{show.name}}"/></td></tr>
-<tr><td>Anfang</td><td style="text-align:right;">
+<tr><td>{% lang L_BEGIN %}</td><td style="text-align:right;">
 <input class="ui-corner-all" style="padding:0.4em 1em;width:100px;" id="startd" name="date" value="{{show.date}}"/>
 <select class="ui-corner-all" style="padding:0.4em 1em;" id="startt" name="startt">
 {% for time in start %}
 <option value="{{time.value}}" {% if time.selected %} selected="selected" {% endif %}>{{ time.val }}</option>
 {% endfor %}
 </select></td></tr>
-<tr><td>Länge</td><td style="text-align:right;">
+<tr><td>{% lang L_LENGTH %}</td><td style="text-align:right;">
 <select  class="ui-corner-all" id="length" name="length" style="padding:0.4em 1em;">
 {% for time in length %}
 <option value="{{time.value}}" {% if time.selected %} selected="selected" {% endif %}>{{ time.val }}</option>
 {% endfor %}
 </select>
 </td></tr>
-<tr><td>Beschreiung</td><td style="text-align:right;">
+<tr><td>{% lang L_DESCRIPTION %}</td><td style="text-align:right;">
 <textarea class="ui-corner-all" style="padding:0.4em 1em;width:250px;height:100px;" id="description" name="description">{{show.description}}</textarea></td></tr>
 <tr><td>&nbsp;</td>
 <td>
 <select id="action" class="ui-corner-all" style="padding: 0.4em 1em;">
-    <option value="edit">Ändern</option>
-    <option value="new">Neu</option>
-    <option value="delete">Löschen</option>
+    <option value="edit">{% lang L_EDIT %}</option>
+    <option value="new">{% lang L_NEW %}</option>
+    <option value="delete">{% lang L_DELETE %}</option>
 </select>
 <input id="showid" type="hidden" value="{{show.show}}" />
-<input id="submit" type="button" onclick="submitEditShow();" value="absenden" /></td>
+<input id="submit" type="button" onclick="submitEditShow();" value="{% lang L_ENTER %}" /></td>
 </table>
 </div>
 <script type="text/javascript">
@@ -55,7 +55,7 @@ function submitEditShow() {
                         newshow = new Array();
                         clearFreeClassNames();
                         addingshow = false;
-                        alert('Sendung erfolgreich geändert!');
+                        alert('{% lang L_SAVESUCCESS %}');
                         window.location.reload();
                     }
                 }
@@ -77,7 +77,7 @@ function submitEditShow() {
                         newshow = new Array();
                         clearFreeClassNames();
                         addingshow = false;
-                        alert('Sendung erfolgreich geändert!');
+                        alert('{% lang L_SAVESUCCESS %}');
                         window.location.reload();
                     }
                 }
@@ -95,7 +95,7 @@ function submitEditShow() {
                         newshow = new Array();
                         clearFreeClassNames();
                         addingshow = false;
-                        alert('Sendung erfolgreich gelöscht!');
+                        alert('{% lang L_DELSUCCESS %}');
                         window.location.reload();
                     }
                 }

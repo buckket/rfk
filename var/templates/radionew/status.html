@@ -4,7 +4,7 @@
 <h2>{% lang L_PROGRAMINFOS %}</h2>
 <p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.begin %}
 {% endif %}
-<h2>Streams</h2>
+<h2>{% lang L_STREAMS %}</h2>
 <ul>
 {% for id, stream in streams %}
 <li>{{ stream.description }} - {{ stream.count }} {% lang L_LISTENER %} <a href="{{ stream.url }}">{% lang L_LISTEN %}</a></li>
