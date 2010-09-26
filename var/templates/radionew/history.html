@@ -2,20 +2,47 @@
 
 {% block content %}
 <h2>{% lang L_HISTORY %}</h2>
-<!-- 
-<select id="begin">
-{% for date in dates %}
-<option value="{{date}}">{{date}}</option>
-{% endfor %}
-</select>
-<select id="end">
-{% for date in dates %}
-<option value="{{date}}">{{date}}</option>
-{% endfor %}
-</select>
+<table id="historytable" width="100%">
+<thead>
+    <tr>
+        <th>Zeit</th>
+        <th>DJ</th>
+        <th>Sendung</th>
+        <th>Interpret</th>
+        <th>Titel</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td colspan="5">hole Daten vom Server...</td>
+    </tr>
+</tbody>
+<tfoot>
+    <tr>
+        <th>Zeit</th>
+        <th>DJ</th>
+        <th>Sendung</th>
+        <th>Interpret</th>
+        <th>Titel</th>
+    </tr>
+</tfoot>
+</table>
 <script type="text/javascript">
-$( "#begin, #end" ).selectToUISlider({labels:4}).hide();
+<!--
 
+$('#historytable').dataTable({
+    "bProcessing" : true,
+    "bServerSide" : true,
+    //"bJQueryUI"   : true,
+    "bFilter"     : false,
+    "bScrollInfinite" : true,
+    "bScrollCollabse" : true,
+    "bLengthChange"   : false,
+    "iDisplayLength"         : 250,
+    "sScrollY"        : "700px",
+    "sAjaxSource" : '{{ WEBROOT}}api/site/history.php'
+});
+
+//-->
 </script>
- -->
 {% endblock %}
