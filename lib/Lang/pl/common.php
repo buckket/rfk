@@ -46,7 +46,7 @@ $lang = array('L_OVERVIEW' => 'Przegląd',
               'L_ENTER'      => 'wprowadź',
               'L_CANCEL'     => 'przerwij',
               //status.php
-              'L_CURRENTLY_STREAMING' => '%1$s nadaje audycję %2$s od %3$s.',
+              'L_CURRENTLY_STREAMING' => '%1$s nadaje audycję %2$s (%3$s) od %4$s.',
               'L_PROGRAMINFOS' => 'Informacja o audycji',
               'L_STREAMS'      => 'Strumienie',
               'L_LISTENERHISTORY' => 'Ilość słuchaczy',

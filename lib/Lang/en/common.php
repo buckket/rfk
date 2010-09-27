@@ -55,7 +55,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_ENTER'      => 'Enter',
               'L_CANCEL'     => 'Abort',
               //status.php
-              'L_CURRENTLY_STREAMING' => 'Currently %1$s is streaming the show %2$s since %3$s.',
+              'L_CURRENTLY_STREAMING' => 'Currently %1$s is streaming the show %2$s (%3$s) since %4$s.',
               'L_PROGRAMINFOS' => 'Program information',
               'L_STREAMS'      => 'Streams',
               'L_LISTENERHISTORY' => 'Listenercount',
@@ -101,5 +101,8 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_DELSUCCESS'    => 'Successfully deleted show!',
               //viewshow.html
               'L_TRACKS'   => 'Tracks',
-              'L_EXPAND'   => 'expand');
+              'L_EXPAND'   => 'expand',
+              //history.php
+              'L_TIME'          => 'Time',
+              'L_DATAREQUEST'    => 'Getting data from server...');
 ?>

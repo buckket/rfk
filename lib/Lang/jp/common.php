@@ -46,7 +46,7 @@ $lang = array('L_OVERVIEW' => '概要',
               'L_ENTER'      => 'セーブ',
               'L_CANCEL'     => 'リセット',
               //status.php
-              'L_CURRENTLY_STREAMING' => '現在%1$sの%2$sストリームする%3$sから',
+              'L_CURRENTLY_STREAMING' => '現在%1$sの%2$s (%3$s)ストリームする%4$sから',
               'L_PROGRAMINFOS' => 'プログラムの情報',
               'L_STREAMS'      => 'ストリーム',
               'L_LISTENERHISTORY' => 'リスナー履歴',

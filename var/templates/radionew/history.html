@@ -5,25 +5,25 @@
 <table id="historytable" width="100%">
 <thead>
     <tr>
-        <th>Zeit</th>
-        <th>DJ</th>
-        <th>Sendung</th>
-        <th>Interpret</th>
-        <th>Titel</th>
+        <th>{% lang L_TIME %}</th>
+        <th>{% lang L_DJ %}</th>
+        <th>{% lang L_SHOW %}</th>
+        <th>{% lang L_ARTIST %}</th>
+        <th>{% lang L_TITLE %}</th>
     </tr>
 </thead>
 <tbody>
     <tr>
-        <td colspan="5">hole Daten vom Server...</td>
+        <td colspan="5">{% lang L_DATAREQUEST %}</td>
     </tr>
 </tbody>
 <tfoot>
     <tr>
-        <th>Zeit</th>
-        <th>DJ</th>
-        <th>Sendung</th>
-        <th>Interpret</th>
-        <th>Titel</th>
+        <th>{% lang L_TIME %}</th>
+        <th>{% lang L_DJ %}</th>
+        <th>{% lang L_SHOW %}</th>
+        <th>{% lang L_ARTIST %}</th>
+        <th>{% lang L_TITLE %}</th>
     </tr>
 </tfoot>
 </table>
@@ -31,7 +31,7 @@
 <!--
 
 $('#historytable').dataTable({
-    "bProcessing" : true,
+    "bProcessing" : false,
     "bServerSide" : true,
     //"bJQueryUI"   : true,
     "bFilter"     : false,

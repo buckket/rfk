@@ -2,7 +2,7 @@
 {% block content %}
 {% if streaming %}
 <h2>{% lang L_PROGRAMINFOS %}</h2>
-<p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.begin %}
+<p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.description, show.begin %}
 {% endif %}
 <h2>{% lang L_STREAMS %}</h2>
 <ul>

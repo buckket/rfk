@@ -46,7 +46,7 @@ $lang = array('L_OVERVIEW' => 'Oversigt',
               'L_ENTER'      => 'gå ind',
               'L_CANCEL'     => 'kanceller',
               //status.php
-              'L_CURRENTLY_STREAMING' => 'I øjeblikket streamer %1$s showet %2$s siden %3$s.',
+              'L_CURRENTLY_STREAMING' => 'I øjeblikket streamer %1$s showet %2$s (%3$s) siden %4$s.',
               'L_PROGRAMINFOS' => 'Program information',
               'L_STREAMS'      => 'Streams',
               'L_LISTENERHISTORY' => 'Listenercount',

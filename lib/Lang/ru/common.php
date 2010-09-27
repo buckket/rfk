@@ -55,7 +55,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_ENTER'      => 'Давай!',
               'L_CANCEL'     => 'Отмена',
               //status.php
-              'L_CURRENTLY_STREAMING' => 'В эфире %1$s с программой %2$s начиная в %3$s.',
+              'L_CURRENTLY_STREAMING' => 'В эфире %1$s с программой %2$s (%3$s) начиная в %4$s.',
               'L_PROGRAMINFOS' => 'О программе',
               'L_STREAMS'      => 'Потоки',
               'L_LISTENERHISTORY' => 'Номер слушателей',
@@ -101,5 +101,8 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_DELSUCCESS'    => 'Передача успешно удалена!',
               //viewshow.html
               'L_TRACKS'   => 'Песни',
-              'L_EXPAND'   => 'развернуть');
+              'L_EXPAND'   => 'развернуть',
+              //history.php
+              'L_TIME'          => 'Время',
+              'L_DATAREQUEST'    => 'Получаю данные с сервера...');
 ?>

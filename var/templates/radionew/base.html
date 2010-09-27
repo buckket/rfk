@@ -87,7 +87,7 @@
     	    
       }
       function changeLocale(locale) {
-    	    window.location.href = '{{ WEBROOT }}index.php?locale='+locale;
+    	    window.location.href = '{{ WEBROOT }}'+parent.location.pathname+'?locale='+locale;
     	}
       </script>
       <div id="langdiv" style="display:none;">
