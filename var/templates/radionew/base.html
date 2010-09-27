@@ -86,15 +86,16 @@
     	    
       }
       function changeLocale(locale) {
-            if (window.location.href.search(/\?/g) != -1){ 
-                if (window.location.href.search(/\?locale=\d+/g) != -1) {
-                    window.location.href = window.location.href.replace(/\?locale=\d+/g,"?locale="+locale);
-                } else if (window.location.href.search(/\&locale=\d+/g) != -1) {
-                    window.location.href = window.location.href.replace(/\&locale=\d+/g,"&locale="+locale);
-                } else if (window.location.href.search(/\&locale=\d+/g) == -1) { 
-                window.location.href = window.location.href+"&locale="+locale;}
+            var whref = window.location.href;
+            if (whref.search(/\?/g) != -1){ 
+                if (whref.search(/\?locale=\d+/g) != -1) {
+                    window.location.href = whref.replace(/\?locale=\d+/g,"?locale="+locale);
+                } else if (whref.search(/\&locale=\d+/g) != -1) {
+                    window.location.href = whref.replace(/\&locale=\d+/g,"&locale="+locale);
+                } else if (whref.search(/\&locale=\d+/g) == -1) { 
+                window.location.href = whref+"&locale="+locale;}
             } else {
-                window.location.href = window.location.href+"?locale="+locale;
+                window.location.href = whref+"?locale="+locale;
             }
     	}
       </script>
