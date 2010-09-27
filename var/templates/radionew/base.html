@@ -71,8 +71,7 @@
           <a href="{{ WEBROOT }}user.php">{% lang L_USER %}: <img src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="vertical-align:middle;" onclick="selectLocale(); return false;"/> {{ username }} </a>
           
           {% else %}
-          {% lang L_USER %}: {{ username }}
-          <img id="langselect" src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="cursor:pointer;vertical-align:middle;display:inline;" onclick="selectLocale(); return false;"/>
+          {% lang L_USER %}: <img id="langselect" src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="cursor:pointer;vertical-align:middle;display:inline;" onclick="selectLocale(); return false;"/>{{ username }}
           {% endif %}
           </p>
           </li>
@@ -87,7 +86,16 @@
     	    
       }
       function changeLocale(locale) {
-    	    window.location.href = '{{ WEBROOT }}'+parent.location.pathname+'?locale='+locale;
+            if (window.location.href.search(/\?/g) != -1){ 
+                if (window.location.href.search(/\?locale=\d+/g) != -1) {
+                    window.location.href = window.location.href.replace(/\?locale=\d+/g,"?locale="+locale);
+                } else if (window.location.href.search(/\&locale=\d+/g) != -1) {
+                    window.location.href = window.location.href.replace(/\&locale=\d+/g,"&locale="+locale);
+                } else if (window.location.href.search(/\&locale=\d+/g) == -1) { 
+                window.location.href = window.location.href+"&locale="+locale;}
+            } else {
+                window.location.href = window.location.href+"?locale="+locale;
+            }
     	}
       </script>
       <div id="langdiv" style="display:none;">
