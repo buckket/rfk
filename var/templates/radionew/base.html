@@ -71,7 +71,7 @@
           <a href="{{ WEBROOT }}user.php">{% lang L_USER %}: <img src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="vertical-align:middle;" onclick="selectLocale(); return false;"/> {{ username }} </a>
           
           {% else %}
-          {% lang L_USER %}: <img id="langselect" src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="cursor:pointer;vertical-align:middle;display:inline;" onclick="selectLocale(); return false;"/>{{ username }}
+          {% lang L_USER %}: <img id="langselect" src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="cursor:pointer;vertical-align:middle;display:inline;" onclick="selectLocale(); return false;"/> {{ username }}
           {% endif %}
           </p>
           </li>
