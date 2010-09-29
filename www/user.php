@@ -61,7 +61,7 @@ function getUserInfo( $user) {
             $userinfo['streamtime'] = 0;
             $userinfo['showcount'] = 0;
         }
-        $sql = "SELECT name, DATE_FORMAT(begin,'%d.%m.%Y') as d, DATE_FORMAT(begin,'%H:%i') as t, UNIX_TIMESTAMP(begin)-UNIX_TIMESTAMP(NOW()) as due FROM shows WHERE begin >= NOW() AND streamer = ".$userid." LIMIT 1;";
+        $sql = "SELECT name, DATE_FORMAT(begin,'%d.%m.%Y') as d, DATE_FORMAT(begin,'%H:%i') as t, UNIX_TIMESTAMP(begin)-UNIX_TIMESTAMP(NOW()) as due FROM shows WHERE begin >= NOW() AND streamer = ".$userid." ORDER BY begin ASC LIMIT 1;";
         $dbres = $db->query($sql);
         if($dbres && $row = $db->fetch($dbres)) {
             $userinfo['nextshow']['name'] = $row['name'];

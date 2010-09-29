@@ -18,7 +18,7 @@
 <h3>{% lang L_USERNEXTSHOWS, user.username %}</h3>
 <p>
 {% if user.nextshow %}
-{{ user.nextshow.name }} am {{ user.nextshow.date }} um {{ user.nextshow.time }} <small>(noch {{ user.nextshow.due }})</small>
+{% lang L_USERSHOWDATE, user.nextshow.name, user.nextshow.date, user.nextshow.time, user.nextshow.due %}
 {% else %}
 {% lang L_NOSHOWS %}
 {% endif %}
