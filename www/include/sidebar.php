@@ -1,4 +1,11 @@
 <?php
+
+# git version information
+#print $includepath.'/../var/version.php';
+if(file_exists($includepath.'/../var/version.php')) {
+    require_once($includepath.'/../var/version.php');
+}
+
 $sql = "SELECT count(*) as count FROM streamer";
 $result = $db->query($sql);
 $usercount = $db->fetch($result);
