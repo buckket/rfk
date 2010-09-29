@@ -2,7 +2,13 @@
 {% block content %}
 {% if streaming %}
 <h2>{% lang L_PROGRAMINFOS %}</h2>
-<p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.description, show.begin %}
+<script type="text/javascript">
+var showdescr = '<p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.description, show.begin %}';
+if (showdescr.search(/\(\)+/g) != -1) {
+showdescr = showdescr.replace(/\(\)/g,"");
+}
+document.write(showdescr);
+</script>
 {% endif %}
 <h2>{% lang L_STREAMS %}</h2>
 <ul>

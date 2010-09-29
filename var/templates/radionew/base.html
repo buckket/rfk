@@ -93,7 +93,8 @@
                 } else if (whref.search(/\&locale=\d+/g) != -1) {
                     window.location.href = whref.replace(/\&locale=\d+/g,"&locale="+locale);
                 } else if (whref.search(/\&locale=\d+/g) == -1) { 
-                window.location.href = whref+"&locale="+locale;}
+                    window.location.href = whref+"&locale="+locale;
+                }
             } else {
                 window.location.href = whref+"?locale="+locale;
             }
