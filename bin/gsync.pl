@@ -22,7 +22,7 @@ close(GIT);
 if($gitShowArray[0] =~ /commit ([a-f0-9]+)/){ $gitHEAD = $1; }
 else { die "[-] No HEAD found\n"; }
 
-open(GIT, "git diff --name-status HEAD $gitRev |") or die "[-] Can't open pipe\n";
+open(GIT, "git diff --name-status $gitRev HEAD |") or die "[-] Can't open pipe\n";
 	@gitDiffArray = <GIT>;
 close(GIT);
 
