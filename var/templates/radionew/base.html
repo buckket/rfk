@@ -138,10 +138,15 @@ Haben wir nicht, bekommen wir auch nichtmehr rein!
 </div>
 {% block sidebar %}{% endblock %}
             
-      <div id="footer">        
-        
-      </div>    
-    </div>
+<div id="footer">
+{% if git %}
+<div style="text-align:center;font-size:xx-small;font-weight:normal">
+Revision: <a href="{{ git.url }}" style="font-weight:normal;">{{ git.rev }}</a>
+</div>
+{% endif %}
+</div>    
+    
+</div>
     <div id="dialog" style="display:none;"></div>
   </body>
 
