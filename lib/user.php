@@ -87,12 +87,13 @@ class User{
      */
     function logout()
     {
-        global $db;
+        global $db,$_config;
         $sql="UPDATE streamer
               SET session = NULL
               WHERE session = '".session_id()."'";
         $db->execute($sql);
         $this->logged_in = false;
+        $this->username = $_config['default-username'];
     }
 
     /**
