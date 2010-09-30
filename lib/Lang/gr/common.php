@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $lang = array('L_OVERVIEW' => 'Κύρια σελίδα',
               'L_HISTORY'  => 'Ιστορικό',
               'L_SHOWS'    => 'Μετάδοση',
