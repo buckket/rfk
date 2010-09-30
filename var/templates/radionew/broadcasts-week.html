@@ -119,7 +119,7 @@ function clearFreeClassNames() {
 
  function checkNewShow(){
     if(newshow.length == 0){
-        alert('Zuerst freies Feld im Kalender wählen');
+        alert('{% lang L_NO_DATA_FIELD %}');
         return false;
     }
     return true;
@@ -186,7 +186,7 @@ function clearFreeClassNames() {
  function getNextId(element) {
   var nid = parseInt(element.id.substring(1), 10)+1;
   if(nid > 647){
-   alert('wochenübergreifend planen ist nicht möglich!');
+   alert('{% lang L_NO_SPANNING %}');
    return;
   }
   if(nid%100>47){
@@ -205,7 +205,7 @@ function clearFreeClassNames() {
  function getPrevId(element) {
   var nid = parseInt(element.id.substring(1), 10)-1;
   if(nid < 0){
-   alert('wochenübergreifend planen ist nicht möglich!');
+   alert('{% lang L_NO_SPANNING %}');
    return;
   }
   if(nid%100>47){

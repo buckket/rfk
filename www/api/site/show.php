@@ -1,6 +1,7 @@
 <?php
 //error_reporting(0);
 include('../../../lib/common-web.inc.php');
+global $lang;
 $data = array();
 $_GET += $_POST;
 switch($_GET['w']){
@@ -8,7 +9,7 @@ switch($_GET['w']){
         if($user->logged_in){
             addShow(&$data);
         }else{
-            $data['error'][] = array(1,'Auth required');
+            $data['error'][] = array(1,$lang->lang('L_ERR_AUTH_REQUIRED'));
         }
         break;
     case 'delete':
@@ -18,14 +19,14 @@ switch($_GET['w']){
         if($user->logged_in){
             editShow(&$data);
         }else{
-            $data['error'][] = array(1,'Auth required');
+            $data['error'][] = array(1,$lang->lang('L_ERR_AUTH_REQUIRED'));
         }
         break;
     case 'addshowform':
         if($user->logged_in){
             addShowForm(&$data);
         }else{
-            $data['error'][] = array(1,'Auth required');
+            $data['error'][] = array(1,$lang->lang('L_ERR_AUTH_REQUIRED'));
         }
         break;
     default:
@@ -69,7 +70,7 @@ function getShowInfos(){
     return $out;
 }
 function addShow(&$data){
-    global $db,$user;
+    global $db,$user,$lang;
     $currweek = (int)$_GET['cw'];
     $sd    = (int)$_POST['start'];
     $length   = (int)$_POST['length'];
@@ -79,22 +80,22 @@ function addShow(&$data){
     $desc     = $_POST['description'];
     if($currweek == 0 || $currweek+$end <= time()){
         $data['error'][] = array('errid'  => 2,
-			                         'desc'   => 'fehlerhafte zeit');
+			                         'desc'   => $lang->lang('L_ERR_WRONG_TIME'));
         return;
     }
     if($length > 48){
         $data['error'][] = array('errid'  => 3,
-			                         'desc'   => 'Sendung ist zu lang');
+			                         'desc'   => $lang->lang('L_ERR_SHOW_2LONG'));
         return;
     }
     if(!isset($name) || strlen($name) == 0){
         $data['error'][] = array('errid'  => 4,
-			                         'desc'   => 'kein Name angegeben');
+			                         'desc'   => $lang->lang('L_ERR_NO_NAME'));
         return;
     }
     if(!isset($desc) || strlen($desc) == 0){
         $data['error'][] = array('errid'  => 5,
-			                         'desc'   => 'keine Beschreibung angegeben');
+			                         'desc'   => $lang->lang('L_ERR_NO_DESC'));
         return;
     }
     $tstart = $start+1;
@@ -109,7 +110,7 @@ function addShow(&$data){
     $collides = false;
     while($row = $db->fetch($result)){
         $data['error'][] = array('errid'  => 6,
-									 'desc'   => 'Die Seundung kollidiert mit '.$row['name']);
+									 'desc'   => "$lang->lang('L_ERR_COLLIDES')".$row['name']);
         $collides = true;
     }
     if($collides){
@@ -123,12 +124,12 @@ function addShow(&$data){
         $data['ok'] = $db->insert_id();
     }else{
         $data['error'][] = array('errid'  => 0,
-									 'desc'   => 'SQLERROR');
+									 'desc'   => $lang->lang('L_ERR_SQL'));
     }
 }
 
 function editShow(&$data){
-    global $db,$user;
+    global $db,$user,$lang;
     $start = strptime($_POST['startd'],'%d.%m.%Y');
     $start = mktime(0,0,0,$start['tm_mon']+1,$start['tm_mday'],$start['tm_year']+1900);
     $start = $start+($_POST['startt']*1800);
@@ -138,22 +139,22 @@ function editShow(&$data){
     $desc     = $_POST['description'];
     if($start == 0 /*|| $end <= time()*/){
         $data['error'][] = array('errid'  => 2,
-                                     'desc'   => 'fehlerhafte zeit');
+                                     'desc'   => $lang->lang('L_ERR_WRONG_TIME'));
         return;
     }
     if($length > 48){
         $data['error'][] = array('errid'  => 3,
-                                     'desc'   => 'Sendung ist zu lang');
+                                     'desc'   => $lang->lang('L_ERR_SHOW_2LONG'));
         return;
     }
     if(!isset($name) || strlen($name) == 0){
         $data['error'][] = array('errid'  => 4,
-                                     'desc'   => 'kein Name angegeben');
+                                     'desc'   => $lang->lang('L_ERR_NO_NAME'));
         return;
     }
     if(!isset($desc) || strlen($desc) == 0){
         $data['error'][] = array('errid'  => 5,
-                                     'desc'   => 'keine Beschreibung angegeben');
+                                     'desc'   => $lang->lang('L_ERR_NO_DESC'));
         return;
     }
     $tstart = $start+1;
@@ -169,7 +170,7 @@ function editShow(&$data){
     $collides = false;
     while($row = $db->fetch($result)){
         $data['error'][] = array('errid'  => 6,
-                                     'desc'   => 'Die Seundung kollidiert mit '.$row['name']);
+                                     'desc'   => "$lang->lang('L_ERR_COLLIDES')".$row['name']);
         $collides = true;
     }
     if($collides){
@@ -187,7 +188,7 @@ function editShow(&$data){
         $data['ok'] = $db->insert_id();
     }else{
         $data['error'][] = array('errid'  => 0,
-                                     'desc'   => 'SQLERROR');
+                                     'desc'   => $lang->lang('L_ERR_SQL'));
     }
 }
 
@@ -198,12 +199,12 @@ function deleteShow(&$data){
         $data['ok'] = $db->insert_id();
     }else{
         $data['error'][] = array('errid'  => 0,
-                                 'desc'   => 'SQLERROR');
+                                 'desc'   => $lang->lang('L_ERR_SQL'));
     }
 }
 
 function addShowForm(&$data){
-    global $db,$user;
+    global $db,$user,$lang;
     $start = strptime($_POST['startd'],'%d.%m.%Y');
     $start = mktime(0,0,0,$start['tm_mon']+1,$start['tm_mday'],$start['tm_year']+1900);
     $start = $start+($_POST['startt']*1800);
@@ -213,22 +214,22 @@ function addShowForm(&$data){
     $desc     = $_POST['description'];
     if($start == 0 || $end <= time()){
         $data['error'][] = array('errid'  => 2,
-                                     'desc'   => 'fehlerhafte zeit');
+                                     'desc'   => $lang->lang('L_ERR_WRONG_TIME'));
         return;
     }
     if($length > 48){
         $data['error'][] = array('errid'  => 3,
-                                     'desc'   => 'Sendung ist zu lang');
+                                     'desc'   => $lang->lang('L_ERR_SHOW_2LONG'));
         return;
     }
     if(!isset($name) || strlen($name) == 0){
         $data['error'][] = array('errid'  => 4,
-                                     'desc'   => 'kein Name angegeben');
+                                     'desc'   => $lang->lang('L_ERR_NO_NAME'));
         return;
     }
     if(!isset($desc) || strlen($desc) == 0){
         $data['error'][] = array('errid'  => 5,
-                                     'desc'   => 'keine Beschreibung angegeben');
+                                     'desc'   => $lang->lang('L_ERR_NO_DESC'));
         return;
     }
     $tstart = $start+1;
@@ -243,7 +244,7 @@ function addShowForm(&$data){
     $collides = false;
     while($row = $db->fetch($result)){
         $data['error'][] = array('errid'  => 6,
-                                     'desc'   => 'Die Seundung kollidiert mit '.$row['name']);
+                                     'desc'   => "$lang->lang('L_ERR_COLLIDES')".$row['name']);
         $collides = true;
     }
     if($collides){
@@ -258,7 +259,7 @@ function addShowForm(&$data){
         $data['ok'] = $db->insert_id();
     }else{
         $data['error'][] = array('errid'  => 0,
-                                     'desc'   => 'SQLERROR');
+                                     'desc'   => $lang->lang('L_ERR_SQL'));
     }
 }
 
