@@ -2,9 +2,9 @@
 $template = array();
 require_once('../lib/common-web.inc.php');
 include('include/listenercount.php');
-
+global $lang;
 $template['section'] = "register";
-$template['PAGETITLE'] = "Registrieren";
+$template['PAGETITLE'] = $lang->lang('L_REGISTER');
 
 if(isset($_POST['action']) && $_POST['action'] == 'register'){
     $err = false;

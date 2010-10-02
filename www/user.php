@@ -1,5 +1,6 @@
 <?php
 require_once('../lib/common-web.inc.php');
+global $lang;
 $template = array();
 $template['user'] = false;
 if((!isset($_GET['u']) || strlen($_GET['u']) == 0) && $user->logged_in){
@@ -15,7 +16,7 @@ if((!isset($_GET['u']) || strlen($_GET['u']) == 0) && $user->logged_in){
 }
 
 
-$template['PAGETITLE'] = 'User '.($userinfo?' - '.$userinfo['username']:'');
+$template['PAGETITLE'] = $lang->lang('L_USER').': '.$template['user']['username'];
 $template['section'] = 'user';
 cleanup_h2o($template);
 include('include/listenercount.php');

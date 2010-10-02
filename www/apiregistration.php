@@ -1,5 +1,6 @@
 <?php
 require_once('../lib/common-web.inc.php');
+global $lang;
 $template = array();
 if(isset($_POST['submit'])) {
     if(isset($_POST['application']) && strlen($_POST['application'])>= 5 && strlen($_POST['application']) <= 100){
@@ -17,7 +18,7 @@ if($dbres){
     }
 }
 
-$template['PAGETITLE'] = 'API-key registration';
+$template['PAGETITLE'] = $lang->lang('L_APIREGISTRATION');
 $template['section'] = 'user';
 cleanup_h2o($template);
 include('include/listenercount.php');

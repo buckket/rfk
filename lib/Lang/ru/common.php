@@ -116,5 +116,12 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_EXPAND'   => 'развернуть',
               //history.php
               'L_TIME'          => 'Время',
-              'L_DATAREQUEST'    => 'Получаю данные с сервера...');
+              'L_DATAREQUEST'    => 'Получаю данные с сервера...',
+              //admin/
+              'L_ADMIN'         => 'Админ',
+              'L_GOAWAY'        => 'Пшел нахуй, мусор!',
+              'L_CURR_LIST'     => 'Текущие слушатели',
+              'L_STREAMCONTROL' => 'Управление потока',
+              'L_LIST_OVERVIEW' => 'Обзор слушателей',
+              'L_LIST_SHOWDATA' => '<td>ID</td><td>Адрес</td><td>Страна</td><td>Город</td><td>UserAgent</td>');
 ?>

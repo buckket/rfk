@@ -1,7 +1,8 @@
 <?php
+global $lang;
 $template = array();
 require_once('admin-common.inc.php');
-$template['PAGETITLE'] = "Übersicht";
+$template['PAGETITLE'] = $lang->lang('L_OVERVIEW');
 $sql = "SELECT listenerhistory, INET_NTOA(ip) as ip,city,country,useragent
         FROM listenerhistory
         WHERE disconnected IS NULL";

@@ -116,5 +116,12 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_EXPAND'   => 'expand',
               //history.php
               'L_TIME'          => 'Time',
-              'L_DATAREQUEST'    => 'Getting data from server...');
+              'L_DATAREQUEST'    => 'Getting data from server...',
+              //admin/
+              'L_ADMIN'         => 'Admin',
+              'L_GOAWAY'        => 'Begone with ye!',
+              'L_CURR_LIST'     => 'Current listeners',
+              'L_STREAMCONTROL' => 'Streamcontrol',
+              'L_LIST_OVERVIEW' => 'Overview of listeners',
+              'L_LIST_SHOWDATA' => '<td>ID</td><td>Address</td><td>Country</td><td>City</td><td>Useragent</td>');
 ?>

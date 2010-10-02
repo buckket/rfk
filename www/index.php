@@ -1,7 +1,8 @@
 <?php
 require_once('../lib/common-web.inc.php');
+global $lang;
 $template = array();
-$template['PAGETITLE'] = 'Übersicht';
+$template['PAGETITLE'] = $lang->lang('L_OVERVIEW');
 $template['section'] = 'overview';
 $sql = "SELECT news, time, description, text, username
         FROM news

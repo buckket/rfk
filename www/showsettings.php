@@ -1,5 +1,6 @@
 <?php
 require_once('../lib/common-web.inc.php');
+global $lang;
 $template = array();
 if(!$user->logged_in ){
     require_once 'login.php';
@@ -51,7 +52,7 @@ while($row = $db->fetch($dbres)){
     }
 }
 
-$template['PAGETITLE'] = 'Einstellungen';
+$template['PAGETITLE'] = $lang->lang('L_SHOWSETTINGS');
 $template['section'] = 'user';
 cleanup_h2o($template);
 include('include/listenercount.php');

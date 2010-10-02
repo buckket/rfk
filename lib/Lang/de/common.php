@@ -117,5 +117,12 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_EXPAND'   => 'ausklappen',
               //history.php
               'L_TIME'          => 'Zeit',
-              'L_DATAREQUEST'    => 'Hole Daten vom Server...');
+              'L_DATAREQUEST'   => 'Hole Daten vom Server...',
+              //admin/
+              'L_ADMIN'         => 'Admin',
+              'L_GOAWAY'        => 'Ge wek!',
+              'L_CURR_LIST'     => 'Aktuelle Zuhörer',
+              'L_STREAMCONTROL' => 'Streamkontrolle',
+              'L_LIST_OVERVIEW' => 'Hörerübersicht',
+              'L_LIST_SHOWDATA' => '<td>ID</td><td>Adresse</td><td>Land</td><td>Stadt</td><td>Useragent</td>');
 ?>

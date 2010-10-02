@@ -1,5 +1,6 @@
 <?php
 require_once('../lib/common-web.inc.php');
+global $lang;
 $template = array();
 if(!$user->logged_in ){
     require_once 'login.php';
@@ -20,7 +21,7 @@ if($dbres){
     }
 }
 $sql = "SELECT * FROM streamersettings WHERE streamer = ".$user->userid.";";
-$template['PAGETITLE'] = 'Einstellungen';
+$template['PAGETITLE'] = $lang->lang('L_SETTINGS');
 $template['section'] = 'user';
 cleanup_h2o($template);
 include('include/listenercount.php');

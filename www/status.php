@@ -1,7 +1,7 @@
 <?php
 require_once('../lib/common-web.inc.php');
 $template = array();
-
+global $lang;
 $sql = "SELECT mount,name,description,count,path FROM (SELECT count(*) as count,mount FROM listenerhistory WHERE disconnected IS NULL group by mount) as l RIGHT JOIN mounts USING ( mount )";
 $result = $db->query($sql);
 $streams = array();
@@ -26,7 +26,7 @@ if($db->num_rows($result) > 0){
 }else{
 	$template['streaming'] = false;
 }
-$template['PAGETITLE'] = 'Status';
+$template['PAGETITLE'] = $lang->lang('L_STATUS');
 $template['section'] = 'status';
 cleanup_h2o($template);
 $h2o = new H2o('status.html',$h2osettings);

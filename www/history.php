@@ -1,7 +1,8 @@
 <?php
 require_once('../lib/common-web.inc.php');
+global $lang;
 $template = array();
-$template['PAGETITLE'] = 'Verlauf';
+$template['PAGETITLE'] = $lang->lang('L_HISTORY');
 $template['section'] = 'history';
 cleanup_h2o($template);
 include('include/listenercount.php');

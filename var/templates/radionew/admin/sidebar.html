@@ -6,10 +6,10 @@ block.super
 <div id='subcontent'>
 {% if user_self %}
 	<div class='infoblock'>
-	<h3>Admin</h3>
+	<h3>{% lang L_ADMIN %}</h3>
 		<ul>
-			<li><a href="listener.php">Aktuelle Hörer</a></li>
-			<li>Streamkontrolle</li>
+			<li><a href="listener.php">{% lang L_CURR_LIST %}</a></li>
+			<li>{% lang L_STREAMCONTROL %}</li>
 		</ul>
 	</div>
 {% endif %}

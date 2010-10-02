@@ -1,8 +1,9 @@
 <?php
 require_once(dirname(__FILE__).'/../../lib/common-web.inc.php');
 require_once(dirname(__FILE__).'/../include/listenercount.php');
+global $lang;
 if(!$user->logged_in) {
-    echo "WEG";
+    echo $lang->lang('L_GOAWAY');
     exit;
 }
 $sql = "SELECT value
@@ -14,11 +15,11 @@ $sql = "SELECT value
 $dbres = $db->query($sql);
 if($row = $db->fetch($dbres)){
     if($row['value'] != 'true'){
-        echo "WEG";
+        echo $lang->lang('L_GOAWAY');
         exit;
     }
 }else{
-    echo "WEG!";
+    echo $lang->lang('L_GOAWAY');
     exit;
 }
 $template['section'] = "admin";

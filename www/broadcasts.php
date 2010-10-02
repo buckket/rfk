@@ -1,5 +1,6 @@
 <?php
 require_once('../lib/common-web.inc.php');
+global $lang;
 $date =time();
 $day = date('j', $date) ;
 if(isset($_GET['month']) && $_GET['month'] > 0 && $_GET['month'] <13)
@@ -210,7 +211,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $template['nextmonth'] = date('m',$nextmonth);
     $template['nextyear'] = date('Y',$nextmonth);
     $template['section'] = "broadcasts";
-    $template['PAGETITLE'] = "Sende&uuml;bersicht";
+    $template['PAGETITLE'] = $lang->lang('L_PROGRAM');
     include('include/listenercount.php');
     include('include/sidebar.php');
     cleanup_h2o($template);
