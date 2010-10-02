@@ -85,7 +85,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_APIREGISTRATION' => 'Регистрация ключа API',
               'L_APIAPPLICATION'  => 'Приложение',
               'L_APIKEY'          => 'Ключ API',
-              'L_REGISTEREDKEYS'  => 'Ключ уже зарегистрированний',
+              'L_REGISTEREDKEYS'  => 'Уже зарегистрированные ключи',
               'L_APIINFO'         => '<b>Информация о API</b><br />С регулярным ключом можо подавать запросы в API каждые 5 секунд. Показалось мало? Вали в IRC!',
               //nowplaying
               'L_NP_NOONESTREAMING' => 'Никто не вещает',
