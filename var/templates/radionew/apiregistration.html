@@ -9,6 +9,9 @@
 <input type="submit" name="submit" value="{% lang L_REGISTER %}" />
 </form>
 <br />
+{% if !apikeys %}
+<br>
+{% else %}
 <h3>{% lang L_REGISTEREDKEYS %}</h3>
 <table>
 <tr><td>{% lang L_APIAPPLICATION %}</td><td>{% lang L_APIKEY %}</td></tr>
@@ -16,4 +19,5 @@
 <tr><td>{{ key.application }}</td><td>{{ key.key }}</td></tr>
 {% endfor %}
 </table>
+{% endif %}
 {% endblock %}
