@@ -49,6 +49,9 @@
           <li {% if section == 'status' %}class="selected"{% endif %}>          
           <a href="{{ WEBROOT }}status.php">{% lang L_STATUS %}</a>          
           </li>
+          <li {% if section == 'help' %}class="selected"{% endif %}>          
+          <a href="http://schuchtel.net/mwiki/index.php?title=Radio">{% lang L_HELP %}</a>          
+          </li>
 	      {% if !user_logged_in %}
           <li {% if section == 'login' %}class="selected"{% endif %}>          
           <a href="{{ WEBROOT }}login.php">{% lang L_LOGIN %}</a>          
