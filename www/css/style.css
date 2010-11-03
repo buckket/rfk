@@ -485,7 +485,58 @@ ul#icons #volume-min {
     padding-top: 2px;
     font-weight:bold;
 }
+.archievement-container{
+    background-color: #4f4f4f;
+    font-family:verdana, sans-serif;
+    font-weight: bold;
+    position: relative;
+    padding: 3px;
+    -moz-border-radius: 4px;
+    height: 64px;
+}
+.arch-pic{
+    float: left;
+}
 
+.archievement{
+    padding-left: 80px;
+}
+.archievement .title {
+    color: #9dc34c;
+}
+.archievement .description {
+    color: #c8b996;
+    margin-top: 3px;
+    font-size: 0.7em;
+}
+.archievement .description {
+    color: #c8b996;
+    margin-top: 3px;
+    font-size: 0.7em;
+}
+
+.progress-container{
+    margin-top: 8px;
+}
+
+.progress-container .progress-text{
+    font-size: 0.6em;
+    color: #909090;
+    
+}
+
+.progress-container .progress-background{
+    background-color: black;
+    position:relative;
+    width: 70%;
+    height: 15px;
+    float:left;
+}
+.progress-container .progress-background .progress{
+    background-color: #c8b996;
+    position:relative;
+    height: 15px;
+}
 #JT_close_right{
     background-color: #CCCCCC;
     text-align: left;
@@ -503,3 +554,6 @@ margin:3px 0;
     padding: 1px;
     border: 1px solid #CCCCCC;
 }
+
+/* archiements */
+
