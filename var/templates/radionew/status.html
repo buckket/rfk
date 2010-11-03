@@ -17,22 +17,6 @@ document.write(showdescr);
 {% endfor %}
 </ul>
 
-{% if userIsStreaming %}
-<p>
-<h3>Hörerinfo {{ listener.test }}</h3>
-<table>
-    {% for listener in listeners %}
-    <tr>
-        <td><img src="images/cb/{{ listener.country }}.png" title="{{ listener.useragent}}"/></td>
-        <td>{{ listener.country}}, {{ listener.city }}</td>
-        <td>{{ listener.connected }}</td>
-        <td>{{ listener.mount }}</td>
-    </tr>
-    {% endfor %}
-</table>
-</p>
-{% endif %}
-
 <p>
 <h3>{% lang L_LISTENERHISTORY %}</h3>
 <img src="{{ WEBROOT }}graphh.png" alt="listenergraph" />
