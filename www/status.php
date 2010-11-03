@@ -30,16 +30,12 @@ if($db->num_rows($result) > 0){
 }
 
 if($user->logged_in == $template['streamerinfo']) {
-    
-    
-    $sql = "SELECT useragent, country, city, mount, connected FROM listenerhistory WHERE disconnected IS NULL ORDER BY country;";
+
+
+    $sql = "SELECT useragent, country, city, mount, TIME_FORMAT(UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(connected),'%H:%i') as connected FROM listenerhistory WHERE disconnected IS NULL ORDER BY country;";
     $result = $db->query($sql);
     $listeners = array();
     while($row = $db->fetch($result)){
-        $timeCon = new DateTime($row['connected']);
-        $timeNow = new DateTime();
-        $timeDiff = $timeCon->diff($timeNow);
-        $row['connected'] = $timeDiff->format('%H:%I');
         $row['mount'] = $mounts[$row['mount']];
         $listeners[] = $row;
     }
