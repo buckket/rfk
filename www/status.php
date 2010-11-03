@@ -5,12 +5,14 @@ global $lang;
 $sql = "SELECT mount,name,description,count,path FROM (SELECT count(*) as count,mount FROM listenerhistory WHERE disconnected IS NULL group by mount) as l RIGHT JOIN mounts USING ( mount )";
 $result = $db->query($sql);
 $streams = array();
+$mounts = array();
 while($row = $db->fetch($result)){
     if(strlen($row['count']) == 0){
         $row['count'] = 0;
     }
     $row['url'] = 'http://'.$_config['icecast_external'].':'.$_config['icecast_port'].$row['path'].'.m3u';
     $streams[] = $row;
+    $mounts[$row['mount']] = $row['name'];
 }
 $template['streams'] = $streams;
 $sql = "SELECT streamer,username FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
@@ -26,6 +28,25 @@ if($db->num_rows($result) > 0){
 }else{
 	$template['streaming'] = false;
 }
+
+if($user->logged_in == $template['streamerinfo']) {
+    
+    
+    $sql = "SELECT useragent, country, city, mount, connected FROM listenerhistory WHERE disconnected IS NULL ORDER BY country;";
+    $result = $db->query($sql);
+    $listeners = array();
+    while($row = $db->fetch($result)){
+        $timeCon = new DateTime($row['connected']);
+        $timeNow = new DateTime();
+        $timeDiff = $timeCon->diff($timeNow);
+        $row['connected'] = $timeDiff->format('%H:%I');
+        $row['mount'] = $mounts[$row['mount']];
+        $listeners[] = $row;
+    }
+    $template['listeners'] = $listeners;
+    $template['userIsStreaming'] = true;
+}
+
 $template['PAGETITLE'] = $lang->lang('L_STATUS');
 $template['section'] = 'status';
 cleanup_h2o($template);
