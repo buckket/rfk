@@ -239,9 +239,12 @@ function getListenerData(&$out) {
     $tmp = array();
     if($dbres) {
         while($row = $db->fetch($dbres)) {
+            $location = getLocation($row['ip']);
             $tmp[] = array('ip' => $row['ip'],
                            'country' => $row['country'],
-                           'city' => $row['city']);
+                           'city' => $row['city'],
+                           'latitude' => (string)$location['latitude'],
+                           'longitude' => (string)$location['longitude']);
         }
     }
     $out['listener'] = $tmp;

@@ -30,6 +30,8 @@ function getLocation($ip){
         if(is_object($record)) {
             $ret['cc'] = $record->country_code;
             $ret['city'] = $record->city;
+            $ret['latitude'] = $record->latitude;
+            $ret['longitude'] = $record->longitude;
             $region = $record->region;
         }
         geoip_close($gi);
