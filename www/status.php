@@ -26,6 +26,21 @@ if($db->num_rows($result) > 0){
 }else{
 	$template['streaming'] = false;
 }
+
+if($user->logged_in == $template['streamerinfo']) {
+
+
+    $sql = "SELECT useragent, country, city, mount, TIME_FORMAT(UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(connected),'%H:%i') as connected FROM listenerhistory WHERE disconnected IS NULL ORDER BY country;";
+    $result = $db->query($sql);
+    $listeners = array();
+    while($row = $db->fetch($result)){
+        $row['mount'] = $mounts[$row['mount']];
+        $listeners[] = $row;
+    }
+    $template['listeners'] = $listeners;
+    $template['userIsStreaming'] = true;
+}
+
 $template['PAGETITLE'] = $lang->lang('L_STATUS');
 $template['section'] = 'status';
 cleanup_h2o($template);
