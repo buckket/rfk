@@ -42,4 +42,10 @@ function create_api_key(){
     return $key;
 }
 
+function checkCB($country){
+    global $includepath;
+    if(file_exists($includepath.'/../www/images/cb/'.strtolower($country).'.png'))
+    return strtolower($country);
+    return 'unknown';
+}
 ?>

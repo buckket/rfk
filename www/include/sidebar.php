@@ -81,13 +81,6 @@ if($row = $db->fetch($dbres)) {
     $template['disco_background'] = $row['value'];
 }
 
-function checkCB($country){
-    global $includepath;
-    if(file_exists($includepath.'/../www/images/cb/'.strtolower($country).'.png'))
-    return strtolower($country);
-    return 'unknown';
-}
-
 function sortDisco($a, $b) {
     if($a['y'] > $b['y']) {
         return -1;

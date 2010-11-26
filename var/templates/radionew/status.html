@@ -16,6 +16,19 @@ document.write(showdescr);
 <li>{{ stream.description }} - {{ stream.count }} {% lang L_LISTENER %} <a href="{{ stream.url }}">{% lang L_LISTEN %}</a></li>
 {% endfor %}
 </ul>
+{% if userstreaming %}
+<p>
+<h3>{% lang L_LISTENEROVERVIEW %}</h3>
+<table>
+<tr><td>&nbsp;</td><td>{% lang L_CITY %}</td><td>{% lang L_MOUNT %}</td><td>{% lang L_TIMECONNECTED %}</td></tr>
+{% for listener in listeneroverview %}
+<tr><td><img src="{{ WEBROOT }}images/cb/{{ listener.country }}.png" /></td><td>{{ listener.city }}</td><td>{{ listener.mount }}</td><td>{{ listener.time }}</td></tr>
+{% endfor %}
+</table>
+<b>{% lang L_UNIQUELISTENERSHOW %}:</b> {{ uniquelistener }}
+</p>
+{% endif %}
+
 
 <p>
 <h3>{% lang L_LISTENERHISTORY %}</h3>
