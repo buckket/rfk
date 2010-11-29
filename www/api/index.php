@@ -177,12 +177,24 @@ function getNextShows(&$out){
     }else{
         $limit = 1;
     }
-    $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
-            FROM shows
-            JOIN streamer USING (streamer)
-            WHERE begin > NOW()
-            ORDER BY begin ASC
-            LIMIT 0,'.$limit;
+    if(isset($_GET['djname'])) {
+        $djname = $db->escape($_GET['djname']);
+        $sql = "SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
+                FROM shows
+                JOIN streamer USING (streamer)
+                WHERE begin > NOW()
+                AND username = '" . $djname . "'
+                ORDER BY begin ASC
+                LIMIT 0,".$limit;
+    }
+    else {
+        $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
+                FROM shows
+                JOIN streamer USING (streamer)
+                WHERE begin > NOW()
+                ORDER BY begin ASC
+                LIMIT 0,'.$limit;
+    }
     $dbres = $db->query($sql);
     if($dbres) {
         if($row = $db->fetch($dbres)) {
