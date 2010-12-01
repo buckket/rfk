@@ -192,8 +192,8 @@ function getNextShows(&$out){
 
     $dbres = $db->query($sql);
     if($dbres) {
+        $tmp = array();
         while($row = $db->fetch($dbres)) {
-            $tmp = array();
             $tmp[]['showbegin'] = (int)$row['b'];
             $tmp[]['showend'] = (int)$row['e'];
             $tmp[]['showtype'] = $row['type'];
