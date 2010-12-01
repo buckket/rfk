@@ -193,15 +193,17 @@ function getNextShows(&$out){
     $dbres = $db->query($sql);
     if($dbres) {
         while($row = $db->fetch($dbres)) {
-            $out[]['showbegin'] = (int)$row['b'];
-            $out[]['showend'] = (int)$row['e'];
-            $out[]['showtype'] = $row['type'];
-            $out[]['showname'] = $row['name'];
-            $out[]['showdescription'] = $row['description'];
-            $out[]['showdj'] = $row['username'];
-            $out[]['showdjid'] = $row['streamer'];
-            $out[]['showthread'] = (int)$row['thread'];
+            $tmp = array();
+            $tmp[]['showbegin'] = (int)$row['b'];
+            $tmp[]['showend'] = (int)$row['e'];
+            $tmp[]['showtype'] = $row['type'];
+            $tmp[]['showname'] = $row['name'];
+            $tmp[]['showdescription'] = $row['description'];
+            $tmp[]['showdj'] = $row['username'];
+            $tmp[]['showdjid'] = $row['streamer'];
+            $tmp[]['showthread'] = (int)$row['thread'];
         }
+        $out['shows'][] = $tmp;
     }
 }
 
