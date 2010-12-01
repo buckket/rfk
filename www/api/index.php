@@ -192,8 +192,9 @@ function getNextShows(&$out){
 
     $dbres = $db->query($sql);
     if($dbres) {
-        $tmp = array();
+
         while($row = $db->fetch($dbres)) {
+            $tmp = array();
             $tmp['showbegin'] = (int)$row['b'];
             $tmp['showend'] = (int)$row['e'];
             $tmp['showtype'] = $row['type'];
@@ -202,8 +203,8 @@ function getNextShows(&$out){
             $tmp['showdj'] = $row['username'];
             $tmp['showdjid'] = $row['streamer'];
             $tmp['showthread'] = (int)$row['thread'];
+            $out['shows'][] = $tmp;
         }
-        $out['shows'][] = $tmp;
     }
 }
 
