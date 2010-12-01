@@ -72,7 +72,7 @@ function handle_request($flag) {
                     } else {
                         throw_error(20, 'sorry you can\'t do that');
                     }
-                    break;      
+                    break;
                 case 'track':
                     getCurrTrack($out);
                     break;
@@ -156,7 +156,7 @@ function getCurrShow(&$out){
                 if($out['status'] != 'OVERLAP')
                 {
                     $out['status'] = $row['status'];
-                } 
+                }
             }
             $out[$key.'begin'] = (int)$row['b'];
             $out[$key.'end'] = (int)$row['e'];
@@ -164,6 +164,7 @@ function getCurrShow(&$out){
             $out[$key.'name'] = $row['name'];
             $out[$key.'description'] = $row['description'];
             $out[$key.'id'] = $row['show'];
+            $out[$key.'thread'] = $row['thread'];
             $out[$key.'dj'] = $row['username'];
             $out['showdjid'] = $row['streamer'];
         }
@@ -177,34 +178,29 @@ function getNextShows(&$out){
     }else{
         $limit = 1;
     }
-    if(isset($_GET['djname'])) {
-        $djname = $db->escape($_GET['djname']);
-        $sql = "SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
+    $sql  = 'SELECT thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
                 FROM shows
                 JOIN streamer USING (streamer)
-                WHERE begin > NOW()
-                AND username = '" . $djname . "'
-                ORDER BY begin ASC
-                LIMIT 0,".$limit;
+                WHERE begin > NOW() ';
+
+    if(isset($_GET['djname']) && strlen($_GET['djname']) > 0) {
+        $sql .= 'AND username = "' . $db->escape($_GET['djname']) . '" ';
     }
-    else {
-        $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
-                FROM shows
-                JOIN streamer USING (streamer)
-                WHERE begin > NOW()
-                ORDER BY begin ASC
+
+    $sql .= 'ORDER BY begin ASC
                 LIMIT 0,'.$limit;
-    }
+
     $dbres = $db->query($sql);
     if($dbres) {
-        if($row = $db->fetch($dbres)) {
-            $out['showbegin'] = (int)$row['b'];
-            $out['showend'] = (int)$row['e'];
-            $out['showtype'] = $row['type'];
-            $out['showname'] = $row['name'];
-            $out['showdescription'] = $row['description'];
-            $out['showdj'] = $row['username'];
-            $out['showdjid'] = $row['streamer'];
+        while($row = $db->fetch($dbres)) {
+            $out[]['showbegin'] = (int)$row['b'];
+            $out[]['showend'] = (int)$row['e'];
+            $out[]['showtype'] = $row['type'];
+            $out[]['showname'] = $row['name'];
+            $out[]['showdescription'] = $row['description'];
+            $out[]['showdj'] = $row['username'];
+            $out[]['showdjid'] = $row['streamer'];
+            $out[]['showthread'] = (int)$row['thread'];
         }
     }
 }
@@ -244,6 +240,7 @@ function getListener(&$out){
         }
     }
 }
+
 function getListenerData(&$out) {
     global $db;
     $sql = "SELECT ip, country, city FROM listenerhistory WHERE disconnected IS NULL;";
@@ -261,6 +258,7 @@ function getListenerData(&$out) {
     }
     $out['listener'] = $tmp;
 }
+
 function getTracks(&$out){
     global $db;
     if(isset($_GET['c']) && $_GET['c'] > 1){

@@ -13,7 +13,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
     if(isset($_GET['show']) && strlen($_GET['show'])>0){
         if($user->logged_in){
             $shows = explode(',',$_GET['show']);
-            $sql = 'SELECT `show`, DATE_FORMAT(begin,"%d.%m.%Y") as `date`, description, name, TIME_TO_SEC(TIMEDIFF(end,begin)) as length, UNIX_TIMESTAMP(begin) AS begin FROM shows WHERE `show` IN ('.$db->escape(implode(',',$shows)).') AND streamer = '.$user->userid.';';
+            $sql = 'SELECT `show`,thread, DATE_FORMAT(begin,"%d.%m.%Y") as `date`, description, name, TIME_TO_SEC(TIMEDIFF(end,begin)) as length, UNIX_TIMESTAMP(begin) AS begin FROM shows WHERE `show` IN ('.$db->escape(implode(',',$shows)).') AND streamer = '.$user->userid.';';
             $dbres = $db->query($sql);
             if($db->num_rows($dbres) == 1){
                 $show = $db->fetch($dbres);
@@ -44,7 +44,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
     }
 }else if(isset($_GET['show']) && strlen($_GET['show'])>0){
     $shows = explode(',',$_GET['show']);
-    $sql = 'SELECT `show`,description, name, UNIX_TIMESTAMP(begin) as begin, UNIX_TIMESTAMP(end) as end, streamer FROM shows WHERE `show` IN ('.$db->escape(implode(',',$shows)).')';
+    $sql = 'SELECT `show`,thread,description, name, UNIX_TIMESTAMP(begin) as begin, UNIX_TIMESTAMP(end) as end, streamer FROM shows WHERE `show` IN ('.$db->escape(implode(',',$shows)).')';
     $dbres = $db->query($sql);
     while($show = $db->fetch($dbres)){
         $show['description'] = $bbcode->parse($show['description']);

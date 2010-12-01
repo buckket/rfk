@@ -21,8 +21,9 @@ block.super
 		<table>
 		<tr><td>{% lang L_BEGIN %}</td><td><a class="abutton" href="javascript:newShowUp();">u</a><a class="abutton" href="javascript:newShowDown();">d</a></td><td><span id="showbegin">??:??</span></td></tr>
 		<tr><td>{% lang L_END %}</td><td><a class="abutton" href="javascript:newShowPlus();">+</a><a class="abutton" href="javascript:newShowMinus();">-</a></td><td><span id="showend">??:??</span></td></tr>
-		<tr><td colspan=3><input id="showname" name="name" value="" /></td></tr>
-		<tr><td colspan=3><textarea id="showdescription" name="desc" style="width:150px;"></textarea></td></tr>
+		<tr><td>{% lang L_TITLE %}</td><td colspan=2><input id="showname" name="name" value="" size="15" /></td></tr>
+		<tr><td>{% lang L_THREAD %}</td><td colspan=2><input id="showthread" name="name" value="" size="15" /></td></tr>
+		<tr><td colspan=3><textarea id="showdescription" name="desc" style="width:100%;"></textarea></td></tr>
 		<tr><td><a href="javascript:commitAddShow();" />{% lang L_ENTER %}</a></td><td><a href="javascript:abortAddShow();" />{% lang L_CANCEL %}</a></td></tr>
 		</table>
 		</form>

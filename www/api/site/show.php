@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 include('../../../lib/common-web.inc.php');
 global $lang;
 $data = array();
@@ -116,9 +116,20 @@ function addShow(&$data){
     if($collides){
         return;
     }
+    $threadnum = 0;
+    if(strlen(trim($_POST['thread'])) > 0){
+        if(preg_match('|krautchan.net/rfk/thread-(\\d+).html|', trim($_POST['thread']),$matches)){
+            $threadnum = $matches[1];
+        }
+    }else if($_POST['thread'] > 0){
+        $threadnum = (int)$_POST['thread'];
+    }
+    if(!($threadnum > 0 )){
+        $threadnum = 'NULL';
+    }
     //enter the show
-    $sql = "INSERT INTO shows (streamer,name,description,begin,end,type)
-		                   VALUES (".$user->userid.",'".$db->escape($name)."','".$db->escape($desc)."',FROM_UNIXTIME($start),FROM_UNIXTIME($end),'PLANNED');";
+    $sql = "INSERT INTO shows (streamer,name,description,begin,end,type,thread)
+		                   VALUES (".$user->userid.",'".$db->escape($name)."','".$db->escape($desc)."',FROM_UNIXTIME($start),FROM_UNIXTIME($end),'PLANNED',$threadnum);";
 
     if($db->execute($sql)){
         $data['ok'] = $db->insert_id();

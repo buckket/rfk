@@ -81,6 +81,7 @@ function commitAddShow(){
     }
     $.post('{{ WEBROOT }}api/site/show.php?w=add&cw='+currweek,
     		  'name='+encodeURIComponent($('#showname').val())+
+    		  '&thread='+encodeURIComponent($('#showthread').val())+
               '&description='+encodeURIComponent($('#showdescription').val())+
               '&length='+newshow.length+
               '&start='+getStart(),
