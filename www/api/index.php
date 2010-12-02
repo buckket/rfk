@@ -206,6 +206,10 @@ function getNextShows(&$out){
             $out['shows'][] = $tmp;
         }
     }
+    if(!isset($out['shows'])){
+        $out['shows'] = array();
+    }
+
 }
 
 function getCurrTrack(&$out) {
