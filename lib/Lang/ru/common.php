@@ -71,7 +71,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_CITY' => 'Город',
               'L_MOUNT' => 'Тип потока',
               'L_TIMECONNECTED' => 'На связи',
-              'L_UNIQUELISTENERSHOW' => 'Уникальные слушатели:',
+              'L_UNIQUELISTENERSHOW' => 'Уникальные слушатели',
               //user.php
               'L_USERNOTFOUND' => 'Пользователь не существует!',
               'L_USERSTATS' => '%1$s вещал уже %2$s',

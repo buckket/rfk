@@ -71,7 +71,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_CITY' => 'City',
               'L_MOUNT' => 'Streamtype',
               'L_TIMECONNECTED' => 'Listens since',
-              'L_UNIQUELISTENERSHOW' => 'Unique listeners:',
+              'L_UNIQUELISTENERSHOW' => 'Unique listeners',
               //user.php
               'L_USERNOTFOUND' => 'Streambernd not found!',
               'L_USERSTATS' => '%1$s streamed for %2$s',
