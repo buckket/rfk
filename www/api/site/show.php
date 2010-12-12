@@ -116,15 +116,7 @@ function addShow(&$data){
     if($collides){
         return;
     }
-    $threadnum = 0;
-    if(strlen(trim($_POST['thread'])) > 0){
-        if(preg_match('|krautchan.net/rfk/thread-(\\d+).html|', trim($_POST['thread']),$matches)){
-            $threadnum = $matches[1];
-        }
-    }else if($_POST['thread'] > 0){
-        $threadnum = (int)$_POST['thread'];
-    }
-    if(!($threadnum > 0 )){
+    if(!($threadnum = parseThread($_POST['thread']))){
         $threadnum = 'NULL';
     }
     //enter the show
@@ -187,12 +179,16 @@ function editShow(&$data){
     if($collides){
         return;
     }
+    if(!($threadnum = parseThread($_POST['thread']))){
+        $threadnum = 'NULL';
+    }
     //enter the show
     $sql = "UPDATE shows SET
                 name = '".$db->escape($_GET['name'])."',
                 description = '".$db->escape($_GET['description'])."',
                 begin = FROM_UNIXTIME($start),
-                end   = FROM_UNIXTIME($end)
+                end   = FROM_UNIXTIME($end),
+                thread = $threadnum
                 WHERE `show` = ".$db->escape($_GET['showid'])." AND streamer = ".$user->userid." LIMIT 1;";
 
     if($db->execute($sql)){
@@ -261,9 +257,12 @@ function addShowForm(&$data){
     if($collides){
         return;
     }
+    if(!($threadnum = parseThread($_POST['thread']))){
+        $threadnum = 'NULL';
+    }
     //enter the show
-    $sql = "INSERT INTO shows (streamer,name,description,begin,end,type)
-                               VALUES (".$user->userid.",'".$db->escape($name)."','".$db->escape($desc)."',FROM_UNIXTIME($start),FROM_UNIXTIME($end),'PLANNED');";
+    $sql = "INSERT INTO shows (streamer,name,description,begin,end,thread,type)
+                               VALUES (".$user->userid.",'".$db->escape($name)."','".$db->escape($desc)."',FROM_UNIXTIME($start),FROM_UNIXTIME($end),$threadnum,'PLANNED');";
 
 
     if($db->execute($sql)){
@@ -280,5 +279,20 @@ function convSunTomon($dow){
         $dow = 0;
     }
     return $dow;
+}
+
+function parseThread($thread) {
+    $threadnum = 0;
+    if(strlen(trim($thread)) > 0){
+        if(preg_match('|krautchan.net/rfk/thread-(\\d+).html|', trim($thread),$matches)){
+            $threadnum = (int)$matches[1];
+        }
+    }else if($thread > 0){
+        $threadnum = (int)$thread;
+    }
+    if(!($threadnum > 0 )){
+        return null;
+    }
+    return $threadnum;
 }
 ?>
