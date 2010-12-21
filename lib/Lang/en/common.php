@@ -124,6 +124,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               //viewshow.html
               'L_TRACKS'   => 'Tracks',
               'L_EXPAND'   => 'expand',
+              'L_SEE_KC'   => 'thread on krautchan',
               //history.php
               'L_TIME'          => 'Time',
               'L_DATAREQUEST'    => 'Getting data from server...',
