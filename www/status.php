@@ -13,6 +13,7 @@ while($row = $db->fetch($result)){
     $streams[] = $row;
 }
 $template['streams'] = $streams;
+$template['streamnum'] = $db->num_rows($result);
 $sql = "SELECT streamer,username FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
 $result = $db->query($sql);
 $streamerinfo = array();
@@ -78,7 +79,7 @@ if(isset($streamerinfo['streamer'])
     }
 }
 
-
+$template['traffic'] = getTraffic();
 $template['PAGETITLE'] = $lang->lang('L_STATUS');
 $template['section'] = 'status';
 cleanup_h2o($template);

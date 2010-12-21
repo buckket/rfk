@@ -11,11 +11,20 @@ document.write(showdescr);
 </script>
 {% endif %}
 <h2>{% lang L_STREAMS %}</h2>
-<ul>
-{% for id, stream in streams %}
-<li>{{ stream.description }} - {{ stream.count }} {% lang L_LISTENER %} <a href="{{ stream.url }}">{% lang L_LISTEN %}</a></li>
-{% endfor %}
-</ul>
+<table width="100%">
+  <tr>
+    <td>
+    <ul>
+	{% for id, stream in streams %}
+	   <li>{{ stream.description }} - {{ stream.count }} {% lang L_LISTENER %} <a href="{{ stream.url }}">{% lang L_LISTEN %}</a></li>
+	{% endfor %}
+	</ul>
+    </td>
+    <td rowspan="{{streamnum}}" style="vertical-align:middle;text-align:center;font-size:3em;font-weight:bolder;color:lightgrey;">{{ traffic.out }} Kbit/s</td>
+  </tr>
+</table>
+
+
 {% if userstreaming %}
 <p>
 <h3>{% lang L_LISTENEROVERVIEW %}</h3>

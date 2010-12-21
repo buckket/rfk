@@ -48,4 +48,18 @@ function checkCB($country){
     return strtolower($country);
     return 'unknown';
 }
+
+function getTraffic(){
+    $str = file_get_contents('/tmp/vnstat');
+    $out = array();
+    if (preg_match('/tx.*([0-9])\\.([0-9]).*/', $str,$matches)) {
+        $out['out'] = $matches[1].'.'.$matches[2];
+    }
+    if (preg_match('/rx.*([0-9])\\.([0-9]).*/', $str,$matches)) {
+        $out['in'] = $matches[1].'.'.$matches[2];
+    }
+    $out['sum'] = $out['in']+$out['out'];
+
+    return $out;
+}
 ?>
