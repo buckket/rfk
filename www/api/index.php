@@ -140,7 +140,7 @@ function kickDJ(&$out){
 }
 function getCurrShow(&$out){
     global $db;
-    $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username, streamer, status
+    $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username, streamer, status, thread
             FROM shows
             JOIN streamer USING (streamer)
             WHERE end IS NULL
