@@ -21,7 +21,7 @@ if($db->num_rows($result) > 0){
 	$template['streaming'] = true;
 	$streamerinfo = $db->fetch($result);
 	$template['streamerinfo'] = $streamerinfo;
-	$sql = "SELECT `show`,name,description,DATE_FORMAT(begin,'%d.%m.%Y %H:%m') as begin ,end,type FROM shows WHERE streamer = ".$streamerinfo['streamer']. " AND (NOW() BETWEEN begin AND end OR end IS NULL) LIMIT 1;";
+	$sql = "SELECT `show`,name,description,thread,DATE_FORMAT(begin,'%d.%m.%Y %H:%m') as begin ,end,type FROM shows WHERE streamer = ".$streamerinfo['streamer']. " AND (NOW() BETWEEN begin AND end OR end IS NULL) LIMIT 1;";
 	$result = $db->query($sql);
 	$show = $db->fetch($result);
 	$template['show'] = $show;

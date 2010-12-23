@@ -9,6 +9,9 @@ showdescr = showdescr.replace(/\(\)/g,"");
 }
 document.write(showdescr);
 </script>
+{% if show.thread > 0 %}
+    <p><a href="http://krautchan.net/rfk/thread-{{show.thread}}.html">{% lang L_SEEKC %}</a></p>
+    {% endif %}
 {% endif %}
 <h2>{% lang L_STREAMS %}</h2>
 <table width="100%">
