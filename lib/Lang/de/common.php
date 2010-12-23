@@ -106,6 +106,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_TITLE'           => 'Titel',
               'L_ARTIST'          => 'Interpret',
               //editshow.html
+              'L_THREAD'        => '/rfk/-Faden',
               'L_LENGTH'        => 'Länge',
               'L_DESCRIPTION'   => 'Beschreibung',
               'L_EDIT'          => 'ändern',
@@ -125,7 +126,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               //viewshow.html
               'L_TRACKS'   => 'Songs',
               'L_EXPAND'   => 'ausklappen',
-              'L_SEE_KC'   => 'Faden auf Krautchan',
+              'L_SEEKC'   => 'gehe zum Faden auf Krautchan',
               //history.php
               'L_TIME'          => 'Zeit',
               'L_DATAREQUEST'   => 'Hole Daten vom Server...',
