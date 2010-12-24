@@ -71,9 +71,9 @@ $bbcode->addCode ('b', 'simple_replace', null, array ('start_tag' => '<b>', 'end
                   'inline', array ('listitem', 'block', 'inline', 'link'), array ());
 $bbcode->addCode ('i', 'simple_replace', null, array ('start_tag' => '<i>', 'end_tag' => '</i>'),
                   'inline', array ('listitem', 'block', 'inline', 'link'), array ());
-$bbcode->addCode ('s', 'simple_replace', null, array ('start_tag' => '<s>', 'end_tag' => '</i>'),
+$bbcode->addCode ('s', 'simple_replace', null, array ('start_tag' => '<s>', 'end_tag' => '</s>'),
                   'inline', array ('listitem', 'block', 'inline', 'link'), array ());
-$bbcode->addCode ('u', 'simple_replace', null, array ('start_tag' => '<u>', 'end_tag' => '</i>'),
+$bbcode->addCode ('u', 'simple_replace', null, array ('start_tag' => '<u>', 'end_tag' => '</u>'),
                   'inline', array ('listitem', 'block', 'inline', 'link'), array ());
 $bbcode->addCode ('url', 'usecontent?', 'do_bbcode_url', array ('usecontent_param' => 'default'),
                   'link', array ('listitem', 'block', 'inline'), array ('link'));
