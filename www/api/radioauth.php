@@ -16,7 +16,7 @@ if($db->num_rows($result) > 0) {
     $row = $db->fetch($result);
     $mountid = $row['mount'];
 }
-error_log('connection from server:'+$_POST['server']);
+error_log('connection from server:'.$_POST['server']);
 $sql = "SELECT relay FROM relays WHERE hostname='".$db->escape($_POST['server'])."' LIMIT 1;";
 $result = $db->query($sql);
 $relayid = -1;
