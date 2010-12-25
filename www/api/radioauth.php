@@ -25,10 +25,11 @@ if($db->num_rows($result) > 0) {
     $relayid = $row['relay'];
 }
 
-if(!($mountid > 0) || !($relayid > 0))
+if(!($mountid > 0) || !($relayid > 0)){
     error_log('rejected listener from relay:'.$_POST['server'].' '.$mountid.' '.$relayid);
     header('icecast-auth-message: something went wrong with getting the relay');
     exit;
+}
 
 if($_POST['action'] === 'mount_add'){
     $sql = "UNLOCK TABLES;";
