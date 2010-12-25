@@ -16,7 +16,7 @@ if($db->num_rows($result) > 0) {
     $row = $db->fetch($result);
     $mountid = $row['mount'];
 }
-error_log('connection from server:'.$_POST['server']);
+
 $sql = "SELECT relay FROM relays WHERE hostname='".$db->escape($_POST['server'])."' LIMIT 1;";
 $result = $db->query($sql);
 $relayid = -1;
@@ -26,6 +26,7 @@ if($db->num_rows($result) > 0) {
 }
 
 if(!($mountid > 0) || !($relayid > 0))
+    error_log('rejected listener from relay:'.$_POST['server'].' '.$mountid.' '.$relayid);
     header('icecast-auth-message: something went wrong with getting the relay');
     exit;
 
