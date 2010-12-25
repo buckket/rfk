@@ -1,6 +1,6 @@
 <?php
 include('../../lib/common.inc.php');
-$sql = "LOCK TABLES mounts WRITE, listenerhistory WRITE;";
+$sql = "LOCK TABLES mounts WRITE,relays WRITE,mount_relay WRITE, listenerhistory WRITE;";
 $db->execute($sql);
 /**
  * GET THE MOUNTID
@@ -16,23 +16,34 @@ if($db->num_rows($result) > 0) {
     $row = $db->fetch($result);
     $mountid = $row['mount'];
 }
-if(!($mountid > 0))
-    header('icecast-auth-user: 0');
+
+$sql = "SELECT relay FROM relays WHERE hostname='".$db->escape($_POST['server'])."' LIMIT 1;";
+$result = $db->query($sql);
+$relayid = -1;
+if($db->num_rows($result) > 0) {
+    $row = $db->fetch($result);
+    $relayid = $row['relay'];
+}
+
+if(!($mountid > 0) || !($relayid > 0))
+    header('icecast-auth-message: something went wrong with getting the relay');
 
 if($_POST['action'] === 'mount_add'){
     $sql = "UNLOCK TABLES;";
-    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected IS NULL AND mount = $mountid";
+    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected IS NULL AND mount = $mountid AND relay = $relayid";
     $db->execute($sql);
 }else if($_POST['action'] === 'mount_remove'){
     //TODO stub (just do the same as in add)
-    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected = NULL AND mount = $mountid";
+    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected = NULL AND mount = $mountid AND relay = $relayid";
     $db->execute($sql);
 }else if($_POST['action'] === 'listener_add'){
+    checkMount($relayid,$mountid);
     $sql = "UNLOCK TABLES;";
     $location = getLocation($_POST['ip']);
-    $sql = "INSERT INTO listenerhistory (mount,client,ip,connected,disconnected,useragent, city, country)
+    $sql = "INSERT INTO listenerhistory (mount,relay,client,ip,connected,disconnected,useragent, city, country)
             VALUES
             ( $mountid,
+              $relayid,
             '".$db->escape($_POST['client'])."',
             INET_ATON('".$db->escape($_POST['ip'])."'),
             NOW(),
@@ -43,8 +54,27 @@ if($_POST['action'] === 'mount_add'){
     $db->execute($sql);
 }else if($_POST['action'] === 'listener_remove'){
     $sql = "UNLOCK TABLES;";
-    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE mount=$mountid AND disconnected IS NULL AND client = '".$db->escape($_POST['client'])."' LIMIT 1;";
+    $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE mount=$mountid AND relay=$relayid AND disconnected IS NULL AND client = '".$db->escape($_POST['client'])."' LIMIT 1;";
     $db->execute($sql);
+}
+
+function checkMount($relayid, $mountid){
+    global $db;
+    $sql = "SELECT * FROM mount_relay WHERE mount = $mountid AND relay = $relayid";
+    $dbres = $db->query($sql);
+    if($db->num_rows($dbres)) {
+        $info = $db->fetch($dbres);
+        $sql = "SELECT count(*) as c FROM listenerhistory WHERE mount = $mount AND relay = $relay AND disconnected IS NULL;";
+        $dbres = $db->query($sql);
+        $result = $db->fetch($dbres);
+
+        if($result['c'] >= $info['maxlistener']) {
+            header('icecast-auth-message: mountpoint is full');
+            $sql = "UNLOCK TABLES;";
+            $db->execute($sql);
+            exit();
+        }
+    }
 }
 
 $sql = "UNLOCK TABLES;";
