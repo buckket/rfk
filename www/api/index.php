@@ -91,6 +91,9 @@ function handle_request($flag) {
                 case 'traffic':
                     getTraffic($out);
                     break;
+                case 'countries':
+                    getCountries($out);
+                    break;
                 default:
                     $out['warning'][] = $qry.' does not exsist';
             }
@@ -304,6 +307,27 @@ function getTraffic(&$out) {
     $tmp['sum'] = $tmp['in']+$tmp['out'];
 
     $out['traffic'] = $tmp;
+}
+
+function getCountries(&$out) {
+    global $db;
+    
+    $sql =  'SELECT c, country
+            FROM (SELECT COUNT(*) as c, country
+            FROM listenerhistory
+            WHERE disconnected IS NULL
+            GROUP BY country) as c
+            ORDER BY c DESC;';
+            
+    $dbres = $db->query($sql);
+    $tmp = array();
+    if($dbres) {
+        while($row = $db->fetch($dbres)) {
+            $tmp[] = array('country' => $row['country'],
+                           'count' => (int)$row['c']);
+        }
+    }
+    $out['countries'] = $tmp;
 }
 
 ?>
