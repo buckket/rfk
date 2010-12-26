@@ -92,6 +92,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_UNPLANNEDDESC'  => 'Описание',
               'L_USEICYTAGS'     => 'Изпользование ICY-Tags',
               'L_DISCOBACK'      => 'Имя файла фоновой картинке (abload.de)',
+              //
               'L_APIREGISTRATION' => 'Регистрация ключа API',
               'L_APIAPPLICATION'  => 'Приложение',
               'L_APIKEY'          => 'Ключ API',
@@ -105,6 +106,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_TITLE'           => 'Название',
               'L_ARTIST'          => 'Исполнитель',
               //editshow.html
+              'L_THREAD'        => 'Нитка в /rfk/',
               'L_LENGTH'        => 'Длительность',
               'L_DESCRIPTION'   => 'Описание',
               'L_EDIT'          => 'изменить',
@@ -124,6 +126,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               //viewshow.html
               'L_TRACKS'   => 'Песни',
               'L_EXPAND'   => 'развернуть',
+              'L_SEEKC'   => 'К нитке на KC',
               //history.php
               'L_TIME'          => 'Время',
               'L_DATAREQUEST'    => 'Получаю данные с сервера...',
