@@ -126,7 +126,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               //viewshow.html
               'L_TRACKS'   => 'Songs',
               'L_EXPAND'   => 'ausklappen',
-              'L_SEEKC'   => 'gehe zum Faden auf Krautchan',
+              'L_SEEKC'   => 'Gehe zum Faden auf Krautchan',
               //history.php
               'L_TIME'          => 'Zeit',
               'L_DATAREQUEST'   => 'Hole Daten vom Server...',
