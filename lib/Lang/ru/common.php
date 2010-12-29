@@ -63,6 +63,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_NO_SPANNING'   =>  'Планирование охватывающее несколько недель не поддерживается!',
               //status.php
               'L_CURRENTLY_STREAMING' => 'В эфире %1$s с программой %2$s (%3$s) начиная в %4$s.',
+              'L_CURRENTLY_STREAMING_NI' => 'В эфире %2$s начиная в %1$s.',
               'L_PROGRAMINFOS' => 'О программе',
               'L_STREAMS'      => 'Потоки',
               'L_LISTENERHISTORY' => 'Номер слушателей',
