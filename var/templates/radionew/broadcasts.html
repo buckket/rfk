@@ -23,7 +23,7 @@
     <tr height="50">
         <td><a href="broadcasts.php?week={{ weeknum }}&year={{ year}}">{{ weeknum }}</a></td>
         {% for daynum, day in week %}
-        <td onclick="gotoWeek({{ daynum }},{{ weeknum }},{{ year}});" onmouseover="$(this).addClass('ui-state-hover');" onmouseout="$(this).removeClass('ui-state-hover');" class="{% if day.thismonth == 'true' %}ui-state-default {% else %}day{% endif %}{% if day.today %} ui-state-active{% endif%}" style="cursor:pointer;">
+        <td onclick="gotoWeek({{ daynum }},{{ weeknum }},{{ year}});" onmouseover="$(this).addClass('ui-state-hover');" onmouseout="$(this).removeClass('ui-state-hover');" class="{% if day.thismonth == 'true' %}ui-state-default {% else %}day{% endif %}{% if day.today %} ui-state-focus{% endif %}" style="cursor:pointer;">
         {{ day.day }}
         <div class="showcount">{% if day.shows > 0 %}{{ day.shows }}{% else %}&nbsp;{% endif %}</div>
         </td>

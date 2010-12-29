@@ -184,6 +184,9 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
         $calendar[$week][$weekday]['year'] = $year;
         $calendar[$week][$weekday]['thismonth'] = 'true';
         $calendar[$week][$weekday]['shows'] = getShows($calendar[$week][$weekday]['day'],$calendar[$week][$weekday]['month'],$calendar[$week][$weekday]['year']);
+        if($curr_month_day == date('j') and $week == date('W')){
+            $calendar[$week][$weekday]['today'] = 'true';
+        }
         $curr_month_day++;
     }
 
