@@ -1,18 +1,19 @@
 {% extends "sidebar.html" %}
 {% block content %}
-{% if streaming %}
 <h2>{% lang L_PROGRAMINFOS %}</h2>
-<script type="text/javascript">
-var showdescr = '<p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.description, show.begin %}';
-if (showdescr.search(/\(\)+/g) != -1) {
-showdescr = showdescr.replace(/\(\)/g,"");
-}
-document.write(showdescr);
-</script>
-{% if show.thread > 0 %}
+{% if streaming %}
+    {% if showunnamed %}
+    {% lang L_CURRENTLY_STREAMING_NI, streamerinfo.username, show.begin %}
+    {% else %}
+    <p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.description, show.begin %}</p>
+    {% endif %}
+    {% if show.thread > 0 %}
     <p><a href="http://krautchan.net/rfk/thread-{{show.thread}}.html">{% lang L_SEEKC %}</a></p>
     {% endif %}
+{% else %}
+    {% lang lang L_NP_NOONESTREAMING %}
 {% endif %}
+<br /><br />
 <h2>{% lang L_STREAMS %}</h2>
 <table width="100%">
   <tr>
