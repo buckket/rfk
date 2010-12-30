@@ -42,7 +42,7 @@ while($streamer = $db->fetch($result)){
 $template['sb_streamer'] = $streamers;
 
 if(isset($shows) || isset($calendar)) {
-    $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username
+    $sql = 'SELECT UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, `show`
             FROM shows
             JOIN streamer USING (streamer)
             WHERE begin > NOW()
@@ -52,7 +52,8 @@ if(isset($shows) || isset($calendar)) {
     if($dbres) {
         while($row = $db->fetch($dbres)) {
             $template['nextshows'][] = array('showname' => $row['name'],
-                                             'streamer' => $row['username']);
+                                             'streamer' => $row['username'],
+                                             'showid'   => $row['show']);
         }
     }
 }
