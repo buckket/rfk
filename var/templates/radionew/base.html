@@ -13,6 +13,21 @@
 	<script type="text/javascript" src="{{ WEBROOT }}js/jquery.dataTables.min.js" ></script>
 	<script type="text/javascript" src="{{ WEBROOT }}js/jtip.js" ></script>
 	<script type="text/javascript" src="{{ WEBROOT }}js/rfk.js" ></script>
+	
+	<script type="text/javascript">
+    /* <![CDATA[ */
+        (function() {
+            var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+
+            t.parentNode.insertBefore(s, t);
+        })();
+    /* ]]> */
+    </script>
+    
   </head>  
   <body>    
     <div id="container">      
@@ -20,7 +35,7 @@
         <img src="{{ WEBROOT }}images/logo.png" alt="Logo" />
         <div class="disco">
         {% if disco_background %}
-            <div class="cbackground"><img src="http://www.abload.de/img/{{ disco_background }}" height=65px width=129px /></div>
+            <div class="cbackground"><img src="http://www.abload.de/img/{{ disco_background | escape true }}" height=65px width=129px /></div>
         {% endif %}
             <div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
         {% if disco_streamer %}
@@ -146,7 +161,9 @@ Haben wir nicht, bekommen wir auch nichtmehr rein!
 <div id="footer">
 {% if git %}
 <div style="text-align:center;font-size:xx-small;font-weight:normal">
-Revision: <a href="{{ git.url }}" style="font-weight:normal;">{{ git.rev }}</a>
+Revision: <a href="{{ git.url }}" style="font-weight:normal;">{{ git.rev }}</a><br />
+<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;"
+href="http://radio.krautchan.net"></a>
 </div>
 {% endif %}
 </div>    
