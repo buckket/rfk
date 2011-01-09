@@ -96,6 +96,21 @@ function handle_request($flag) {
                 case 'countries':
                     getCountries($out);
                     break;
+                case 'auth':
+                    authTest($out);
+                    break;
+                case 'authadd':
+                    authAdd($out);
+                    break;
+                case 'authjoin':
+                    authJoin($out);
+                    break;
+                case 'authpart':
+                    authPart($out);
+                    break;
+                case 'authupdate':
+                    authUpdate($out);
+                    break;
                 default:
                     $out['warning'][] = $qry.' does not exsist';
             }

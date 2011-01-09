@@ -231,4 +231,121 @@ function getCountries(&$out) {
     }
     $out['countries'] = $tmp;
 }
+
+function authTest(&$out) {
+    global $db;
+    if(isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) {
+        $hostmask = explode('!', $_GET['hostmask']);
+        $sql = "SELECT streamer, username 
+                FROM streamersettings
+                JOIN streamer using(streamer)
+                WHERE `key` = 'hostmask'
+                AND `value` REGEXP '[A-z0-9]+!". $db->escape($hostmask[1]) . "' ;";
+        $dbres = $db->query($sql);
+        if($dbres) {
+            if($row = $db->fetch($dbres)) {
+                $out['auth']['nick'] = $row['username'];
+                $out['auth']['id'] = $row['streamer'];
+                $out['auth']['status'] = 0;
+                return;
+            }
+        }
+    }
+    $out['auth']['status'] = 1;
+}
+
+function authAdd(&$out) {
+    global $db;
+    
+    if((isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) && (isset($_GET['user']) && strlen($_GET['user']) > 0) && (isset($_GET['pass']) && strlen($_GET['pass']) > 0)) {
+        $sql = "SELECT * FROM streamer WHERE username = '" . $db->escape($_GET['user']) . "' AND streampassword = '" . $db->escape($_GET['pass']) . "';";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            if($row = $db->fetch($dbres)) {
+                $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                        VALUES (" . $row['streamer'] . ",'hostmask','" . $db->escape($_GET['hostmask']) ."')
+                        ON DUPLICATE KEY UPDATE value = '" . $db->escape($_GET['hostmask']) . "';";
+                if($db->execute($sql)) {
+                    $out['auth']['nick'] = $row['username'];
+                    $out['auth']['id'] = $row['streamer'];
+                    $out['auth']['status'] = 0;
+                    return;
+                }
+            }
+        }
+    }
+    $out['auth']['status'] = 1;
+}
+
+function authJoin(&$out) {
+    global $db;
+    
+    if(isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) {
+        $hostmask = explode('!', $_GET['hostmask']);
+        $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            if($row = $db->fetch($dbres)) {
+                $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                        VALUES (" . $row['streamer'] . ",'isIRC', 1)
+                        ON DUPLICATE KEY UPDATE value = 1;";
+                if($db->execute($sql)) {
+                    $out['auth']['nick'] = $row['username'];
+                    $out['auth']['id'] = $row['streamer'];
+                    $out['auth']['status'] = 0;
+                    return; 
+                }
+            }
+        }
+    }
+    $out['auth']['status'] = 1;
+}
+
+function authPart(&$out) {
+    global $db;
+    
+    if(isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) {
+        $hostmask = explode('!', $_GET['hostmask']);
+        $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            if($row = $db->fetch($dbres)) {
+                $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                        VALUES (" . $row['streamer'] . ",'isIRC', 0)
+                        ON DUPLICATE KEY UPDATE value = 0;";
+                if($db->execute($sql)) {
+                    $out['auth']['nick'] = $row['username'];
+                    $out['auth']['id'] = $row['streamer'];
+                    $out['auth']['status'] = 0;
+                    return; 
+                }
+            }
+        }
+    }
+    $out['auth']['status'] = 1;
+}
+
+function authUpdate(&$out) {
+    global $db;
+    
+    if((isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) && (isset($_GET['nick']) && strlen($_GET['nick']) > 0)) {
+        $hostmask = explode('!', $_GET['hostmask']);
+        $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            if($row = $db->fetch($dbres)) {
+                $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                        VALUES (" . $row['streamer'] . ",'hostmask', '" . $db->escape($_GET['nick'] . "!" . $hostmask[1]) . "')
+                        ON DUPLICATE KEY UPDATE value = '" . $db->escape($_GET['nick'] . "!" . $hostmask[1]) . "';";
+                if($db->execute($sql)) {
+                    $out['auth']['nick'] = $row['username'];
+                    $out['auth']['id'] = $row['streamer'];
+                    $out['auth']['status'] = 0;
+                    return; 
+                }
+            }
+        }
+    }
+    $out['auth']['status'] = 1;
+}
 ?>
