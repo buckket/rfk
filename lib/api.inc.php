@@ -286,6 +286,12 @@ function authJoin(&$out) {
         $dbres = $db->query($sql);
         if($dbres && $db->num_rows($dbres) > 0) {
             if($row = $db->fetch($dbres)) {
+                if($row['hostmask'] != $_GET['hostmask']) {
+                    $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                            VALUES (" . $row['streamer'] . ",'hostmask', '" . $db->escape($_GET['hostmask']) . "')
+                            ON DUPLICATE KEY UPDATE value = '" . $db->escape($_GET['hostmask']) . "';";
+                    $db->execute($sql);
+                }
                 $sql = "INSERT INTO streamersettings (streamer,`key`,value)
                         VALUES (" . $row['streamer'] . ",'isIRC', 1)
                         ON DUPLICATE KEY UPDATE value = 1;";
@@ -343,6 +349,24 @@ function authUpdate(&$out) {
                     $out['auth']['status'] = 0;
                     return; 
                 }
+            }
+        }
+    }
+    $out['auth']['status'] = 1;
+}
+
+function isIRC(&$out) {
+    global $db;
+    
+    if(isset($_GET['djid']) && strlen($_GET['djid']) > 0) {
+        $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'isIRC' AND value = 1 AND streamer = '" . $db->escape($_GET['djid']) . "';";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            if($row = $db->fetch($dbres)) {
+                $out['auth']['nick'] = $row['username'];
+                $out['auth']['id'] = $row['streamer'];
+                $out['auth']['status'] = 0;
+                return;
             }
         }
     }

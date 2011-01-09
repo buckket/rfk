@@ -111,6 +111,9 @@ function handle_request($flag) {
                 case 'authupdate':
                     authUpdate($out);
                     break;
+                case 'isirc':
+                    isIRC($out);
+                    break;
                 default:
                     $out['warning'][] = $qry.' does not exsist';
             }
