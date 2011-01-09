@@ -62,4 +62,13 @@ function getTraffic(){
 
     return $out;
 }
+
+function setIRCCount($count) {
+    file_put_contents('../var/irccount', $count);
+}
+
+function getIRCCount() {
+    return (int)file_get_contents('../var/irccount');
+}
+
 ?>

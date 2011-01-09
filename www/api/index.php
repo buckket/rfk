@@ -87,8 +87,8 @@ function handle_request($flag) {
                 case 'tracks':
                     getTracks($out);
                     break;
-                case 'djid':
-                    getDJID($out);
+                case 'djinfo':
+                    getDJInfo($out);
                     break;
                 case 'traffic':
                     getTraffic($out);
@@ -113,6 +113,9 @@ function handle_request($flag) {
                     break;
                 case 'isirc':
                     isIRC($out);
+                    break;
+                case 'irccount':
+                    setIRCCount($out);
                     break;
                 default:
                     $out['warning'][] = $qry.' does not exsist';

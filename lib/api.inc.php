@@ -14,15 +14,19 @@ function getDJ(&$out){
 /**
  * get the streamer
  */
-function getDJID(&$out){
+function getDJInfo(&$out){
     global $db;
     if(isset($_GET['djname'])) {
         $djname = $db->escape($_GET['djname']);
+        $sql = "SELECT * FROM streamer WHERE username = '" . $djname . "' LIMIT 1;";
+    }
+    elseif(isset($_GET['djid'])) {
+        $djid = $db->escape($_GET['djid']);
+        $sql = "SELECT * FROM streamer WHERE streamer = '" . $djid . "' LIMIT 1;";
     }
     else {
-        throw_error(0, 'no djname given');
+        throw_error(0, 'no djname or djid given');
     }
-    $sql = "SELECT * FROM streamer WHERE username = '" . $djname . "' LIMIT 1;";
     $dbres = $db->query($sql);
     if($dbres) {
         $row = $db->fetch($dbres);
@@ -363,6 +367,7 @@ function isIRC(&$out) {
         $dbres = $db->query($sql);
         if($dbres && $db->num_rows($dbres) > 0) {
             if($row = $db->fetch($dbres)) {
+                $out['auth']['hostmask'] = getHostmask($row['streamer']);
                 $out['auth']['nick'] = $row['username'];
                 $out['auth']['id'] = $row['streamer'];
                 $out['auth']['status'] = 0;
@@ -372,4 +377,32 @@ function isIRC(&$out) {
     }
     $out['auth']['status'] = 1;
 }
+
+function getHostmask($djid) {
+    global $db;
+    if(isset($djid)) {
+        $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND streamer = '" . $db->escape($djid) . "';";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            if($row = $db->fetch($dbres)) {
+                return $row['value'];
+            }
+        }
+    }
+}
+
+function setIRCCount(&$out) {
+    if(isset($_GET['c']) && (is_int((int)$_GET['c']))) {
+        if(file_put_contents('../../var/irccount', (int)$_GET['c']));
+        $out['status'] = 0;
+    }
+    else {
+        $out['status'] = 1;
+    }
+}
+
+function getIRCCount() {
+    return (int)file_get_contents('../../var/irccount');
+}
+
 ?>

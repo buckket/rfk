@@ -17,5 +17,5 @@ if($dbres) {
         }
     }
 }
-
+printf("<br>\n<br>\nInsgesamt: %s IRC-Bernds", getIRCCount());
 ?>
