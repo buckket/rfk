@@ -378,6 +378,20 @@ function isIRC(&$out) {
     $out['auth']['status'] = 1;
 }
 
+function areIRC(&$out) {
+    global $db;
+    
+    $sql = "SELECT * FROM streamersettings JOIN (SELECT streamer FROM streamersettings WHERE `key` = 'isIRC' AND value = 1) as a USING(streamer) WHERE `key` = 'hostmask';";
+    $dbres = $db->query($sql);
+    $tmp = array();
+    if($dbres) {
+        while($row = $db->fetch($dbres)) {
+            $tmp[] = $row['value'];
+        }
+    $out['hostmasks'] = $tmp; 
+    }
+}
+
 function getHostmask($djid) {
     global $db;
     if(isset($djid)) {

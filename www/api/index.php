@@ -114,6 +114,9 @@ function handle_request($flag) {
                 case 'isirc':
                     isIRC($out);
                     break;
+                case 'areirc':
+                    areIRC($out);
+                    break;
                 case 'irccount':
                     setIRCCount($out);
                     break;
