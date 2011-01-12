@@ -78,10 +78,10 @@ if(isset($streamerinfo['streamer'])
                 $template['uniquelistener'] = 0;
             }
         }else{
-            $template['uniquelistener'] = 'FEHLERFEHLERFEHLER';
+            $template['uniquelistener'] = $lang->lang('L_ERR_SQL');
         }
     }else{
-        $template['uniquelistener'] = 'FEHLERFEHLERFEHLER';
+        $template['uniquelistener'] = $lang->lang('L_ERR_SQL');
     }
 }
 
