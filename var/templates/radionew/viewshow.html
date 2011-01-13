@@ -3,7 +3,7 @@
 <br /><hr /><br />
 {% endif %}
     <h2>{{show.name}} {% if show.editable %}<a href="{{ WEBROOT }}show.php?action=edit&show={{ show.show }}" onclick="editShow({{ show.show }}); return false;"><small>[{% lang L_EDIT %}]</small></a>{% endif %}</h2>
-    <p>{{show.description | save}}</p>
+    <p>{{show.description | safe}}</p>
     {% if show.thread > 0 %}
     <p><a href="http://krautchan.net/rfk/thread-{{show.thread}}.html">{% lang L_SEEKC %}</a></p>
     {% endif %}
