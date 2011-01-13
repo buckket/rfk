@@ -84,6 +84,9 @@ function handle_request($flag) {
                 case 'nextshows':
                     getNextShows($out);
                     break;
+                case 'lastshows':
+                    getLastShows($out);
+                    break;
                 case 'tracks':
                     getTracks($out);
                     break;
@@ -101,7 +104,6 @@ function handle_request($flag) {
                     break;
                 case 'authadd':
                     authAdd($out);
-                    break;
                 case 'authjoin':
                     authJoin($out);
                     break;
@@ -119,6 +121,9 @@ function handle_request($flag) {
                     break;
                 case 'irccount':
                     setIRCCount($out);
+                    break;
+                case 'rconfig':
+                    rconfig($out);
                     break;
                 default:
                     $out['warning'][] = $qry.' does not exsist';

@@ -123,6 +123,47 @@ function getNextShows(&$out){
 
 }
 
+function getLastShows(&$out){
+    global $db;
+    if(isset($_GET['c']) && $_GET['c'] > 1){
+        $limit = $_GET['c'];
+    }else{
+        $limit = 1;
+    }
+    $sql  = 'SELECT thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
+                FROM shows
+                JOIN streamer USING (streamer)
+                WHERE end < NOW() ';
+
+    if(isset($_GET['djname']) && strlen($_GET['djname']) > 0) {
+        $sql .= 'AND username = "' . $db->escape($_GET['djname']) . '" ';
+    }
+
+    $sql .= 'ORDER BY end DESC
+                LIMIT 0,'.$limit;
+
+    $dbres = $db->query($sql);
+    if($dbres) {
+
+        while($row = $db->fetch($dbres)) {
+            $tmp = array();
+            $tmp['showbegin'] = (int)$row['b'];
+            $tmp['showend'] = (int)$row['e'];
+            $tmp['showtype'] = $row['type'];
+            $tmp['showname'] = $row['name'];
+            $tmp['showdescription'] = $row['description'];
+            $tmp['showdj'] = $row['username'];
+            $tmp['showdjid'] = $row['streamer'];
+            $tmp['showthread'] = (int)$row['thread'];
+            $out['shows'][] = $tmp;
+        }
+    }
+    if(!isset($out['shows'])){
+        $out['shows'] = array();
+    }
+
+}
+
 function getCurrTrack(&$out) {
     global $db;
     $lasttrack = 0;
@@ -417,6 +458,59 @@ function setIRCCount(&$out) {
 
 function getIRCCount() {
     return (int)file_get_contents('../../var/irccount');
+}
+
+function rconfig(&$out) {
+    global $db;
+    
+    if($out['auth']['status'] != 0) {
+        throw_error(21, 'auth failed');
+        return;
+    }
+    if(isset($_GET['key']) && strlen($_GET['key'])) {
+        switch($_GET['key']) {
+            case 'background':
+                $key = 'background';
+                break;
+            case 'description':
+                $key = 'defaultshowdescription';
+                break;
+            case 'name':
+                $key = 'defaultshowname';
+                break;
+            default:
+                throw_error(22, 'invalid input');
+                return;
+        }
+    }
+    else {
+        throw_error(22, 'invalid input');
+        return;
+    }
+    if(isset($_GET['value']) && strlen($_GET['value'])) {
+        //update
+        $value = $_GET['value'];
+        $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                VALUES (" . $out['auth']['id'] . ",'" . $db->escape($key) ."', '" . $db->escape($value) . "')
+                ON DUPLICATE KEY UPDATE value = '" . $db->escape($value) ."';";
+        if($db->execute($sql)) {
+            $out['status'] = 0;
+            $out['key'] = $key;
+            $out['value'] = $value;
+        }
+    }
+    else {
+        //output
+        $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = '" . $db->escape($key) ."' AND streamer = '" . $db->escape($out['auth']['id']) . "';";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            if($row = $db->fetch($dbres)) {
+                $out['status'] = 0;
+                $out['key'] = $key;
+                $out['value'] = $row['value'];
+            }
+        }
+    }  
 }
 
 ?>
