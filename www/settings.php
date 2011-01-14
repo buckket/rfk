@@ -7,9 +7,19 @@ if(!$user->logged_in ){
     exit();
 }
 if(isset($_POST['submit'])) {
+    $err = false;
     if(isset($_POST['streampassword'])){
         $sql = "UPDATE streamer SET streampassword = '".$db->escape($_POST['streampassword'])."' WHERE streamer = ".$user->userid." LIMIT 1;";
         $db->execute($sql);
+    }
+    if(isset($_POST['newuserpass'])){
+        if($_POST['newuserpass'] != $_POST['newuserpass2']){
+            $_MSG['err'][] = $lang->lang('L_ERR_PASSMISMATCH');
+            $err = true;
+        }else{
+            $sql = "UPDATE streamer SET password = SHA('".$db->escape($_POST['newuserpass'])."') WHERE streamer = ".$user->userid." LIMIT 1;";
+            $db->execute($sql);
+        }
     }
 }
 

@@ -1,18 +1,23 @@
 {% extends "sidebar-user.html" %}
 {% block content %}
-<h2>{% lang L_SETTINGS%}</h2>
+<h2>{% lang L_SETTINGS %}</h2>
 <form method="post">
 <table>
-<thead>
-<tr>
-    <td colspan=2 >{% lang L_STREAMSETTINGS %}</td>
+<tr style="font-weight:bold">
+    <td colspan=2>{% lang L_STREAMSETTINGS %}</td>
 </tr>
-</thead>
-<tbody>
 <tr>
     <td>{% lang L_STREAMPASSWORD %}</td><td><input name="streampassword" value="{{ streampassword }}"/></td>
 </tr>
-</tbody>
+<tr style="font-weight:bold">
+    <td colspan=2 >{% lang L_PWSETTINGS %}</td>
+</tr>
+<tr>
+    <td>{% lang L_PASSWORD %}</td><td><input type="password" name="newuserpass"/></td>
+</tr>
+<tr>
+    <td>{% lang L_PASSWORD_RPT %}</td><td><input type="password" name="newuserpass2"/></td>
+</tr>
 </table>
 <br />
 <input type="submit" name="submit" value="{% lang L_SAVESETTINGS %}" />

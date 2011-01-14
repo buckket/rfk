@@ -87,6 +87,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_STREAMSETTINGS' => 'Streamsettings',
               'L_STREAMPASSWORD' => 'Streampassword',
               'L_SAVESETTINGS'   => 'Commit changes',
+              'L_PWSETTINGS'     => 'Change password',
               //showsettings.php
               'L_SHOWSETTINGS'   => 'Showsettings',
               'L_UNPLANNEDNAME'  => 'Name for unplanned shows',
