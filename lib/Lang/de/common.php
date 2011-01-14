@@ -88,6 +88,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_STREAMPASSWORD' => 'Streampasswort',
               'L_SAVESETTINGS'   => 'Änderungen speichern',
               'L_PWSETTINGS'     => 'Passwort ändern',
+              'L_OLDPASSWORD'     => 'Altes Passwort',
               //showsettings.php
               'L_SHOWSETTINGS'   => 'Sendungseinstellungen',
               'L_UNPLANNEDNAME'  => 'Name für ungeplante Sendung',
