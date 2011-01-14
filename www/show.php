@@ -1,5 +1,6 @@
 <?php
 require_once('../lib/common-web.inc.php');
+global $lang;
 $template = array();
 $fulltemplate = false;
 if(!(isset($_GET['ajax']) && $_GET['ajax'] == 'true')) {
@@ -36,10 +37,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
                 }
                 showPage($template, 'editshow', false);
             }else{
-                echo 'blah';
+                echo $lang->lang('L_ERR_SQL');
             }
         }else{
-            $template['error'] = 'notloggedin';
+            $template['error'] = $lang->lang('L_ERR_AUTH_REQUIRED');
         }
     }
 }else if(isset($_GET['show']) && strlen($_GET['show'])>0){
@@ -55,6 +56,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
         }
         if($user->logged_in && $user->userid == $show['streamer']) {
             $show['editable'] = true;
+        }
+        if(isset($_GET['tstamp'])&&$_GET['tstamp']==true){
+            $show['tsdata'] = date('d. m. Y. H:i',$show['begin']).' - '.date('H:i',$show['end']);
+            $show['timestamp'] = true;
         }
         $template['shows'][] = $show;
     }
