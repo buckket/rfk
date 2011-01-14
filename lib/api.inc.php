@@ -89,7 +89,7 @@ function getNextShows(&$out){
     }else{
         $limit = 1;
     }
-    $sql  = 'SELECT thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
+    $sql  = 'SELECT `show`, thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
                 FROM shows
                 JOIN streamer USING (streamer)
                 WHERE begin > NOW() ';
@@ -111,6 +111,7 @@ function getNextShows(&$out){
             $tmp['showtype'] = $row['type'];
             $tmp['showname'] = $row['name'];
             $tmp['showdescription'] = $row['description'];
+            $tmp['showid'] = $row['show'];
             $tmp['showdj'] = $row['username'];
             $tmp['showdjid'] = $row['streamer'];
             $tmp['showthread'] = (int)$row['thread'];
@@ -130,7 +131,7 @@ function getLastShows(&$out){
     }else{
         $limit = 1;
     }
-    $sql  = 'SELECT thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
+    $sql  = 'SELECT `show`, thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
                 FROM shows
                 JOIN streamer USING (streamer)
                 WHERE end < NOW() ';
@@ -152,6 +153,7 @@ function getLastShows(&$out){
             $tmp['showtype'] = $row['type'];
             $tmp['showname'] = $row['name'];
             $tmp['showdescription'] = $row['description'];
+            $tmp['showid'] = $row['show'];
             $tmp['showdj'] = $row['username'];
             $tmp['showdjid'] = $row['streamer'];
             $tmp['showthread'] = (int)$row['thread'];
@@ -467,7 +469,7 @@ function rconfig(&$out) {
         throw_error(21, 'auth failed');
         return;
     }
-    if(isset($_GET['key']) && strlen($_GET['key'])) {
+    if(isset($_GET['key']) && strlen($_GET['key']) > 0) {
         switch($_GET['key']) {
             case 'background':
                 $key = 'background';
@@ -487,7 +489,7 @@ function rconfig(&$out) {
         throw_error(22, 'invalid input');
         return;
     }
-    if(isset($_GET['value']) && strlen($_GET['value'])) {
+    if(isset($_GET['value']) && strlen($_GET['value']) > 0) {
         //update
         $value = $_GET['value'];
         $sql = "INSERT INTO streamersettings (streamer,`key`,value)
@@ -511,6 +513,60 @@ function rconfig(&$out) {
             }
         }
     }  
+}
+
+function rthread(&$out) {
+    global $db;
+    
+    if(isset($_GET['show']) && strlen($_GET['show']) > 0) {
+        $show = $_GET['show'];
+        if(isset($_GET['thread']) && (is_int((int)$_GET['thread']))) {
+            //update
+            $thread = (int)$_GET['thread'];
+            if($out['auth']['status'] != 0) {
+                throw_error(21, 'auth failed');
+                return;
+            }
+            if($thread == 0) {
+                $sql = "UPDATE shows SET thread = NULL WHERE `show` = '" . $db->escape($show) ."' AND streamer = '" . $db->escape($out['auth']['id']) ."';";
+            }
+            else {
+                $sql = "UPDATE shows SET thread = '" . $db->escape($thread) . "' WHERE `show` = '" . $db->escape($show) ."' AND streamer = '" . $db->escape($out['auth']['id']) ."';";
+            }
+            if($db->execute($sql)) {
+                if($db->getAffectedRows() > 0) {
+                    $out['status'] = 0;
+                    $out['show'] = $show;
+                    $out['thread'] = $thread;
+                }
+                else {
+                    throw_error(21, 'auth failed');
+                    return;   
+                }
+            }
+
+        }
+        else {
+            //output
+            $sql = "SELECT thread FROM shows WHERE `show` = '" . $db->escape($show) . "';";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($row = $db->fetch($dbres)) {
+                    $out['status'] = 0;
+                    $out['show'] = $show;
+                    $out['thread'] = $row['thread'];
+                }
+            }
+            else {
+                throw_error(22, 'invalid input');
+                return;
+            }
+        }
+    }
+    else {
+        throw_error(22, 'invalid input');
+        return;
+    }
 }
 
 ?>

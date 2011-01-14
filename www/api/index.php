@@ -125,6 +125,9 @@ function handle_request($flag) {
                 case 'rconfig':
                     rconfig($out);
                     break;
+                case 'rthread':
+                    rthread($out);
+                    break;
                 default:
                     $out['warning'][] = $qry.' does not exsist';
             }
