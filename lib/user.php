@@ -151,7 +151,7 @@ class User{
      */
     function register($username,$password){
         global $db;
-        if(strpos($username,'|') === false && preg_match("\w",$username)){
+        if(strpos($username,'|') === false && preg_match("[A-Za-z0-9_-]",$username)){
             $sql = "INSERT INTO streamer (username,password)
                     VALUES ('".$db->escape($username)."',SHA('".$db->escape($password)."'))";
             if($db->execute($sql)){
