@@ -79,9 +79,9 @@ if($dbres) {
 
 //updateing irc
 $rrddsirc = array (new RRDDS('users', RRDDS::gauge, 120, 0, 'U'));
-$rrd = new RRD($rrddir,$row['mount']);
+$rrd = new RRD($rrddir,irc);
 if($rrd->create($rrddsirc, $rrdrras)) {
-    echo "created RRD $mount.rrd\n";
+    echo "created RRD irc.rrd\n";
 }
 $rrd->update(array('users'), array('users' => getIRCCount()));
 
