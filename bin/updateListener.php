@@ -2,6 +2,7 @@
 <?php
 set_time_limit(0);
 require_once '../lib/common.inc.php';
+require_once '../lib/common-functions.inc.php';
 require_once $includepath.'/RRD.php';
 $rrddir = $radioroot.'/var/lib/rrd/';
 $rrdds = array (new RRDDS('listener', RRDDS::gauge, 120, 0, 'U'));
@@ -76,5 +77,12 @@ if($dbres) {
     }
 }
 
+//updateing irc
+$rrddsirc = array (new RRDDS('users', RRDDS::gauge, 120, 0, 'U'));
+$rrd = new RRD($rrddir,$row['mount']);
+if($rrd->create($rrddsirc, $rrdrras)) {
+    echo "created RRD $mount.rrd\n";
+}
+$rrd->update(array('users'), array('users' => getIRCCount()));
 
 ?>
