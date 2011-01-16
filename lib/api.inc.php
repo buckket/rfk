@@ -82,12 +82,16 @@ function getCurrShow(&$out){
     }
 }
 
-function getNextShows(&$out){
+function getNextShows(&$out,$count = false){
     global $db;
     if(isset($_GET['c']) && $_GET['c'] > 1){
         $limit = $_GET['c'];
     }else{
         $limit = 1;
+    }
+
+    if($count && $count > 1){
+        $limit = $count;
     }
     $sql  = 'SELECT `show`, thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
                 FROM shows
@@ -283,7 +287,7 @@ function authTest(&$out) {
     global $db;
     if(isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) {
         $hostmask = explode('!', $_GET['hostmask']);
-        $sql = "SELECT streamer, username 
+        $sql = "SELECT streamer, username
                 FROM streamersettings
                 JOIN streamer using(streamer)
                 WHERE `key` = 'hostmask'
@@ -303,7 +307,7 @@ function authTest(&$out) {
 
 function authAdd(&$out) {
     global $db;
-    
+
     if((isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) && (isset($_GET['user']) && strlen($_GET['user']) > 0) && (isset($_GET['pass']) && strlen($_GET['pass']) > 0)) {
         $sql = "SELECT * FROM streamer WHERE username = '" . $db->escape($_GET['user']) . "' AND streampassword = '" . $db->escape($_GET['pass']) . "';";
         $dbres = $db->query($sql);
@@ -326,7 +330,7 @@ function authAdd(&$out) {
 
 function authJoin(&$out) {
     global $db;
-    
+
     if(isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) {
         $hostmask = explode('!', $_GET['hostmask']);
         $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
@@ -346,7 +350,7 @@ function authJoin(&$out) {
                     $out['auth']['nick'] = $row['username'];
                     $out['auth']['id'] = $row['streamer'];
                     $out['auth']['status'] = 0;
-                    return; 
+                    return;
                 }
             }
         }
@@ -356,7 +360,7 @@ function authJoin(&$out) {
 
 function authPart(&$out) {
     global $db;
-    
+
     if(isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) {
         $hostmask = explode('!', $_GET['hostmask']);
         $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
@@ -370,7 +374,7 @@ function authPart(&$out) {
                     $out['auth']['nick'] = $row['username'];
                     $out['auth']['id'] = $row['streamer'];
                     $out['auth']['status'] = 0;
-                    return; 
+                    return;
                 }
             }
         }
@@ -380,7 +384,7 @@ function authPart(&$out) {
 
 function authUpdate(&$out) {
     global $db;
-    
+
     if((isset($_GET['hostmask']) && strlen($_GET['hostmask']) > 0) && (isset($_GET['nick']) && strlen($_GET['nick']) > 0)) {
         $hostmask = explode('!', $_GET['hostmask']);
         $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
@@ -394,7 +398,7 @@ function authUpdate(&$out) {
                     $out['auth']['nick'] = $row['username'];
                     $out['auth']['id'] = $row['streamer'];
                     $out['auth']['status'] = 0;
-                    return; 
+                    return;
                 }
             }
         }
@@ -404,7 +408,7 @@ function authUpdate(&$out) {
 
 function isIRC(&$out) {
     global $db;
-    
+
     if(isset($_GET['djid']) && strlen($_GET['djid']) > 0) {
         $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'isIRC' AND value = 1 AND streamer = '" . $db->escape($_GET['djid']) . "';";
         $dbres = $db->query($sql);
@@ -423,7 +427,7 @@ function isIRC(&$out) {
 
 function areIRC(&$out) {
     global $db;
-    
+
     $sql = "SELECT * FROM streamersettings JOIN (SELECT streamer FROM streamersettings WHERE `key` = 'isIRC' AND value = 1) as a USING(streamer) WHERE `key` = 'hostmask';";
     $dbres = $db->query($sql);
     $tmp = array();
@@ -431,7 +435,7 @@ function areIRC(&$out) {
         while($row = $db->fetch($dbres)) {
             $tmp[] = $row['value'];
         }
-    $out['hostmasks'] = $tmp; 
+    $out['hostmasks'] = $tmp;
     }
 }
 
@@ -464,7 +468,7 @@ function getIRCCount() {
 
 function rconfig(&$out) {
     global $db;
-    
+
     if($out['auth']['status'] != 0) {
         throw_error(21, 'auth failed');
         return;
@@ -512,12 +516,12 @@ function rconfig(&$out) {
                 $out['value'] = $row['value'];
             }
         }
-    }  
+    }
 }
 
 function rthread(&$out) {
     global $db;
-    
+
     if(isset($_GET['show']) && strlen($_GET['show']) > 0) {
         $show = $_GET['show'];
         if(isset($_GET['thread']) && (is_int((int)$_GET['thread']))) {
@@ -541,7 +545,7 @@ function rthread(&$out) {
                 }
                 else {
                     throw_error(21, 'auth failed');
-                    return;   
+                    return;
                 }
             }
 
