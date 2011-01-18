@@ -104,6 +104,7 @@ function handle_request($flag) {
                     break;
                 case 'authadd':
                     authAdd($out);
+                    break;
                 case 'authjoin':
                     authJoin($out);
                     break;
