@@ -199,12 +199,15 @@ function getListener(&$out){
                   GROUP BY mount) as c
             RIGHT JOIN mounts USING (mount);";
     $dbres = $db->query($sql);
+    $tmp = array();
     if($dbres) {
         while($row = $db->fetch($dbres)) {
-            $out['listener'][$row['name']]['description'] = $row['description'];
-            $out['listener'][$row['name']]['c'] = $row['c'];
+            $tmp[] = array('name' => $row['name'],
+                'description' => $row['description'],
+                'c' => $row['c']);
         }
     }
+    $out['listener'] = $tmp;
 }
 
 function getListenerData(&$out) {
