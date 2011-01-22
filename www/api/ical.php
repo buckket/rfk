@@ -20,7 +20,7 @@ foreach($out['shows'] as $show) {
     $vevent = new vevent();
     $vevent->setProperty('DTSTART', date('Ymd\THis',$show['showbegin']));
     $vevent->setProperty('DTEND', date('Ymd\THis',$show['showend']));
-    $vevent->setProperty('SUMMARY', sprintf("%s mit %s",$show['showname'], $show['showdj']));
+    $vevent->setProperty('SUMMARY', sprintf('%s mit %s',$show['showname'], $show['showdj']));
     $vevent->setProperty('DESCRIPTION', $show['showdescription']);
     
     $v->setComponent($vevent);
