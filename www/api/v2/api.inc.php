@@ -4,59 +4,61 @@ $basePath = dirname(dirname(dirname(dirname(__FILE__))));
 require_once $basePath.'/lib/common.inc.php';
 /**
  * APIclass
- * 
+ *
  * Errorhandling:
- * 
- * Errorcode	Description
+ *
+ * Errorcode    Description
  * -----------------------------
  * 1			Error while parsing querys
- * 
- * 8			Unknown apicall
+ *
+ * 8		 	Unknown apicall
  * 9			Error in apicall
- * 
- * 
+ *
+ * 128			putDJ error
+ *
+ *
  * @author teddydestodes
  *
  */
 class Api {
-	
+
 	var $querys = array();
-	
+
 	var $users = array();
 	var $shows = array();
-	
+
 	var $output = array();
 	var $error = array();
-	
+
 	var $flags = 0;
-	
+
 	/**
 	 * This array is used to get the corresponding Function to an api call
-	 * 
+	 *
 	 * @var array
 	 */
 	var $queryhooks = array('dj'        => 'putDj',
 	                        'nextshows' => 'putNextShows',
 							'lastshows' => 'putLastShows');
-	
+
 	/**
 	 * Requeststatus
-	 * 
+	 *
 	 * 0 => ok
 	 * 1 => error and quit processing
 	 * @var unknown_type
 	 */
 	var $state = 0;
-	
+
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param array $query
 	 */
 	public function __construct($flags = 0) {
-		
+
 		$this->flags = $flags;
-		
+
 		$this->parseGET();
 		foreach($this->querys as $query => $args) {
 			if($this->state > 0){
@@ -66,7 +68,7 @@ class Api {
 			$this->doQuery($query,$args);
 		}
 	}
-	
+
 	private function doQuery($name,$args){
 		if(strlen($this->queryhooks[$name]) > 0){
 			try{
@@ -79,11 +81,11 @@ class Api {
 			$this->putError(8, 'unknown apicall \''.$name.'\'');
 		}
 	}
-	
+
 	private function putUser($id, $name){
 		$this->users[(int)$id] = array('name' => $name);
 	}
-	
+
 	private function putShow($id, $name,$description,$type,$dj,$thread,$begin,$end){
 		$this->shows[(int)$id] = array('name' => $name,
 		                               'description' => $description,
@@ -93,12 +95,12 @@ class Api {
 									   'dj'     => (int)$dj,
 									   'thread' => (int)$thread);
 	}
-	
+
 	private function putError($code, $message){
 		$this->state = 1;
 		$this->error = array('code' => $code, 'message' => $message);
 	}
-	
+
 	private function parseGET(){
 		foreach($_GET as $name => $query){
 			$qry = array();
@@ -109,16 +111,16 @@ class Api {
 				$qry[$qtmp[0]] = $qtmp[1];
 			} else {
 				$this->putError(1, 'Argument with 2 Values! ('.$name.'['.$qtmp[0].'])');
-				
+
 			}
 			$this->querys[$name] = $qry;
 		}
 		//print_r($this->querys);
 	}
-	
+
 	/**
 	 * returns a jsonecoded hash
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getJson(){
@@ -135,9 +137,9 @@ class Api {
 			return json_encode($out);
 		}
 	}
-	
+
 	//-- apifunction belong below this!!!
-	
+
 	private function putLastShows($args){
 	    global $db;
 	    if(isset($args['count']) && $args['count'] > 1){
@@ -149,14 +151,14 @@ class Api {
 	                FROM shows
 	                JOIN streamer USING (streamer)
 	                WHERE end < NOW() ';
-	
+
 	    if(isset($args['dj']) && strlen($args['dj']) > 0) {
 	        $sql .= 'AND username = "' . $db->escape($args['dj']) . '" ';
 	    }
-	
+
 	    $sql .= 'ORDER BY end DESC
 	                LIMIT 0,'.$limit;
-	
+
 	    $dbres = $db->query($sql);
 	    if($dbres) {
 	        while($row = $db->fetch($dbres)) {
@@ -166,10 +168,10 @@ class Api {
 	        }
 	    }
 	}
-	
-	function putDJ($args){
+
+	private function putDJ($args){
 	    global $db;
-	    
+
 	    if(isset($args['name'])) {
 	    	$sql = "SELECT * FROM streamer WHERE username = '" . $db->escape($args['name']) . "' LIMIT 1;";
 	    }else if(isset($args['id'])) {
