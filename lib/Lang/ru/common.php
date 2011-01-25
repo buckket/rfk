@@ -124,6 +124,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_ERR_WRONG_TIME'    => 'Время передачи неверное!',
               'L_ERR_NO_NAME'       => 'Именуй передачу!',
               'L_ERR_NO_DESC'       => 'У передачи нет описания!',
+              'L_ERR_NO_BBCODE'     => 'Нефиг пихать BBcode в название передачи!',
               'L_ERR_COLLIDES'      => 'Передача коллидирует с ',
               'L_ERR_SQL'           => 'Ошибка SQL!',
               //viewshow.html

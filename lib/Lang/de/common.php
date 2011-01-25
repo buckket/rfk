@@ -124,6 +124,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_ERR_WRONG_TIME'    => 'Die eingegebene Zeit ist ungültig!',
               'L_ERR_NO_NAME'       => 'Die Sendung hat keinen Namen!',
               'L_ERR_NO_DESC'       => 'Die Sendung hat keine Beschreibung!',
+              'L_ERR_NO_BBCODE'     => 'Die Sendung darf keinen BBcode im Titel haben!',
               'L_ERR_COLLIDES'      => 'Die Sendung kollidiert mit ',
               'L_ERR_SQL'           => 'SQL-Fersagen!',
               //viewshow.html

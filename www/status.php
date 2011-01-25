@@ -29,6 +29,8 @@ if($db->num_rows($result) > 0){
 	}else{
 	    $template['showunnamed'] = false;
 	}
+        $show['description'] = $bbcode->parse(bbcode_stripimg($show['description']));
+        $show['description'] = html_striplinebreaks($show['description']);
 	$template['show'] = $show;
 }else{
 	$template['streaming'] = false;

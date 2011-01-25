@@ -18,6 +18,11 @@ $_MSG['err'] = array();
 $_MSG['warn'] = array();
 $_MSG['msg'] = array();
 
+function html_striplinebreaks ($text) {
+    $stripped = str_replace("</p>","",str_replace("<p>", "", $text));
+    $stripped = preg_replace("#<br[^>]+\>#i", "", $stripped);
+    return $stripped;
+}
 
 //init bbcode
 // Zeilenumbrüche verschiedener Betriebsysteme vereinheitlichen
@@ -28,6 +33,10 @@ function convertlinebreaks ($text) {
 // Alles bis auf Neuezeile-Zeichen entfernen
 function bbcode_stripcontents ($text) {
     return preg_replace ("/[^\n]/", '', $text);
+}
+
+function bbcode_stripimg ($text) {
+    return preg_replace('#\[img\](.*?)\[/img\]#si', '', $text);
 }
 
 function do_bbcode_url ($action, $attributes, $content, $params, $node_object) {
