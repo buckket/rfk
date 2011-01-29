@@ -28,16 +28,16 @@ require_once $basePath.'/lib/common.inc.php';
  */
 class Api {
 
-	var $querys = array();
+    var $querys = array();
 
-	var $users = array();
-	var $tracks = array();
-	var $shows = array();
+    var $users = array();
+    var $tracks = array();
+    var $shows = array();
 
-	var $output = array();
-	var $error = array();
+    var $output = array();
+    var $error = array();
 
-	var $flags = 0;
+    var $flags = 0;
     var $key = null;
 
     /**
@@ -49,99 +49,99 @@ class Api {
     const kick      = 8;
     const ban      = 16;
 
-	/**
-	 * This array is used to get the corresponding Function to an api call
-	 *
-	 * @var array
-	 */
-	var $queryhooks = array('dj'          => 'putDj',
-	                        'currdj'          => 'putCurrDj',
-	                        'nextshows'   => 'putNextShows',
-	                        'currentshow' => 'putCurrShow',
-							'lastshows'   => 'putLastShows',
-	                        'currtrack'   => 'putCurrTrack',
-							'lasttracks'  => 'putLastTracks',
-	                        'listener'    => 'putListener',
-							'countries'   => 'putCountries',
-	                        'kick'        => 'kickDJ');
+    /**
+     * This array is used to get the corresponding Function to an api call
+     *
+     * @var array
+    */
+    var $queryhooks = array('dj'          => 'putDj',
+                            'currdj'      => 'putCurrDj',
+                            'nextshows'   => 'putNextShows',
+                            'currentshow' => 'putCurrShow',
+                            'lastshows'   => 'putLastShows',
+                            'currtrack'   => 'putCurrTrack',
+                            'lasttracks'  => 'putLastTracks',
+                            'listener'    => 'putListener',
+                            'countries'   => 'putCountries',
+                            'kick'        => 'kickDJ');
 
-	/**
-	 * Requeststatus
-	 *
-	 * 0 => ok
-	 * 1 => error and quit processing
-	 * @var unknown_type
-	 */
-	var $state = 0;
+    /**
+     * Requeststatus
+     *
+     * 0 => ok
+     * 1 => error and quit processing
+     * @var unknown_type
+    */
+ var $state = 0;
 
-	/**
-	 * Constructor
-	 *
-	 * @param array $query
-	 */
-	public function __construct() {
-		$this->parseGET();
-		$this->checkKey();
-		foreach($this->querys as $query => $args) {
-			if($this->state > 0){
-				break;
-			}
-			$this->doQuery($query,$args);
-		}
-	}
+    /**
+     * Constructor
+     *
+     * @param array $query
+    */
+    public function __construct() {
+        $this->parseGET();
+        $this->checkKey();
+        foreach($this->querys as $query => $args) {
+            if($this->state > 0){
+                break;
+            }
+            $this->doQuery($query,$args);
+        }
+    }
 
-	private function doQuery($name,$args){
-		if(isset($this->queryhooks[$name]) && strlen($this->queryhooks[$name]) > 0){
-			try{
-				$class = $this->queryhooks[$name];
-				$this->$class($args);
-			}catch(Exception $e){
-				$this->putError(9, 'error in apicall \''.$name.'\'');
-			}
-		}else{
-			$this->putError(8, 'unknown apicall \''.$name.'\'');
-		}
-	}
+    private function doQuery($name,$args){
+        if(isset($this->queryhooks[$name]) && strlen($this->queryhooks[$name]) > 0){
+            try{
+                $class = $this->queryhooks[$name];
+                $this->$class($args);
+            }catch(Exception $e){
+                $this->putError(9, 'error in apicall \''.$name.'\'');
+            }
+        }else{
+            $this->putError(8, 'unknown apicall \''.$name.'\'');
+        }
+    }
 
-	private function putUser($id, $name){
-		$this->users[(int)$id] = array('name' => $name);
-	}
+    private function putUser($id, $name){
+        $this->users[(int)$id] = array('name' => $name);
+    }
 
     private function putTrack($id,$artist, $title){
-		$this->tracks[(int)$id] = array('artist' => $artist,
-		                                'title'  => $title);
-	}
+        $this->tracks[(int)$id] = array('artist' => $artist,
+                                        'title'  => $title);
+    }
 
-	private function putShow($id, $name,$description,$type,$dj,$thread,$begin,$end){
-		$this->shows[(int)$id] = array('name' => $name,
-		                               'description' => $description,
-		                               'begin'  => (int)$begin,
-		                               'end'    => $end==0?null:(int)$end,
-									   'type'   => $type,
-									   'dj'     => (int)$dj,
-									   'thread' => $thread==0?null:(int)$thread);
-	}
+    private function putShow($id, $name,$description,$type,$dj,$thread,$begin,$end){
+        $this->shows[(int)$id] = array( 'name' => $name,
+                                        'description' => $description,
+                                        'begin'  => (int)$begin,
+                                        'end'    => $end==0?null:(int)$end,
+                                        'type'   => $type,
+                                        'dj'     => (int)$dj,
+                                        'thread' => $thread==0?null:(int)$thread);
+    }
 
-	private function putError($code, $message){
-		$this->state = 1;
-		$this->error = array('code' => $code, 'message' => $message);
-	}
+    private function putError($code, $message){
+        $this->state = 1;
+        $this->error = array('code' => $code, 'message' => $message);
+    }
 
-	/**
-	 * Check Key and Quota
-	 */
-	private function checkKey(){
-	    global $db;
-	    if(!(isset($this->key)) || strlen($this->key)< 10) {
+    /**
+     * Check Key and Quota
+    */
+    private function checkKey(){
+        global $db;
+        if(!(isset($this->key)) || strlen($this->key)< 10) {
             $this->putError(2, 'No Apikey given!');
             return ;
-	    }
-	    $sql = "SELECT apikey,`key`, flag, UNIX_TIMESTAMP(lastaccessed) as lastaccessed
-	              FROM apikeys
-	             WHERE `key` = '".$db->escape($this->key)."'
-	             LIMIT 1;";
-	    $dbres = $db->query($sql);
-    	if ($dbres) {
+        }
+        $sql = "SELECT apikey,`key`, flag, UNIX_TIMESTAMP(lastaccessed) as lastaccessed
+                FROM apikeys
+                WHERE `key` = '".$db->escape($this->key)."'
+                LIMIT 1;";
+        $dbres = $db->query($sql);
+        if ($dbres) {
             if($row = $db->fetch($dbres)) {
                 //check if enabled
                 $this->flags = (int)$row['flag'];
@@ -163,104 +163,104 @@ class Api {
         } else {
             $this->putError(500, 'Internal Error');
         }
-	}
+    }
 
-	/**
-	 * parses the Request
-	 */
-	private function parseGET(){
-		foreach($_GET as $name => $query){
-			$qry = array();
-			$qtmp = explode(':', $query);
+    /**
+     * parses the Request
+    */
+    private function parseGET(){
+        foreach($_GET as $name => $query){
+            $qry = array();
+            $qtmp = explode(':', $query);
 
-		    if($name == 'key') {
-		        if(count($qtmp) == 1) {
+            if($name == 'key') {
+                if(count($qtmp) == 1) {
                     $this->key = $qtmp[0];
-		        } else {
-		            $this->putError(2, 'No Apikey given!');
-		            return ;
-		        }
+                } else {
+                    $this->putError(2, 'No Apikey given!');
+                    return ;
+                }
                 continue;
-		    }
+            }
 
-			if(count($qtmp) == 1){
-				$qry[$qtmp[0]] = true;
-			} else if(count($qtmp) == 2){
-				$qry[$qtmp[0]] = $qtmp[1];
-			} else {
-				$this->putError(1, 'Argument with 2 Values! ('.$name.'['.$qtmp[0].'])');
+            if(count($qtmp) == 1){
+                $qry[$qtmp[0]] = true;
+            } else if(count($qtmp) == 2){
+                $qry[$qtmp[0]] = $qtmp[1];
+            } else {
+                $this->putError(1, 'Argument with 2 Values! ('.$name.'['.$qtmp[0].'])');
 
-			}
-			$this->querys[$name] = $qry;
-		}
-	}
+            }
+            $this->querys[$name] = $qry;
+        }
+    }
 
-	/**
-	 * returns a jsonecoded hash
-	 *
-	 * @return string
-	 */
-	public function getJson(){
-		if($this->state > 0){
-			return json_encode(array('state' => $this->state, 'error' => $this->error));
-		}else{
-			$out = $this->output;
-			if(count($this->shows) > 0){
-				$out['shows'] = $this->shows;
-			}
-		    if(count($this->users) > 0){
-				$out['users'] = $this->users;
-			}
-			if(count($this->tracks) > 0){
-				$out['tracks'] = $this->tracks;
-			}
-			return json_encode($out);
-		}
-	}
+    /**
+     * returns a jsonecoded hash
+     *
+     * @return string
+    */
+    public function getJson(){
+        if($this->state > 0){
+            return json_encode(array('state' => $this->state, 'error' => $this->error));
+        }else{
+            $out = $this->output;
+            if(count($this->shows) > 0){
+                $out['shows'] = $this->shows;
+            }
+            if(count($this->users) > 0){
+                $out['users'] = $this->users;
+            }
+            if(count($this->tracks) > 0){
+                $out['tracks'] = $this->tracks;
+            }
+            return json_encode($out);
+        }
+    }
 
-	//-- apifunction belong below this!!!
+    //-- apifunction belong below this!!!
 
-	private function putLastShows($args){
-	    global $db;
-	    if(isset($args['count']) && $args['count'] > 1){
-	        $limit = $args['count'];
-	    }else{
-	        $limit = 1;
-	    }
-	    $sql  = 'SELECT `show`, thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
-	                FROM shows
-	                JOIN streamer USING (streamer)
-	                WHERE end < NOW() ';
+    private function putLastShows($args){
+        global $db;
+        if(isset($args['count']) && $args['count'] > 1){
+            $limit = $args['count'];
+        }else{
+            $limit = 1;
+        }
+        $sql  = 'SELECT `show`, thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
+                FROM shows
+                JOIN streamer USING (streamer)
+                WHERE end < NOW() ';
 
-	    if(isset($args['dj']) && strlen($args['dj']) > 0) {
-	        $sql .= 'AND username = "' . $db->escape($args['dj']) . '" ';
-	    }
+        if(isset($args['dj']) && strlen($args['dj']) > 0) {
+            $sql .= 'AND username = "' . $db->escape($args['dj']) . '" ';
+        }
 
-	    $sql .= 'ORDER BY end DESC
-	                LIMIT 0,'.$limit;
+        $sql .= 'ORDER BY end DESC
+                    LIMIT 0,'.$limit;
 
-	    $dbres = $db->query($sql);
-	    $this->output['lastshows'] = array();
-	    if($dbres) {
-	        while($row = $db->fetch($dbres)) {
-	            $this->putUser($row['streamer'], $row['username']);
-	            $this->putShow($row['show'], $row['name'], $row['description'], $row['type'], $row['streamer'], $row['thread'], $row['b'], $row['e']);
-	            $this->output['lastshows'][] = (int)$row['show'];
-	        }
-	    }
-	}
+        $dbres = $db->query($sql);
+        $this->output['lastshows'] = array();
+        if($dbres) {
+            while($row = $db->fetch($dbres)) {
+                $this->putUser($row['streamer'], $row['username']);
+                $this->putShow($row['show'], $row['name'], $row['description'], $row['type'], $row['streamer'], $row['thread'], $row['b'], $row['e']);
+                $this->output['lastshows'][] = (int)$row['show'];
+            }
+        }
+    }
 
     function putNextShows($args){
         global $db;
         if(isset($args['count']) && $args['count'] > 1){
-	        $limit = $args['count'];
-	    }else{
-	        $limit = 1;
-	    }
+            $limit = $args['count'];
+        }else{
+            $limit = 1;
+        }
         $sql  = 'SELECT `show`, thread,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
-                    FROM shows
-                    JOIN streamer USING (streamer)
-                    WHERE begin > NOW() ';
+                FROM shows
+                JOIN streamer USING (streamer)
+                WHERE begin > NOW() ';
 
         if(isset($args['dj']) && strlen($args['dj']) > 0) {
             $sql .= 'AND username = "' . $db->escape($args['dj']) . '" ';
@@ -274,15 +274,15 @@ class Api {
         if($dbres) {
             while($row = $db->fetch($dbres)) {
                 $this->putUser($row['streamer'], $row['username']);
-	            $this->putShow($row['show'], $row['name'], $row['description'], $row['type'], $row['streamer'], $row['thread'], $row['b'], $row['e']);
-	            $this->output['nextshows'][] = (int)$row['show'];
+                $this->putShow($row['show'], $row['name'], $row['description'], $row['type'], $row['streamer'], $row['thread'], $row['b'], $row['e']);
+                $this->output['nextshows'][] = (int)$row['show'];
             }
         }
     }
 
-	private function putCurrShow($args){
-	    global $db;
-	    $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username, streamer, status, thread
+    private function putCurrShow($args){
+        global $db;
+        $sql = 'SELECT `show`, UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e,name, description,type, username, streamer, status, thread
                 FROM shows
                 JOIN streamer USING (streamer)
                 WHERE end IS NULL
@@ -310,38 +310,38 @@ class Api {
                 }
             }
         }
-	}
+    }
 
-	private function putDJ($args){
-	    global $db;
+    private function putDJ($args){
+        global $db;
 
-	    if(isset($args['name'])) {
-	    	$sql = "SELECT * FROM streamer WHERE username = '" . $db->escape($args['name']) . "' LIMIT 1;";
-	    }else if(isset($args['id'])) {
-		    $sql = "SELECT * FROM streamer WHERE streamer = '" . $db->escape($args['id']) . "' LIMIT 1;";
-	    }else{
-	    	$this->putError(128, "'dj' needs at least one argument [name|id]!");
-	    	return;
-	    }
-	    $dbres = $db->query($sql);
-	    if($dbres) {
-	        $row = $db->fetch($dbres);
-	        $this->putUser($row['streamer'],$row['username']);
-	        $this->output['dj'] = $row['streamer'];
-	    }
-	}
+        if(isset($args['name'])) {
+            $sql = "SELECT * FROM streamer WHERE username = '" . $db->escape($args['name']) . "' LIMIT 1;";
+        }else if(isset($args['id'])) {
+            $sql = "SELECT * FROM streamer WHERE streamer = '" . $db->escape($args['id']) . "' LIMIT 1;";
+        }else{
+            $this->putError(128, "'dj' needs at least one argument [name|id]!");
+            return;
+        }
+        $dbres = $db->query($sql);
+        if($dbres) {
+            $row = $db->fetch($dbres);
+            $this->putUser($row['streamer'],$row['username']);
+            $this->output['dj'] = $row['streamer'];
+        }
+    }
 
     private function putCurrDJ($args){
-	    global $db;
-    	$sql = "SELECT * FROM streamer WHERE status='STREAMING' LIMIT 1;";
-	    $dbres = $db->query($sql);
-	    $this->output['currdj'] = null;
-	    if($dbres) {
-	        $row = $db->fetch($dbres);
-	        $this->putUser($row['streamer'],$row['username']);
-	        $this->output['currdj'] = $row['streamer'];
-	    }
-	}
+        global $db;
+        $sql = "SELECT * FROM streamer WHERE status='STREAMING' LIMIT 1;";
+        $dbres = $db->query($sql);
+        $this->output['currdj'] = null;
+        if($dbres) {
+            $row = $db->fetch($dbres);
+            $this->putUser($row['streamer'],$row['username']);
+            $this->output['currdj'] = $row['streamer'];
+        }
+    }
 
     private function putCurrTrack($args) {
         global $db;
@@ -366,10 +366,10 @@ class Api {
     private function putLastTracks($args){
         global $db;
         if(isset($args['count']) && $args['count'] > 1){
-	        $limit = $args['count'];
-	    }else{
-	        $limit = 1;
-	    }
+            $limit = $args['count'];
+        }else{
+            $limit = 1;
+        }
         $sql = 'SELECT `song`,title, artist
                 FROM songhistory
                 ORDER BY song DESC
@@ -423,10 +423,10 @@ class Api {
     }
 
 
-	/**
-	 * kicks a DJ
-	 * @param array $args
-	 */
+    /**
+     * kicks a DJ
+     * @param array $args
+    */
     private function kickDJ($args){
         if($this->flags&self::kick != 0){
             global $basePath;
@@ -456,7 +456,7 @@ class Api {
      * bans a DJ by id
      * @todo alles
      * @param array $args
-     */
+    */
     private function banDJ($args){
         if($this->flags&self::ban != 0){
             global $db;
