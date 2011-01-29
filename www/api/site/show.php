@@ -98,6 +98,11 @@ function addShow(&$data){
 			                         'desc'   => $lang->lang('L_ERR_NO_DESC'));
         return;
     }
+    if(preg_match('#\[(.*?)\](.*?)\[/(.*?)\]#si', $name)){
+        $data['error'][] = array('errid'  => 6,
+                                                 'desc'   => $lang->lang('L_ERR_NO_BBCODE'));
+        return;
+    }
     $tstart = $start+1;
     $tend = $end-1;
     $sql = "SELECT * FROM shows

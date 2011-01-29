@@ -144,6 +144,8 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $template['nextyearnum'] = date('Y',$nextweek);
     $template['prevweeknum'] = date('W',$prevweek);
     $template['prevyearnum'] = date('Y',$prevweek);
+
+    $template['show_is_of_add'] = true;
     cleanup_h2o($template);
     include('include/listenercount.php');
     include('include/sidebar.php');
@@ -214,6 +216,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
     $template['nextmonth'] = date('m',$nextmonth);
     $template['nextyear'] = date('Y',$nextmonth);
     $template['section'] = "broadcasts";
+    $template['show_is_of_add'] = false;
     $template['PAGETITLE'] = $lang->lang('L_PROGRAM');
     include('include/listenercount.php');
     include('include/sidebar.php');

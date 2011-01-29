@@ -10,7 +10,16 @@ block.super
 function nextShowInfo(showid){
     loadDialog('{{ WEBROOT }}show.php?action=show&ajax=true&tstamp=true&show='+showid,true);
 }
+
+var currweek =      '{{ currweek }}';
+var webroot =       '{{ WEBROOT }}';
+var lshow =         '{% lang L_SHOW %}';
+var lsavesuccess =  '{% lang L_SAVESUCCESS %}';
+var lnodatafield =  '{% lang L_NO_DATA_FIELD %}';
+var lnospanning =   '{% lang L_NO_SPANNING %}';
+var lerrwrongtime = '{% lang L_ERR_WRONG_TIME %}';
 </script>
+<script type="text/javascript" src="{{ WEBROOT }}js/show.js"></script>
 <ul>
 {% for show in nextshows %}
 <li><a href="javascript:nextShowInfo({{show.showid}});">{{show.showname}} ({{show.streamer}})</a></li>
@@ -18,6 +27,7 @@ function nextShowInfo(showid){
 </ul>
 </div>
 {% if user_logged_in %}
+{% if show_is_of_add %}
 <div class='infoblock'>
 <h3>{% lang L_ACTIONS %}</h3>
 	<a href="javascript:addShow();" id="addshowlink">{% lang L_ADDSHOW %}</a>
@@ -34,6 +44,7 @@ function nextShowInfo(showid){
 		</form>
 	</div>
 </div>
+{% endif %}
 {% endif %}
 </div>
 {% endblock %}
