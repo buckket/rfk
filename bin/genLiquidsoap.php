@@ -114,6 +114,9 @@ function output(){
             case 'OGG':
                 makeOGG($row);
                 break;
+            case 'AACP':
+                makeAAC($row);
+                break;
         }
     }
 }
@@ -149,11 +152,11 @@ function makeAAC($array) {
             restart=true,
             host="'.$_config['icecast_address'].'",port='.$_config['icecast_port'].',protocol="http",
             user="'.$array['username'].'",password="'.$array['password'].'",
-            mount="'.$array['path'].'",quality='.$array['quality'].'.0,
+            mount="'.$array['path'].'",bitrate='.$array['quality'].',
             url="radio.krautchan.net",public=false,
-            restart_on_crash=true,
+            restart_on_crash=true,restart_delay=3,
             fallible=true,
-            full
+            full)
             ';
 }
 ?>
