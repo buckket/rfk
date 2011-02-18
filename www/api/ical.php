@@ -14,7 +14,14 @@ $v->setProperty('x-wr-timezone', 'Europe/Berlin');
 $v->setProperty('method', 'PUBLISH' );
 
 $out = array();
+$curr = array();
+
+getCurrShow(&$curr);
 getNextShows(&$out,500);
+
+if($curr['showtype'] == 'PLANNED') {
+    $out['shows'][] = $curr;
+}
 
 foreach($out['shows'] as $show) {
     $vevent = new vevent();
