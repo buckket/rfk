@@ -67,15 +67,18 @@
           <li {% if section == 'help' %}class="selected"{% endif %}>          
           <a href="http://schuchtel.net/mwiki/index.php?title=Radio">{% lang L_HELP %}</a>          
           </li>
-	      {% if !user_logged_in %}
+          <li>          
+          <a href="{{ WEBROOT }}donations.php">{% lang L_DONATIONS %}</a>          
+          </li>
+          {% if !user_logged_in %}
           <li {% if section == 'login' %}class="selected"{% endif %}>          
           <a href="{{ WEBROOT }}login.php">{% lang L_LOGIN %}</a>          
           </li>        
           <li {% if section == 'register' %}class="selected"{% endif %}>
           <a href="{{ WEBROOT }}register.php">{% lang L_REGISTER %}</a>
           </li>
-		  {% else %}
-		  <li>          
+          {% else %}
+          <li>
           <a href="{{ WEBROOT }}login.php?logout=true">{% lang L_LOGOUT %}</a>
           </li>
 	      {% endif %}

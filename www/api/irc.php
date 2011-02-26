@@ -5,6 +5,8 @@ require_once $basePath.'/lib/common.inc.php';
 require_once $basePath.'/lib/liquidsoaptelnet.php';
 require_once $basePath.'/lib/api.inc.php';
 
+printf("<h1>#RfK - Niemand will's wissen</h1>");
+
 global $db;
 $sql = "SELECT * FROM streamersettings WHERE `key` = 'isIRC' AND value = 1";
 $dbres = $db->query($sql);
@@ -17,5 +19,6 @@ if($dbres) {
         }
     }
 }
-printf("<br>\n<br>\nInsgesamt: %s IRC-Bernds", getIRCCount());
+printf("<br>\n<img src='../irc.png' />");
+printf("<br>\n<br>\nMomentan: %s IRC-Bernds", getIRCCount());
 ?>

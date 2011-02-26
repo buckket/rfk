@@ -6,9 +6,9 @@ use warnings;
 use File::Copy;
 
 # config
-my $repoDir = '/home/radio/rfk/';
-my $workingDir = '/usr/share/rfk/';
-my $gitwebURL = 'http://94.23.239.51/gitweb/?p=rfk.git;a=commit;h=';
+my $repoDir = '/home/radio/repo/';
+my $workingDir = '/home/radio/radio/';
+my $gitwebURL = 'http://git.uncloaked.net/?p=rfk.git;a=commit;h=';
 
 chdir($repoDir);
 
