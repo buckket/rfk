@@ -19,11 +19,15 @@ require_once $basePath.'/lib/common.inc.php';
  * 9			Error in apicall
  *
  * 128			putDJ error
+ * 129          isIRC error
+ * 130          setIRCCount error
+ * 131          authTest error
+ * 132          authAdd error
  *
  * 403			Forbidden
  * 500			Internal Error
  *
- * @author teddydestodes
+ * @author teddydestodes, MrLoom
  *
  */
 class Api {
@@ -48,6 +52,7 @@ class Api {
     const fastquery = 4;
     const kick      = 8;
     const ban      = 16;
+    const auth     = 32;
 
     /**
      * This array is used to get the corresponding Function to an api call
@@ -63,7 +68,13 @@ class Api {
                             'lasttracks'  => 'putLastTracks',
                             'listener'    => 'putListener',
                             'countries'   => 'putCountries',
-                            'kick'        => 'kickDJ');
+                            'kick'        => 'kickDJ',
+                            'isirc'       => 'isIRC',
+                            'areirc'      => 'areIRC',
+                            'setirccount' => 'setIRCCount',
+                            'getirccount' => 'getIRCCount',
+                            'authtest'    => 'authTest',
+                            'authadd'     =>  'authAdd');
 
     /**
      * Requeststatus
@@ -397,7 +408,7 @@ class Api {
         if($dbres) {
             while($row = $db->fetch($dbres)) {
                 $this->output['listener'][$row['name']] = array('description' => $row['description'],
-                                                                'count'       => $row['c']);
+                                                                'count'       => (int)$row['c']);
             }
         }
     }
@@ -417,7 +428,7 @@ class Api {
         if($dbres) {
             while($row = $db->fetch($dbres)) {
                 $this->output['countries'][] = array('country' => $row['country'],
-                               						'count' => (int)$row['c']);
+                                                     'count' => (int)$row['c']);
             }
         }
     }
@@ -483,5 +494,160 @@ class Api {
         }
         $tmp['sum'] = $tmp['in']+$tmp['out'];
         $this->output['traffic'] = $tmp;
+    }
+    
+    private function getHostmask($id) {
+        global $db;
+        if(isset($id)) {
+            $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND streamer = '" . $db->escape($id) . "';";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($row = $db->fetch($dbres)) {
+                    return $row['value'];
+                }
+            }
+        }
+    }
+    
+    private function isIRC($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $db;
+        if(isset($args['id']) && strlen($args['id']) > 0) {
+            $sql = "SELECT * FROM streamersettings
+                    JOIN streamer using(streamer)
+                    WHERE `key` = 'isIRC'
+                    AND value = 1
+                    AND streamer = '" . $db->escape($args['id']) . "';";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($row = $db->fetch($dbres)) {
+                    $this->output['isirc']['hostmask'] = $this->getHostmask($row['streamer']);
+                    $this->output['isirc']['nick'] = $row['username'];
+                    $this->output['isirc']['id'] = $row['streamer'];
+                    $this->output['isirc']['status'] = 0;
+                    return;
+                }
+            }
+        }
+        else {
+            $this->putError(129, "'isirc' needs at least one argument [id]!");
+            return;
+        }
+        $this->output['isirc']['status'] = 1;
+    }
+        
+    private function areIRC($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $db;
+        $sql = "SELECT * FROM streamersettings
+                JOIN (SELECT streamer FROM streamersettings
+                WHERE `key` = 'isIRC'
+                AND value = 1) as a USING(streamer) 
+                WHERE `key` = 'hostmask';";
+        $dbres = $db->query($sql);
+        $tmp = array();
+        if($dbres) {
+            while($row = $db->fetch($dbres)) {
+                $tmp[] = $row['value'];
+            }
+        $this->output['areirc'] = $tmp;
+        }
+    }
+    
+    private function setIRCCount($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $basePath;
+        if(isset($args['c']) && (is_int((int)$args['c']))) {
+            if(file_put_contents($basePath.'/var/irccount', (int)$args['c'])) {
+                $this->output['setirccount']['status'] = 0;
+            }
+            else {
+                $this->output['setirccount']['status'] = 1;
+            }
+        }
+        else {
+            $this->putError(130, "'setIRCCount' needs at least one argument [c]!");
+            return;
+        }
+    }
+    
+    private function getIRCCount($args) {
+        global $basePath;
+        $this->output['getirccount']['c'] = (int)file_get_contents($basePath.'/var/irccount');
+    }
+    
+    private function authTest($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $db;
+        if(isset($args['hostmask']) && strlen($args['hostmask']) > 0) {
+            $hostmask = explode('!', $args['hostmask']);
+            $sql = "SELECT streamer, username
+                    FROM streamersettings
+                    JOIN streamer using(streamer)
+                    WHERE `key` = 'hostmask'
+                    AND `value` REGEXP '[A-z0-9]+!". $db->escape($hostmask[1]) . "' ;";
+            $dbres = $db->query($sql);
+            if($dbres) {
+                if($row = $db->fetch($dbres)) {
+                    $this->output['auth']['nick'] = $row['username'];
+                    $this->output['auth']['id'] = $row['streamer'];
+                    $this->output['auth']['status'] = 0;
+                    return;
+                }
+            }
+        }
+        else {
+            $this->putError(131, "'authTest' needs at least one argument [hostmask]!");
+            return;
+        }    
+        $this->output['auth']['status'] = 1;
+    }
+    
+    private function authAdd($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $db;
+        if((isset($args['hostmask']) && strlen($args['hostmask']) > 0) && (isset($args['user']) && strlen($args['user']) > 0) && (isset($args['pass']) && strlen($args['pass']) > 0)) {
+            $sql = "SELECT * FROM streamer
+                    WHERE username = '" . $db->escape($args['user']) . "'
+                    AND streampassword = '" . $db->escape($args['pass']) . "';";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($row = $db->fetch($dbres)) {
+                    $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                            VALUES (" . $row['streamer'] . ",'hostmask','" . $db->escape($args['hostmask']) ."')
+                            ON DUPLICATE KEY UPDATE value = '" . $db->escape($args['hostmask']) . "';";
+                    if($db->execute($sql)) {
+                        $this->output['auth']['nick'] = $row['username'];
+                        $this->output['auth']['id'] = $row['streamer'];
+                        $this->output['auth']['status'] = 0;
+                        return;
+                    }
+                }
+            }
+        }
+        else {
+            $this->putError(132, "'authAdd' needs three arguments [hostmask, user, pass]!");
+        }
+        $this->output['auth']['status'] = 1;
     }
 }
