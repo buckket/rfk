@@ -182,25 +182,29 @@ class Api {
     private function parseGET(){
         foreach($_GET as $name => $query){
             $qry = array();
-            $qtmp = explode(':', $query);
+            if(strlen($query)>0) {
+                $qtmp = explode(':', $query);
 
-            if($name == 'key') {
-                if(count($qtmp) == 1) {
-                    $this->key = $qtmp[0];
-                } else {
-                    $this->putError(2, 'No Apikey given!');
-                    return ;
+                if($name == 'key') {
+                    if(count($qtmp) == 1) {
+                        $this->key = $qtmp[0];
+                    } else {
+                        $this->putError(2, 'No Apikey given!');
+                        return ;
+                    }
+                    continue;
                 }
-                continue;
-            }
-
-            if(count($qtmp) == 1){
-                $qry[$qtmp[0]] = true;
-            } else if(count($qtmp) == 2){
-                $qry[$qtmp[0]] = $qtmp[1];
-            } else {
-                $this->putError(1, 'Argument with 2 Values! ('.$name.'['.$qtmp[0].'])');
-
+                if (count($qtmp)%2 == 0) {
+                    for($i = 0; $i < count($qtmp) ;$i += 2){
+                        if(strlen($qtmp[$i+1]) > 0){
+                            $qry[$qtmp[$i]] = $qtmp[$i+1];
+                        } else {
+                            $qry[$qtmp[$i]] = true;
+                        }
+                    }
+                } else {
+                    $this->putError(1, 'Wrong argument/value-count (e.g. argument without value)');
+                }
             }
             $this->querys[$name] = $qry;
         }
@@ -495,7 +499,7 @@ class Api {
         $tmp['sum'] = $tmp['in']+$tmp['out'];
         $this->output['traffic'] = $tmp;
     }
-    
+
     private function getHostmask($id) {
         global $db;
         if(isset($id)) {
@@ -508,13 +512,13 @@ class Api {
             }
         }
     }
-    
+
     private function isIRC($args) {
         if(!($this->flags&self::auth)){
             $this->putError(403, 'You dont have auth permission');
             return;
         }
-        
+
         global $db;
         if(isset($args['id']) && strlen($args['id']) > 0) {
             $sql = "SELECT * FROM streamersettings
@@ -539,18 +543,18 @@ class Api {
         }
         $this->output['isirc']['status'] = 1;
     }
-        
+
     private function areIRC($args) {
         if(!($this->flags&self::auth)){
             $this->putError(403, 'You dont have auth permission');
             return;
         }
-        
+
         global $db;
         $sql = "SELECT * FROM streamersettings
                 JOIN (SELECT streamer FROM streamersettings
                 WHERE `key` = 'isIRC'
-                AND value = 1) as a USING(streamer) 
+                AND value = 1) as a USING(streamer)
                 WHERE `key` = 'hostmask';";
         $dbres = $db->query($sql);
         $tmp = array();
@@ -561,13 +565,13 @@ class Api {
         $this->output['areirc'] = $tmp;
         }
     }
-    
+
     private function setIRCCount($args) {
         if(!($this->flags&self::auth)){
             $this->putError(403, 'You dont have auth permission');
             return;
         }
-        
+
         global $basePath;
         if(isset($args['c']) && (is_int((int)$args['c']))) {
             if(file_put_contents($basePath.'/var/irccount', (int)$args['c'])) {
@@ -582,18 +586,18 @@ class Api {
             return;
         }
     }
-    
+
     private function getIRCCount($args) {
         global $basePath;
         $this->output['getirccount']['c'] = (int)file_get_contents($basePath.'/var/irccount');
     }
-    
+
     private function authTest($args) {
         if(!($this->flags&self::auth)){
             $this->putError(403, 'You dont have auth permission');
             return;
         }
-        
+
         global $db;
         if(isset($args['hostmask']) && strlen($args['hostmask']) > 0) {
             $hostmask = explode('!', $args['hostmask']);
@@ -615,16 +619,16 @@ class Api {
         else {
             $this->putError(131, "'authTest' needs at least one argument [hostmask]!");
             return;
-        }    
+        }
         $this->output['auth']['status'] = 1;
     }
-    
+
     private function authAdd($args) {
         if(!($this->flags&self::auth)){
             $this->putError(403, 'You dont have auth permission');
             return;
         }
-        
+
         global $db;
         if((isset($args['hostmask']) && strlen($args['hostmask']) > 0) && (isset($args['user']) && strlen($args['user']) > 0) && (isset($args['pass']) && strlen($args['pass']) > 0)) {
             $sql = "SELECT * FROM streamer
