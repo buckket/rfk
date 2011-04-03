@@ -9,16 +9,16 @@ require_once $basePath.'/lib/common.inc.php';
  *
  * Errorcode    Description
  * -----------------------------
- * 1			Error while parsing querys
- * 2			No Apikey
- * 3			Key disabled/banned
- * 4			Quota exceeded
- * 5			Invalid Key
+ * 1            Error while parsing querys
+ * 2            No Apikey
+ * 3            Key disabled/banned
+ * 4            Quota exceeded
+ * 5            Invalid Key
  *
- * 8		 	Unknown apicall
- * 9			Error in apicall
+ * 8            Unknown apicall
+ * 9            Error in apicall
  *
- * 128			putDJ error
+ * 128          putDJ error
  * 129          isIRC error
  * 130          setIRCCount error
  * 131          authTest error
@@ -29,8 +29,8 @@ require_once $basePath.'/lib/common.inc.php';
  * 136          rConfig error
  * 137          rThread error
  *
- * 403			Forbidden
- * 500			Internal Error
+ * 403          Forbidden
+ * 500          Internal Error
  *
  * @author teddydestodes, MrLoom
  *
@@ -879,6 +879,5 @@ class Api {
             $this->putError(137, 'invalid input');
             return;
         }
-    }
-    
+    } 
 }

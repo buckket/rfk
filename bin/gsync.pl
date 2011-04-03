@@ -8,7 +8,7 @@ use File::Copy;
 # config
 my $repoDir = '/home/radio/repo/';
 my $workingDir = '/home/radio/radio/';
-my $gitwebURL = 'http://git.uncloaked.net/?p=rfk.git;a=commit;h=';
+my $gitwebURL = 'http://git.uncloaked.net/rfk.git/commit/?id=';
 
 chdir($repoDir);
 
