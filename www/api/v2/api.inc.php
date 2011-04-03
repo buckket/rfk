@@ -23,6 +23,11 @@ require_once $basePath.'/lib/common.inc.php';
  * 130          setIRCCount error
  * 131          authTest error
  * 132          authAdd error
+ * 133          authUpdate error
+ * 134          authJoin error
+ * 135          authPart error
+ * 136          rConfig error
+ * 137          rThread error
  *
  * 403			Forbidden
  * 500			Internal Error
@@ -74,7 +79,12 @@ class Api {
                             'setirccount' => 'setIRCCount',
                             'getirccount' => 'getIRCCount',
                             'authtest'    => 'authTest',
-                            'authadd'     =>  'authAdd');
+                            'authadd'     => 'authAdd',
+                            'authupdate'  => 'authUpdate',
+                            'authjoin'    => 'authJoin',
+                            'authpart'    => 'authPart',
+                            'rconf'       => 'rConfig',
+                            'rthread'     => 'rThread');
 
     /**
      * Requeststatus
@@ -654,4 +664,221 @@ class Api {
         }
         $this->output['auth']['status'] = 1;
     }
+    
+    private function authUpdate($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+
+        global $db;
+        if((isset($args['hostmask']) && strlen($args['hostmask']) > 0) && (isset($args['nick']) && strlen($args['nick']) > 0)) {
+            $hostmask = explode('!', $args['hostmask']);
+            $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($row = $db->fetch($dbres)) {
+                    $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                            VALUES (" . $row['streamer'] . ",'hostmask', '" . $db->escape($args['nick'] . "!" . $hostmask[1]) . "')
+                            ON DUPLICATE KEY UPDATE value = '" . $db->escape($args['nick'] . "!" . $hostmask[1]) . "';";
+                    if($db->execute($sql)) {
+                        $this->output['auth']['nick'] = $row['username'];
+                        $this->output['auth']['id'] = $row['streamer'];
+                        $this->output['auth']['status'] = 0;
+                        return;
+                    }
+                }
+            }
+        }
+        else {
+            $this->putError(133, "'authUpdate' needs two arguments [hostmask, nick]!");
+        }
+        $this->output['auth']['status'] = 1;
+    }
+    
+    private function authJoin($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $db;
+        if(isset($args['hostmask']) && strlen($args['hostmask']) > 0) {
+            $hostmask = explode('!', $args['hostmask']);
+            $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($row = $db->fetch($dbres)) {
+                    if($row['hostmask'] != $args['hostmask']) {
+                        $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                                VALUES (" . $row['streamer'] . ",'hostmask', '" . $db->escape($args['hostmask']) . "')
+                                ON DUPLICATE KEY UPDATE value = '" . $db->escape($args['hostmask']) . "';";
+                        $db->execute($sql);
+                    }
+                    $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                            VALUES (" . $row['streamer'] . ",'isIRC', 1)
+                            ON DUPLICATE KEY UPDATE value = 1;";
+                    if($db->execute($sql)) {
+                        $this->output['auth']['nick'] = $row['username'];
+                        $this->output['auth']['id'] = $row['streamer'];
+                        $this->output['auth']['status'] = 0;
+                        return;
+                    }
+                }
+            }
+        }
+        else {
+            $this->putError(134, "'authJoin' needs one argument [hostmask]!");
+        }
+        $this->output['auth']['status'] = 1;
+    }
+    
+    private function authPart($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $db;
+        if(isset($args['hostmask']) && strlen($args['hostmask']) > 0) {
+            $hostmask = explode('!', $args['hostmask']);
+            $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($row = $db->fetch($dbres)) {
+                    $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                            VALUES (" . $row['streamer'] . ",'isIRC', 0)
+                            ON DUPLICATE KEY UPDATE value = 0;";
+                    if($db->execute($sql)) {
+                        $this->output['auth']['nick'] = $row['username'];
+                        $this->output['auth']['id'] = $row['streamer'];
+                        $this->output['auth']['status'] = 0;
+                        return;
+                    }
+                }
+            }
+        }
+        else {
+            $this->putError(135, "'authPart' needs one argument [hostmask]!");
+        }
+        $this->output['auth']['status'] = 1;
+    }
+    
+    private function rConfig($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $db;
+
+        if($this->output['auth']['status'] != 0 || !isset($this->output['auth']['status'])) {
+            $this->putError(403, "Auth failed");
+            return;
+        }
+        if(isset($args['key']) && strlen($args['key']) > 0) {
+            switch($args['key']) {
+                case 'background':
+                    $key = 'background';
+                    break;
+                case 'description':
+                    $key = 'defaultshowdescription';
+                    break;
+                case 'name':
+                    $key = 'defaultshowname';
+                    break;
+                default:
+                    $this->putError(136, 'invalid input');
+                    return;
+            }
+        }
+        else {
+            $this->putError(136, 'invalid input');
+            return;
+        }
+        if(isset($args['value']) && strlen($args['value']) > 0) {
+            //update
+            $value = $args['value'];
+            $sql = "INSERT INTO streamersettings (streamer,`key`,value)
+                    VALUES (" . $this->output['auth']['id'] . ",'" . $db->escape($key) ."', '" . $db->escape($value) . "')
+                    ON DUPLICATE KEY UPDATE value = '" . $db->escape($value) ."';";
+            if($db->execute($sql)) {
+                $this->output['rconf']['status'] = 0;
+                $this->output['rconf']['key'] = $key;
+                $this->output['rconf']['value'] = $value;
+            }
+        }
+        else {
+            //output
+            $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = '" . $db->escape($key) ."' AND streamer = '" . $db->escape($this->output['auth']['id']) . "';";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($row = $db->fetch($dbres)) {
+                    $this->output['rconf']['status'] = 0;
+                    $this->output['rconf']['key'] = $key;
+                    $this->output['rconf']['value'] = $row['value'];
+                }
+            }
+        }
+    }
+    
+    private function rThread($args) {
+        if(!($this->flags&self::auth)){
+            $this->putError(403, 'You dont have auth permission');
+            return;
+        }
+        
+        global $db;
+
+        if(isset($args['show']) && strlen($args['show']) > 0) {
+            $show = $args['show'];
+            if(isset($args['thread']) && (is_int((int)$args['thread']))) {
+                //update
+                $thread = (int)$args['thread'];
+                if($this->output['auth']['status'] != 0 || !isset($this->output['auth']['status'])) {
+                    $this->putError(403, "Auth failed");
+                    return;
+                }
+                if($thread == 0) {
+                    $sql = "UPDATE shows SET thread = NULL WHERE `show` = '" . $db->escape($show) ."' AND streamer = '" . $db->escape($this->output['auth']['id']) ."';";
+                }
+                else {
+                    $sql = "UPDATE shows SET thread = '" . $db->escape($thread) . "' WHERE `show` = '" . $db->escape($show) ."' AND streamer = '" . $db->escape($this->output['auth']['id']) ."';";
+                }
+                if($db->execute($sql)) {
+                    if($db->getAffectedRows() > 0) {
+                        $this->output['rthread']['status'] = 0;
+                        $this->output['rthread']['show'] = $show;
+                        $this->output['rthread']['thread'] = $thread;
+                    }
+                    else {
+                        $this->putError(403, "Auth failed");
+                        return;
+                    }
+                }
+
+            }
+            else {
+                //output
+                $sql = "SELECT thread FROM shows WHERE `show` = '" . $db->escape($show) . "';";
+                $dbres = $db->query($sql);
+                if($dbres && $db->num_rows($dbres) > 0) {
+                    if($row = $db->fetch($dbres)) {
+                        $this->output['rconf']['status'] = 0;
+                        $this->output['rconf']['show'] = $show;
+                        $this->output['rconf']['thread'] = $row['thread'];
+                    }
+                }
+                else {
+                    $this->putError(137, 'invalid input');
+                    return;
+                }
+            }
+        }
+        else {
+            $this->putError(137, 'invalid input');
+            return;
+        }
+    }
+    
 }
