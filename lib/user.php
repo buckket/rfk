@@ -1,10 +1,24 @@
 <?php
-
+/**
+ * Userclass
+ * @author teddydestodes
+ */
 class User{
+    /**
+     * Username
+     * @var string
+     */
     var $username = false;
+    /**
+     * userId
+     * @var integer
+     */
     var $userid = false;
+    /**
+     * @var boolean
+     */
     var $logged_in = false;
-    var $rights = array();
+
     var $country = 'unknown';
 
     function User(){
@@ -30,6 +44,7 @@ class User{
         }
         $this->setLocale();
     }
+
     /**
      * authenticates the user
      * @param $username
@@ -62,6 +77,7 @@ class User{
 
     /**
      * checks the user logged in
+     * @return boolean
      */
     function logged_in()
     {
@@ -104,22 +120,6 @@ class User{
         return $this->logged_in;
     }
 
-
-    function get_userrights(){
-        global $db;
-        /**
-         $sql = "SELECT `right` from streamerrights Where user_id = ".$this->userid.";";
-         $result = $db->query($sql);
-         while($row = $db->fetch($result)){
-         $this->rights[] = $row['right'];
-         }
-         **/
-    }
-
-    function has_right($right){
-        return in_array($right,$this->rights);
-    }
-
     private function setLocale() {
         global $db,$lang;
         if(isset($_COOKIE['rfk_locale'])){
@@ -142,6 +142,7 @@ class User{
             }
         }
     }
+
     /**
      *   TODO spamfilter
      *  returncode  desc
@@ -163,20 +164,6 @@ class User{
         }else{
             return -1;
         }
-    }
-
-    function set_streampassword($streampassword){
-        global $db;
-        $sql = "UPDATE streamer SET streampassword = '".$db->escape($streampassword)."' WHERE streamer = ".$this->userid." LIMIT 1;";
-        return $db->execute($sql);
-    }
-
-    function set_djname($djname){
-        //TODO stub
-    }
-
-    function set_showname($showname){
-        //TODO stub
     }
 }
 
