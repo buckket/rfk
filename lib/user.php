@@ -81,6 +81,30 @@ class User{
             return false;
         }
     }
+    
+    /**
+     * check if user is admin
+     */
+    function is_admin()
+    {
+        global $db;
+        if($this->logged_in) {
+            $sql = "SELECT value
+                    FROM streamersettings
+                    JOIN streamer USING (streamer)
+                    WHERE `key` = 'admin'
+                    AND value='true'
+                    AND streamer = ".$this->userid;
+            $dbres = $db->query($sql);
+            if($row = $db->fetch($dbres)){
+                if($row['value'] == 'true'){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
 
     /**
      * logs the user out
