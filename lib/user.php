@@ -81,7 +81,7 @@ class User{
             return false;
         }
     }
-    
+
     /**
      * check if user is admin
      */
@@ -104,7 +104,7 @@ class User{
         }
         return false;
     }
-    
+
 
     /**
      * logs the user out
@@ -146,12 +146,24 @@ class User{
 
     private function setLocale() {
         global $db,$lang;
-        if(isset($_COOKIE['rfk_locale'])){
-            $locale = (int)$_COOKIE['rfk_locale'];
-        }
         if(isset($_GET['locale']) && $_GET['locale'] > 0){
             $locale = (int)$_GET['locale'];
+        }else if(isset($_COOKIE['rfk_locale'])){
+            $locale = (int)$_COOKIE['rfk_locale'];
+        }else if($location = getLocation($_SERVER['REMOTE_ADDR'])){
+            if(strlen($location['cc']) > 0 ) {
+                $sql = "SELECT * FROM locales WHERE country = '".$db->escape($location['cc'])."' LIMIT 1;";
+                $dbres = $db->query($sql);
+                if($row = $db->fetch($dbres)) {
+                    $locale = $row['locale'];
+                }else{
+                    $locale = 0;
+                }
+            }else{
+                    $locale = 0;
+            }
         }
+
         if(!($locale > 0)){
             return;
         }
