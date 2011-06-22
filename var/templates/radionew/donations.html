@@ -3,5 +3,30 @@
 {% block content %}
 <h2>{% lang L_DONATIONS %}</h2>
 
+<b><u>How to Donate:</b></u><br />
+<b>PayPal:</b> ask one of the admins on irc<br />
+<b>Flattr:</b> use the button at the bottom<br />
+<b>Bitcoin:</b> 1NDthvgi7B7HsTvG85gxBkft4AWuWkMXag<br /><br />
+{% if isAdmin %}
+EDIT FORM HERE
+{% endif %}
+<table class="donation">
+    <tr>
+        <th>Date</th>
+        <th>Origin</th>
+        <th>Amount</th>
+        <th>After conversion</th>
+        <th>Method</th>
+    </tr>
+{% for donation in donations %}
+<tr>
+    <td>{{ donation.time }}</td>
+    <td><img src="{{ WEBROOT }}images/cb/{{ donation.country }}.png" /></td>
+    <td>{{ donation.inValue }} {{ donation.inCurrency }}</td>
+    <td>{{ donation.outValue }} {{ donation.outCurrency }}</td>
+    <td>{{ donation.method }}</td>
+</tr>
+{% endfor %}
+</table>
 
 {% endblock %}

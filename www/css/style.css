@@ -503,3 +503,19 @@ margin:3px 0;
     padding: 1px;
     border: 1px solid #CCCCCC;
 }
+
+/* Spenden Tabelle */
+table.donation td {
+    padding: 2px 11px 2px 5px;
+    border-style: solid;
+    border-color: #c0c0c0;
+    border-width: 0 0 1px 0;
+}
+table.donation th {
+    padding: 2px 16px 2px 0;
+}
+table.donation img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -2,15 +2,39 @@
 $basePath = dirname(dirname(dirname(__FILE__)));
 require_once $basePath.'/lib/common.inc.php';
 require_once $basePath.'/lib/api.inc.php';
-require_once $basePath.'/lib/RSS2Writer.php';
+require_once $basePath.'/lib/rss/FeedWriter.php';
 
-$rss = new RSS2Writer("RfK - Sendungen", "Sendungen", "http://radio.krautchan.net/",6,false);
 
-$rss->addCategory("RSS Feed");
+$Feed = new FeedWriter(RSS2);
+
+$title = 'Radio freies Krautchen';
+$link = 'http://radio.krautchan.net';
+$desc = 'Upcomming shows';
+$Feed->setTitle($title);
+$Feed->setLink($link);
+$Feed->setDescription($desc);
+
+$Feed->setImage($title,$link,$link.'/logo2.png');
+$Feed->setChannelElement('language', 'de-de');
+$Feed->setChannelElement('pubDate', date(DATE_RSS, time()));
 $out = array();
-getNextShows(&$out,500);
+$sql  = 'SELECT `show`, thread,UNIX_TIMESTAMP(updated) as updated,UNIX_TIMESTAMP(begin) as b,UNIX_TIMESTAMP(end) as e, name, description, type, username, streamer
+                FROM shows
+                JOIN streamer USING (streamer)
+                WHERE begin > NOW() ';
+$res = $db->query($sql);
 
-foreach($out['shows'] as $show){
-    $rss->addItem($show['showdj'].': '.$show['showname'].' ('.date('d.m.Y H:i',$show['showbegin']).' - '.date('H:i',$show['showend']).')',$show['showdescription'],'http://radio.krautchan.net/broadcasts.php');
+if($res && $db->num_rows($res) > 0 ) {
+    while($show = $db->fetch_assoc($res)) {
+        $newItem = $Feed->createNewItem();
+        $newItem->setTitle($show['username'].': '.$show['name'].' ('.date('d.m.Y H:i',$show['b']).' - '.date('H:i',$show['e']).')');
+        $newItem->setLink('http://radio.krautchan.net/broadcasts.php');
+        $newItem->setDate($show['updated']);
+        $newItem->setDescription($show['description']);
+        $newItem->addElement('author', $show['username']);
+
+        $Feed->addItem($newItem);
+    }
 }
-echo $rss->getXML();
+
+$Feed->genarateFeed();
