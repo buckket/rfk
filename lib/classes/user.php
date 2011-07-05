@@ -8,49 +8,27 @@ class User{
      * Username
      * @var string
      */
-    var $username = false;
+    private $username = false;
     /**
      * userId
      * @var integer
      */
-    var $userid = false;
+    private $userid = false;
     /**
      * @var boolean
      */
-    var $logged_in = false;
+    private $logged_in = false;
 
-    var $country = 'unknown';
+    private $country = 'unknown';
 
-    function User(){
-        global $_config,$_MSG;
-        $this->username = $_config['default-username'];
-        if($this->logged_in()){
-            if(isset($_GET['logout']) && $_GET['logout'] === 'true'){
-                $this->logout();
-                $_MSG['msg'][] = "Erfolgreich abgemeldet!";
-            }
-        }else if(isset($_POST['login']) && strlen($_POST['username']) != 0 && strlen($_POST['password']) != 0 ){
-            $this->login($_POST['username'],$_POST['password']);
-            if(!$this->logged_in){
-                $_MSG['err'][] = "Benutzername und/oder Passwort falsch!";
-            }else{
-                $_MSG['msg'][] = "Erfolgreich angemeldet;";
-            }
-        } else {
-            //not logged in
-        }
-        if($this->logged_in){
-            //disabled for now
-        }
-        $this->setLocale();
-    }
+    public function __construct(){}
 
     /**
      * authenticates the user
      * @param $username
      * @param $password
      */
-    function login($username, $password){
+    public function login($username, $password){
         global $db;
         $db->debugquery = false;
         $sql="SELECT streamer,username
@@ -79,29 +57,31 @@ class User{
      * checks the user logged in
      * @return boolean
      */
-    function logged_in()
+    function isLoggedIn($recheck = false)
     {
-        global $db;
-        $sql="SELECT streamer,username
-		FROM streamer
-		WHERE session='".session_id()."'
-		LIMIT 1";
-        $result = $db->query($sql);
-        if($db->num_rows($result) == 1 ){
-            $user = $db->fetch($result);
-            $this->userid = $user['streamer'];
-            $this->username = $user['username'];
-            $this->logged_in = true;
-            return true;
-        }else{
-            return false;
+        if(!isset($this->logged_in) || $recheck) {
+            global $db;
+            $sql="SELECT streamer,username
+    		FROM streamer
+    		WHERE session='".session_id()."'
+    		LIMIT 1";
+            $result = $db->query($sql);
+            if($db->num_rows($result) == 1 ){
+                $user = $db->fetch($result);
+                $this->userid = $user['streamer'];
+                $this->username = $user['username'];
+                $this->logged_in = true;
+            }else{
+                $this->logged_in = false;
+            }
         }
+        return $this->logged_in;
     }
 
     /**
      * check if user is admin
      */
-    function is_admin()
+    function isAdmin()
     {
         global $db;
         if($this->logged_in) {
@@ -136,15 +116,7 @@ class User{
         $this->username = $_config['default-username'];
     }
 
-    /**
-     * returns true if the user is logged in
-     * @return boolean
-     */
-    function is_logged_in(){
-        return $this->logged_in;
-    }
-
-    private function setLocale() {
+    public function setLocale() {
         global $db,$lang;
         if(isset($_GET['locale']) && $_GET['locale'] > 0){
             $locale = (int)$_GET['locale'];

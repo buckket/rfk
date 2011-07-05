@@ -1,0 +1,22 @@
+xxx{% extends "broadcasts-sb.html"%}
+{% block content %}
+<h2>{% lang L_PROGRAM %}</h2>
+<table width="100%">
+<tr style="border:none;">
+        <td>&nbsp;</td>
+        <td colspan=2 class="calendar-head-left"><a href="broadcasts.php?year={{ prevyearnum }}&week={{ prevweeknum }}">&lt;&lt; {{ prevmonthname }}</a></td>
+        <td colspan=3 class="calendar-head">{{ daybegin }} - {{ dayend }} {{ year }}</td>
+        <td colspan=2 class="calendar-head-right"><a href="broadcasts.php?&year={{ nextyearnum }}&week={{ nextweeknum }}">{{ nextmonthname }} &gt;&gt;</a></td>
+</tr>
+</table>
+<table width="100%" class="calendar-week" cellspacing=0>
+<tr><td>{%lang D_MONDAY%}</td><td></td></tr>
+<tr><td>{%lang D_TUESDAY%}</td><td></td></tr>
+<tr><td>{%lang D_WEDNESDAY%}</td><td></td></tr>
+<tr><td>{%lang D_MONDAY%}</td><td></td></tr>
+<tr><td>{%lang D_MONDAY%}</td><td></td></tr>
+<tr><td>{%lang D_MONDAY%}</td><td></td></tr>
+<tr><td>{%lang D_MONDAY%}</td><td></td></tr>
+</table>
+<script type="text/javascript" src="{{ WEBROOT }}js/show.js"></script>
+{% endblock %}

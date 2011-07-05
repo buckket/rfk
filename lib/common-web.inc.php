@@ -4,21 +4,17 @@ session_start();
 require_once(dirname(__FILE__).'/common.inc.php');
 require_once(dirname(__FILE__).'/common-functions.inc.php');
 
-require_once(dirname(__FILE__).'/user.php');
-require_once(dirname(__FILE__).'/template.php');
+require_once(dirname(__FILE__).'/classes/user.php');
+require_once(dirname(__FILE__).'/classes/urlParser.php');
+require_once(dirname(__FILE__).'/classes/Site.php');
+require_once(dirname(__FILE__).'/classes/template.php');
 require_once(dirname(__FILE__).'/bbcode/stringparser_bbcode.class.php');
 
 
-//the User
-$user = new USER();
-
+$urlParams = new UrlParser();
+$urlParams->parseUrl();
 $template = new Template();
 $template->setTemplatePath(dirname(dirname(__FILE__)).'/var/templates/mkiv/');
-
-//global arrays for messages
-$_MSG['err'] = array();
-$_MSG['warn'] = array();
-$_MSG['msg'] = array();
 
 function html_striplinebreaks ($text) {
     $stripped = str_replace("</p>","",str_replace("<p>", "", $text));

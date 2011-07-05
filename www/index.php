@@ -1,29 +1,45 @@
 <?php
+/**
+ * index.php
+ */
 require_once('../lib/common-web.inc.php');
-global $lang;
-$template = array();
-$template['PAGETITLE'] = $lang->lang('L_OVERVIEW');
-$template['section'] = 'overview';
-$sql = "SELECT news, time, description, text, username
-        FROM news
-        JOIN streamer USING (streamer)
-        ORDER BY time
-        DESC LIMIT 5;";
-$dbres = $db->query($sql);
-if($dbres){
-    while($row = $db->fetch($dbres)){
-        $row['text'] = $bbcode->parse($row['text']);
-
-        $template['news'][] = array('id' => $row['news'],
-                                    'description' => $row['description'],
-                                    'user' => $row['username'],
-                                    'text' => $row['text'],
-                                    'time' => $row['time']);
+$user = new User();
+/**
+ * loginstuff
+ */
+if($user->isLoggedIn(true)) {
+    if( isLogout() ) {
+        $user->logout();
+    }
+} else {
+    if ( isLogin() ) {
+        $user->login($_POST['username'], $_POST['password']);
     }
 }
-cleanup_h2o($template);
-include('include/listenercount.php');
-include('include/sidebar.php');
-$h2o = new H2o('index.html',$h2osettings);
-echo $h2o->render($template);
+$user->setLocale();
+/**
+ * end setting up user
+ */
+
+/**
+ * load Site
+ */
+if ($urlParams->getSite()) {
+    $site = Site::loadSiteByName($urlParams->getSite());
+    if(isset($site)) {
+        if($site->render() == Site::$RENDER_TEMPLATE) {
+            $template->printPage();
+        }
+    }else {
+        echo "this is not the site you are looking for!";
+    }
+} else {
+
+    $site = Site::loadSiteByName('news');
+    if(isset($site)) {
+        if($site->render() == Site::$RENDER_TEMPLATE) {
+            $template->printPage();
+        }
+    }
+}
 ?>

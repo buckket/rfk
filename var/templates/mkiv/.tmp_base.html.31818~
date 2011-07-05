@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title> {{ PAGETITLE }}::{{ TITLE }} </title>
+		<title> {{ PAGETITLE}}::{{ TITLE }} </title>
 	</head>
 	<body>
 		

@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__).'/h2o/h2o.php');
+require_once(dirname(dirname(__FILE__)).'/h2o/h2o.php');
 
 /**
  * templateclass
@@ -34,7 +34,8 @@ class Template {
     var $data;
 
     public function __construct() {
-
+        global $_config;
+        $this->addData('PAGETITLE', $_config['pagetitle']);
     }
 
     /**
@@ -44,6 +45,14 @@ class Template {
      */
     public function addData($key, $data) {
         $this->data[$key] = $data;
+    }
+
+    /**
+     * sets the Page Title
+     * @param string $title
+     */
+    public function setTitle($title){
+        $this->data['TITLE'] = $title;
     }
 
     /**
