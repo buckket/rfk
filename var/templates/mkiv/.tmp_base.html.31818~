@@ -1,8 +1,0 @@
-<html>
-	<head>
-		<title> {{ PAGETITLE}}::{{ TITLE }} </title>
-	</head>
-	<body>
-		
-	</body>
-</html>
