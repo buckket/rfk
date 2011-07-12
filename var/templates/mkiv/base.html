@@ -1,8 +1,47 @@
-<html>
-	<head>
-		<title> {{ PAGETITLE }}::{{ TITLE }} </title>
-	</head>
-	<body>
-		
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <title>{{ PAGETITLE }}::{{ TITLE }} </title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link rel="shortcut icon" href="{{ WEBROOT }}favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="{{ WEBROOT }}css/layout.css" type="text/css" charset="utf-8"/>
+        <link rel="stylesheet" href="{{ WEBROOT }}css/disco.css" type="text/css" charset="utf-8"/>
+        <script type="text/javascript" src="{{ WEBROOT }}js/jquery-1.6.2.min.js">
+        </script>
+        <script type="text/javascript" src="{{ WEBROOT }}js/rfk.js">
+        </script>
+        <script type="text/javascript" src="{{ WEBROOT }}js/disco.js">
+        </script>
+        <script type="text/javascript">
+            var webroot = "{{ WEBROOT }}";
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <img src="{{ WEBROOT }}images/logo.png" alt="logo" />
+            <br/>
+            <div id="menubar">
+                <ul>
+                    <li>
+                        <a href="#" onclick="showLoginBox(this);">Login</a>
+                        <div id="loginbox">
+                            User<input id="username" />&nbsp;
+                            Pass<input id="password" />
+							<input type="button" value="login"/>
+                        </div>
+                    </li>
+                    <li>
+                        keks
+                    </li>
+                    <li>
+                        dreqmist
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer">
+            {{ uptime }}
+            {% include "disco.html" %}
+        </div>
+    </body>
 </html>

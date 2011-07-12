@@ -15,6 +15,7 @@ $urlParams = new UrlParser();
 $urlParams->parseUrl();
 $template = new Template();
 $template->setTemplatePath(dirname(dirname(__FILE__)).'/var/templates/mkiv/');
+$template->setWebRoot($_config['webroot']);
 
 function html_striplinebreaks ($text) {
     $stripped = str_replace("</p>","",str_replace("<p>", "", $text));

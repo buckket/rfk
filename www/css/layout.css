@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+body,html {
+	padding: 0px;
+	margin: 0px;
+}
+
+#loginbox {
+	position: relative;
+	background-color: red;
+	display:inline;
+}
+
+#footer {
+	bottom: 0px;
+	height: 20px;
+	border-top: 1px solid grey;
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	background-color: #C0C0C0;
+}
+
+#header #menubar {
+	display: inline;
+	position: relative;
+	border-right: 1px solid grey;
+	border-top: 1px solid grey;
+	border-bottom: 1px solid grey;
+	width: auto;
+	border-right: 1px solid grey;
+	background-color: #C0C0C0;
+}
+
+#header #menubar li {
+	display: inline;
+	list-style-type: none;
+}
+
+#header #menubar ul {
+	display: inline;
+	margin: 10px 0px;
+}

@@ -3,6 +3,7 @@
  * index.php
  */
 require_once('../lib/common-web.inc.php');
+require_once('../lib/classes/statusbar.php');
 $user = new User();
 /**
  * loginstuff
@@ -38,6 +39,8 @@ if ($urlParams->getSite()) {
     $site = Site::loadSiteByName('news');
     if(isset($site)) {
         if($site->render() == Site::$RENDER_TEMPLATE) {
+            $statusbar = new StatusBar();
+            $statusbar->pushToTemplate();
             $template->printPage();
         }
     }

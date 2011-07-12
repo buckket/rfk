@@ -1,0 +1,31 @@
+<div id="disco">
+    {% if disco_background %}
+    <div class="cbackground">
+        <img src="http://www.abload.de/img/{{ disco_background }}" height=65px width=129px />
+    </div>{% endif %}
+    <div class="foreground">
+        <img src="{{ WEBROOT }}images/disco.png" />
+    </div>{% if disco_streamer %}
+    <div class="hp">
+        <img src="{{ WEBROOT }}images/headphones.png" />
+    </div>
+    <div class="dj">
+        <img src="{{ WEBROOT }}images/cb/{{ disco_streamer }}.png" />
+    </div>{% endif %}
+    <div id="dancearea">
+        {% for listener in disco %}
+        <div class="listener" style="left:{{ listener.x }}px;bottom:{{ listener.y }}px;">
+            <img src="{{ WEBROOT }}images/cb/{{ listener.country }}.png" />
+        </div>
+		{% endfor %}
+    </div>
+    <marquee scrollamount="2" id="ticker">
+        testo
+    </marquee>
+    <div id="minmax" style="background-image: url({{ WEBROOT }}/images/arr_down.png);"></div>
+    <div id="hide" style="background-image: url({{ WEBROOT }}/images/hide.png);"></div>
+</div>
+<div id="discohidden">
+	<span>show disco</span>
+	<div id="hide" style="background-image: url({{ WEBROOT }}/images/hide.png);"></div>
+</div>

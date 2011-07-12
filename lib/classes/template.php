@@ -51,8 +51,12 @@ class Template {
      * sets the Page Title
      * @param string $title
      */
-    public function setTitle($title){
+    public function setTitle($title) {
         $this->data['TITLE'] = $title;
+    }
+
+    public function setWebRoot($webroot) {
+        $this->data['WEBROOT'] = $webroot;
     }
 
     /**

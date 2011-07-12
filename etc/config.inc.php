@@ -21,4 +21,5 @@ $_config['liquidsoap_address'] = '192.168.2.101';
 $_config['liquidsoap_port'] = 8010;
 
 $_config['pagetitle'] = 'Radio freies Krautchan';
+$_config['webroot'] = '/rfk/';
 ?>

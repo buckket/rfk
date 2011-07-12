@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">  
+  <head>
+    <title>Radio freies Krautchan :: {{ PAGETITLE }}</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="{{ WEBROOT }}favicon.ico" type="image/x-icon" /> 
+	<link rel="stylesheet" href="{{ WEBROOT }}css/style.css" type="text/css" charset="utf-8"/>
+	<link rel="stylesheet" href="{{ WEBROOT }}css/kcradio/jquery-ui-1.8.5.custom.css" type="text/css" charset="utf-8"/>
+	<link rel="stylesheet" href="{{ WEBROOT }}css/ui.slider.extras.css" type="text/css" charset="utf-8"/>
+	<script type="text/javascript" src="{{ WEBROOT }}js/jquery-1.4.2.min.js" ></script>
+	<script type="text/javascript" src="{{ WEBROOT }}js/jquery-ui-1.8.5.custom.min.js" ></script>
+	<script type="text/javascript" src="{{ WEBROOT }}js/jquery.jplayer.min.js" ></script>
+	<script type="text/javascript" src="{{ WEBROOT }}js/jquery.dataTables.min.js" ></script>
+	<script type="text/javascript" src="{{ WEBROOT }}js/jtip.js" ></script>
+	<script type="text/javascript" src="{{ WEBROOT }}js/rfk.js" ></script>
+	
+	<script type="text/javascript">
+    /* <![CDATA[ */
+        (function() {
+            var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+
+            t.parentNode.insertBefore(s, t);
+        })();
+    /* ]]> */
+    </script>
+    
+  </head>  
+  <body>    
+    <div id="container">      
+      <div id="header">
+        <img src="{{ WEBROOT }}images/logo.png" alt="Logo" />
+        <div class="disco">
+        {% if disco_background %}
+            <div class="cbackground"><img src="http://www.abload.de/img/{{ disco_background }}" height=65px width=129px /></div>
+        {% endif %}
+            <div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
+        {% if disco_streamer %}
+            <div class="hp"><img src="{{ WEBROOT }}images/headphones.png" /></div>
+            <div class="dj"><img src="{{ WEBROOT }}images/cb/{{ disco_streamer }}.png" /></div>
+        {% endif %}
+            <div class="foreground"><img src="{{ WEBROOT }}images/disco.png" /></div>
+        {% for listener in disco %}
+            <div class="listener" style="left:{{ listener.x }}px;bottom:{{ listener.y }}px;"><img src="{{ WEBROOT }}images/cb/{{ listener.country }}.png" /></div>
+        {% endfor %}
+        <div class="text"><marquee scrollamount="2" id="ticker">testo</marquee></div>
+        </div>
+      </div>      
+      <div id="navigation">        
+        <ul>
+		  
+          <li {% if section == 'overview' %}class="selected"{% endif %}>          
+          <a href="{{ WEBROOT }}index.php">{% lang L_OVERVIEW %}</a>          
+          </li>          
+          <li {% if section == 'history' %}class="selected"{% endif %}>          
+          <a href="{{ WEBROOT }}history.php">{% lang L_HISTORY %}</a>          
+          </li {% if section == 'broadcasts' %}class="selected"{% endif %}>          
+          <li>          
+          <a href="{{ WEBROOT }}broadcasts.php">{% lang L_SHOWS %}</a>          
+          </li>          
+          <li {% if section == 'status' %}class="selected"{% endif %}>          
+          <a href="{{ WEBROOT }}status.php">{% lang L_STATUS %}</a>          
+          </li>
+          <li {% if section == 'help' %}class="selected"{% endif %}>          
+          <a href="http://schuchtel.net/mwiki/index.php?title=Radio">{% lang L_HELP %}</a>          
+          </li>
+          <li>          
+          <a href="{{ WEBROOT }}donations.php">{% lang L_DONATIONS %}</a>          
+          </li>
+          {% if !user_logged_in %}
+          <li {% if section == 'login' %}class="selected"{% endif %}>          
+          <a href="{{ WEBROOT }}login.php">{% lang L_LOGIN %}</a>          
+          </li>        
+          <li {% if section == 'register' %}class="selected"{% endif %}>
+          <a href="{{ WEBROOT }}register.php">{% lang L_REGISTER %}</a>
+          </li>
+          {% else %}
+          <li>
+          <a href="{{ WEBROOT }}login.php?logout=true">{% lang L_LOGOUT %}</a>
+          </li>
+	      {% endif %}
+          <li style="float: right;">
+          <p class="userinfo">{% lang L_LISTENER %}: {{ listenercount }}</p>
+          </li>
+
+          <li style="float: right;" {% if section == 'user' %}class="selected" {% endif %}>
+          <p class="userinfo">
+          {% if user_logged_in %}
+          <a href="{{ WEBROOT }}user.php">{% lang L_USER %}: <img src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="vertical-align:middle;" onclick="selectLocale(); return false;"/> {{ username }} </a>
+          
+          {% else %}
+          <span style="font-size:0.8em">{% lang L_USER %}: <img id="langselect" src="{{ WEBROOT }}images/cb/{{ usercountry }}.png" style="cursor:pointer;vertical-align:middle;display:inline;" onclick="selectLocale(); return false;"/> {{ username }}</span>
+          {% endif %}
+          </p>
+          </li>
+          <li style="float: right;">
+          
+          </li>
+        </ul>      
+      </div>
+      <script type="text/javascript">
+      function selectLocale(){
+    	    $('#langdiv').dialog({modal:true,title:'Choose your warrior'});
+    	    
+      }
+      function changeLocale(locale) {
+            var whref = window.location.href;
+            if (whref.search(/\?/g) != -1){ 
+                if (whref.search(/\?locale=\d+/g) != -1) {
+                    window.location.href = whref.replace(/\?locale=\d+/g,"?locale="+locale);
+                } else if (whref.search(/\&locale=\d+/g) != -1) {
+                    window.location.href = whref.replace(/\&locale=\d+/g,"&locale="+locale);
+                } else if (whref.search(/\&locale=\d+/g) == -1) { 
+                    window.location.href = whref+"&locale="+locale;
+                }
+            } else {
+                window.location.href = whref+"?locale="+locale;
+            }
+    	}
+      </script>
+      <div id="langdiv" style="display:none;">
+      <table>
+      {% for locale in locales %}
+      <tr><td><img onclick="changeLocale({{locale.locale}})" src="{{ WEBROOT }}images/cb/{{ locale.country }}.png" /></td><td style="text-align:left;">{{ locale.name }}</td></tr>
+      {% endfor %}
+      </table>
+      </div>
+      <div id='content'>
+      {% if messages %}
+        {% if messages.info %}
+        <ul>
+            {% for message in messages.info %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if messages.warn %}
+        <ul>
+            {% for message in messages.warn %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if messages.error %}
+        <ul>
+            {% for message in messages.error %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+      {% endif %}
+{% block content %}
+<h2>Leere Seite</h2>
+<p>
+Haben wir nicht, bekommen wir auch nichtmehr rein!
+</p>
+{% endblock %}
+</div>
+{% block sidebar %}{% endblock %}
+            
+<div id="footer">
+{% if git %}
+<div style="text-align:center;font-size:xx-small;font-weight:normal">
+Revision: <a href="{{ git.url }}" style="font-weight:normal;">{{ git.rev }}</a><br />
+<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;"
+href="http://radio.krautchan.net"></a>
+</div>
+{% endif %}
+</div>    
+    
+</div>
+    <div id="dialog" style="display:none;"></div>
+  </body>
+
+</html>
