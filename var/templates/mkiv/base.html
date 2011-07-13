@@ -17,31 +17,43 @@
         </script>
     </head>
     <body>
-        <div id="header">
-            <img src="{{ WEBROOT }}images/logo.png" alt="logo" />
-            <br/>
-            <div id="menubar">
-                <ul>
-                    <li>
-                        <a href="#" onclick="showLoginBox(this);">Login</a>
-                        <div id="loginbox">
-                            User<input id="username" />&nbsp;
-                            Pass<input id="password" />
-							<input type="button" value="login"/>
-                        </div>
-                    </li>
-                    <li>
-                        keks
-                    </li>
-                    <li>
-                        dreqmist
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div id="footer">
-            {{ uptime }}
-            {% include "disco.html" %}
-        </div>
-    </body>
+    <div id="header">
+        <img src="{{ WEBROOT }}images/logo.png" alt="logo" />
+        <br/>
+        <ul id="menubar">
+            <li>
+                <a href="#" onclick="showLoginBox(this);">Login</a>
+                <div id="loginbox">
+                    User<input id="username" />&nbsp;
+                    Pass<input id="password" /><input type="button" value="login"/>
+                </div>
+            </li>
+            <li>
+                keks
+            </li>
+            <li>
+                dreqmist
+            </li>
+        </ul>
+    </div>
+    </div>
+    <div id="sidebar">
+        <ul>
+            <li>
+                Super tolle liste
+            </li>
+            <li>
+                Super tolle liste
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="footer">
+        {{ uptime }}
+        {% include "disco.html" %}
+    </div>
+</body>
 </html>

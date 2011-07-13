@@ -35,7 +35,6 @@ class Site {
             if(file_exists($includepath.'/sites/'.$site['class'].'.php')) {
                 require_once($includepath.'/sites/'.$site['class'].'.php');
                 $class = new $site['class']($id);
-
                 return $class;
             }
         }
