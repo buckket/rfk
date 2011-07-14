@@ -5,8 +5,10 @@ class UrlParser {
 
     private $params = array();
 
-    public function __construct() {
-
+    public function __construct($site = null) {
+        if(isset($site)) {
+            $this->site = $site;
+        }
     }
 
     public function parseUrl() {
@@ -47,5 +49,10 @@ class UrlParser {
             $out[] = str_replace('-', '_', $param);
         }
         return implode('-',$out);
+    }
+
+    public function makeUrl() {
+        global $_config;
+        return $_config['webroot'].$this->site.'/'.$this->encodeParams();
     }
 }

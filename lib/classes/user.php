@@ -151,6 +151,14 @@ class User{
         }
     }
 
+    public function getUserId() {
+        return $this->userid;
+    }
+
+    public function getUsername() {
+        return $this->username;
+    }
+
     /**
      *   TODO spamfilter
      *  returncode  desc

@@ -17,7 +17,7 @@ class Site {
     public static function loadSiteByName($name) {
         global $db;
 
-        $sql = 'SELECT site FROM sites WHERE name = "'.$db->escape($name).'" LIMIT 1;';
+        $sql = 'SELECT site FROM sites WHERE code = "'.$db->escape($name).'" LIMIT 1;';
         $dbres = $db->query($sql);
 
         if($dbres && $site = $db->fetch($dbres)) {

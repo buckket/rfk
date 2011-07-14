@@ -4,6 +4,7 @@
  */
 require_once('../lib/common-web.inc.php');
 require_once('../lib/classes/statusbar.php');
+require_once('../lib/classes/Menu.php');
 $user = new User();
 /**
  * loginstuff
@@ -27,22 +28,21 @@ $user->setLocale();
  */
 if ($urlParams->getSite()) {
     $site = Site::loadSiteByName($urlParams->getSite());
-    if(isset($site)) {
-        if($site->render() == Site::$RENDER_TEMPLATE) {
-            $template->printPage();
-        }
-    }else {
-        echo "this is not the site you are looking for!";
-    }
 } else {
-
     $site = Site::loadSiteByName('news');
-    if(isset($site)) {
-        if($site->render() == Site::$RENDER_TEMPLATE) {
-            $statusbar = new StatusBar();
-            $statusbar->pushToTemplate();
-            $template->printPage();
-        }
-    }
 }
+
+/**
+ * Render if wanted
+ */
+if(isset($site)) {
+    if($site->render() == Site::$RENDER_TEMPLATE) {
+        $menu = new Menu();
+        $menu->pushToTemplate();
+        $template->printPage();
+    }
+}else {
+    echo "this is not the site you are looking for!";
+}
+
 ?>

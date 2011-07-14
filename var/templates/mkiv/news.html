@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+{% for index, item in news %}
+<div class="box">
+    <div class="title">
+        {{ item.username }} &bull; {{ item.time }}
+    </div>
+    {{ item.text }}
+</div>
+{% endfor %}
+{% endblock %}

@@ -60,3 +60,14 @@ a {
 	border-right: 1px solid grey;
 	background-color: #C0C0C0;
 }
+
+.box {
+	border: 1px solid grey;
+	margin: 5px 0px;
+}
+
+.box>.title {
+	background-color: #C0C0C0;
+	font-size: 1.2em;
+	margin-bottom: 5px;
+}

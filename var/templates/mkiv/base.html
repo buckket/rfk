@@ -20,6 +20,7 @@
     <div id="header">
         <img src="{{ WEBROOT }}images/logo.png" alt="logo" />
         <br/>
+		<div>
         <ul id="menubar">
             <li>
                 <a href="#" onclick="showLoginBox(this);">Login</a>
@@ -28,13 +29,13 @@
                     Pass<input id="password" /><input type="button" value="login"/>
                 </div>
             </li>
-            <li>
-                keks
+			{% for index, item in menu %}
+			<li>
+                <a href="{{ item.url }}">{{ item.name }}</a>
             </li>
-            <li>
-                dreqmist
-            </li>
+			{% endfor %}
         </ul>
+		</div>
     </div>
     </div>
     <div id="sidebar">

@@ -5,3 +5,7 @@
     width: 100%;
     z-index:-9000;
 }
+
+#footer {
+	z-index: 9001;	
+}
