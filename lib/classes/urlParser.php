@@ -46,7 +46,10 @@ class UrlParser {
     private function encodeParams() {
         $out = array();
         foreach($this->params as $param) {
-            $out[] = str_replace('-', '_', $param);
+            $param = str_replace('-', '_', $param);
+            $param = str_replace(' ', '+', $param);
+            $param = str_replace('?', '_', $param);
+            $out[] = str_replace('#', '_', $param);
         }
         return implode('-',$out);
     }

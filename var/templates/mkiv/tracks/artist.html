@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ WEBROOT }}css/tracks.css" type="text/css" charset="utf-8"/>
+<h1>{{ artist.name }}</h1>
+<h3>Tracks by {{ artist.name }}</h3>
+<table>
+    {% for index, title in tracks %}
+    <tr>
+        <td>
+            {{ title.count }}
+        </td>
+        <td>
+            <a href="{{ title.url }}">{{ title.title }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<h3>Djs who have played {{ artist.name }}</h3>
+
+<table>
+    {% for index, dj in djs %}
+    <tr>
+        <td>
+            {{ dj.count }}
+        </td>
+        <td>
+            <a href="{{ dj.url }}">{{ dj.name }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

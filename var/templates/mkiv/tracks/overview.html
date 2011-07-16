@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ WEBROOT }}css/tracks.css" type="text/css" charset="utf-8"/>
+<table class="table">
+	<tr>
+		<td><h2>Most Played Artists</h2>
+		<table>
+			{% for index, artist in martists %}
+			<tr><td>{{index}}.</td><td>{{ artist.count }}</td><td><a href="{{ artist.url }}">{{ artist.artist }}</a></td></tr>
+			{% endfor %}
+		</table>
+		</td>
+		<td><h2>Most Played Tracks</h2>
+		<table>
+			{% for index, title in mtracks %}
+			<tr><td>{{ title.count }}</td><td><a href="{{ title.url }}">{{ title.artist }} - {{ title.title }}</a></td></tr>
+			{% endfor %}
+		</table>
+		</td>
+	</tr>
+</table>
+{% endblock %}
