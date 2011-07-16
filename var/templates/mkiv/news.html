@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
+<h1>News</h1>
 {% for index, item in news %}
-<div class="box">
+<div class="newsbox">
     <div class="title">
         {{ item.username }} &bull; {{ item.time }}
     </div>
     {{ item.text }}
 </div>
 {% endfor %}
+<div style="max-width:750px;">
+	<center>
+		{% if pages.prev %}
+		<a href="{{ pages.prev }}">older entries </a>
+		{% endif %}
+		{% if pages.next %}
+		<a href="{{ pages.next }}"> newer entries</a>
+		{% endif %}
+	</center>
+	</div>
 {% endblock %}

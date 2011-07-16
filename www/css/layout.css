@@ -16,15 +16,38 @@ a {
 	color: #444444;
 }
 
+#mask {
+	position: absolute;
+	z-index: 9010;
+	background-color: #000;
+	display: none;
+}
+
+#boxes .window {
+  position:absolute;
+  width:440px;
+  height:200px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+}
+
+#boxes #logindialog {
+  width:375px; 
+  height:203px;
+  border-top: 1px solid grey;
+  background-color: #FEFEFE;
+}
+
 #content {
-	margin-left: 250px;
+	margin-left: 200px;
 	padding-right: 10px;
 	padding-bottom: 25px;
 }
 
 #sidebar {
 	float: left;
-	width: 230px;
+	width: 180px;
 	padding: 10px;
 }
 
@@ -45,28 +68,38 @@ a {
 	z-index: 255;
 }
 
-#header #menubar li {
+#header #menubar {
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+#header #menubar>ul>li {
 	font-size: 1.3em;
 	display: inline;
 	list-style-type: none;
 }
 
-#header #menubar {
+#header #menubar>ul {
 	display: inline;
 	border-right: 1px solid grey;
 	border-top: 1px solid grey;
 	border-bottom: 1px solid grey;
-	padding: 5px 30px;
-	border-right: 1px solid grey;
+	padding-left: 200px;
+	padding-top: 8px;
+	padding-bottom: 5px;
+	padding-right: 25px; border-right : 1px solid grey;
 	background-color: #C0C0C0;
+	border-right: 1px solid grey;
 }
 
-.box {
+.newsbox {
 	border: 1px solid grey;
 	margin: 5px 0px;
+	min-width: 500px;
+	max-width: 750px;
 }
 
-.box>.title {
+.newsbox>.title {
 	background-color: #C0C0C0;
 	font-size: 1.2em;
 	margin-bottom: 5px;
