@@ -43,7 +43,7 @@ class News extends Site {
         $begin = (((int)$page)-1)*$pagesize;
         if($begin < 0)
             $begin = 0;
-        $sql = 'SELECT SQL_CALC_FOUND_ROWS * FROM news JOIN streamer USING (streamer) LIMIT '.$begin.','.$pagesize;
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS * FROM news JOIN streamer USING (streamer) ORDER by time DESC LIMIT '.$begin.','.$pagesize;
         $dbres = $db->query($sql);
         $news = array();
         if ($dbres) {
