@@ -4,6 +4,7 @@
  */
 require_once('../lib/common-web.inc.php');
 require_once('../lib/classes/statusbar.php');
+require_once('../lib/classes/sidebar.php');
 require_once('../lib/classes/Menu.php');
 $user = new User();
 /**
@@ -36,8 +37,10 @@ if ($urlParams->getSite()) {
  * Render if wanted
  */
 if(isset($site)) {
+    $sidebar = new Sidebar();
     if($site->render() == Site::$RENDER_TEMPLATE) {
         $menu = new Menu();
+        $sidebar->pushToTemplate();
         $menu->pushToTemplate();
         $template->printPage();
     }

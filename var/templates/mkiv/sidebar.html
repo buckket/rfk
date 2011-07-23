@@ -1,0 +1,13 @@
+{%if sidebar.has_search %}
+<div id="searchbox">
+    <form action="{{ sidebar.search.url }}" method="post">
+        <input value="{{ sidebar.search.name }}" name="sstring"/><input type="submit" value="search" name="search">
+    </form>
+</div>{% endif %}
+<ul>
+	{% for index, entry in search.entries %}
+    <li>
+        <a href="{{ entry.url }}" >{{ entry.name }}</a>
+    </li>
+	{%endfor%}
+</ul>
