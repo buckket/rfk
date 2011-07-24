@@ -14,7 +14,9 @@ if($user->isLoggedIn(true)) {
     if( isLogout() ) {
         $user->logout();
     }
+    $template->addData('USER_LOGGED_IN', true);
 } else {
+    $template->addData('USER_LOGGED_IN', false);
     if ( isLogin() ) {
         $user->login($_POST['username'], $_POST['password']);
     }

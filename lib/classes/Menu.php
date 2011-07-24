@@ -9,13 +9,7 @@ class Menu {
 
         $sql = 'SELECT site, code, name
                   FROM sites ';
-        if($user->isLoggedIn()) {
-            $sql .= 'JOIN streamer_privilege USING (privilege)
-                  JOIN streamer USING (streamer)
-        		 WHERE streamer = '.$user->getUserId().' ';
-        } else {
-            $sql .= 'WHERE privilege IS NULL ';
-        }
+        $sql .= 'WHERE privilege IS NULL ';
         $sql .= ' GROUP BY site
         		ORDER BY sites.sort;';
         $dbres = $db->query($sql);
@@ -25,6 +19,24 @@ class Menu {
 
                 $url = new UrlParser($item['code']);
                 $menu[] = array('name' => $item['name'],'url' =>$url->makeUrl());
+            }
+        }
+        if($user->isLoggedIn()) {
+            $sql = 'SELECT site, code, name
+                  FROM sites ';
+            $sql .= 'JOIN streamer_privilege USING (privilege)
+                  LEFT JOIN streamer USING (streamer)
+        		 WHERE streamer = '.$user->getUserId().'
+        		    OR privilege IS NULL ';
+            $sql .= ' GROUP BY site
+        		ORDER BY sites.sort;';
+            $dbres = $db->query($sql);
+            if($dbres) {
+                while($item = $db->fetch($dbres)) {
+
+                    $url = new UrlParser($item['code']);
+                    $menu[] = array('name' => $item['name'],'url' =>$url->makeUrl());
+                }
             }
         }
         return $menu;

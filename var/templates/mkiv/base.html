@@ -18,17 +18,20 @@
     </head>
     <body>
         <div id="boxes">
+        	{% if !USER_LOGGED_IN %}
             <div id="logindialog" class="window">
                 <h2>Login</h2>
+				<form method="post">
 				<table>
 					<tr><td>Username</td><td><input name="username" id="iUsername"/></td></tr>
 					<tr><td>Password</td><td><input name="password" id="iPassword"/></td></tr>
-					<tr><td>&nbsp;</td><td style="text-align:right;"><input type="button" value="Cancel" onclick="$('#mask, .window').hide();"/>&nbsp;&nbsp;<input type="button" value="Login"/></td></tr>
+					<tr><td>&nbsp;</td><td style="text-align:right;"><input type="button" value="Cancel" onclick="$('#mask, .window').hide();"/>&nbsp;&nbsp;<input type="submit" name="login" value="Login"/></td></tr>
 				</table>
-				
+				</form>
 				<br />
                 You don't have an account? <a href="#">register one</a><br />
             </div>
+			{% endif %}
             <div id="mask">
             </div>
         </div>
@@ -36,9 +39,11 @@
             <img src="{{ WEBROOT }}images/logo.png" alt="logo" />
             <div id="menubar">
                 <ul>
+                	{% if !USER_LOGGED_IN %}
                     <li>
                         <a href="#" onclick="showLoginBox();">Login</a>
                     </li>
+					{% endif %}
                     <li class="separator">
                         &nbsp;
                     </li>
