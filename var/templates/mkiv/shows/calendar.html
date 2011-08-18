@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel='stylesheet' type='text/css' href='{{ WEBROOT }}css/fullcalendar.css' />
+<script type='text/javascript' src='{{ WEBROOT }}js/fullcalendar.min.js'></script>
+<script type='text/javascript'>
+	$(document).ready(function() {
+
+    $('#calendar').fullCalendar({
+		eventSources: [
+        {
+            url: '{{ WEBROOT }}{{ feedurl }}',
+            type: 'POST',
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+            //color: 'yellow',
+            //textColor: 'black'
+        }
+
+    ]
+    });
+	$('#calendar').fullCalendar( 'changeView', 'agendaWeek' );
+
+});
+</script>
+<h1>Calendar</h1>
+<div id="calendar"></div>
+{% endblock %}
