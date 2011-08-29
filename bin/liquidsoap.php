@@ -5,7 +5,6 @@ $mode = $argv[1];
 $sql = "INSERT INTO debuglog (time,text) VALUES (NOW(),'".$db->escape(serialize($argv))."');";
 $db->execute($sql);
 switch($mode){
-
     case 'auth':
         if(handleAuth($argv[2],$argv[3])){
             echo 'true';
@@ -74,7 +73,11 @@ function handleConnect($data){
     global $db;
     $sql = "LOCK TABLES streamer WRITE;";
     $db->execute($sql);
-    $meta = serializedToArray($data);
+    $meta = json_decode($data,true);
+    //error_log(print_r($meta,true));
+    if(isset($meta['Authorization'])) {
+        $meta['authorization'] = $meta['Authorization'];
+    }
     list($authtype, $authcred) = split(" ", $meta['authorization'], 2);
     list($username, $password) = split(":", base64_decode($authcred) , 2);
     fixSimpleClientAuth($username,$password);
@@ -118,7 +121,8 @@ function handleConnect($data){
 
 function handleMetaData($metadata){
     global $db;
-    $meta = serializedToArray($metadata);
+    $meta = json_decode($metadata,true);
+    //error_log(print_r($meta,true));
     if(isset($meta['artist']) || isset($meta['title']) || isset($meta['song'])) {
         $songinfo = array();
         $meta['song'] = trim($meta['song']);
@@ -253,19 +257,6 @@ function checkShow(){
     return false;
 }
 
-
-//global functions
-function serializedToArray($string){
-    $array = array();
-    if(preg_match_all("/(.*?)='(.*?)'(;|$)/m",$string,$matches,PREG_SET_ORDER)){
-        foreach($matches as $entry){
-            $array[$entry[1]] = $entry[2];
-        }
-        return $array;
-    } else {
-        return false;
-    }
-}
 //Fix for clients who always use source as username
 function fixSimpleClientAuth(&$username,&$password){
     if(strtolower(trim($username)) === 'source' || strlen(trim($username)) == 0){
