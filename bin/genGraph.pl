@@ -4,17 +4,18 @@ use RRDTool::OO;
 use strict;
 use warnings;
 
-chdir "/usr/share/rfk/var/lib/rrd";
+chdir "/home/radio/radio/var/lib/rrd";
 my $rrd = RRDTool::OO->new(file => "1.rrd" );
 
 $rrd->graph(
-	image => "/usr/share/rfk/www/graphh.png",
+	image => "/home/radio/radio/www/graphh.png",
 	height => 120,
 	width => 500,
+	lower_limit => 0,
 	title => 'Hörerzahlen (Stunde)',
 	
 	start          => time() - 3600,
-    end            => time(),
+	end            => time(),
     
 	draw => {
 		file => "1.rrd",
@@ -41,16 +42,27 @@ $rrd->graph(
 		legend => "RfK OGG HQ",
 		stack => 1,
 		type => "area",
-		color => "99FF00",
+		color => "0085FF",
 		cfunc => 'LAST',
 		
 	},
+        draw => {
+                file => "5.rrd",
+                name => "l4",
+                legend => "RfK AACP",
+                stack => 1,
+                type => "area",
+                color => "99FF00",
+                cfunc => 'LAST',
+
+        },
 );
 
 $rrd->graph(
-	image => "/usr/share/rfk/www/graphd.png",
+	image => "/home/radio/radio/www/graphd.png",
 	height => 120,
 	width => 500,
+	lower_limit => 0,
 	title => 'Hörerzahlen (Tag)',
 
 	draw => {
@@ -78,20 +90,30 @@ $rrd->graph(
 		legend => "RfK OGG HQ",
 		stack => 1,
 		type => "area",
-		color => "99FF00",
+		color => "0085FF",
 		cfunc => 'LAST',
 		
 	},
+        draw => {
+                file => "5.rrd",
+                name => "l4",
+                legend => "RfK AACP",
+                stack => 1,
+                type => "area",
+                color => "99FF00",
+                cfunc => 'LAST',
+
+        },
 );
 
 $rrd->graph(
-	image => "/usr/share/rfk/www/graphw.png",
+	image => "/home/radio/radio/www/graphw.png",
 	height => 120,
 	width => 500,
+	lower_limit => 0,
 	title => 'Hörerzahlen (Woche)',
-	
 	start          => time() - 3600*24*7,
-    end            => time(),
+	end            => time(),
 
 	draw => {
 		file => "1.rrd",
@@ -118,8 +140,36 @@ $rrd->graph(
 		legend => "RfK OGG HQ",
 		stack => 1,
 		type => "area",
-		color => "99FF00",
+		color => "0085FF",
 		cfunc => 'LAST',
 		
 	},
+        draw => {
+                file => "5.rrd",
+                name => "l4",
+                legend => "RfK AACP",
+                stack => 1,
+                type => "area",
+                color => "99FF00",
+                cfunc => 'LAST',
+
+        },
+);
+
+$rrd->graph(
+	image => "/home/radio/radio/www/irc.png",
+	height => 120,
+	width => 500,
+	lower_limit => 0,
+	title => 'IRC-Benutzer (Tag)',
+
+	draw => {
+		file => "irc.rrd",
+		name => "users",
+		legend => "Benutzer",
+		stack => 1,
+		type => "area",	
+		color => "FF9900",
+		cfunc => 'AVERAGE',
+	}
 );

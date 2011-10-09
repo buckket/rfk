@@ -39,7 +39,7 @@ if($db->num_rows($result) > 0){
 if(isset($streamerinfo['streamer'])
    && $streamerinfo['streamer'] > 0
    && $user->is_logged_in()
-   && $user->userid == $streamerinfo['streamer']) {
+   && ($user->userid == $streamerinfo['streamer'] || $user->is_admin())) {
     $listenerover = array();
     $sql = "SELECT country, city, mounts.description as mount,
                    UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(connected) as time

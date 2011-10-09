@@ -709,7 +709,7 @@ class Api {
             $dbres = $db->query($sql);
             if($dbres && $db->num_rows($dbres) > 0) {
                 if($row = $db->fetch($dbres)) {
-                    if($row['hostmask'] != $args['hostmask']) {
+                    if($row['value'] != $args['hostmask']) {
                         $sql = "INSERT INTO streamersettings (streamer,`key`,value)
                                 VALUES (" . $row['streamer'] . ",'hostmask', '" . $db->escape($args['hostmask']) . "')
                                 ON DUPLICATE KEY UPDATE value = '" . $db->escape($args['hostmask']) . "';";

@@ -30,13 +30,14 @@ class Liquidsoap {
 
     public function getHarborSource(){
         if($this->sock) {
-            preg_match_all('/^| (src_[0-9]+)/', $this->executeCommand('help'), $matches);
+            preg_match_all('/^| (harbor_[0-9]+)/', $this->executeCommand('help'), $matches);
             $this->harbor = $matches[1][1];
         }
     }
 
     public function kickHarbor() {
-        $this->executeCommand($this->harbor.".kick");
+        //$this->executeCommand($this->harbor.".kick");
+        $this->executeCommand("harbor_4604.kick");
     }
     public function getHarborStatus() {
         $this->executeCommand($this->harbor.".status");
@@ -47,13 +48,13 @@ class Liquidsoap {
             return false;
         }
         fwrite($this->sock,$command."\n");
-        $out = '';
-        $s = '';
-        while(!feof($this->sock) && $s != "END\n"){
-            $s = fgets($this->sock, 4096);
-            $out .= $s;
-        }
-        return $out;
+        #$out = '';
+        #$s = '';
+        #while(!feof($this->sock) && $s != "END\n"){
+        #    $s = fgets($this->sock, 4096);
+        #    $out .= $s;
+        #}
+        #return $out;
     }
 }
 ?>

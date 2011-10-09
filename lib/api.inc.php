@@ -38,9 +38,8 @@ function getDJInfo(&$out){
 function kickDJ(&$out){
     $liquid = new Liquidsoap;
     $liquid->connect();
-    $liquid->getHarborSource();
     $liquid->kickHarbor();
-
+    
     global $db;
     $timestamp = time() + (2 * 60);
     $timestamp = date('Y-m-d H:i:s', $timestamp);
@@ -338,9 +337,9 @@ function authJoin(&$out) {
         $hostmask = explode('!', $_GET['hostmask']);
         $sql = "SELECT * FROM streamersettings JOIN streamer using(streamer) WHERE `key` = 'hostmask' AND `value` REGEXP '[A-z0-9]+!" . $db->escape($hostmask[1])  . "';";
         $dbres = $db->query($sql);
-        if($dbres && $db->num_rows($dbres) > 0) {
+	if($dbres && $db->num_rows($dbres) > 0) {
             if($row = $db->fetch($dbres)) {
-                if($row['hostmask'] != $_GET['hostmask']) {
+                if($row['value'] != $_GET['hostmask']) {
                     $sql = "INSERT INTO streamersettings (streamer,`key`,value)
                             VALUES (" . $row['streamer'] . ",'hostmask', '" . $db->escape($_GET['hostmask']) . "')
                             ON DUPLICATE KEY UPDATE value = '" . $db->escape($_GET['hostmask']) . "';";
