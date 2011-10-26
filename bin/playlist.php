@@ -10,7 +10,7 @@ $dbres = $db->query($sql);
 
 if($dbres && $db->num_rows($dbres) > 0) {
     if($row = $db->fetch_assoc($dbres)) {
-        if($row['r'] < $_config['preshow_time'] ) { //5 minutes :3
+        if($row['t'] < $_config['preshow_time'] ) { //5 minutes :3
             $filename = $basePath.'/var/music/'.$_config['preshow_loop'];
             if(file_exists($filename)){
                 echo $filename;
