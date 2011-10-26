@@ -25,21 +25,39 @@ class LiquidInterface {
         }
     }
     public function __destruct() {
+        $this->executeCommand('exit');
         $this->disconnect();
     }
 
     public function getHarborSource(){
         if($this->sock) {
-            preg_match_all('/^| (src_[0-9]+)/', $this->executeCommand('help'), $matches);
-            $this->harbor = $matches[1][1];
+            preg_match_all('/^(harbor_[0-9]+)/m', $this->executeCommand('list'), $matches);
+            return $matches[0][0];
         }
+        return null;
     }
 
-    public function kickHarbor() {
-        $this->executeCommand($this->harbor.".kick");
+    public function getOutputStreams(){
+        if($this->sock) {
+            preg_match_all('/^(.*?) : output/m', $this->executeCommand('list'), $matches);
+            return $matches[1];
+        }
+        return null;
     }
-    public function getHarborStatus() {
-        echo $this->executeCommand($this->harbor.".status");
+
+    public function getOutputStreamStatus($output){
+        return $this->executeCommand($output.".status");
+    }
+
+    public function kickHarbor($source) {
+        $this->executeCommand($source.".kick");
+    }
+    public function getHarborStatus($source) {
+        return $this->executeCommand($source.".status");
+    }
+
+    public function getUptime() {
+        return $this->executeCommand('uptime');
     }
 
     protected function executeCommand($command){
@@ -49,10 +67,12 @@ class LiquidInterface {
         fwrite($this->sock,$command."\n");
         $out = '';
         $s = '';
-        while(!feof($this->sock) && $s != "END\n"){
+        while(!feof($this->sock) && !preg_match('/^END/m',$s)){
             $s = fgets($this->sock, 4096);
             $out .= $s;
         }
+        $out = preg_replace('/END$/', '', trim($out));
+        $out = trim($out);
         return $out;
     }
 }

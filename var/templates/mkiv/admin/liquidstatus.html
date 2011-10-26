@@ -1,4 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Liquidsoap Status</h1>
+<div class="infoblock">
+	<h3>Liquidsoap </h3>
+<b>running: {% if liq.status %}<span style="color:green;">YES</span>{% else %}<span style="color:red;">NO</span>{% endif %}</b><br />
+<b>uptime:</b> {{ liq.uptime }}	
+</div>
+<div class="infoblock">
+	<h3>Harbor</h3>
+	<b>status:</b> {{liq.harbor.statuslong}}
+</div>
+
+<div class="infoblock">
+	<h3>Streams</h3>
+	<table>
+		{%for index, output in liq.outputs %}
+		<tr><td><b>{{ output.name }}</b></td><td><span style="color:{% if output.status %}green{% else %}red{% endif %};">{{ output.statuslong }}</span></td></tr>
+		{%endfor%}
+	</table>
+</div>
+
 {% endblock %}

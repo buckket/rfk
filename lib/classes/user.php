@@ -23,6 +23,11 @@ class User{
 
     public function __construct(){}
 
+    public static $USERNAME_VALID = 0;
+    public static $USERNAME_TAKEN = 1;
+    public static $USERNAME_VIOLATES_RULES = 2;
+    public static $USERNAME_INVALID_LENGTH = 4;
+
     /**
      * authenticates the user
      * @param $username
@@ -159,6 +164,26 @@ class User{
         return $this->username;
     }
 
+    public static function checkUsername($username) {
+        if(preg_match('/^[A-Za-z0-9_-]+$/',$username)) {
+            if(strlen($username) > 20 || strlen($username) < 3) {
+
+            } else {
+                return User::$USERNAME_INVALID_LENGTH;
+            }
+            global $db;
+            $sql = 'SELECT streamer FROM streamers WHERE username = "'.$db->escape($username).'" LIMIT 1;';
+            $dbres = $db->query($sql);
+            if ($db->num_rows($dbres) > 0) {
+                $db->free($dbres);
+                return User::$USERNAME_TAKEN;
+            } else {
+                return User::$USERNAME_VALID;
+            }
+        } else {
+            return User::$USERNAME_VIOLATES_RULES;
+        }
+    }
     /**
      *   TODO spamfilter
      *  returncode  desc

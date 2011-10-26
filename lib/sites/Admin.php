@@ -10,7 +10,8 @@ class Admin extends Site {
         switch($params[0]) {
             case 'liqstatus':
                 $template->setTemplate('admin/liquidstatus.html');
-                $this->getLiquidsoapStatus();
+                $template->addData('liq', $this->getLiquidsoapStatus());
+
                 $this->setSideBar();
                 break;
             case 'overview':
@@ -25,12 +26,32 @@ class Admin extends Site {
     private function getLiquidsoapStatus() {
         require_once dirname(dirname(__FILE__)).'/classes/LiquidInterface.php';
         $liq = new LiquidInterface();
+        $info = array();
         if($liq->connect()) {
-            $liq->getHarborSource();
-            $liq->getHarborStatus();
+            $info['status'] = true;
+            $info['uptime'] = $liq->getUptime();
+            $harbor = $liq->getHarborSource();
+            $info['harbor']['status'] = preg_match('/^source client connected/',$liq->getHarborStatus($harbor));
+            $info['harbor']['statuslong'] = $liq->getHarborStatus($harbor);
+            $streams = $liq->getOutputStreams();
+            $outputs = array();
+            foreach($streams as $stream) {
+                $output = array();
+                $output['name'] = $stream;
+                $status = $liq->getOutputStreamStatus($stream);
+                if($status == 'on') {
+                    $output['status'] = true;
+                } else {
+                    $output['status'] = false;
+                }
+                $output['statuslong'] = $liq->getOutputStreamStatus($stream);
+                $outputs[] = $output;
+            }
+            $info['outputs'] = $outputs;
         } else {
-            echo 'hng';
+            $info['liq_running'] = false;
         }
+        return $info;
     }
 
     private function setSideBar(){

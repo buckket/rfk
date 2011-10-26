@@ -6,10 +6,10 @@
 $_config['base'] = '/home/teddydestodes/src/rfk/';
 
 
-$_config['mysql-host'] = 'buchenwald';
+$_config['mysql-host'] = 'localhost';
 $_config['mysql-db']   = 'radio';
 $_config['mysql-user'] = 'radio';
-$_config['mysql-pass'] = 'muhmann';
+$_config['mysql-pass'] = 'radiowegbuxen';
 
 $_config['template'] = 'radio';
 
