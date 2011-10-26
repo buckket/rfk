@@ -157,10 +157,10 @@ class User{
                 if($row = $db->fetch($dbres)) {
                     $locale = $row['locale'];
                 }else{
-                    $locale = 0;
+                    $locale = 3;
                 }
             }else{
-                    $locale = 0;
+                    $locale = 3;
             }
         }
 
