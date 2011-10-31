@@ -30,7 +30,7 @@ class Lang {
 
     public function getAvailLangs () {
         global $db;
-        $sql = "SELECT * FROM locales;";
+        $sql = "SELECT * FROM locales ORDER BY language ASC;";
         $dbres = $db->query($sql);
         $out = array();
         if($dbres) {
