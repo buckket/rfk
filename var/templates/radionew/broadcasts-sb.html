@@ -5,6 +5,14 @@ block.super
 {% block sidebar %}
 <div id='subcontent'>
 <div class='infoblock'>
+    <h3>{% lang L_SERVERTIME %}</h3>
+    <ul>
+        <li>
+            {{ sb_time }}
+        </li>
+    </ul>
+</div>
+<div class='infoblock'>
 <h3>{% lang L_NEXTSHOWS %}</h3>
 <script type="text/javascript">
 function nextShowInfo(showid){

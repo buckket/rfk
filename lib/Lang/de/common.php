@@ -141,5 +141,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_CURR_LIST'     => 'Aktuelle Zuhörer',
               'L_STREAMCONTROL' => 'Streamkontrolle',
               'L_LIST_OVERVIEW' => 'Hörerübersicht',
-              'L_LIST_SHOWDATA' => '<td>ID</td><td>Adresse</td><td>Land</td><td>Stadt</td><td>Useragent</td>');
+              'L_LIST_SHOWDATA' => '<td>ID</td><td>Adresse</td><td>Land</td><td>Stadt</td><td>Useragent</td>',
+              //sidebar.html
+              'L_SERVERTIME'    => 'Serverzeit');
 ?>

@@ -141,5 +141,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_CURR_LIST'     => 'Current listeners',
               'L_STREAMCONTROL' => 'Streamcontrol',
               'L_LIST_OVERVIEW' => 'Overview of listeners',
-              'L_LIST_SHOWDATA' => '<td>ID</td><td>Address</td><td>Country</td><td>City</td><td>Useragent</td>');
+              'L_LIST_SHOWDATA' => '<td>ID</td><td>Address</td><td>Country</td><td>City</td><td>Useragent</td>',
+              //sidebar.html
+              'L_SERVERTIME'    => 'Server Time');
 ?>

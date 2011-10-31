@@ -12,6 +12,8 @@ $usercount = $db->fetch($result);
 
 $template['sb_streamercount'] = $usercount['count'];
 
+$template['sb_time'] = date("m/d/Y - H:i T");
+
 $sql = "SELECT song,artist,title,end FROM songhistory WHERE end IS NOT NULL ORDER BY song desc LIMIT 10;";
 $result = $db->query($sql);
 $songs = array();
