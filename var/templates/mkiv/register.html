@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Register new account</h1>
+
+<table>
+<tr><td>Username</td><td><input id="username" name="username"></td><td><span id="user_info"></span></td></tr>
+<tr><td>Password</td><td><input type="password" id="password" name="password"></td><td><span id="pass_info"></span></td></tr>
+<tr><td>Password (confirm.)</td><td><input type="password" id="password_ret" name="password_ret"></td><td><span id="pass_ret_info"></span></td></tr>	
+<tr><td>Streampassword</td><td><input id="password" name="password"></td><td><span id="pass_info"></span></td></tr>
+</table>
+
+<script type="text/javascript">
+$('#username').blur(function() {
+	$.getJSON('{{ jsonurl }}/checkusername', function(data) {
+	});
+});
+</script>
+{% endblock %}

@@ -1,4 +1,5 @@
 RewriteEngine on
+
 RewriteCond %{SCRIPT_FILENAME} !-f
-RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteRule (^.*?$) index.php?params=$1 [NC]
+RewriteCond %{SCRIPT_FILENAME} !-d 
+RewriteRule ^(.*?)$ index.php?params=$1 [L]

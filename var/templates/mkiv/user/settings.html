@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<script type="text/javascript">
+	function upload(file) {
+   if (!file || !file.type.match(/image.*/)) return;
+
+   var fd = new FormData();
+   fd.append("image", file);
+   fd.append("key", "754f605b429be3de6b94b54260390637");
+   var xhr = new XMLHttpRequest();
+   $('#discobtn').val('uploading...');
+   xhr.open("POST", "http://api.imgur.com/2/upload.json");
+   xhr.onload = function() {
+	  $('#discoimage').attr('src',JSON.parse(xhr.responseText).upload.links.original);
+   }
+   xhr.send(fd);
+   $('#discobtn').val('change');
+}
+</script>
+<h1>Settings</h1>
+<div class="infoblock">
+	<h3>Account</h3>
+		
+</div>
+<div class="infoblock">
+	<h3>Show</h3>
+	<table>
+		<tr><td>Use ICY-tags</td><td><input type="checkbox"></td></tr>
+		<tr><td>Default name</td><td><input type="checkbox"></td></tr>
+		<tr><td>Default description</td><td><input type="checkbox"></td></tr>
+		<tr><td>Default thread</td><td><input type="checkbox"></td></tr>
+	</table>
+</div>
+
+<div class="infoblock">
+	<h3>DiscoImage</h3>
+		<div style="border:thin solid black;height:65px;width:129px">
+		<img id="discoimage" style="height:65px;width:129px" />
+		</div>
+		
+		<input type="button" id="discobtn" onclick="$('#discoimgsel').click()" value="change" />
+		<input type="file" id="discoimgsel" onchange="upload(this.files[0])" style="visibility: collapse; width: 0px;">
+		<button onclick="false;">save</button>
+</div>
+{% endblock %}
