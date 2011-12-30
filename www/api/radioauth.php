@@ -76,7 +76,7 @@ function checkMount($relayid, $mountid){
         $dbres = $db->query($sql);
         $result = $db->fetch($dbres);
 
-        if($result['c'] >= $info['maxlistener']) {
+        if($result['c'] > 0 && $result['c'] >= $info['maxlistener']) {
             header('icecast-auth-message: mountpoint is full');
             $sql = "UNLOCK TABLES;";
             $db->execute($sql);
