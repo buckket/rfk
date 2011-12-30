@@ -14,6 +14,7 @@ transition();
 fade();
 external();
 sources();
+record();
 output();
 
 
@@ -79,6 +80,16 @@ function external() {
 ';
 }
 
+function record() {
+    global $_config;
+    echo '
+recordstream = output.file(%mp3.vbr(stereo=true, samplerate=44100, quality=5),
+                           "/tmp/stream.tmp.mp3",live,
+                           fallible = true, append = true, start = false, id="recordstream"
+)
+    ';
+}
+
 function sources () {
     global $_config;
     echo '
@@ -106,6 +117,8 @@ function output(){
             case 'LAME':
                 makeLame($row);
                 break;
+            case 'LAMEVBR':
+                makeLameVBR($row);
             case 'OGG':
                 makeOGG($row);
                 break;
@@ -124,7 +137,19 @@ function makeLame($array) {
     mount="'.$array['path'].'",
     url="radio.krautchan.net",public=false,
     description="'.$array['description'].'",
-    fallible=true,restart=true,
+    fallible=true,
+    full)
+    ';
+}
+function makeLameVBR($array) {
+    global $_config;
+    echo $array['name'].' =output.icecast(%mp3.vbr(stereo=true, samplerate=44100, quality='.$array['quality'].'),
+	host="'.$_config['icecast_address'].'",port='.$_config['icecast_port'].',protocol="http",
+    user="'.$array['username'].'",password="'.$array['password'].'",
+    mount="'.$array['path'].'",
+    url="radio.krautchan.net",public=false,
+    description="'.$array['description'].'",
+    fallible=true,
     full)
     ';
 }
@@ -136,7 +161,7 @@ function makeOGG($array) {
     mount="'.$array['path'].'",
     url="radio.krautchan.net",public=false,
     description="'.$array['description'].'",
-    fallible=true,restart=true,
+    fallible=true,
     full)
     ';
 }
@@ -148,7 +173,7 @@ function makeAAC($array) {
     mount="'.$array['path'].'",
     url="radio.krautchan.net",public=false,
     description="'.$array['description'].'",
-    fallible=true,restart=true,
+    fallible=true,
     full)
     ';
 }
