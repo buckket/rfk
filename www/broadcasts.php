@@ -39,6 +39,7 @@ if(isset($_GET['week']) && $_GET['week'] > 0 && $_GET['week'] <54){
         $tmp['id']   = $show['show'];
         $tmp['type'] = strtolower($show['type']);
         $tmp['name'] = $show['name'];
+        $tmp['shortname'] = mb_substr($show['name'], 0, 12) . '...';
         $begin = getdate($show['begin']);
         $end = getdate($show['end']);
         $times = convMonToSun($begin['wday'])*48 +
