@@ -35,9 +35,14 @@ if($_POST['action'] === 'mount_add'){
     $sql = "UNLOCK TABLES;";
     $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected IS NULL AND mount = $mountid AND relay = $relayid";
     $db->execute($sql);
+    $sql = "UPDATE mount_relay SET status = 'ONLINE' WHERE mount = $mountid AND relay = $relayid LIMIT 1;";
+    $db->execute($sql);
 }else if($_POST['action'] === 'mount_remove'){
     //TODO stub (just do the same as in add)
+    $sql = "UNLOCK TABLES;";
     $sql = "UPDATE listenerhistory SET disconnected = NOW() WHERE disconnected = NULL AND mount = $mountid AND relay = $relayid";
+    $db->execute($sql);
+    $sql = "UPDATE mount_relay SET status = 'OFFLINE' WHERE mount = $mountid AND relay = $relayid LIMIT 1;";
     $db->execute($sql);
 }else if($_POST['action'] === 'listener_add'){
     checkMount($relayid,$mountid);
@@ -65,7 +70,7 @@ function checkMount($relayid, $mountid){
     global $db;
     $sql = "SELECT * FROM mount_relay WHERE mount = $mountid AND relay = $relayid";
     $dbres = $db->query($sql);
-    if($db->num_rows($dbres)) {
+    if($db->num_rows($dbres) > 0) {
         $info = $db->fetch($dbres);
         $sql = "SELECT count(*) as c FROM listenerhistory WHERE mount = $mount AND relay = $relay AND disconnected IS NULL;";
         $dbres = $db->query($sql);
@@ -77,6 +82,9 @@ function checkMount($relayid, $mountid){
             $db->execute($sql);
             exit();
         }
+    } else {
+        $sql = "INSERT INTO mount_relay (relay,mount,status,maxlistener) VALUES ($mount, $relayid, 'UNKNOWN',0);";
+        $db->execute($sql);
     }
 }
 
