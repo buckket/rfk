@@ -36,15 +36,15 @@ function getDJInfo(&$out){
 }
 
 function kickDJ(&$out){
-    $liquid = new Liquidsoap;
-    $liquid->connect();
-    $liquid->kickHarbor();
-    
+    require_once(dirname(__FILE__).'/LiquidInterface.php');
     global $db;
     $timestamp = time() + (2 * 60);
     $timestamp = date('Y-m-d H:i:s', $timestamp);
     $sql = "UPDATE streamer SET ban = '". $timestamp . "' WHERE streamer = '". $out['djid'] ."';";
     $dbres = $db->query($sql);
+    $liquid = new LiquidInterface();
+    $liquid->connect();
+    $liquid->kickHarbor($liquid->getHarborSource());
     $out['status'] = 0;
 }
 

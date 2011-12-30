@@ -51,18 +51,17 @@ function handleAuth($username,$password){
 
 function autoKick($user){
     global $db,$includepath;
-    $sql = "SELECT * FROM shows WHERE streamer = $user AND NOW() BETWEEN begin AND end AND type = 'PLANNED'";
+    $sql = "SELECT * FROM shows WHERE streamer = ".$db->escape($user)." AND NOW() BETWEEN begin AND end AND type = 'PLANNED'";
     $dbres = $db->query($sql);
     if($db->num_rows($dbres) > 0) {
         $sql = "SELECT * FROM streamer WHERE status = 'STREAMING'";
         $dbres = $db->query($sql);
         if($row = $db->fetch($dbres)) {
             if($row['streamer'] != $user){
-                require_once $includepath.'/liquidsoaptelnet.php';
-                $liquid = new Liquidsoap;
+                require_once $includepath.'/LiquidInterface.php';
+                $liquid = new LiquidInterface();
                 $liquid->connect();
-                $liquid->getHarborSource();
-                $liquid->kickHarbor();
+                $liquid->kickHarbor($liquid->getHarborSource());
             }
         }
     }
