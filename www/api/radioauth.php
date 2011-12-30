@@ -72,7 +72,7 @@ function checkMount($relayid, $mountid){
     $dbres = $db->query($sql);
     if($db->num_rows($dbres) > 0) {
         $info = $db->fetch($dbres);
-        $sql = "SELECT count(*) as c FROM listenerhistory WHERE mount = $mount AND relay = $relay AND disconnected IS NULL;";
+        $sql = "SELECT count(*) as c FROM listenerhistory WHERE mount = $mount AND relay = $relayid AND disconnected IS NULL;";
         $dbres = $db->query($sql);
         $result = $db->fetch($dbres);
 
