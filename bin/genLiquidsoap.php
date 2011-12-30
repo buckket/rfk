@@ -132,7 +132,7 @@ function output(){
 
 function makeLame($array) {
     global $_config;
-    echo $array['name'].' =output.icecast(%mp3(stereo=true, samplerate=44100, bitrate='.$array['quality'].'),
+    echo $array['name'].' =output.icecast(%mp3(stereo=true, samplerate=44100, bitrate='.$array['quality'].',id3v2=true),
 	host="'.$_config['icecast_address'].'",port='.$_config['icecast_port'].',protocol="http",
     user="'.$array['username'].'",password="'.$array['password'].'",
     mount="'.$array['path'].'",
@@ -144,7 +144,7 @@ function makeLame($array) {
 }
 function makeLameVBR($array) {
     global $_config;
-    echo $array['name'].' =output.icecast(%mp3.vbr(stereo=true, samplerate=44100, quality='.$array['quality'].'),
+    echo $array['name'].' =output.icecast(%mp3.vbr(stereo=true, samplerate=44100, quality='.$array['quality'].',id3v2=true),
 	host="'.$_config['icecast_address'].'",port='.$_config['icecast_port'].',protocol="http",
     user="'.$array['username'].'",password="'.$array['password'].'",
     mount="'.$array['path'].'",
