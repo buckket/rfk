@@ -14,6 +14,14 @@ block.super
         </ul>
     </div>
 	<div class='infoblock'>
+		<h3>{% lang L_LISTEN %}</h3>
+		<ul>
+			{% for index, mount in sb_mounts %}
+			<li><a href="{{ WEBROOT }}listen.php?stream={{mount.id}}">{{mount.name}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class='infoblock'>
 	<h3>{% lang L_LAST10TRACKS %}</h3>
 		<ul>
 		{% for index, song in sb_songlist %}

@@ -91,4 +91,18 @@ function sortDisco($a, $b) {
         return 1;
     }
 }
+
+$template['sb_mounts'] = getMountpoints();
+function getMountpoints(){
+    global $db;
+    $sql = "SELECT * FROM mounts";
+    $dbres = $db->query($sql);
+    $arr = array();
+    if($dbres) {
+        while($m = $db->fetch($dbres)) {
+            $arr[] = array('id' => $m['mount'], 'name' => $m['description']);
+        }
+    }
+    return $arr;
+}
 ?>
