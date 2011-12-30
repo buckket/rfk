@@ -71,13 +71,12 @@ function checkMount($relayid, $mountid){
     $sql = "SELECT * FROM mount_relay WHERE mount = $mountid AND relay = $relayid";
     $dbres = $db->query($sql);
     if($db->num_rows($dbres) > 0) {
-        $mountdata = $db->fetch($dbres);
         $info = $db->fetch($dbres);
         $sql = "SELECT count(*) as c FROM listenerhistory WHERE mount = $mount AND relay = $relay AND disconnected IS NULL;";
         $dbres = $db->query($sql);
         $result = $db->fetch($dbres);
 
-        if($mountdata['maxlistener'] > 0 && $result['c'] >= $info['maxlistener']) {
+        if($info['maxlistener'] > 0 && $result['c'] >= $info['maxlistener']) {
             header('icecast-auth-message: mountpoint is full');
             $sql = "UNLOCK TABLES;";
             $db->execute($sql);
