@@ -119,6 +119,7 @@ function output(){
                 break;
             case 'LAMEVBR':
                 makeLameVBR($row);
+                break;
             case 'OGG':
                 makeOGG($row);
                 break;
