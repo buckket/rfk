@@ -49,6 +49,14 @@ class LiquidInterface {
         return $this->executeCommand($output.".status");
     }
 
+    public function startOutputStream($output){
+        return $this->executeCommand($output.".start");
+    }
+
+    public function stopOutputStream($output){
+        return $this->executeCommand($output.".stop");
+    }
+
     public function kickHarbor($source) {
         $this->executeCommand($source.".kick");
     }

@@ -26,6 +26,77 @@ switch($mode){
     case 'meta':
         handleMetaData($argv[2]);
         break;
+    case 'record':
+        if($argv[2] === 'start') {
+            startRecording();
+        } else if ($argv[2] === 'stop') {
+            stopRecording();
+        } else if ($argv[2] === 'finish'){
+            finishRecording($argv[3]);
+        }
+        break;
+}
+exit(0);
+
+function startRecording() {
+    global $db;
+    require_once(dirname(__FILE__).'/../lib/LiquidInterface.php');
+    $liquid = new LiquidInterface();
+    $liquid->connect();
+    $output = $liquid->getOutputStreams();
+    if(in_array('recordstream', $output)) {
+        if($liquid->getOutputStreamStatus('recordstream') === 'off') {
+            $sql = "SELECT `show`, type
+                      FROM streamer JOIN shows USING ( streamer )
+                     WHERE streamer.status = 'STREAMING'
+                       AND type = 'PLANNED'
+                       AND (shows.end IS NULL
+                        OR NOW() BETWEEN shows.begin AND shows.end)";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                $sql = "UPDATE recordings SET status = 'FAILED' WHERE status = 'RECORDING'";
+                $db->execute($sql);
+                $show = $db->fetch($dbres);
+                $sql = "INSERT INTO recordings (`show`,status) VALUES (".$db->escape($show['show']).",'RECORDING')";
+                $db->execute($sql);
+                $liquid->startOutputStream('recordstream');
+            }
+        } else {
+            return 2;
+        }
+    } else {
+        return 1;
+    }
+}
+
+function finishRecording($tmpfile) {
+    global $db, $_config;
+    $filename = $tmpfile;
+    rename($filename,'/tmp/tmp.mp3');
+    $sql = "SELECT `show`, recording FROM recordings WHERE status = 'RECORDING' ORDER by recording ASC LIMIT 1;";
+    $dbres = $db->query($sql);
+    if($dbres && $db->num_rows($dbres) == 1) {
+        $s = $db->fetch($dbres);
+        rename('/tmp/tmp.mp3',$_config['recorddir'].$s['show'].'.mp3');
+        $sql = "UPDATE recordings SET status = 'FINISHED' WHERE recording = ".$s['recording']." LIMIT 1;";
+        $db->execute($sql);
+    }
+}
+
+function stopRecording() {
+    require_once(dirname(__FILE__).'/../lib/LiquidInterface.php');
+    $liquid = new LiquidInterface();
+    $liquid->connect();
+    $output = $liquid->getOutputStreams();
+    if(in_array('recordstream', $output)) {
+        if($liquid->getOutputStreamStatus('recordstream') === 'on') {
+            $liquid->stopOutputStream('recordstream');
+        } else {
+            return 2;
+        }
+    } else {
+        return 1;
+    }
 }
 
 function handleAuth($username,$password){
@@ -115,7 +186,7 @@ function handleConnect($data){
             $db->execute($sql);
         }
     }
-
+    //checkShow(); // try to create a show while there have been no tags send at all
 }
 
 function handleMetaData($metadata){
