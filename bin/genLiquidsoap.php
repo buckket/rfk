@@ -83,9 +83,13 @@ function external() {
 function record() {
     global $_config;
     echo '
+def record_close(filename)
+    ignore(system("php '.$_config['base'].'/bin/liquidsoap.php record finish #{quote(filename)}"))
+end
+
 recordstream = output.file(%mp3.vbr(stereo=true, samplerate=44100, quality=5),
                            "/tmp/stream.tmp.mp3",live,
-                           fallible = true, append = true, start = false, id="recordstream"
+                           fallible = true, append = true, start = false, id="recordstream", on_close = record_close
 )
     ';
 }
@@ -101,6 +105,7 @@ playlist = rewrite_metadata([("artist","Radio freies Krautchan")], playlist)
 #playlist = mksave(playlist)
 
 live = on_metadata(writemeta , live)
+live = lastfm.submit.full(user="'.$_config['lastfm'][0].'", password="'.$_config['lastfm'][1].'", delay=0., force=true, live)
 
 full = fallback(track_sensitive=false,transitions=[crossfade],[live,playlist])
 ';
