@@ -78,7 +78,7 @@ function finishRecording($tmpfile) {
     if($dbres && $db->num_rows($dbres) == 1) {
         $s = $db->fetch($dbres);
         rename('/tmp/tmp.mp3',$_config['recorddir'].$s['show'].'.mp3');
-        $sql = "UPDATE recordings SET status = 'FINISHED' WHERE recording = ".$s['recording']." LIMIT 1;";
+        $sql = "UPDATE recordings SET status = 'FINISHED', SET filename = '".$db->escape($s['show'].'.mp3')."' WHERE recording = ".$s['recording']." LIMIT 1;";
         $db->execute($sql);
     }
 }
