@@ -64,15 +64,15 @@ function addMetadata($filename) {
     }
     
     $sql = "SELECT `show`, name, username
-             FROM shows
-             JOIN streamer USING (streamer)
-             WHERE `show` = '" . $db->escape($showId) . "' ;";
+            FROM shows
+            JOIN streamer USING (streamer)
+            WHERE `show` = '" . $db->escape($showId) . "' ;";
     $dbres = $db->query($sql);
     if($dbres) {
         if($row = $db->fetch($dbres)) {
-         $metadata = array();
-         $metadata['name'] = $row['name'];
-         $metadata['username'] = $row['username'];
+            $metadata = array();
+            $metadata['name'] = $row['name'];
+            $metadata['username'] = $row['username'];
         }
         else {
             error_log(sprintf("Show (%s) not found for addMetadata", $showId), 0);
