@@ -82,16 +82,21 @@ function external() {
 
 function record() {
     global $_config;
-    echo '
+    if($_config['record_quality'] >= 0) {
+        echo '
 def record_close(filename)
     ignore(system("php '.$_config['base'].'/bin/liquidsoap.php record finish #{quote(filename)}"))
 end
 
-recordstream = output.file(%mp3.vbr(stereo=true, samplerate=44100, quality=5),
+recordstream = output.file(%mp3.vbr(stereo=true, samplerate=44100, quality='.$_config['record_quality'].'),
                            "/tmp/stream.tmp.mp3",live,
                            fallible = true, append = true, start = false, id="recordstream", on_close = record_close
 )
-    ';
+';
+
+    } else {
+        error_log('$_config[\'record_quality\'] was set to a wrong value');
+    }
 }
 
 function sources () {

@@ -33,6 +33,8 @@ $_config['lastfm'] = array('username','password');
 //absolut path to record archive
 $_config['recorddir'] = '/tmp/';
 
+$_config['record_quality'] = 4;
+
 $_config['torrent_dir'] = '/home/radio/torrents/'; //absolut path to torrent archive
 $_config['torrent_announce'] = 'http://radio.krautchan.net:6969/announce';
 
