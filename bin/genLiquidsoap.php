@@ -89,7 +89,7 @@ def record_close(filename)
 end
 
 recordstream = output.file(%mp3.vbr(stereo=true, samplerate=44100, quality='.$_config['record_quality'].'),
-                           "/tmp/stream.tmp.mp3",live,
+                           "/tmp/stream.tmp.mp3",full,
                            fallible = true, append = true, start = false, id="recordstream", on_close = record_close
 )
 ';
