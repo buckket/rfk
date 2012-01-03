@@ -61,6 +61,9 @@ function handle_request($flag) {
                 case 'listener':
                     getListener($out);
                     break;
+                case 'relay':
+                    getListenerPerRelay($out);
+                    break;
                 case 'kickdj':
                     if ($flag&$flags['kickallowed']) {
                         kickDJ($out);

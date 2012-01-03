@@ -189,6 +189,25 @@ function getCurrTrack(&$out) {
     }
 }
 
+function getListenerPerRelay(&$out) {
+    global $db;
+    $sql = "SELECT relay, COUNT(*) as c, hostname
+            FROM listenerhistory
+            JOIN relays USING (relay)
+            WHERE disconnected IS NULL
+            GROUP BY relay;";
+    $dbres = $db->query($sql);
+    $tmp = array();
+        if($dbres) {
+            while($row = $db->fetch($dbres)) {
+                $tmp[] = array('relay' => $row['relay'],
+                'hostname' => $row['hostname'],
+                'c' => $row['c']);
+            }
+        }
+    $out['relay'] = $tmp;
+}
+
 function getListener(&$out){
     global $db;
     $sql = "SELECT name, IF(c IS NULL, 0, c) as c, description
