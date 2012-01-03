@@ -271,12 +271,13 @@ function getTracks(&$out){
 function getTraffic(&$out) {
     global $db;
     
-    $sql = "SELECT relay, tx FROM relays;";
+    $sql = "SELECT relay, hostname, tx FROM relays;";
     $dbres = $db->query($sql);
     $tmp = array();
     if($dbres) {
         while($row = $db->fetch($dbres)) {
             $tmp[] = array('relay' => $row['relay'],
+            'hostname' => $row['hostname'],
             'out' => $row['tx']);
         }
     }
