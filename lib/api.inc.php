@@ -269,17 +269,17 @@ function getTracks(&$out){
 }
 
 function getTraffic(&$out) {
-    //didn't want to include common-functions.inc.php
-    $str = file_get_contents('../../var/vnstat');
+    global $db;
+    
+    $sql = "SELECT relay, tx FROM relays;";
+    $dbres = $db->query($sql);
     $tmp = array();
-    if (preg_match('/tx.*?([0-9]+)\\.([0-9]+).*/', $str,$matches)) {
-        $tmp['out'] = $matches[1].'.'.$matches[2];
+    if($dbres) {
+        while($row = $db->fetch($dbres)) {
+            $tmp[] = array('relay' => $row['relay'],
+            'out' => $row['tx']);
+        }
     }
-    if (preg_match('/rx.*?([0-9]+)\\.([0-9]+).*/', $str,$matches)) {
-        $tmp['in'] = $matches[1].'.'.$matches[2];
-    }
-    $tmp['sum'] = $tmp['in']+$tmp['out'];
-
     $out['traffic'] = $tmp;
 }
 

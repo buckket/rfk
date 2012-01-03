@@ -86,7 +86,13 @@ if(isset($streamerinfo['streamer'])
     }
 }
 
-$template['traffic'] = getTraffic();
+// total traffic
+$traffic = getTraffic();
+foreach ($traffic as $relay) {
+    $tx += $relay['out'];
+}
+
+$template['traffic'] = $tx;
 $template['PAGETITLE'] = $lang->lang('L_STATUS');
 $template['section'] = 'status';
 cleanup_h2o($template);

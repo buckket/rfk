@@ -26,6 +26,17 @@ function cleanup_h2o(&$template){
 	$template['lang'] = $lang->getLang();
 	$template['locales'] = $lang->getAvailLangs();
 	$template['usercountry'] = $user->country;
+	
+	if($_SERVER["SERVER_NAME"] == "radio.krautchan.net") {
+	    $template['style'] = "kc";
+	}
+	else if($_SERVER["SERVER_NAME"] == "radio.ernstchan.com") {
+	    $template['style'] = "ec";
+	}
+	else
+	{
+	    $template['style'] = "kc";
+	}
 }
 
 function create_api_key(){
@@ -50,16 +61,17 @@ function checkCB($country){
 }
 
 function getTraffic(){
-    $str = file_get_contents('../var/vnstat');
+    global $db;
+    
+    $sql = "SELECT relay, tx FROM relays;";
+    $dbres = $db->query($sql);
     $out = array();
-    if (preg_match('/tx.*?([0-9]+)\\.([0-9]+).*/', $str,$matches)) {
-        $out['out'] = $matches[1].'.'.$matches[2];
+    if($dbres) {
+        while($row = $db->fetch($dbres)) {
+            $out[] = array('relay' => $row['relay'],
+            'out' => $row['tx']);
+        }
     }
-    if (preg_match('/rx.*?([0-9]+)\\.([0-9]+).*/', $str,$matches)) {
-        $out['in'] = $matches[1].'.'.$matches[2];
-    }
-    $out['sum'] = $out['in']+$out['out'];
-
     return $out;
 }
 
