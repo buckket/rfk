@@ -20,7 +20,7 @@
     <td>
     <ul>
 	{% for id, stream in streams %}
-	   <li>{{ stream.description }} - {{ stream.count }} {% lang L_LISTENER %} <a href="{{ WEBROOT }}listen.php?stream={{stream.id}}">{% lang L_LISTEN %}</a></li>
+	   <li>{{ stream.description }} - {{ stream.count }} {% lang L_LISTENER %} <a href="{{ WEBROOT }}listen.php?stream={{stream.id}}&type=m3u">{% lang L_LISTEN %}</a></li>
 	{% endfor %}
 	</ul>
     </td>

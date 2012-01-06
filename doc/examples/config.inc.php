@@ -27,6 +27,8 @@ $_config['preshow_time'] = 7*60; // time before pre show loop in seconds
 $_config['preshow_loop'] = 'null';
 
 $_config['base'] = '/path_to/rfk';
+$_config['www_base'] = '/rfk';
+$_config['www_url'] = 'radio.krautchan.net';
 //lastfm credentials set to null if disabled
 $_config['lastfm'] = array('username','password');
 

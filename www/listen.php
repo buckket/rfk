@@ -9,23 +9,32 @@ $stream = (int)$_GET['stream'];
 if(!($stream > 0)) {
     die('neindu!');
 }
+if(isset($_GET['type']) && $_GET['type'] === 'm3u') {
+    $sql = "SELECT * FROM mounts WHERE mount = ".$db->escape($stream)."";
+    $dbres = $db->query($sql);
+    if($dbres) {
+        if($m = $db->fetch($dbres)) {
+            header('Content-type: audio/x-mpegurl');
+            header('Content-Disposition: attachment; filename="rfk.m3u"');
+            echo "#EXTM3U\r\n";
+            echo "#EXTINF:0, Radio freies Krautchan ".$m['description']."\r\n";
+            echo 'http://'.$_config['www_url'].$_config['www_base']."/listen.php?stream=$stream\r\n";
+        }
+    }
+    exit;
+}
 
-$sql = "SELECT * FROM mount_relay JOIN mounts USING (mount) JOIN relays USING (relay) WHERE mount = $stream";
+$sql = "SELECT hostname, port, path, (tx/bandwidth) as `usage`
+          FROM mount_relay
+          JOIN mounts USING (mount)
+          JOIN relays USING (relay)
+         WHERE mount_relay.status = 'ONLINE'
+           AND mount = ".$db->escape($stream)."
+         ORDER BY (tx/bandwidth) ASC LIMIT 1;";
 $dbres = $db->query($sql);
-$streams= array();
 if($dbres) {
-    while($m = $db->fetch($dbres)) {
-        $streams[] = array('name' => 'RfK @ '.$m['hostname'], 'url' => 'http://'.$m['hostname'].':8000'.$m['path']);
+    if($m = $db->fetch($dbres)) {
+        header('location: http://'.$m['hostname'].':'.$m['port'].$m['path']);
     }
 }
-header('Content-type: audio/x-mpegurl');
-header('Content-Disposition: attachment; filename="rfk.m3u"');
-echo "#EXTM3U\r\n";
-foreach($streams as $stream) {
-    echo "#EXTINF:0, ".$stream['name']."\r\n";
-    echo $stream['url']."\r\n";
-}
-
-
-
 ?>
