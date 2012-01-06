@@ -1,5 +1,6 @@
 <?php
 include('../../lib/common.inc.php');
+error_log(print_r($_POST,true));
 /**
  * GET THE MOUNTID
  */

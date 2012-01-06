@@ -1,144 +1,100 @@
-#!/usr/bin/liquidsoap
-set("log.file.path","/usr/share/rfk/var/log/liquidsoap.log")
-#set("log.stdout", false)
-#set("server.telnet", true)
 
-#harbor settings
-set("harbor.bind_addr","192.168.2.101")
-set("harbor.port",8010)
-
-# A simple (long) cross-fade
+set("log.file.path","/home/teddydestodes/src/rfk/var/log/liquidsoap.log")
+set("log.stdout", true)
+set("server.telnet", true)
+set("harbor.bind_addr","192.168.2.2")
 def crossfade(a,b)
-  add(normalize=false,
-	  [ sequence([ blank(duration=5.),
-	               fade.initial(duration=10.,b) ]),
-	    fade.final(duration=10.,a) ])
-end
-
-# Partially apply next to give it a jingle source.
-# It will fade out the old source, then play the jingle.
-# At the same time it fades in the new source.
+            add(normalize=false,
+            [ sequence([ blank(duration=5.),
+            fade.initial(duration=10.,b) ]),
+            fade.final(duration=10.,a) ])
+         end
 def next(j,a,b)
-  add(normalize=false,
-	  [ sequence(merge=true,
-	             [ blank(duration=3.),
-	               fade.initial(duration=6.,b) ]),
-	    sequence([fade.final(duration=9.,a),
-	              j,fallback([])]) ])
-end
-
-# A similar transition,
-# which does a cross-fading from A to B
-# and adds a jingle
+          add(normalize=false,[ sequence(merge=true,[ blank(duration=3.),
+              fade.initial(duration=6.,b) ]),
+              sequence([fade.final(duration=9.,a),
+              j,fallback([])]) ])
+          end
 def transition(j,a,b)
-  add(normalize=false,
-	  [ fade.initial(b),
-	    sequence(merge=true,
-	            [blank(duration=1.),j,fallback([])]),
-	    fade.final(a) ])
-end
-
-def depair(data)
-  "#{fst(data)}='#{snd(data)}'"
-end
-
-def auth(login,password) = 
-  ret = get_process_lines('php /usr/share/rfk/bin/liquidsoap.php auth #{quote(login)} #{quote(password)}')
-  ret = list.hd(ret)
-  bool_of_string(ret)
-end
-
-def live_start(mdata)
-  data = string.concat(separator=";", list.map(depair, mdata))
-  ignore(test_process("php /usr/share/rfk/bin/liquidsoap.php connect #{quote(data)}"))
-end
-
-def live_stop()
-  ignore(test_process("php /usr/share/rfk/bin/liquidsoap.php disconnect"))
-end
-
-def writemeta(mdata)
-  mymeta = string.concat(separator=";", list.map(depair, mdata))
-  ignore(test_process('php /usr/share/rfk/bin/liquidsoap.php meta #{quote(mymeta)}'))
-end
-
+              add(normalize=false,[ fade.initial(b),sequence(merge=true,
+              [blank(duration=1.),j,fallback([])]),
+              fade.final(a) ])
+          end
 def onfade(old, new)
-	add([amplify(2.0,new), amplify(0.1, old)])
-end
+            add([amplify(2.0,new), amplify(0.1, old)])
+          end
 
-def outfade(old, new)
-	add([new, old])
-end
+          def outfade(old, new)
+            add([new, old])
+          end
+def auth(login,password) =
+            ret = get_process_lines("php /home/teddydestodes/src/rfk/bin/liquidsoap.php auth #{quote(login)} #{quote(password)}")
+            ret = list.hd(ret)
+            bool_of_string(ret)
+          end
 
-text = request.queue(id="bot")
-live = input.harbor(on_connect = live_start, on_disconnect = live_stop, buffer=0., max = 10., auth = auth, "/live.ogg")
+          def live_start(mdata)
+            ignore(system("php /home/teddydestodes/src/rfk/bin/liquidsoap.php connect #{quote(json_of(compact=true,mdata))}"))
+          end
 
-playlist = playlist("http://localhost/rfk/api/playlist.php")
-playlist = rewrite_metadata([("title","Kein Stroembernd")], playlist)
+          def live_stop()
+            ignore(test_process("php /home/teddydestodes/src/rfk/bin/liquidsoap.php disconnect"))
+          end
+
+          def writemeta(mdata)
+            ignore(system("php /home/teddydestodes/src/rfk/bin/liquidsoap.php meta #{quote(json_of(compact=true,mdata))}"))
+          end
+
+live = input.harbor(port= 8010,on_connect = live_start, on_disconnect = live_stop, buffer=0., max = 10., auth = auth, "/live.ogg")
+
+playlist = request.dynamic({ request.create("bar:foo", indicators= get_process_lines("php /home/teddydestodes/src/rfk/bin/playlist.php"))})
+playlist = rewrite_metadata([("title","Kein Strömbernd")], playlist)
 playlist = rewrite_metadata([("artist","Radio freies Krautchan")], playlist)
+#playlist = mksave(playlist)
 
 live = on_metadata(writemeta , live)
-#default = fallback( track_sensitive = false, transitions = [onfade, outfade], [text, loop] )
+live = lastfm.submit.full(user="username", password="password", delay=0., force=true, live)
+
 full = fallback(track_sensitive=false,transitions=[crossfade],[live,playlist])
 
-lame = output.icecast.lame(
-restart=true,
-host="192.168.2.101",port=8000,protocol="http",
-user="source",password="hackme",
-mount="radio.mp3",bitrate=192,
-url="radio.krautchan.net",public=false,
-restart_on_crash=true,
-fallible=true,
-full
+def record_close(filename)
+    ignore(system("php /home/teddydestodes/src/rfk/bin/liquidsoap.php record finish #{quote(filename)}"))
+end
+
+recordstream = output.file(%mp3.vbr(stereo=true, samplerate=44100, quality=4),
+                           "/tmp/stream.tmp.mp3",live,
+                           fallible = true, append = true, start = false, id="recordstream", on_close = record_close
 )
-
-
-#output.icecast(
-# mount = "radio.mp3",
-# fallible=true,start=true,restart=true,restart_delay=3,
-# name= "Radio freies Krautchan",
-# protocol="http",
-# user = "source",
-# password = "krautkanal",
-# port = 8000,
-# host = "88.80.19.136",
-# public=false,
-# description="Radio freies Krautchan",
-# %mp3(bitrate=192),
-# full)
-
-
-#output.icecast(
-# mount = "radio.ogg",
-# fallible=true,start=true,restart=true,restart_delay=3,
-# name= "Radio freies Krautchan",
-# protocol="http",
-# user = "source",
-# password = "krautkanal",
-# port = 8000,
-# host = "88.80.19.136",
-# public=false,
-# description="Radio freies Krautchan",
-# %vorbis(quality=0.3),
-# full)
-
-#output.icecast(
-# mount = "radiohq.ogg",
-# fallible=true,start=true,restart=true,restart_delay=3,
-# name= "Radio freies Krautchan",
-# protocol="http",
-# user = "source",
-# password = "krautkanal",
-# port = 8000,
-# host = "88.80.19.136",
-# public=false,
-# description="Radio freies Krautchan",
-# %vorbis(quality=0.6),
-# full)
- 
-#def gskip(_) = source.skip(text) "Done" end
-#
-#server.register( namespace = "",
-#                 usage = "gskip", description = "gskip",
-#                 "gskip", gskip )
-
+MP3 =output.icecast(%mp3.vbr(stereo=true, samplerate=44100, quality=5,id3v2=true),
+	host="192.168.2.2",port=8000,protocol="http",
+    user="source",password="krautkanal",
+    mount="/radio.mp3",
+    url="radio.krautchan.net",public=false,
+    description="RfK MP3",
+    fallible=true,
+    full)
+    OGG =output.icecast(%vorbis(samplerate=44100, channels=2, quality=0.3),
+	host="192.168.2.2",port=8000,protocol="http",
+    user="source",password="krautkanal",
+    mount="/radio.ogg",
+    url="radio.krautchan.net",public=false,
+    description="RfK OGG",
+    fallible=true,
+    full)
+    OGGHQ =output.icecast(%vorbis(samplerate=44100, channels=2, quality=0.6),
+	host="192.168.2.2",port=8000,protocol="http",
+    user="source",password="krautkanal",
+    mount="/radiohq.ogg",
+    url="radio.krautchan.net",public=false,
+    description="RfK OGG HQ",
+    fallible=true,
+    full)
+    AACP =output.icecast(%aacplus(channels=2, samplerate=44100, bitrate=28),
+	host="192.168.2.2",port=8000,protocol="http",
+    user="source",password="krautkanal",
+    mount="/radio.aacp",
+    url="radio.krautchan.net",public=false,
+    description="RfK AACP",
+    fallible=true,
+    full)
+    
