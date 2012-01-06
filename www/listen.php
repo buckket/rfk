@@ -10,7 +10,7 @@ if(!($stream > 0)) {
     die('neindu!');
 }
 
-$sql = "SELECT * FROM mount_relay JOIN mounts USING (mount) JOIN relays USING (relay) WHERE mount = $stream";
+$sql = "SELECT * FROM mount_relay JOIN mounts USING (mount) JOIN relays USING (relay) WHERE mount = $stream GROUP BY (tx / bandwidth) ASC";
 $dbres = $db->query($sql);
 $streams= array();
 if($dbres) {
