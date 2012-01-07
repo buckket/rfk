@@ -211,6 +211,8 @@ function handleMetaData($metadata){
         }
         if(isset($meta['artist'])) {
             $meta['artist'] = trim($meta['artist']);
+        } else if(isset($meta['band'])) { // metatag mapping
+            $meta['artist'] = trim($meta['band']);
         }
         if(isset($meta['title'])) {
             $meta['title'] = trim($meta['title']);
