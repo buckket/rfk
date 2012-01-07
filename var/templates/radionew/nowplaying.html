@@ -56,18 +56,17 @@ $(function(){
         
     }
     updateShow();
-
-    $("#jquery_jplayer").jPlayer({
-        ready: function ()
-        {
-            this.element.jPlayer("setFile", "http://radio.krautchan.net:8000/radio.mp3","http://radio.krautchan.net:8000/radio.ogg");
+    $("#jquery_jplayer").jPlayer( {
+		ready: function(event) {
+            $(this).jPlayer("setMedia", {
+                mp3: "{{ WEBROOT }}/listen.php?stream=1",
+                oga: "{{ WEBROOT }}/listen.php?stream=2"
+            });
         },
-        oggSupport: false
-    })
-    
-    .jPlayer("onSoundComplete", function() {
-        this.element.jPlayer("play");
+    	swfPath: "{{ WEBROOT }}/js",
+		supplied: "mp3, oga"
     });
+
 
     function showPlayBtn()
     {
