@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../lib/common.inc.php');
-error_reporting(0); // disable error reporting
+//error_reporting(0); // disable error reporting
 $mode = $argv[1];
 $sql = "INSERT INTO debuglog (time,text) VALUES (NOW(),'".$db->escape(serialize($argv))."');";
 $db->execute($sql);
@@ -22,6 +22,7 @@ switch($mode){
         $db->execute($sql);
         $sql = "UPDATE streamer SET status = 'NOT_CONNECTED' WHERE status = 'STREAMING';";
         $db->execute($sql);
+        recordStopHook();
         break;
     case 'meta':
         handleMetaData($argv[2]);
@@ -73,12 +74,23 @@ function finishRecording($tmpfile) {
     global $db, $_config;
     $filename = $tmpfile;
     rename($filename,'/tmp/tmp.mp3');
+    if($_config['record_auto']) { //try to restart with a new show
+        if($show = checkShow()) {
+            if($show['type'] == 'PLANNED') {
+                startRecording();
+            }
+        }
+    }
     $sql = "SELECT `show`, recording FROM recordings WHERE status = 'RECORDING' ORDER by recording ASC LIMIT 1;";
     $dbres = $db->query($sql);
     if($dbres && $db->num_rows($dbres) == 1) {
         $s = $db->fetch($dbres);
         rename('/tmp/tmp.mp3',$_config['recorddir'].$s['show'].'.mp3');
-        $sql = "UPDATE recordings SET status = 'FINISHED', SET filename = '".$db->escape($s['show'].'.mp3')."' WHERE recording = ".$s['recording']." LIMIT 1;";
+        $sql = "UPDATE recordings
+                   SET status = 'FINISHED',
+                       filename = '".$db->escape($s['show'].'.mp3')."'
+                 WHERE recording = ".$s['recording']."
+                 LIMIT 1;";
         $db->execute($sql);
     }
 }
@@ -186,19 +198,25 @@ function handleConnect($data){
             $db->execute($sql);
         }
     }
-    //checkShow(); // try to create a show while there have been no tags send at all
+    checkShow(); // try to create a show while there have been no tags send at all
 }
 
 function handleMetaData($metadata){
     global $db;
     $meta = json_decode($metadata,true);
-    //error_log(print_r($meta,true));
     if(isset($meta['artist']) || isset($meta['title']) || isset($meta['song'])) {
         $songinfo = array();
-        $meta['song'] = trim($meta['song']);
-        $meta['artist'] = trim($meta['artist']);
-        $meta['title'] = trim($meta['title']);
-        if(strlen($meta['artist']) == 0){
+        if(isset($meta['song'])) {
+            $meta['song'] = trim($meta['song']);
+        }
+        if(isset($meta['artist'])) {
+            $meta['artist'] = trim($meta['artist']);
+        }
+        if(isset($meta['title'])) {
+            $meta['title'] = trim($meta['title']);
+        }
+
+        if(!isset($meta['artist']) || strlen($meta['artist']) == 0){
             if(strlen($meta['title']) == 0){
                 $meta['title'] = $meta['song'];
             }
@@ -213,7 +231,8 @@ function handleMetaData($metadata){
             $songinfo['artist'] = $meta['artist'];
             $songinfo['title'] = $meta['title'];
         }
-        if ($songinfo['show'] = checkShow()){
+        $show = checkShow();
+        if ($songinfo['show'] = $show['show']){
             $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
             $db->execute($sql);
             $sql = "INSERT INTO songhistory (`show`,begin,artist,title) VALUES (".$songinfo['show'].",NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."')";
@@ -225,108 +244,203 @@ function handleMetaData($metadata){
     }
 }
 
-function getUserID(){
+/**
+ * returns streamer id
+ * @return  integer
+ */
+function getStreamer(){
     global $db;
-    $sql = "SELECT userid FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
+    $sql = "SELECT streamer FROM streamer WHERE status = 'STREAMING' LIMIT 1;";
     $result = $db->query($sql);
-    $userid = 0;
     if($db->num_rows($result) > 0){
         $id = $db->fetch($result);
-        $userid = $id['userid'];
+        return $id['streamer'];
     }
-    return $userid;
+    return false;
+}
+/**
+ * returns Current (planned) Show,Type and streamerid
+ */
+function getCurrentShow() {
+    global $db;
+    $sql = "SELECT `show`, type, streamer
+              FROM shows
+             WHERE NOW() BETWEEN shows.begin AND shows.end;";
+    $dbres = $db->query($sql);
+    if($dbres && $db->num_rows($dbres) > 0) {
+        if($show = $db->fetch($dbres)) {
+            return $show;
+        }
+    }
+    return false;
 }
 
-function checkShow(){
+function getCurrentShowByStreamer($streamer) {
     global $db;
-    $sql = "SELECT `show`, type
-            FROM streamer JOIN shows USING ( streamer )
+    $sql = "SELECT `show`, type, streamer
+              FROM shows
+             WHERE NOW() BETWEEN shows.begin AND shows.end
+               AND streamer = ".$db->escape($streamer).";";
+    $dbres = $db->query($sql);
+    if($dbres && $db->num_rows($dbres) > 0) {
+        if($show = $db->fetch($dbres)) {
+            return $show;
+        }
+    }
+    return false;
+}
+/**
+ * returns currently streamed Show,Type and streamerid
+ */
+function getActiveShow() {
+    global $db;
+    $sql = "SELECT `show`, type, streamer
+            FROM streamer
+            JOIN shows USING ( streamer )
             WHERE streamer.status = 'STREAMING'
             AND (shows.end IS NULL
                  OR NOW() BETWEEN shows.begin AND shows.end)";
-    $result = $db->query($sql);
-    if($db->num_rows($result) > 0){
-        $upshowid = false;
-        $pshowid = false;
-        while( $show = $db->fetch($result) ){
-            //print_r($show);
-            if ($show['type'] == 'UNPLANNED') {
-                $upshowid = $show['show'];
-            }
-            if( $show['type'] == 'PLANNED' ) {
-                $pshowid = $show['show'];
+    $dbres = $db->query($sql);
+    $show = array();
+    if($dbres && $db->num_rows($dbres) > 0) {
+        while( $show = $db->fetch($dbres) ){
+            if($show['type'] == 'UNPLANNED') {
+                break;
             }
         }
-        if($pshowid > 0 ){
-            if($upshowid > 0){
-                $sql = "UPDATE shows SET end = NOW() WHERE end IS NULL;";
-                $db->query($sql);
-            }
-            return $pshowid;
-        }else{
-            return $upshowid;
-        }
-
+    }
+    if(count($show) > 0){
+        return $show;
     } else {
-        $showname = '';
-        $showdescription = '';
-        $sql = "SELECT *
+        return false;
+    }
+}
+
+function addUnplannedShow() {
+    global $db;
+    $showname = '';
+    $showdescription = '';
+    $streamer = 0;
+    $sql = "SELECT streamer
             FROM streamersettings
             JOIN streamer USING (streamer)
             WHERE status = 'STREAMING'
               AND `key` = 'icytags'";
-        $dbres = $db->query($sql);
-        if($dbres && $db->num_rows($dbres) > 0) {
-            $sql = "SELECT `key`, value
+    $dbres = $db->query($sql);
+    if($dbres && $db->num_rows($dbres) > 0) {
+        $s = $db->fetch($dbres);
+        $streamer = (int)$s['streamer'];
+        $sql = "SELECT `key`, value
                     FROM streamersettings
                     JOIN streamer USING (streamer)
                     WHERE status = 'STREAMING'
                       AND `key` IN ('icyshowname', 'icyshowdescription');";
-            $res = $db->query($sql);
-            while($row = $db->fetch($res)) {
-                switch($row['key']){
-                    case 'icyshowname':
-                            $showname = $row['value'];
-                        break;
-                    case 'icyshowdescription':
-                            $showdescription = $row['value'];
-                        break;
-                }
+        $res = $db->query($sql);
+        while($row = $db->fetch($res)) {
+            switch($row['key']){
+                case 'icyshowname':
+                    $showname = $row['value'];
+                    break;
+                case 'icyshowdescription':
+                    $showdescription = $row['value'];
+                    break;
             }
-        } else {
-            $sql = "SELECT `key`, value
+        }
+    } else {
+        $sql = "SELECT `key`, value, streamer
                     FROM streamersettings
                     JOIN streamer USING (streamer)
                     WHERE status = 'STREAMING'
                       AND `key` IN ('defaultshowname', 'defaultshowdescription');";
-            $res = $db->query($sql);
-            while($row = $db->fetch($res)) {
-                switch($row['key']){
-                    case 'defaultshowname':
-                        $showname = $row['value'];
-                        break;
-                    case 'defaultshowdescription':
-                        $showdescription = $row['value'];
-                        break;
-                }
+        $res = $db->query($sql);
+        while($row = $db->fetch($res)) {
+            $streamer = (int)$row['streamer'];
+            switch($row['key']){
+                case 'defaultshowname':
+                    $showname = $row['value'];
+                    break;
+                case 'defaultshowdescription':
+                    $showdescription = $row['value'];
+                    break;
             }
         }
-        $sql = "UPDATE shows SET end = NOW() WHERE end IS NULL;";
-                $db->query($sql);
-        $sql = "INSERT INTO shows (streamer, name, description, begin, type)
+    }
+    $sql = "UPDATE shows SET end = NOW() WHERE end IS NULL;";
+    $db->execute($sql);
+    $sql = "INSERT INTO shows (streamer, name, description, begin, type)
                 SELECT streamer, '".$db->escape($showname)."', '".$db->escape($showdescription)."', NOW(), 'UNPLANNED'
                 FROM streamer
                 WHERE STATUS = 'STREAMING'";
-        if( $db->execute($sql) ){
-            return $db->insert_id();
-        }else {
-            return false;
-        }
+    if( $db->execute($sql) ){
+        return array('show' =>$db->insert_id(),'type' => 'UNPLANNED', 'streamer' => $streamer);
+    }else {
         return false;
     }
     return false;
 }
 
+function checkShow() {
+    global $db;
+    $streamer = getStreamer();
+    if($streamer) {
+        $cshow = getCurrentShowByStreamer($streamer);
+    } else {
+        $cshow = false;
+    }
+    $ashow = getActiveShow();
+    if ($cshow){ //some show is planned by current streamer
+        recordStartHook($cshow['show']);
+        return $cshow;
+    } else if($ashow) { //some show is currently being streamed
+        recordStopHook();
+        if($ashow['streamer'] !== $streamer) {
+            return addUnplannedShow(); //add a new, unplanned, show
+        }
+        return $ashow;
+    } else if ($streamer) { //no show is currently streamed or planned
+        return addUnplannedShow(); //add a new, unplanned, show
+    }
+    return false;
+}
+
+function recordStartHook($showid) {
+    global $db, $_config;
+    if($_config['record_auto'] == true) {
+        $sql = "SELECT `show`, recording
+                  FROM recordings
+                 WHERE status = 'RECORDING'
+                 ORDER BY recording ASC LIMIT 1;";
+        $dbres = $db->query($sql);
+        if($dbres) {
+            if($db->num_rows($dbres) == 0) {
+                    startRecording();
+            } else if ($db->num_rows($dbres) == 1) {
+                $rec = $db->fetch($dbres);
+                if($rec['show'] != $showid) { //show has changed
+                    stopRecording();
+                }
+            } else if ($db->num_rows($dbres) > 1){
+                echo 'Database inconsistent! (multiple entries with status = RECORDING)'."\n";
+            }
+        } else {
+            echo 'FIXME: SQL-Error in recordHook'."\n";
+        }
+    }
+}
+
+function recordStopHook() {
+    global $db;
+    $sql = "SELECT `show`, recording
+                  FROM recordings
+                 WHERE status = 'RECORDING'
+                 ORDER BY recording ASC LIMIT 1;";
+    $dbres = $db->query($sql);
+    if($dbres) {
+        if($db->num_rows($dbres) == 1) {
+            stopRecording();
+        }
+    }
+}
 //Fix for clients who always use source as username
 function fixSimpleClientAuth(&$username,&$password){
     if(strtolower(trim($username)) === 'source' || strlen(trim($username)) == 0){
