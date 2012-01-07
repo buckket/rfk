@@ -16,8 +16,16 @@ switch($mode){
         handleConnect($argv[2]);
         break;
     case 'disconnect':
-        $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
-        $db->execute($sql);
+        $sql = "SELECT titleid, UNIX_TIMESTAMP(begin) as begin, UNIX_TIMESTAMP(NOW()) as end FROM songhistory WHERE end IS NULL";
+        $dbres = $db->query($sql);
+        if($dbres && $db->num_rows($dbres) > 0) {
+            if($lastsong = $db->fetch($dbres)) {
+                $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
+                $db->execute($sql);
+                updateTitleLength($lastsong['titleid'], $lastsong['end'] - $lastsong['begin']);
+
+            }
+        }
         $sql = "UPDATE shows SET end = NOW() WHERE type = 'UNPLANNED' AND end IS NULL;";
         $db->execute($sql);
         $sql = "UPDATE streamer SET status = 'NOT_CONNECTED' WHERE status = 'STREAMING';";
@@ -223,25 +231,44 @@ function handleMetaData($metadata){
                 $meta['title'] = $meta['song'];
             }
             $tmp = preg_split('/ - /',$meta['title'],2);
-            if(strlen(trim($tmp[1])) == 0){
-                $tmp[1] = $tmp[0];
-                $tmp[0] = '';
+            if(count($tmp) > 1) {
+                if(strlen(trim($tmp[1])) == 0){
+                    $tmp[1] = $tmp[0];
+                    $tmp[0] = '';
+                    $songinfo['artist'] = $tmp[0];
+                    $songinfo['title'] = $tmp[1];
+                } else {
+                    $songinfo['artist'] = $tmp[0];
+                    $songinfo['title'] = $tmp[1];
+                }
+            } else {
+                $songinfo['title'] = $tmp[0];
+                $songinfo['artist'] = '';
             }
-            $songinfo['artist'] = $tmp[0];
-            $songinfo['title'] = $tmp[1];
-        }else{
+        } else {
             $songinfo['artist'] = $meta['artist'];
             $songinfo['title'] = $meta['title'];
         }
         $show = checkShow();
-        if ($songinfo['show'] = $show['show']){
-            $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
-            $db->execute($sql);
-            $sql = "INSERT INTO songhistory (`show`,begin,artist,title) VALUES (".$songinfo['show'].",NOW(),'".$db->escape($songinfo['artist'])."','".$db->escape($songinfo['title'])."')";
+        if (($songinfo['show'] = $show['show']) != false) {
+            $sql = "SELECT titleid, UNIX_TIMESTAMP(begin) as begin, UNIX_TIMESTAMP(NOW()) as end FROM songhistory WHERE end IS NULL";
+            $dbres = $db->query($sql);
+            if($dbres && $db->num_rows($dbres) > 0) {
+                if($lastsong = $db->fetch($dbres)) {
+                    $sql = "UPDATE songhistory SET end = NOW() WHERE end IS NULL;";
+                    $db->execute($sql);
+                    updateTitleLength($lastsong['titleid'], $lastsong['end'] - $lastsong['begin']);
+
+                }
+            }
+            $sql = "INSERT INTO songhistory (`show`,begin,artist,title,titleid)
+                    VALUES (".$songinfo['show'].",NOW(),
+                           '".$db->escape($songinfo['artist'])."',
+                           '".$db->escape($songinfo['title'])."',
+                            ".$db->escape(getTitleId(getArtistId($songinfo['artist']), $songinfo['title'])).")";
             $db->execute($sql);
         }
     }else{
-        //fix für die idioten die nichts mitsenden
         checkShow();
     }
 }
@@ -443,6 +470,13 @@ function recordStopHook() {
         }
     }
 }
+
+
+
+///////////////////////////////////////////////////////
+//                  functions :3                     //
+///////////////////////////////////////////////////////
+
 //Fix for clients who always use source as username
 function fixSimpleClientAuth(&$username,&$password){
     if(strtolower(trim($username)) === 'source' || strlen(trim($username)) == 0){
@@ -456,4 +490,57 @@ function fixSimpleClientAuth(&$username,&$password){
     }
 }
 
+
+function getArtistId($name) {
+    global $db;
+    $name = trim($name);
+    $sql = 'SELECT artist FROM artists WHERE name = "'.$db->escape($name).'";';
+    $dbres = $db->query($sql);
+    if($dbres && $artist = $db->fetch($dbres)) {
+        return $artist['artist'];
+    } else {
+        $sql = 'INSERT INTO artists (name) VALUES ("'.$db->escape($name).'")';
+        if($db->execute($sql)) {
+            return $db->insert_id();
+        }
+    }
+}
+
+function getTitleId($artist, $title) {
+    global $db;
+    $title = trim($title);
+    $sql = 'SELECT title, length, lengthweight FROM titles WHERE name = "'.$db->escape($title).'" AND artist = '.$db->escape($artist).';';
+    $dbres = $db->query($sql);
+    if($dbres && $rtitle = $db->fetch($dbres)) {
+        return $rtitle['title'];
+    } else {
+        $sql = 'INSERT INTO titles (artist,name)
+                     VALUES ('.$db->escape($artist).',"'.$db->escape($title).'")';
+        if($db->execute($sql)) {
+            return $db->insert_id();
+        }
+    }
+}
+
+function updateTitleLength($titleid, $length){
+    global $db;
+    if($length <= 0)
+        $length = 0;
+    $sql = 'SELECT title, length, lengthweight FROM titles WHERE title = '.$db->escape($titleid).';';
+    $dbres = $db->query($sql);
+    if($dbres && ($rtitle = $db->fetch($dbres))) {
+        if(!isset($rtitle['lengthweight']) || $rtitle['lengthweight'] < 0) {
+            $rtitle['lengthweight'] = 0;
+        }
+        if(!isset($rtitle['length']) || $rtitle['length'] < 0) {
+            $rtitle['length'] = 0;
+        }
+        $calclength = (($rtitle['length']*$rtitle['lengthweight'])+$length)/($rtitle['lengthweight']+1);
+        $sql = 'UPDATE titles
+                   SET length = '.$db->escape($calclength).',
+                       lengthweight = '.$db->escape($rtitle['lengthweight']+1).'
+                 WHERE title = '.$db->escape($titleid);
+        $db->execute($sql);
+    }
+}
 ?>
