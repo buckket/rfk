@@ -77,7 +77,7 @@ function finishRecording($tmpfile) {
     if($_config['record_auto']) { //try to restart with a new show
         if($show = checkShow()) {
             if($show['type'] == 'PLANNED') {
-                startRecording();
+                startRecording($show['show']);
             }
         }
     }
