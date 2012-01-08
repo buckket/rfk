@@ -85,7 +85,7 @@ function finishRecording($tmpfile) {
     if($_config['record_auto']) { //try to restart with a new show
         if($show = checkShow()) {
             if($show['type'] == 'PLANNED') {
-                startRecording($show['show']);
+                recordStartHook($show['show']);
             }
         }
     }
@@ -438,6 +438,7 @@ function recordStartHook($showid) {
         $sql = "SELECT `show`, recording
                   FROM recordings
                  WHERE status = 'RECORDING'
+                   AND flag = 2
                  ORDER BY recording ASC LIMIT 1;";
         $dbres = $db->query($sql);
         if($dbres) {
