@@ -14,7 +14,7 @@ $Feed->setTitle($title);
 $Feed->setLink($link);
 $Feed->setDescription($desc);
 
-$Feed->setImage($title,$link,$link.'/logo2.png');
+$Feed->setImage($title,$link,$link.'/logo.png');
 $Feed->setChannelElement('language', 'de-de');
 $Feed->setChannelElement('pubDate', date(DATE_RSS, time()));
 $out = array();
