@@ -143,5 +143,6 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_LIST_OVERVIEW' => 'Hörerübersicht',
               'L_LIST_SHOWDATA' => '<td>ID</td><td>Adresse</td><td>Land</td><td>Stadt</td><td>Useragent</td>',
               //sidebar.html
-              'L_SERVERTIME'    => 'Serverzeit');
+              'L_SERVERTIME'    => 'Serverzeit',
+              'L_LISTEN_CAP'    => 'Einschalten');
 ?>
