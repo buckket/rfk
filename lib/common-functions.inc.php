@@ -75,6 +75,12 @@ function getTraffic(){
     return $out;
 }
 
+function redirect_to_page($page,$phpself) {
+    $host = $_SERVER['HTTP_HOST'];
+    $uri  = rtrim(dirname($phpself), '/\\');
+    header("Location: http://$host$uri/$page");
+}
+
 function setIRCCount($count) {
     file_put_contents('../var/irccount', $count);
 }

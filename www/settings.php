@@ -23,12 +23,6 @@ function check_password ($pw) {
     }
 }
 
-function redirect_after_logout ($page) {
-    $host = $_SERVER['HTTP_HOST'];
-    $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    header("Location: http://$host$uri/$page");
-}
-
 if(isset($_POST['submit'])) {
     $err = false;
     if(isset($_POST['streampassword'])){
@@ -45,7 +39,7 @@ if(isset($_POST['submit'])) {
                     $sql = "UPDATE streamer SET password = SHA('".$db->escape($_POST['newuserpass'])."') WHERE streamer = ".$user->userid." LIMIT 1;";
                     $db->execute($sql);
                     $user->logout();
-                    redirect_after_logout('login.php');
+                    redirect_to_page('login.php',$_SERVER['PHP_SELF']);
                 }
             }else{
                 $_MSG['err'][] = $lang->lang('L_ERR_PASSMISMATCH');

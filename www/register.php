@@ -20,6 +20,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'register'){
         if($user->register($_POST['username'],$_POST['password']) == 0){
             $user->set_streampassword($_POST['streampassword']);
             $_MSG['msg'][] = $lang->lang('L_REG_SUCCESS');
+            redirect_to_page('login.php',$_SERVER['PHP_SELF']);
         }else{
             $_MSG['err'][] = $lang->lang('L_ERR_REGFAIL');
         }
