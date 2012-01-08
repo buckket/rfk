@@ -68,7 +68,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_PROGRAMINFOS' => 'Program information',
               'L_STREAMS'      => 'Streams',
               'L_LISTENERHISTORY' => 'Listenercount',
-              'L_LISTEN' => 'listen',
+              'L_LISTEN' => 'tune in',
               'L_LISTENEROVERVIEW' => 'Listener overview',
               'L_CITY' => 'City',
               'L_MOUNT' => 'Streamtype',
@@ -143,5 +143,6 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_LIST_OVERVIEW' => 'Overview of listeners',
               'L_LIST_SHOWDATA' => '<td>ID</td><td>Address</td><td>Country</td><td>City</td><td>Useragent</td>',
               //sidebar.html
-              'L_SERVERTIME'    => 'Server Time');
+              'L_SERVERTIME'    => 'Server Time',
+              'L_LISTEN_CAP'    => 'Tune In');
 ?>
