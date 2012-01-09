@@ -2,10 +2,11 @@
 
 {% block content %}
 <h2>{% lang L_DONATIONS %}</h2>
-<b><u>Why donate?</b></u><br />
-Providing a community with a tool to share music, and audio in general, in an easy-to-use and enjoyable way was, and still is our main goal and motivation for running RfK. In the past two years many things have changed and we're still working on improvements. But besides of the fun we have hosting and administrating the radio, it costs us a lot of money. Nevertheless we want to provide a free service and that's why we hope for donations, which will help us to pay the bills more easily. So, if you want to support us, feel free to donate a few pennies. Thank you very much!<br /><br />
-<b><u>How to donate:</b></u><br />
-<b>PayPal:</b> ask MrLoom or teddydestodes on irc<br />
+<b><u>{% lang L_DON_WHY %}</b></u><br />
+Providing our community with a service to share music (and audio in general) in an easy-to-use and enjoyable way was, and still is our main goal and motivation for running RfK. In the past two years many things have changed and we're still working on improvements.<br />
+But aside from the fun we have hosting and administrating the radio, it costs us a lot of money. Nevertheless we want to provide a free service and that's why we hope for donations to pay the bills more easily. So if you want to support us, feel free to donate a few pennies. Thank you very much!<br /><br />
+<b><u>{% lang L_DON_HOWTO %}</b></u><br />
+<b>PayPal:</b> ask MrLoom or teddydestodes on <a href="irc://irc.euirc.net/#RfK">irc</a><br />
 <b>Flattr:</b> use the flattr button at the bottom<br />
 <b>Bitcoin:</b> 1NDthvgi7B7HsTvG85gxBkft4AWuWkMXag<br /><br />
 {% if isAdmin %}
@@ -13,11 +14,11 @@ EDIT FORM HERE
 {% endif %}
 <table class="donation">
     <tr>
-        <th>Date</th>
-        <th>Origin</th>
-        <th>Amount</th>
-        <th>After conversion</th>
-        <th>Method</th>
+        <th>{% lang L_DON_DATE %}</th>
+        <th>{% lang L_DON_ORIGIN %}</th>
+        <th>{% lang L_DON_AMOUNT %}</th>
+        <th>{% lang L_DON_A_CONV %}</th>
+        <th>{% lang L_DON_METHOD %}</th>
     </tr>
 {% for donation in donations %}
 <tr>
@@ -29,5 +30,5 @@ EDIT FORM HERE
 </tr>
 {% endfor %}
 </table>
-<br /><br />~Many thanks for supporting us <3
+<br /><br />~Many thanks for supporting us &lt;3
 {% endblock %}

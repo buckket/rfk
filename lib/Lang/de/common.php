@@ -144,5 +144,13 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_LIST_SHOWDATA' => '<td>ID</td><td>Adresse</td><td>Land</td><td>Stadt</td><td>Useragent</td>',
               //sidebar.html
               'L_SERVERTIME'    => 'Serverzeit',
-              'L_LISTEN_CAP'    => 'Einschalten');
+              'L_LISTEN_CAP'    => 'Einschalten',
+              //donations.html
+              'L_DON_WHY'    => 'Wozu spenden?',
+              'L_DON_HOWTO'  => 'Wie man spenden kann:',
+              'L_DON_DATE'   => 'Datum',
+              'L_DON_ORIGIN' => 'Herkunft',
+              'L_DON_AMOUNT' => 'Betrag',
+              'L_DON_A_CONV' => 'Nach Umrechnung',
+              'L_DON_METHOD' => 'Mittels');
 ?>
