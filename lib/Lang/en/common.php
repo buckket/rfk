@@ -118,7 +118,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_DELETE'        => 'delete',
               'L_SAVESUCCESS'   => 'Successfully entered show!',
               'L_EDITSUCCESS'   => 'Successfully edited show!',
-//               'L_DELSUCCESS'    => 'Successfully deleted show!',
+               'L_DELSUCCESS'    => 'Successfully deleted show!',
               //ERRORS
               'L_ERR_AUTH_REQUIRED' => 'Authentification needed!',
               'L_ERR_SHOW_2LONG'    => 'The show is too long!',
