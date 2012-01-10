@@ -131,7 +131,9 @@ function handleAuth($username,$password){
     if($db->num_rows($result) > 0 ){
         $user = $db->fetch($result);
         if($user['bstat'] != 'ban') {
-            autoKick($user['streamer']);
+            if(autoKick($user['streamer'])){
+                return false;
+            }
             $sql = "UPDATE streamer SET status = 'LOGGED_IN', ban = NULL WHERE streamer = '".$user['streamer']."' AND status = 'NOT_CONNECTED';";
             $db->execute($sql);
             return true;
@@ -149,14 +151,25 @@ function autoKick($user){
         $dbres = $db->query($sql);
         if($row = $db->fetch($dbres)) {
             if($row['streamer'] != $user){
+                banDJ($row['streamer']);
                 require_once $includepath.'/LiquidInterface.php';
                 $liquid = new LiquidInterface();
                 $liquid->connect();
                 $liquid->kickHarbor($liquid->getHarborSource());
+                return true;
             }
         }
     }
+    return false;
     $db->free($dbres);
+}
+
+function banDJ($streamer){
+    global $dj;
+    $timestamp = time() + 60;
+    $timestamp = date('Y-m-d H:i:s', $timestamp);
+    $sql = "UPDATE streamer SET ban = '". $timestamp . "' WHERE streamer = '". $streamer ."';";
+    return $db->execute($sql);
 }
 
 function handleConnect($data){
