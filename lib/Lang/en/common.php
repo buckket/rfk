@@ -118,7 +118,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_DELETE'        => 'delete',
               'L_SAVESUCCESS'   => 'Successfully entered show!',
               'L_EDITSUCCESS'   => 'Successfully edited show!',
-              'L_DELSUCCESS'    => 'Successfully deleted show!',
+               'L_DELSUCCESS'    => 'Successfully deleted show!',
               //ERRORS
               'L_ERR_AUTH_REQUIRED' => 'Authentification needed!',
               'L_ERR_SHOW_2LONG'    => 'The show is too long!',
@@ -144,5 +144,13 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_LIST_SHOWDATA' => '<td>ID</td><td>Address</td><td>Country</td><td>City</td><td>Useragent</td>',
               //sidebar.html
               'L_SERVERTIME'    => 'Server Time',
-              'L_LISTEN_CAP'    => 'Tune In');
+              'L_LISTEN_CAP'    => 'Tune In',
+              //donations.html
+              'L_DON_WHY'    => 'Why donate?',
+              'L_DON_HOWTO'  => 'How to donate:',
+              'L_DON_DATE'   => 'Date',
+              'L_DON_ORIGIN' => 'Origin',
+              'L_DON_AMOUNT' => 'Amount',
+              'L_DON_A_CONV' => 'After conversion',
+              'L_DON_METHOD' => 'Method');
 ?>

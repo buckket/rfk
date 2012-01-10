@@ -7,7 +7,7 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_LOGIN'    => 'Войти',
               'L_LOGOUT'    => 'Выйти',
               'L_REGISTER' => 'Регистрация',
-              'L_DONATIONS' => 'Жертвы',
+              'L_DONATIONS' => 'Жертвования',
               'L_USER'     => 'Пользователь',
               'L_LISTENER' => 'слушателей',
               'L_LAST10TRACKS' => 'Последние 10 песен',
@@ -144,5 +144,13 @@ $lang = array('L_OVERVIEW' => 'Новости',
               'L_LIST_SHOWDATA' => '<td>ID</td><td>Адрес</td><td>Страна</td><td>Город</td><td>UserAgent</td>',
               //sidebar.html
               'L_SERVERTIME'    => 'Время на сервере',
-              'L_LISTEN_CAP'    => 'Включить');
+              'L_LISTEN_CAP'    => 'Включить',
+              //donations.html
+              'L_DON_WHY'    => 'Зачем жертвовать?',
+              'L_DON_HOWTO'  => 'Как пожертвовать:',
+              'L_DON_DATE'   => 'Дата',
+              'L_DON_ORIGIN' => 'Происхождение',
+              'L_DON_AMOUNT' => 'Сумма',
+              'L_DON_A_CONV' => 'После конверсии',
+              'L_DON_METHOD' => 'Способ');
 ?>

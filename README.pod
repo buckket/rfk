@@ -4,7 +4,7 @@ RfK - Radio freies Krautchan
 
 =head1 DESCRIPTION
 
-RfK is a Webradio based on liquidsoap, icecast2, MySQL and PHP. The idea was to create a platform which is easy to use and available for everyone. To achieve this every user can get his own account for the streamingserver, in our case icecast2, without unnecessary steps. Another important thing is the site itself, it's needed to plan and organize shows. Further more there's an API which we use for our IRC integration. The database is frequently used to save every kind of information (see table structure for more information). The site itself is based on PHP, other parts are written in Perl and Bash. 
+RfK is a Webradio based on liquidsoap, icecast2, MySQL and PHP. The idea was to create a platform which is easy to use and available for everyone. To achieve this every user can get his own account for the streaming server, in our case icecast2, without unnecessary steps. Another integral feature is the site itself, it's needed to plan and organize shows. Furthermore there's an API which we use for our IRC integration. The database is frequently used to save every kind of information (see table structure for more on that topic). The site itself is based on PHP, with supporting parts written in Perl and Bash. 
 
 =head2 Installation
 
@@ -16,7 +16,7 @@ Configure C<icecast2> (see C<etc/icecast.xml>).
 
 =item *
 
-Import C<src/scheme-*.sql> and edit C<etc/config.inc.php>.
+Import C<src/scheme-*.sql> and C<src/locales-*.sql> and edit C<etc/config.inc.php>.
 
 =item *
 
@@ -25,10 +25,6 @@ Add the mountpoints from the C<icecast2> config to the database.
 =item *
 
 Execute C<etc/genLiquidsoap.php> and run C<liquidsoap> with the generated config.
-
-=item *
-
-(Some paths are hardcoded and will look for the radio in C</usr/share/rfk/>)
 
 =back
 
