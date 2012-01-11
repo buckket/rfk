@@ -165,7 +165,7 @@ function autoKick($user){
 }
 
 function banDJ($streamer){
-    global $dj;
+    global $db;
     $timestamp = time() + 60;
     $timestamp = date('Y-m-d H:i:s', $timestamp);
     $sql = "UPDATE streamer SET ban = '". $timestamp . "' WHERE streamer = '". $streamer ."';";
@@ -240,7 +240,7 @@ function handleMetaData($metadata){
         }
 
         if(!isset($meta['artist']) || strlen($meta['artist']) == 0){
-            if(strlen($meta['title']) == 0){
+            if(strlen($meta['title']) == 0 && isset($meta['song'])){
                 $meta['title'] = $meta['song'];
             }
             $tmp = preg_split('/ - /',$meta['title'],2);
@@ -451,12 +451,20 @@ function recordStartHook($showid) {
         $sql = "SELECT `show`, recording
                   FROM recordings
                  WHERE status = 'RECORDING'
-                   AND flag = 2
                  ORDER BY recording ASC LIMIT 1;";
         $dbres = $db->query($sql);
         if($dbres) {
             if($db->num_rows($dbres) == 0) {
-                    startRecording();
+                $sql = 'SELECT flag
+                          FROM shows
+                         WHERE `show` = '.$db->escape($showid).'
+                         LIMIT 1;';
+                $dbres = $db->query($sql);
+                if($dbres && $show = $db->fetch($dbres)) {
+                    if ($show['flag'] == 2) {
+                        startRecording();
+                    }
+                }
             } else if ($db->num_rows($dbres) == 1) {
                 $rec = $db->fetch($dbres);
                 if($rec['show'] != $showid) { //show has changed
