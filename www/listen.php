@@ -20,7 +20,10 @@ if(isset($_GET['type']) && $_GET['type'] === 'plain') {
     $dbres = $db->query($sql);
     if($dbres) {
         if($m = $db->fetch($dbres)) {
-            header('location: http://'.$m['hostname'].':'.$m['port'].$m['path']);
+            header('Location: http://'.$m['hostname'].':'.$m['port'].$m['path']);
+            header('X-Load: '.$m['usage']*100);
+            header('X-TrifOrce:  ▲');
+            header('X-Trif0rce: ▲ ▲');
         }
     }
     exit;
@@ -30,7 +33,7 @@ $sql = "SELECT * FROM mounts WHERE mount = ".$db->escape($stream)."";
 $dbres = $db->query($sql);
 if($dbres) {
     if($m = $db->fetch($dbres)) {
-        header('Content-type: audio/x-mpegurl');
+        header('Content-Type: audio/x-mpegurl');
         header('Content-Disposition: attachment; filename="rfk.m3u"');
         echo "#EXTM3U\r\n";
         echo "#EXTINF:0, Radio freies Krautchan ".$m['description']."\r\n";
