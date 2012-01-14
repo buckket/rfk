@@ -94,6 +94,7 @@ function finishRecording($tmpfile) {
     if($dbres && $db->num_rows($dbres) == 1) {
         $s = $db->fetch($dbres);
         rename('/tmp/tmp.mp3',$_config['recorddir'].$s['show'].'.mp3');
+        exec('nohup php '.$_config['base'].'/bin/recordprocessing.php '.$s['show'].'.mp3 > /dev/null 2>&1 &');
         $sql = "UPDATE recordings
                    SET status = 'FINISHED',
                        filename = '".$db->escape($s['show'].'.mp3')."'
@@ -166,7 +167,7 @@ function autoKick($user){
 
 function banDJ($streamer){
     global $db;
-    $timestamp = time() + 60;
+    $timestamp = time() + 120;
     $timestamp = date('Y-m-d H:i:s', $timestamp);
     $sql = "UPDATE streamer SET ban = '". $timestamp . "' WHERE streamer = '". $streamer ."';";
     return $db->execute($sql);
