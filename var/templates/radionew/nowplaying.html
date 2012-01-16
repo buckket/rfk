@@ -59,8 +59,8 @@ $(function(){
     $("#jquery_jplayer").jPlayer( {
 		ready: function(event) {
             $(this).jPlayer("setMedia", {
-                mp3: "{{ WEBROOT }}/listen.php?stream=1",
-                oga: "{{ WEBROOT }}/listen.php?stream=2"
+                mp3: "{{ WEBROOT }}/listen.php?stream=1&type=plain",
+                oga: "{{ WEBROOT }}/listen.php?stream=2&type=plain"
             });
         },
     	swfPath: "{{ WEBROOT }}/js",
