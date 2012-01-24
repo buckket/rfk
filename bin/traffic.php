@@ -2,12 +2,33 @@
 require_once(dirname(__FILE__).'/../lib/common.inc.php');
 error_reporting(0); // disable error reporting
 
+if(($mounts = getMaxMounts()) === false) {
+    error_log("mounts have to be > 0", 0);
+    return 1;
+}
 
-$sql = "SELECT relay, hostname, port, query_method, query_user, query_pass FROM relays WHERE query_method <> 'NO_QUERY'";
+$sql = "SELECT relay, hostname, port, status, query_method, query_user, query_pass FROM relays WHERE query_method <> 'NO_QUERY'";
 $dbres = $db->query($sql);
 $somefail = false;
 if($dbres && $db->num_rows($dbres)) {
     while($server = $db->fetch($dbres)) {
+        
+        // Status
+        if(getIcecastStatus($server['hostname'], $server['port'], $server['query_user'], $server['query_pass'], $mounts) === false) {
+            // check if server status isn't already set to offline
+            if($server['status'] != 'OFFLINE') {
+                updateDatabase('status', 'OFFLINE', $server['relay']);
+            }
+            continue;
+        }
+        else {
+            // server seems to be online
+            if($server['status'] != 'ONLINE') {
+                updateDatabase('status', 'ONLINE', $server['relay']);
+            }
+        }
+        
+        // Traffic
         $traffic = array();
         switch($server['query_method']) {
             case 'REMOTE_ICECAST2_KH':
@@ -21,7 +42,7 @@ if($dbres && $db->num_rows($dbres)) {
                 break;
         }
         adjustUnit(&$traffic['out']);
-        if(!updateDatabase($traffic['out']['value'], $server['relay'])){
+        if(!updateDatabase('tx', $traffic['out']['value'], $server['relay'])){
             $somefail = true;
         }
     }
@@ -44,6 +65,16 @@ function getRemoteStat($ip,$port,$username,$password) {
         return false;
     }
     return $tmp;
+}
+
+function getIcecastStatus($ip,$port,$username,$password,$mounts) {
+    $page = file_get_contents('http://'.$username.':'.$password.'@'.$ip.':'.$port.'/admin/status.xml');
+    if(preg_match('/<sources>(\\d+)<\\/sources>/', $page, $matches)){
+        if($matches[1] == $mounts) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function parseVNStat() {
@@ -74,12 +105,25 @@ function adjustUnit(&$traffic) {
     }
 }
 
-function updateDatabase($value, $relay) {
+function updateDatabase($key, $value, $relay) {
     global $db;
-    $sql = "UPDATE relays SET tx = '" . $db->escape($value) ."' WHERE `relay` = '" . $db->escape($relay) ."';";
+    $sql = "UPDATE relays SET ". $db->escape($key) ." = '" . $db->escape($value) ."' WHERE `relay` = '" . $db->escape($relay) ."';";
     if($db->execute($sql)) {
         if($db->getAffectedRows() > 0) {
             return 0;
         }
+    }
+}
+
+function getMaxMounts() {
+    global $db;
+    $sql = "SELECT COUNT(*) as c FROM mounts";
+    $dbres = $db->query($sql);
+    if($dbres) {
+        $row = $db->fetch($dbres);
+        return $row['c'];
+    }
+    else {
+        return false;
     }
 }

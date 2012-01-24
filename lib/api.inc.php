@@ -271,7 +271,7 @@ function getTracks(&$out){
 function getTraffic(&$out) {
     global $db;
     
-    $sql = "SELECT relay, hostname, tx FROM relays;";
+    $sql = "SELECT relay, hostname, tx FROM relays WHERE status <> 'OFFLINE';";
     $dbres = $db->query($sql);
     $tmp = array();
     if($dbres) {
