@@ -595,4 +595,132 @@ function rthread(&$out) {
     }
 }
 
+function remindAdd(&$out) {
+    global $db;
+    
+    if((isset($_GET['type']) && strlen($_GET['type']) > 0) && (isset($_GET['id']) && is_int((int)$_GET['id']))) {
+        $type = $_GET['type'];
+        $id = (int)$_GET['id'];
+         
+        if($out['auth']['status'] != 0) {
+            throw_error(21, 'auth failed');
+            return;
+        }
+        $streamer = $out['auth']['id'];
+        
+        if($type == 'dj' || $type == 'show') {
+            $sql = "SELECT COUNT(*) as c FROM ircEvents WHERE streamer = '" . $db->escape($streamer) . "' and `" . $db->escape($type) . "` = '" . $db->escape($id) . "';";
+            $dbres = $db->query($sql);
+            if($dbres) {
+                $row = $db->fetch($dbres);
+                if($row['c'] == 0) {
+                    $sql = "INSERT INTO ircEvents (streamer, `" . $db->escape($type) . "`, type) VALUES ('" . $db->escape($streamer) . "','" . $db->escape($id) . "','REMIND');";
+                    if($db->execute($sql)) {
+                        $out['remindadd']['status'] = 0;
+                        return;
+                    }
+                }
+                else {
+                    $out['remindadd']['dupe'] = 1;
+                }
+            }
+        }
+        else {
+            throw_error(22, 'invalid input');
+        }
+    }
+    $out['remindadd']['status'] = 1;
+}
+
+function remindGet(&$out) {
+    global $db;
+    
+    if((isset($_GET['showid']) && is_int((int)$_GET['showid'])) && (isset($_GET['djid']) && is_int((int)$_GET['djid']))) {
+        $showid = (int)$_GET['showid'];
+        $djid = (int)$_GET['djid'];
+        
+        $sql = "SELECT * FROM ircEvents JOIN streamersettings USING (streamer)
+                WHERE (`show` = '" . $db->escape($showid) . "' OR `dj` = '" . $db->escape($djid) . "')
+                AND streamersettings.key = 'isIRC' AND streamersettings.value = '1' AND type = 'REMIND';";
+        $dbres = $db->query($sql);
+        $tmp = array();
+        if($dbres) {
+            while($row = $db->fetch($dbres)) {
+                if(! array_key_exists($row['streamer'], $tmp)) {
+                    $sql = "SELECT * FROM streamersettings WHERE streamer = '" . $db->escape($row['streamer']) . "' and `key` = 'hostmask';";
+                    $dbres2 = $db->query($sql);
+                    if($dbres2) {
+                        $row2 = $db->fetch($dbres2);
+                        $nick = explode('!', $row2['value']);
+                        $nick = $nick[0];
+                        $tmp[$row['streamer']] = $nick;
+                    }
+                }
+            }   
+        }
+        $out['remindGet'] = $tmp;
+    }
+}
+
+function remindList(&$out) {
+    global $db;
+    
+    if($out['auth']['status'] != 0) {
+        throw_error(21, 'auth failed');
+        return;
+    }
+     
+    $streamer = $out['auth']['id'];
+    $sql = "SELECT * FROM ircEvents WHERE streamer = '" . $db->escape($streamer) . "';";
+    $dbres = $db->query($sql);
+    $tmp = array();
+    if($dbres) {
+        while($row = $db->fetch($dbres)) {
+            if($row['dj']) {
+                $sql = "SELECT username FROM streamer WHERE streamer = '" . $db->escape($row['dj']) ."';";
+                $dbres2 = $db->query($sql);
+                if($dbres2) {
+                    $row2 = $db->fetch($dbres2);
+                    array_push($tmp, array('id' => $row['ircevent'], 'value' => $row2['username'], 'type' => 'dj'));
+                }
+            }
+            elseif ($row['show']) {
+                $sql = "SELECT COUNT(*) as c FROM shows WHERE `show` = '" . $db->escape($row['show']) . "' AND begin > NOW();";
+                $dbres2 = $db->query($sql);
+                if($dbres2) {
+                    $row2 = $db->fetch($dbres2);
+                    if($row2['c'] > 0) {
+                        array_push($tmp, array('id' => $row['ircevent'], 'value' => $row['show'], 'type' => 'show'));
+                    }
+                }
+            }
+        }
+    }
+    $out['remindlist'] = $tmp;
+}
+
+function remindDelete(&$out) {
+    global $db;
+    
+    
+    if(isset($_GET['id']) && is_int((int)$_GET['id'])) {
+        if($out['auth']['status'] != 0) {
+            throw_error(21, 'auth failed');
+            return;
+        }
+
+        $streamer = $out['auth']['id'];
+        $id = (int)$_GET['id'];
+        
+        $sql = "DELETE FROM ircEvents WHERE ircevent = '" . $db->escape($id) . "' AND streamer = '" . $db->escape($streamer) ."';";
+        if($db->execute($sql)) {
+            if($db->getAffectedRows() > 0) {
+                $out['reminddelete']['status'] = 0;
+                return;
+            }
+        }
+    }
+    $out['reminddelete']['status'] = 1;
+}
+
 ?>

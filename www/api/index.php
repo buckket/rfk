@@ -132,6 +132,18 @@ function handle_request($flag) {
                 case 'rthread':
                     rthread($out);
                     break;
+                case 'remindadd':
+                    remindAdd($out);
+                    break;
+                case 'remindget':
+                    remindGet($out);
+                    break;
+                case 'remindlist':
+                    remindList($out);
+                    break;
+                case 'reminddelete':
+                    remindDelete($out);
+                    break;
                 default:
                     $out['warning'][] = $qry.' does not exsist';
             }
