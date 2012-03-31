@@ -62,6 +62,7 @@ $lang = array('L_OVERVIEW' => 'Overview',
               'L_CANCEL'     => 'Abort',
               'L_NO_DATA_FIELD' => 'Choose an empty field in the calendar grid first!',
               'L_NO_SPANNING'   =>  'Planning spanning multiple weeks not supported!',
+              'L_SHOWDETAILS'   =>  'Show details',
               //status.php
               'L_CURRENTLY_STREAMING' => '%1$s is currently streaming the show %2$s (%3$s) since %4$s.',
               'L_CURRENTLY_STREAMING_NI' => '%1$s is currently streaming since %2$s.',
