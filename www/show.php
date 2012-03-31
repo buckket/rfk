@@ -57,10 +57,8 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
         if($user->logged_in && $user->userid == $show['streamer']) {
             $show['editable'] = true;
         }
-        if(isset($_GET['tstamp'])&&$_GET['tstamp']==true){
-            $show['tsdata'] = date('d. m. Y. H:i',$show['begin']).' - '.date('H:i',$show['end']);
-            $show['timestamp'] = true;
-        }
+        $show['tsdata'] = date('d.m.Y. H:i',$show['begin']).' - '.date('H:i',$show['end']);
+        $show['timestamp'] = true;
         $template['shows'][] = $show;
     }
     showPage($template, 'viewshow', $fulltemplate);
