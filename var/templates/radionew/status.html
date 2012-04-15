@@ -1,19 +1,5 @@
 {% extends "sidebar.html" %}
 {% block content %}
-<h2>{% lang L_PROGRAMINFOS %}</h2>
-{% if streaming %}
-    {% if showunnamed %}
-    {% lang L_CURRENTLY_STREAMING_NI, streamerinfo.username, show.begin %}
-    {% else %}
-    <p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.description, show.begin %}</p>
-    {% endif %}
-    {% if show.thread > 0 %}
-    <p><a href="http://krautchan.net/rfk/thread-{{show.thread}}.html">{% lang L_SEEKC %}</a></p>
-    {% endif %}
-{% else %}
-    {% lang L_NP_NOONESTREAMING %}
-{% endif %}
-<br /><br />
 <h2>{% lang L_STREAMS %}</h2>
 <table width="100%">
   <tr>
@@ -27,7 +13,23 @@
     <td rowspan="{{streamnum}}" style="vertical-align:middle;text-align:center;font-size:3em;font-weight:bolder;color:lightgrey;">{{ traffic }} kB/s</td>
   </tr>
 </table>
-
+<br /><br />
+<h2>{% lang L_PROGRAMINFOS %}</h2>
+{% if streaming %}
+    {% if showunnamed %}
+    {% lang L_CURRENTLY_STREAMING_NI, streamerinfo.username, show.begin %}
+    {% else %}
+    <p>{% lang L_CURRENTLY_STREAMING, streamerinfo.username, show.name, show.begin %}
+	<br/>
+	{{show.description | safe}}
+	</p>
+    {% endif %}
+    {% if show.thread > 0 %}
+    <p><a href="http://krautchan.net/rfk/thread-{{show.thread}}.html">{% lang L_SEEKC %}</a></p>
+    {% endif %}
+{% else %}
+    {% lang L_NP_NOONESTREAMING %}
+{% endif %}
 
 {% if userstreaming %}
 <p>

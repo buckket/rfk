@@ -64,7 +64,7 @@ $lang = array('L_OVERVIEW' => 'Übersicht',
               'L_NO_SPANNING'   =>  'Wochenübergreifend Planen ist nicht möglich!',
               'L_SHOWDETAILS'   =>  'Sendungsdetails',
               //status.php
-              'L_CURRENTLY_STREAMING' => 'Momentan strömt %1$s die Sendung %2$s (%3$s) seit %4$s.',
+              'L_CURRENTLY_STREAMING' => 'Momentan strömt %1$s die Sendung %2$s seit %3$s.',
               'L_CURRENTLY_STREAMING_NI' => 'Seit %2$s strömt %1$s.',
               'L_PROGRAMINFOS' => 'Programminformationen',
               'L_STREAMS'      => 'Ströme',
