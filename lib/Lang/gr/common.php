@@ -56,7 +56,7 @@ $lang = array('L_OVERVIEW' => 'Κύρια σελίδα',
               'L_ENTER'      => 'Σύνδεση',
               'L_CANCEL'     => 'Ακύρωση',
               //status.php
-              'L_CURRENTLY_STREAMING' => 'Τώρα μεταδίδει ο/η %1$s τη μετάδοση %2$s (%3$s) από %4$s.',
+              'L_CURRENTLY_STREAMING' => 'Τώρα μεταδίδει ο/η %1$s τη μετάδοση %2$s από %3$s.',
               'L_PROGRAMINFOS' => 'Πληροφορίες προγραμμάτων',
               'L_STREAMS'      => 'Μεταδόσεις',
               'L_LISTENERHISTORY' => 'Ιστορικό ακροατών',

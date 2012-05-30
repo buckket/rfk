@@ -58,7 +58,7 @@ $lang = array('L_OVERVIEW' => '概要',
               'L_NO_DATA_FIELD' => 'カレンダーで空いている期限を選んで下さい',
               'L_NO_SPANNING'   =>  '週間の予定ができません',
               //status.php
-              'L_CURRENTLY_STREAMING' => '現在%1$sの%2$s (%3$s)ストリームする%4$sから',
+              'L_CURRENTLY_STREAMING' => '現在%1$sの%2$s ストリームする%3$sから',
               'L_PROGRAMINFOS' => 'プログラムの情報',
               'L_STREAMS'      => 'ストリーム',
               'L_LISTENERHISTORY' => 'リスナー履歴',

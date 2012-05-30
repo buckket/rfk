@@ -47,7 +47,7 @@ $lang = array('L_OVERVIEW' => 'Compendio',
               'L_ENTER'      => 'entra',
               'L_CANCEL'     => 'cancella',
               //status.php
-              'L_CURRENTLY_STREAMING' => 'Attualmente %1$s sta trasmettendo lo show %2$s (%3$s) sin dalle %4$s.',
+              'L_CURRENTLY_STREAMING' => 'Attualmente %1$s sta trasmettendo lo show %2$s sin dalle %3$s.',
               'L_PROGRAMINFOS' => 'Informazioni sul programma',
               'L_STREAMS'      => 'Streams',
               'L_LISTENERHISTORY' => 'Conta ascoltatori',
