@@ -173,3 +173,62 @@ $rrd->graph(
 		cfunc => 'AVERAGE',
 	}
 );
+
+$rrd->graph(
+	image => "/home/radio/radio/www/ircw.png",
+	height => 120,
+	width => 500,
+	lower_limit => 0,
+	title => 'IRC-Benutzer (Woche)',
+	start          => time() - 3600*24*7,
+	end            => time(),
+
+	draw => {
+		file => "irc.rrd",
+		name => "users",
+		legend => "Benutzer",
+		stack => 1,
+		type => "area",	
+		color => "FF9900",
+		cfunc => 'AVERAGE',
+	}
+);
+
+$rrd->graph(
+	image => "/home/radio/radio/www/ircl.png",
+	height => 120,
+	width => 500,
+	lower_limit => 0,
+	title => 'IRC LPH (Tag)',
+
+	draw => {
+		file => "/var/lib/rrd/rfk_lines_per_hour.rrd",
+		name => "lines",
+		legend => "Lines",
+		stack => 1,
+		type => "area",	
+		color => "FF9900",
+		cfunc => 'AVERAGE',
+	}
+);
+
+$rrd->graph(
+	image => "/home/radio/radio/www/irclw.png",
+	height => 120,
+	width => 500,
+	lower_limit => 0,
+	title => 'IRC LPH (Woche)',
+	start          => time() - 3600*24*7,
+	end            => time(),
+
+	draw => {
+		file => "/var/lib/rrd/rfk_lines_per_hour.rrd",
+		name => "lines",
+		legend => "Lines",
+		stack => 1,
+		type => "area",	
+		color => "FF9900",
+		cfunc => 'AVERAGE',
+	}
+);
+

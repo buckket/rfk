@@ -20,5 +20,8 @@ if($dbres) {
     }
 }
 printf("<br>\n<img src='../irc.png' />");
+printf("\n<img src='../ircw.png' />");
+printf("<br>\n<img src='../ircl.png' />");
+printf("\n<img src='../irclw.png' />");
 printf("<br>\n<br>\nMomentan: %s IRC-Bernds", getIRCCount());
 ?>
