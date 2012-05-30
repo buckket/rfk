@@ -47,7 +47,7 @@ $lang = array('L_OVERVIEW' => 'Overzicht',
               'L_ENTER'      => 'Bevestig',
               'L_CANCEL'     => 'Annuleer',
               //status.php
-              'L_CURRENTLY_STREAMING' => 'Momenteel streamt %1$s de uitzending %2$s (%3$s) sinds %4$s.',
+              'L_CURRENTLY_STREAMING' => 'Momenteel streamt %1$s de uitzending %2$s sinds %3$s.',
               'L_PROGRAMINFOS' => 'Programmainformatie',
               'L_STREAMS'      => 'Streams',
               'L_LISTENERHISTORY' => 'Luistergeschiedenis',

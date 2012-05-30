@@ -47,7 +47,7 @@ $lang = array('L_OVERVIEW' => 'Ensemble',
               'L_ENTER'      => 'Entrer',
               'L_CANCEL'     => 'Annuler',
               //status.php
-              'L_CURRENTLY_STREAMING' => '%1$s émet %2$s (%3$s) depuis %4$s.',
+              'L_CURRENTLY_STREAMING' => '%1$s émet %2$s depuis %3$s.',
               'L_PROGRAMINFOS' => 'Informations programme',
               'L_STREAMS'      => 'Émissions',
               'L_LISTENERHISTORY' => 'Compte auditeurs',
