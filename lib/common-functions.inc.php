@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Global functions
  */
