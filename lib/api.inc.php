@@ -63,7 +63,7 @@ function getCurrShow(&$out){
                 $out['status'] = 'OVERLAP';
             }else {
                 $key = 'show';
-                if(isset($out['status']) && $out['status'] != 'OVERLAP')
+                if($out['status'] != 'OVERLAP')
                 {
                     $out['status'] = $row['status'];
                 }
