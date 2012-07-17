@@ -21,12 +21,14 @@ if($dbres && $db->num_rows($dbres) > 0) {
 }
 $db->free($dbres);
 
-$sql = 'SELECT path
+$sql = "SELECT path
 FROM playlist
-WHERE CURTIME( )
-BETWEEN `from`
-AND `to`
-ORDER BY `from` DESC';
+WHERE STR_TO_DATE(CONCAT(CURDATE(),' ',CURTIME()),'%Y-%m-%d %H:%i:%s')
+BETWEEN
+STR_TO_DATE(CONCAT(CURDATE(),' ',`from`),'%Y-%m-%d %H:%i:%s')
+AND
+STR_TO_DATE(CONCAT(IF(`to` < `from`, CURDATE()+ INTERVAL 1 DAY, CURDATE()),' ',`to`),'%Y-%m-%d %H:%i:%s')
+ORDER BY `to`- `from` ASC";
 $dbres = $db->query($sql);
 if ($dbres && $db->num_rows($dbres) > 0) {
     $row = $db->fetch($dbres);
