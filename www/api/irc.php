@@ -1,4 +1,4 @@
-<?
+<?php
 $basePath = dirname(dirname(dirname(__FILE__)));
 
 require_once $basePath.'/lib/common.inc.php';
