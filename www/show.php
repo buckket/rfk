@@ -44,12 +44,15 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit') {
         }
     }
 }else if(isset($_GET['show']) && strlen($_GET['show'])>0){
-    $shows = explode(',',$_GET['show']);
+    $shows = array();
+    foreach(explode(',',$_GET['show']) as $show){
+    	$shows[] = (int)$show;	
+    }
     $sql = 'SELECT `show`,thread,description, name, UNIX_TIMESTAMP(begin) as begin, UNIX_TIMESTAMP(end) as end, streamer FROM shows WHERE `show` IN ('.$db->escape(implode(',',$shows)).')';
     $dbres = $db->query($sql);
     while($show = $db->fetch($dbres)){
         $show['description'] = $bbcode->parse($show['description']);
-        $sql = "Select * FROM songhistory WHERE `show` = ".$show['show']." order by begin asc;";
+        $sql = "Select * FROM songhistory WHERE `show` = ".$db->escape($show['show'])." order by begin asc;";
         $res = $db->query($sql);
         while($song = $db->fetch($res)){
             $show['songs'][] = $song;
