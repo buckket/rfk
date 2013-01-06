@@ -1,2 +1,3 @@
 #update GeoIP-db every month
-0 1 2 * * /srv/radio/bin/getgeoip.sh
+0 1 2 * * /home/radio/bin/getgeoip.sh
+*/5 * * * * /home/radio/bin/genGraph.pl 2> /dev/null

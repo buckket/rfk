@@ -4,11 +4,11 @@ use RRDTool::OO;
 use strict;
 use warnings;
 
-chdir "/home/radio/radio/var/lib/rrd";
+chdir "/home/radio/var/lib/rrd";
 my $rrd = RRDTool::OO->new(file => "1.rrd" );
 
 $rrd->graph(
-	image => "/home/radio/radio/www/graphh.png",
+	image => "/home/radio/www/graphh.png",
 	height => 120,
 	width => 500,
 	lower_limit => 0,
@@ -59,7 +59,7 @@ $rrd->graph(
 );
 
 $rrd->graph(
-	image => "/home/radio/radio/www/graphd.png",
+	image => "/home/radio/www/graphd.png",
 	height => 120,
 	width => 500,
 	lower_limit => 0,
@@ -107,7 +107,7 @@ $rrd->graph(
 );
 
 $rrd->graph(
-	image => "/home/radio/radio/www/graphw.png",
+	image => "/home/radio/www/graphw.png",
 	height => 120,
 	width => 500,
 	lower_limit => 0,
@@ -157,7 +157,7 @@ $rrd->graph(
 );
 
 $rrd->graph(
-	image => "/home/radio/radio/www/irc.png",
+	image => "/home/radio/www/irc.png",
 	height => 120,
 	width => 500,
 	lower_limit => 0,
@@ -175,7 +175,7 @@ $rrd->graph(
 );
 
 $rrd->graph(
-	image => "/home/radio/radio/www/ircw.png",
+	image => "/home/radio/www/ircw.png",
 	height => 120,
 	width => 500,
 	lower_limit => 0,
@@ -195,7 +195,7 @@ $rrd->graph(
 );
 
 $rrd->graph(
-	image => "/home/radio/radio/www/ircl.png",
+	image => "/home/radio/www/ircl.png",
 	height => 120,
 	width => 500,
 	lower_limit => 0,
@@ -213,7 +213,7 @@ $rrd->graph(
 );
 
 $rrd->graph(
-	image => "/home/radio/radio/www/irclw.png",
+	image => "/home/radio/www/irclw.png",
 	height => 120,
 	width => 500,
 	lower_limit => 0,

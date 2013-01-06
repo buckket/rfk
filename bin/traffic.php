@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../lib/common.inc.php');
-error_reporting(0); // disable error reporting
+#error_reporting(0); // disable error reporting
 
 if(($mounts = getMaxMounts()) === false) {
     error_log("mounts have to be > 0", 0);
@@ -70,7 +70,7 @@ function getRemoteStat($ip,$port,$username,$password) {
 function getIcecastStatus($ip,$port,$username,$password,$mounts) {
     $page = file_get_contents('http://'.$username.':'.$password.'@'.$ip.':'.$port.'/admin/status.xml');
     if(preg_match('/<sources>(\\d+)<\\/sources>/', $page, $matches)){
-        if($matches[1] == $mounts) {
+        if($matches[1] != 0) {
             return true;
         }
     }

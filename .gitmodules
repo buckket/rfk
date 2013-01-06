@@ -1,3 +1,3 @@
 [submodule "www/images/cb"]
 	path = www/images/cb
-	url = git@github.com:buckket/countryballs.git
+	url = https://github.com/buckket/countryballs.git
