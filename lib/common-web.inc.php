@@ -7,6 +7,13 @@ require_once(dirname(__FILE__).'/user.php');
 require_once(dirname(__FILE__).'/h2o/h2o.php');
 require_once(dirname(__FILE__).'/bbcode/stringparser_bbcode.class.php');
 
+
+$proxy = getLocation($_SERVER['REMOTE_ADDR']);
+if ($proxy['cc'] === 'A1') {
+	header('Location: http://meatspin.com/');
+	die('enjoy');
+}
+
 //set Paths for Beilpuz (somewhat un(crappy)documented feature)
 $root = dirname(dirname(__FILE__));
 $h2osettings = array('searchpath' => $root.'/var/templates/'.$_config['template'].'new',
