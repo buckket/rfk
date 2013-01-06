@@ -1,8 +1,8 @@
 #!/usr/bin/php
 <?php
 set_time_limit(0);
-require_once '../lib/common.inc.php';
-require_once '../lib/common-functions.inc.php';
+require_once dirname(__FILE__).'/../lib/common.inc.php';
+require_once dirname(__FILE__).'/../lib/common-functions.inc.php';
 require_once $includepath.'/RRD.php';
 $rrddir = $radioroot.'/var/lib/rrd/';
 $rrdds = array (new RRDDS('listener', RRDDS::gauge, 120, 0, 'U'));
