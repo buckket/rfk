@@ -1,12 +1,17 @@
 {% extends "sidebar.html" %}
 
 {% block content %}
+{% if style == "kc" %}
 <h2>Radio freies Krautchan</h2>
+{% endif %}
+{% if style == "ec" %}
+<h2>Radio freies Ernstchan</h2>
+{% endif %}
 <table>
 <tbody>
 {% for entry in news %}
 <tr>
-<td><b>{{ entry.description }}</b> {{ entry.user }} {{ entry.time | relative_datetime}}</td>
+<td><b>{{ entry.description }}</b> <span style="color:red; font-weight:bold;">## Admin ##</span> {{ entry.time | relative_datetime}}</td>
 </tr>
 <tr>
 <td>{{ entry.text | safe}}</td>
