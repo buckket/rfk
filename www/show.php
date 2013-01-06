@@ -13,7 +13,10 @@ if(!(isset($_GET['ajax']) && $_GET['ajax'] == 'true')) {
 if(isset($_GET['action']) && $_GET['action'] == 'edit') {
     if(isset($_GET['show']) && strlen($_GET['show'])>0){
         if($user->logged_in){
-            $shows = explode(',',$_GET['show']);
+        	$shows = array();
+		    foreach(explode(',',$_GET['show']) as $show){
+		    	$shows[] = (int)$show;	
+		    }
             $sql = 'SELECT `show`,thread, DATE_FORMAT(begin,"%d.%m.%Y") as `date`, description, name, TIME_TO_SEC(TIMEDIFF(end,begin)) as length, UNIX_TIMESTAMP(begin) AS begin FROM shows WHERE `show` IN ('.$db->escape(implode(',',$shows)).') AND streamer = '.$user->userid.';';
             $dbres = $db->query($sql);
             if($db->num_rows($dbres) == 1){
